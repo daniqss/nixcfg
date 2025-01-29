@@ -97,6 +97,7 @@
     mako
     hyprpolkitagent
     mpi
+    obsidian
   ];
 
   programs = {
