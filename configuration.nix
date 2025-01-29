@@ -98,6 +98,8 @@
     hyprpolkitagent
     mpi
     obsidian
+    dropbox
+    pavucontrol
   ];
 
   programs = {
