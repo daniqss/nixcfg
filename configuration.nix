@@ -96,6 +96,7 @@
     libnotify
     mako
     hyprpolkitagent
+    mpi
   ];
 
   programs = {
