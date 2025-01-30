@@ -13,25 +13,31 @@
     nixpkgs,
     home-manager,
     ...
-  }: let
+  } @ inputs: let
     lib = nixpkgs.lib;
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    # pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+      };
+    };
   in {
     nixosConfigurations = {
       hp887A = lib.nixosSystem {
-        inherit system;
+        specialArgs = {inherit inputs system;};
         modules = [./configuration.nix];
       };
     };
 
-    homeConfigurations = {
-      daniqss = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        # inherit inputs;
-        modules = [./home.nix];
-        # specialArgs = {inherit inputs;};
-      };
-    };
+    # homeConfigurations = {
+    #   daniqss = home-manager.lib.homeManagerConfiguration {
+    #     inherit pkgs;
+    #     # inherit inputs;
+    #     modules = [./home.nix];
+    #     # specialArgs = {inherit inputs;};
+    #   };
+    # };
   };
 }
