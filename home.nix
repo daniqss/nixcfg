@@ -81,7 +81,7 @@ in {
 
     shellAliases = {
       ll = "ls -l";
-      gitkey = "${pkgs.coreutils}/bin/cat ${homeDir}/Dropbox/keys/github_key.md | ${pkgs.wl-clipboard}/bin/wl-copy";
+      "gitkey" = "${pkgs.coreutils}/bin/cat ${homeDir}/Dropbox/keys/github_key.md | ${pkgs.wl-clipboard}/bin/wl-copy";
     };
     history = {
       size = 30000;

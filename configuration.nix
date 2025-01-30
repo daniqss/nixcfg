@@ -13,14 +13,29 @@
 
   services.pipewire = {
     enable = true;
-    audio.enable = true;
     pulse.enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
+    alsa.enable = true;
     jack.enable = true;
   };
+  # services.pipewire = {
+  #   enable = true;
+  #   audio.enable = true;
+  #   pulse.enable = true;
+  #   alsa = {
+  #     enable = true;
+  #     support32Bit = true;
+  #   };
+  #   jack.enable = true;
+  # };
+  # services.pipewire.wireplumber.extraConfig.bluetoothEnhancements = {
+  #   "monitor.bluez.properties" = {
+  #     "bluez5.enable-sbc-xq" = true;
+  #     "bluez5.enable-msbc" = true;
+  #     "bluez5.enable-a2dp_sink" = true;
+  #     "bluez5.enable-hw-volume" = true;
+  #     "bluez5.roles" = ["hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag"];
+  #   };
+  # };
   services.displayManager.autoLogin = {
     enable = true;
     user = "daniqss";
@@ -37,6 +52,7 @@
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
@@ -108,6 +124,7 @@
     pavucontrol
     wl-clipboard
     spotify
+    blueberry
   ];
 
   programs = {
