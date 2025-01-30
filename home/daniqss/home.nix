@@ -1,11 +1,13 @@
-{pkgs, ...}: let
-  username = "daniqss";
-  homeDir = "/home/${username}";
-in {
+{
+  pkgs,
+  config,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = username;
-  home.homeDirectory = homeDir;
+
+  home.username = "daniqss";
+  home.homeDirectory = "/home/${config.home.username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -19,7 +21,33 @@ in {
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    # Desktop
+    hyprland
+    rofi-wayland
+    mako
+    hyprpolkitagent
+    brightnessctl
+    swww
+    libnotify
+    wl-clipboard
+
+    # Terminal
     starship
+
+    # Applications
+    chromium
+    obsidian
+    dropbox
+    pavucontrol
+    vesktop
+    spotify
+    blueberry
+
+    # Fonts
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.jetbrains-mono
+
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -28,7 +56,7 @@ in {
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    # (pkgs.nerdfonts.override { fonts = [ "FalntasqueSansMono" ]; })
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -72,6 +100,7 @@ in {
   home.sessionVariables = {
     EDITOR = "micro";
     BROWSER = "chromium";
+    NIXOS_OZONE_WL = "1";
   };
 
   programs.zsh = {
@@ -82,7 +111,7 @@ in {
 
     shellAliases = {
       ll = "ls -l";
-      "gitkey" = "${pkgs.coreutils}/bin/cat ${homeDir}/Dropbox/keys/github_key.md | ${pkgs.wl-clipboard}/bin/wl-copy";
+      "gitkey" = "${pkgs.coreutils}/bin/cat ${config.home.homeDirectory}/Dropbox/keys/github_key.md | ${pkgs.wl-clipboard}/bin/wl-copy";
     };
     history = {
       size = 30000;
@@ -109,6 +138,46 @@ in {
         symbol = " ";
         heuristic = true;
       };
+    };
+  };
+
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      env.TERM = "xterm-256color";
+      window.padding = {
+        x = 10;
+        y = 10;
+      };
+      window.decorations = "none";
+      window.opacity = 0.7;
+      scrolling.history = 1000;
+      font = {
+        normal = {
+          family = "Firacode Nerd Font";
+          style = "Regular";
+        };
+        bold = {
+          family = "Firacode Nerd Font";
+          style = "Bold";
+        };
+        italic = {
+          family = "Firacode Nerd Font";
+          style = "Italic";
+        };
+        size = 14;
+      };
+    };
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "daniqss";
+    userEmail = "danielqueijo14@gmail.com";
+    aliases = {
+      ci = "commit";
+      co = "checkout";
+      s = "status";
     };
   };
 

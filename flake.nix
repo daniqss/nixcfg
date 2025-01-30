@@ -2,42 +2,49 @@
   description = "my nixos configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
   };
+
   outputs = {
-    nixpkgs,
+    self,
     home-manager,
+    nixpkgs,
     ...
   } @ inputs: let
-    lib = nixpkgs.lib;
-    system = "x86_64-linux";
-    # pkgs = nixpkgs.legacyPackages.${system};
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
-      };
-    };
+    inherit (self) outputs;
+    systems = [
+      "aarch64-linux"
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+    forAllSystems = nixpkgs.lib.genAttrs systems;
+    hostname = "hp887A";
+    username = "daniqss";
   in {
+    packages =
+      forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    overlays = import ./overlays {inherit inputs;};
     nixosConfigurations = {
-      hp887A = lib.nixosSystem {
-        specialArgs = {inherit inputs system;};
+      "${hostname}" = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
         modules = [./configuration.nix];
+        # modules = [./hosts/${hostname}.nix];
       };
     };
-
-    # homeConfigurations = {
-    #   daniqss = home-manager.lib.homeManagerConfiguration {
-    #     inherit pkgs;
-    #     # inherit inputs;
-    #     modules = [./home.nix];
-    #     # specialArgs = {inherit inputs;};
-    #   };
-    # };
+    homeConfigurations = {
+      "${username}@${hostname}" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        extraSpecialArgs = {inherit inputs outputs;};
+        # modules = [./home.nix];
+        modules = [./home/${username}/${hostname}.nix];
+      };
+    };
   };
 }
