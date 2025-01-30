@@ -114,8 +114,7 @@
     alsa-utils
     brightnessctl
     swww
-    vesktop
-    libnotify
+    vesktop    libnotify
     mako
     hyprpolkitagent
     mpi

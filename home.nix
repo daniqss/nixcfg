@@ -18,7 +18,8 @@ in {
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
+    starship
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -69,7 +70,7 @@ in {
   #  /etc/profiles/per-user/daniqss/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "micro";
     BROWSER = "chromium";
   };
 
@@ -88,6 +89,38 @@ in {
       save = 10000;
     };
   };
+
+  programs.starship = {
+    enable = true;
+    settings = {
+      character = {
+        success_symbol = "[›](bold green)";
+        error_symbol = "[›](bold red)";
+      };
+
+      git_status = {
+        deleted = "✗";
+        modified = "✶";
+        staged = "✓";
+        stashed = "≡";
+      };
+
+      nix_shell = {
+        symbol = " ";
+        heuristic = true;
+      };
+    };
+  };
+
+  # programs.kitty.enable = true; # required for the default Hyprland config
+  # wayland.windowManager.hyprland = {
+  #   enable = true;
+  #   # set the flake package
+  #   package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  #   portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+
+  #   extraConfig = "${homeDir}/.config/hypr/hyprland.conf";
+  # };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

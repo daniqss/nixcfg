@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "github:hyprwm/Hyprland";
   };
   outputs = {
     nixpkgs,
@@ -27,7 +28,9 @@
     homeConfigurations = {
       daniqss = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+        # inherit inputs;
         modules = [./home.nix];
+        # specialArgs = {inherit inputs;};
       };
     };
   };
