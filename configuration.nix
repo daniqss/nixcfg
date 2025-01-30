@@ -35,6 +35,8 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
@@ -76,6 +78,10 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.shells = with pkgs; [zsh bash];
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -100,6 +106,8 @@
     obsidian
     dropbox
     pavucontrol
+    wl-clipboard
+    spotify
   ];
 
   programs = {
