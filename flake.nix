@@ -32,14 +32,14 @@
       forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     overlays = import ./overlays {inherit inputs;};
     nixosConfigurations = {
-      "${hostname}" = nixpkgs.lib.nixosSystem {
+      hp887A = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [./configuration.nix];
         # modules = [./hosts/${hostname}.nix];
       };
     };
     homeConfigurations = {
-      "${username}@${hostname}" = home-manager.lib.homeManagerConfiguration {
+      daniqss = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = {inherit inputs outputs;};
         # modules = [./home.nix];

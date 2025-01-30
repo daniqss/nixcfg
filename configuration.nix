@@ -80,6 +80,7 @@
   # environment.shells = with pkgs; [zsh];
   # users.defaultUserShell = pkgs.zsh;
   # programs.zsh.enable = true;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   environment.systemPackages = with pkgs; [
     wget
