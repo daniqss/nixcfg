@@ -15,7 +15,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "bondsmith"; # Define your hostname.
+  networking.hostName = "stoneward"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -81,6 +81,7 @@
     rofi-wayland
     ghostty
     blueberry
+    pavucontrol
 
     git
     vscode
@@ -97,6 +98,13 @@
     };
     uwsm.enable = true;
     hyprlock.enable = true;
+  };
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
   fonts.packages = with pkgs; [
