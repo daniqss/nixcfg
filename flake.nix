@@ -19,11 +19,11 @@
   } @ inputs: let
     # inherit (self) outputs;
     system = "x86_64-linux";
-    # pkgs = nixpkgs.legacy.${system};
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
     nixosConfigurations = {
       stoneward = nixpkgs.lib.nixosSystem {
-        inherit system inputs;
+        inherit system pkgs inputs;
 
         modules = [./configuration.nix];
       };
@@ -31,7 +31,7 @@
 
     homeConfigurations = {
       daniqss = home-manager.lib.homeManagerConfiguration {
-        inherit system inputs;
+        inherit system pkgs inputs;
 
         modules = ["./home.nix"];
       };
