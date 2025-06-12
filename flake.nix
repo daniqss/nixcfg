@@ -1,49 +1,30 @@
 {
-  description = "my nixos configuration";
+  description = "my nixos config";
 
   inputs = {
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
 
-  outputs = {
-    self,
-    home-manager,
-    nixpkgs,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    systems = [
-      "aarch64-linux"
-      "i686-linux"
-      "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
-    hostname = "hp887A";
-    username = "daniqss";
-  in {
-    packages =
-      forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
-    overlays = import ./overlays {inherit inputs;};
-    nixosConfigurations = {
-      hp887A = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [./configuration.nix];
-        # modules = [./hosts/${hostname}.nix];
+  outputs = { self, nixpkgs }:
+    let 
+      system = "x86_64-linux";
+      
+
+        config = {
+          allowUnfree = true;
+        };      pkgs = import nixpkgs {
+        inherit system;
+
       };
-    };
-    homeConfigurations = {
-      daniqss = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
-        extraSpecialArgs = {inherit inputs outputs;};
-        # modules = [./home.nix];
-        modules = [./home/${username}/${hostname}.nix];
+    in
+    {
+    nixosConfigurations = {
+      nixcfg = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit system; };
+
+        modules = [
+          ./nixcfg/configuration.nix
+        ];
       };
     };
   };
