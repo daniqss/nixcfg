@@ -4,10 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
@@ -16,14 +12,8 @@
     nixpkgs,
     ...
   } @ inputs: let
+    # inherit (self) outputs;
     system = "x86_64-linux";
-
-    config = {
-      allowUnfree = true;
-    };
-    pkgs = import nixpkgs {
-      inherit system;
-    };
   in {
     nixosConfigurations = {
       bondsmith = nixpkgs.lib.nixosSystem {
@@ -31,6 +21,7 @@
 
         modules = [
           ./configuration.nix
+          inputs.home-manager.nixosModules.default
         ];
       };
     };

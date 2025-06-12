@@ -2,7 +2,6 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  config,
   inputs,
   pkgs,
   ...
@@ -27,7 +26,6 @@
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
@@ -65,7 +63,7 @@
     isNormalUser = true;
     description = "daniqss";
     extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [];
+    # packages = with pkgs; [];
   };
 
   # Allow unfree packages
@@ -82,6 +80,7 @@
     chromium
     rofi-wayland
     ghostty
+    blueberry
 
     git
     vscode
