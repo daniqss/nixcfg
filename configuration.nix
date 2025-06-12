@@ -1,14 +1,16 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  inputs,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -25,7 +27,8 @@
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  
+  services.blueman.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
@@ -49,14 +52,11 @@
     layout = "us";
     variant = "";
   };
-  
+
   services.pipewire = {
     enable = true;
     pulse.enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
+    alsa.enable = true;
     jack.enable = true;
   };
 
@@ -64,7 +64,7 @@
   users.users.daniqss = {
     isNormalUser = true;
     description = "daniqss";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [];
   };
 
@@ -78,7 +78,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    micro 
+    micro
     chromium
     rofi-wayland
     ghostty
@@ -88,6 +88,8 @@
     nixd
     alejandra
   ];
+
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   programs = {
     hyprland = {
@@ -130,5 +132,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }
