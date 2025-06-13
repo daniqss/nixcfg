@@ -63,6 +63,7 @@
     isNormalUser = true;
     description = "daniqss";
     extraGroups = ["networkmanager" "wheel"];
+    shell = pkgs.zsh;
     # packages = with pkgs; [];
   };
 
@@ -72,6 +73,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+  environment.pathsToLink = ["/share/zsh"];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -109,6 +111,8 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
+
+  programs.zsh.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code

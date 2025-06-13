@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  environment,
   ...
 }: {
   # Home Manager needs a bit of information about you and the paths it should
@@ -41,10 +42,23 @@
   programs.zsh = {
     enable = true;
     autocd = true;
-
-    # autosuggestions.enable = true;
+    enableCompletion = true;
     syntaxHighlighting.enable = true;
-    # # enableCompletion = true;
+    autosuggestion.enable = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    settings = {
+      add_newline = true;
+      command_timeout = 1300;
+      scan_timeout = 50;
+      format = "$all$nix_shell$nodejs$lua$golang$rust$php$git_branch$git_commit$git_state$git_status\n$username$hostname$directory";
+      character = {
+        success_symbol = "[](bold green) ";
+        error_symbol = "[✗](bold red) ";
+      };
+    };
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
