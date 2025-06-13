@@ -82,6 +82,9 @@
     ghostty
     blueberry
     pavucontrol
+    spotify
+
+    (discord.override {withVencord = true;})
 
     git
     vscode

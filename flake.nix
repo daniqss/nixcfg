@@ -1,5 +1,5 @@
 {
-  description = "my nixos config";
+  description = "one configuration to rule them all";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -13,27 +13,26 @@
 
   outputs = {
     self,
-    home-manager,
     nixpkgs,
+    home-manager,
     ...
   } @ inputs: let
-    # inherit (self) outputs;
+    inherit (self) outputs;
     system = "x86_64-linux";
+    lib = nixpkgs.lib;
     pkgs = nixpkgs.legacyPackages.${system};
   in {
     nixosConfigurations = {
-      stoneward = nixpkgs.lib.nixosSystem {
-        inherit system pkgs inputs;
-
+      stoneward = lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        inherit system;
         modules = [./configuration.nix];
       };
     };
-
     homeConfigurations = {
       daniqss = home-manager.lib.homeManagerConfiguration {
-        inherit system pkgs inputs;
-
-        modules = ["./home.nix"];
+        inherit pkgs;
+        modules = [./home.nix];
       };
     };
   };
