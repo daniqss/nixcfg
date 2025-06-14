@@ -20,19 +20,24 @@
     inherit (self) outputs;
     system = "x86_64-linux";
     lib = nixpkgs.lib;
-    pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
   in {
     nixosConfigurations = {
       stoneward = lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        inherit system;
-        modules = [./configuration.nix];
-      };
-    };
-    homeConfigurations = {
-      daniqss = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [./home.nix];
+        inherit system pkgs;
+        modules = [
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.extraSpecialArgs = {inherit inputs;};
+            home-manager.users.daniqss.imports = [./home.nix];
+          }
+        ];
       };
     };
   };

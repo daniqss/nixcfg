@@ -68,7 +68,7 @@
   };
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # pkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # List packages installed in system profile. To search, run:
@@ -88,8 +88,7 @@
 
     (discord.override {withVencord = true;})
 
-    git
-    vscode
+
     nixd
     alejandra
   ];

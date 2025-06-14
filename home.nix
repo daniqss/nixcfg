@@ -39,6 +39,12 @@
     # '')
   ];
 
+  programs.git = {
+    enable = true;
+    userEmail = "danielqueijo14@gmail.com";
+    userName = "daniqss";
+  };
+
   programs.zsh = {
     enable = true;
     autocd = true;
@@ -96,6 +102,12 @@
     # EDITOR = "emacs";
   };
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      dracula-theme.theme-dracula
+      vscodevim.vim
+      yzhang.markdown-all-in-one
+    ];
+  };
 }
