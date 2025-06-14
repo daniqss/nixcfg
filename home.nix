@@ -106,8 +106,24 @@
     enable = true;
     extensions = with pkgs.vscode-extensions; [
       dracula-theme.theme-dracula
-      vscodevim.vim
-      yzhang.markdown-all-in-one
+      jnoortheen.nix-ide
     ];
+userSettings = builtins.fromJSON (builtins.readFile ./settings.json);
   };
+
+  # programs.ssh = {
+  #   enable = true;
+  #
+  #   matchBlocks = {
+  #     "github.com" = {
+  #       hostname = "github.com";
+  #       user = "git";
+  #       identityFile = "~/.ssh/github_ed25519";
+  #       identitiesOnly = true;
+  #     };
+  #   };
+  # };
+  #
+  # home.file.".ssh/github".source = "/home/daniqss/.ssh/github_ed25519";
+  # home.file.".ssh/github.pub".source = "/home/daniqss/.ssh/github_ed25519.pub";
 }

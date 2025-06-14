@@ -86,8 +86,10 @@
     pavucontrol
     spotify
 
-    (discord.override {withVencord = true;})
+    wl-clipboard
+    cliphist
 
+    (discord.override {withVencord = true;})
 
     nixd
     alejandra
