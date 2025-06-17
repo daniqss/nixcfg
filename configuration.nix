@@ -76,7 +76,7 @@
   environment.pathsToLink = ["/share/zsh"];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
     micro
     chromium
@@ -86,6 +86,8 @@
     pavucontrol
     spotify
 
+    bat
+    eza
     wl-clipboard
     cliphist
 
@@ -116,6 +118,7 @@
   programs.zsh.enable = true;
 
   fonts.packages = with pkgs; [
+    nerd-fonts.caskaydia-cove
     nerd-fonts.fira-code
     nerd-fonts.droid-sans-mono
     nerd-fonts.jetbrains-mono

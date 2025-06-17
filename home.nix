@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  environment,
-  ...
-}: {
+{pkgs, ...}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "daniqss";
@@ -21,22 +16,22 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
+    # # Adds the "hello" command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
+    # # overrides. You can do that directly here, just don"t forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
     # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
+    # # configuration. For example, this adds a command "my-hello" to your
     # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
+    # (pkgs.writeShellScriptBin "my-hello" ""
     #   echo "Hello, ${config.home.username}!"
-    # '')
+    # "")
   ];
 
   programs.git = {
@@ -51,41 +46,64 @@
     enableCompletion = true;
     syntaxHighlighting.enable = true;
     autosuggestion.enable = true;
+
+    shellAliases = {
+      update = "sudo nixos-rebuild switch --flake ~/nixcfg/#stoneward";
+
+      ls = "eza --icons";
+      la = "eza --icons -a";
+      ll = "eza --header --icons --git -t=mod --time-style=long-iso -l";
+      lla = "eza --header --icons --git -t=mod --time-style=long-iso -la";
+      ts = "eza --tree --level=2";
+      tsa = "eza --tree --level=2";
+      tl = "eza --tree --level=2 --header --icons -t=mod --time-style=long-iso -l";
+      tla = "eza --tree --level=2 --header --icons -t=mod --time-style=long-iso -la";
+      treee = "eza --tree --icons";
+
+      grep = "grep --color=auto";
+      cat = "bat --paging=never --plain";
+      catp = "bat --paging=never";
+      icat = "kitten icat";
+      cls = "clear";
+    };
   };
 
   programs.starship = {
     enable = true;
+
     settings = {
-      add_newline = true;
-      command_timeout = 1300;
-      scan_timeout = 50;
-      format = "$all$nix_shell$nodejs$lua$golang$rust$php$git_branch$git_commit$git_state$git_status\n$username$hostname$directory";
+      format = builtins.concatStringsSep "" [
+        "$all"
+      ];
+
       character = {
-        success_symbol = "[](bold green) ";
-        error_symbol = "[✗](bold red) ";
+        format = "$symbol ";
+        success_symbol = "[❯](bold red)[❯](bold yellow)[❯](bold green)";
+        error_symbol = "[❯](bold red)[❯](bold red)[❯](bold red)";
+        disabled = false;
       };
     };
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
+  # plain files is through "home.file".
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
+    # # Building this configuration will create a copy of "dotfiles/screenrc" in
+    # # the Nix store. Activating the configuration will then make "~/.screenrc" a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
 
     # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
+    # ".gradle/gradle.properties".text = ""
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
-    # '';
+    # "";
   };
 
   # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
+  # "home.sessionVariables". These will be explicitly sourced when using a
+  # shell provided by Home Manager. If you don"t want to manage your shell
+  # through Home Manager then you have to manually source "hm-session-vars.sh"
   # located at either
   #
   #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
@@ -104,11 +122,11 @@
 
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       dracula-theme.theme-dracula
       jnoortheen.nix-ide
     ];
-userSettings = builtins.fromJSON (builtins.readFile ./settings.json);
+    profiles.default.userSettings = builtins.fromJSON (builtins.readFile ./settings.json);
   };
 
   # programs.ssh = {
