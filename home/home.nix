@@ -4,6 +4,11 @@
   home.username = "daniqss";
   home.homeDirectory = "/home/daniqss";
 
+  imports = [
+    ./git.nix
+    ./hyprland.nix
+  ];
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -33,12 +38,6 @@
     #   echo "Hello, ${config.home.username}!"
     # "")
   ];
-
-  programs.git = {
-    enable = true;
-    userEmail = "danielqueijo14@gmail.com";
-    userName = "daniqss";
-  };
 
   programs.zsh = {
     enable = true;
@@ -84,10 +83,6 @@
       };
     };
   };
-
-  imports = [
-    ./hyprland.nix
-  ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through "home.file".
