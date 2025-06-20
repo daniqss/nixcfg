@@ -80,17 +80,19 @@
     wget
     micro
     chromium
+
     rofi-wayland
+    swww
     ghostty
     blueberry
     pavucontrol
-    spotify
 
     bat
     eza
     wl-clipboard
     cliphist
 
+    spotify
     (discord.override {withVencord = true;})
 
     nixd
@@ -98,15 +100,6 @@
   ];
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-
-  programs = {
-    hyprland = {
-      enable = true;
-      withUWSM = true;
-    };
-    uwsm.enable = true;
-    hyprlock.enable = true;
-  };
 
   programs.steam = {
     enable = true;
