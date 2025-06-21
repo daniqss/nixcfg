@@ -1,5 +1,4 @@
-{...}: let
-in {
+{
   programs.ssh = {
     enable = true;
     compression = true;
