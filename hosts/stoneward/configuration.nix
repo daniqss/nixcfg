@@ -77,9 +77,11 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
     vim
+    neovim
     wget
     micro
     chromium
+    google-chrome
 
     rofi-wayland
     swww

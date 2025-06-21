@@ -18,28 +18,7 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
-    system = "x86_64-linux";
-    lib = nixpkgs.lib;
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
   in {
-    nixosConfigurations = {
-      stoneward = lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        inherit system pkgs;
-        modules = [
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.backupFileExtension = "bak";
-            home-manager.extraSpecialArgs = {inherit inputs;};
-            home-manager.users.daniqss.imports = [./home.nix];
-          }
-        ];
-      };
-    };
+    nixosConfigurations = import ./hosts {inherit inputs outputs;};
   };
 }
