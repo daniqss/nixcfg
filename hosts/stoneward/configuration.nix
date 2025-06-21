@@ -13,6 +13,8 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.consoleMode = "max";
+  # boot.loader.systemd-boot.consoleMode = "2";
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "stoneward"; # Define your hostname.
@@ -84,7 +86,6 @@
     google-chrome
 
     rofi-wayland
-    swww
     ghostty
     blueberry
     pavucontrol
