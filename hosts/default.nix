@@ -16,8 +16,7 @@
       system = system;
 
       specialArgs = lib.recursiveUpdate {
-        inherit inputs outputs;
-        inherit hostname;
+        inherit inputs outputs hostname username system;
       } (args.specialArgs or {});
 
       modules = lib.concatLists [
@@ -37,9 +36,9 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.backupFileExtension = "bak";
-            home-manager.extraSpecialArgs = {
-              inherit inputs hostname username;
-            };
+            home-manager.extraSpecialArgs = lib.recursiveUpdate {
+              inherit inputs outputs hostname username system;
+            } (args.specialArgs or {});
             home-manager.users.${username}.imports = [../home/home.nix];
           }
         ]

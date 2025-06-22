@@ -1,8 +1,4 @@
-{
-  pkgs,
-  username,
-  ...
-}: {
+{username, ...}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;
@@ -12,6 +8,7 @@
     ./git.nix
     ./hyprland.nix
     ./zsh.nix
+    ./vscode.nix
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -32,15 +29,6 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "chromium";
-  };
-
-  programs.vscode = {
-    enable = true;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      dracula-theme.theme-dracula
-      jnoortheen.nix-ide
-    ];
-    profiles.default.userSettings = builtins.fromJSON (builtins.readFile ./settings.json);
   };
 
   # This value determines the Home Manager release that your configuration is

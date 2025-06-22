@@ -1,3 +1,3 @@
-pkgs: {
-  # example = pkgs.callPackage ./example { };
+{pkgs, ...}: {
+  bibata-hyprcursor = pkgs.callPackage ./bibata-hyprcursor {};
 }

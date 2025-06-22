@@ -1,4 +1,5 @@
-{
+{username, ...}: let
+in {
   programs.ssh = {
     enable = true;
     compression = true;
@@ -14,7 +15,7 @@
 
   programs.git = {
     enable = true;
-    userName = "daniqss";
+    userName = username;
     userEmail = "danielqueijo14@gmail.com";
 
     extraConfig = {
