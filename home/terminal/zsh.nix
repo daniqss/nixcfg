@@ -1,4 +1,8 @@
-{hostname, ...}: {
+{
+  hostname,
+  pkgs,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     autocd = true;
@@ -10,19 +14,19 @@
       rebuild = "sudo nixos-rebuild switch --flake ~/nixcfg/#${hostname}";
       update = "sudo nix flake update";
 
-      ls = "eza --icons";
-      la = "eza --icons -a";
-      ll = "eza --header --icons --git -t=mod --time-style=long-iso -l";
-      lla = "eza --header --icons --git -t=mod --time-style=long-iso -la";
-      ts = "eza --tree --level=2";
-      tsa = "eza --tree --level=2";
-      tl = "eza --tree --level=2 --header --icons -t=mod --time-style=long-iso -l";
-      tla = "eza --tree --level=2 --header --icons -t=mod --time-style=long-iso -la";
-      treee = "eza --tree --icons";
+      ls = "${pkgs.eza}/bin/eza --icons";
+      la = "${pkgs.eza}/bin/eza --icons -a";
+      ll = "${pkgs.eza}/bin/eza --header --icons --git -t=mod --time-style=long-iso -l";
+      lla = "${pkgs.eza}/bin/eza --header --icons --git -t=mod --time-style=long-iso -la";
+      ts = "${pkgs.eza}/bin/eza --tree --level=2";
+      tsa = "${pkgs.eza}/bin/eza --tree --level=2";
+      tl = "${pkgs.eza}/bin/eza --tree --level=2 --header --icons -t=mod --time-style=long-iso -l";
+      tla = "${pkgs.eza}/bin/eza --tree --level=2 --header --icons -t=mod --time-style=long-iso -la";
+      treee = "${pkgs.eza}/bin/eza --tree --icons";
 
       grep = "grep --color=auto";
-      cat = "bat --paging=never --plain";
-      catp = "bat --paging=never";
+      cat = "${pkgs.bat}/bin/bat --paging=never --plain";
+      catp = "${pkgs.bat}/bin/bat --paging=never";
       icat = "kitten icat";
       cls = "clear";
     };

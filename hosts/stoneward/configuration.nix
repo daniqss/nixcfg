@@ -128,16 +128,8 @@
     blueberry
     pavucontrol
 
-    bat
-    eza
-    wl-clipboard
-    cliphist
-
     spotify
     (discord.override {withVencord = true;})
-
-    nixd
-    alejandra
   ];
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
