@@ -124,7 +124,6 @@
     google-chrome
 
     rofi-wayland
-    ghostty
     blueberry
     pavucontrol
 

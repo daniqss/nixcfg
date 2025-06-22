@@ -9,7 +9,7 @@ in {
     ./zsh.nix
     ./git.nix
   ];
-  options.terminal.enable = lib.mkEnableOption "Enable graphical session";
+  options.terminal.enable = lib.mkEnableOption "Enable some terminal";
 
   config = lib.mkIf config.terminal.enable {
     home.packages = with pkgs; [

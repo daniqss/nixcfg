@@ -11,7 +11,10 @@
     ./terminal
   ];
 
-  desktop.enable = true;
+  desktop = {
+    enable = true;
+    hyprland.enable = true;
+  };
   dev.enable = true;
   terminal.enable = true;
 
