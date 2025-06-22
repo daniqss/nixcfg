@@ -39,7 +39,7 @@
             home-manager.extraSpecialArgs = lib.recursiveUpdate {
               inherit inputs outputs hostname username system;
             } (args.specialArgs or {});
-            home-manager.users.${username}.imports = [../home];
+            home-manager.users.${username}.imports = [../home/${hostname}.nix];
           }
         ]
       ];
