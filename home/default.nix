@@ -2,6 +2,7 @@
   imports = [
     ./terminal
     ./desktop
+    ./dev
   ];
 
   home = {
