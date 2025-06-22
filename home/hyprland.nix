@@ -1,23 +1,38 @@
-{pkgs, ...}: let
+{
+  outputs,
+  system,
+  pkgs,
+  ...
+}: let
   mainMod = "SUPER";
   border = "rgba(cba6f7ff) rgba(89b4faff) rgba(94e2d5ff) 10deg";
 
-  hyprlandPackages = with pkgs; [
+  cursor = "Bibata-Modern-Classic-Hyprcursor";
+  cursorSize = 24;
+  cursorPackage = outputs.packages.${system}.bibata-hyprcursor;
+in {
+  home.packages = with pkgs; [
     swww
     alsa-utils
     playerctl
     ghostty
     rofi-wayland
   ];
-in {
-  home.packages = hyprlandPackages;
+
+  xdg.dataFile."icons/${cursor}".source = "${cursorPackage}/share/icons/${cursor}";
 
   wayland.windowManager.hyprland = {
     enable = true;
 
     settings = {
+      env = [
+        "HYPRCURSOR_THEME,${cursor}"
+        "HYPRCURSOR_SIZE,${toString cursorSize}"
+      ];
+
       exec-once = [
         "${pkgs.swww}/bin/swww-daemon && ${pkgs.swww}/bin/swww img /home/daniqss/image8.png}"
+        "hyprctl setcursor ${cursor} ${toString cursorSize}"
       ];
 
       monitor = [
