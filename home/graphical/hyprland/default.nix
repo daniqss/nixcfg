@@ -12,11 +12,11 @@
   cursorSize = 24;
   cursorPackage = outputs.packages.${pkgs.system}.bibata-hyprcursor;
 in {
-  options = {
-    hyprland.enable = lib.mkEnableOption "Enable hyprland module";
-  };
+  # options.graphical = {
+  #   hyprland.enable = lib.mkEnableOption "Enable hyprland module";
+  # };
 
-  config = lib.mkIf config.hyprland.enable {
+  config = lib.mkIf config.graphical.hyprland.enable {
     home.packages = with pkgs; [
       swww
       alsa-utils

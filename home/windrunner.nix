@@ -6,14 +6,13 @@
   };
 
   imports = [
-    ./desktop
+    ./graphical
     ./dev
     ./terminal
   ];
 
-  desktop = {
+  graphical = {
     enable = true;
-    hyprland.enable = true;
   };
   dev.enable = true;
   terminal.enable = true;
