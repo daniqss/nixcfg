@@ -12,8 +12,7 @@
   ];
 
   graphical = {
-    enable = true;
-    hyprland.enable = true;
+    enable = enable;
   };
   dev.enable = true;
   terminal.enable = true;
