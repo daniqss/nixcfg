@@ -12,7 +12,7 @@
   ];
 
   graphical = {
-    enable = enable;
+    enable = true;
   };
   dev.enable = true;
   terminal.enable = true;
