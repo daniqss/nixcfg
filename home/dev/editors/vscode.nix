@@ -4,9 +4,8 @@
   config,
   ...
 }: {
-  options.vscode.enable = lib.mkEnableOption "Enable vscode editor module";
-
-  config = lib.mkIf config.vscode.enable {
+  config = lib.mkIf (config.dev.enable
+    && config.graphical.enable) {
     programs.vscode = {
       enable = true;
       profiles.default.extensions = with pkgs.vscode-extensions; [

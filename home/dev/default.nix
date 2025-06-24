@@ -9,9 +9,5 @@ in {
     ./editors
   ];
 
-  options.dev.enable = lib.mkEnableOption "enable editors";
-
-  config = lib.mkIf config.dev.enable {
-    vscode.enable = lib.mkDefault true;
-  };
+  options.dev.enable = lib.mkEnableOption "enable editors and langs";
 }

@@ -5,14 +5,11 @@
 }: let
 in {
   imports = [
-    ./hyprland
-    ./ghostty.nix
+    ./desktops/hyprland
+    ./emulators
   ];
 
-  options.graphical = {
-    enable = lib.mkEnableOption "Enable graphical session";
-    hyprland.enable = lib.mkEnableOption "Enable hyprland as desktop";
-  };
+  options.graphical.enable = lib.mkEnableOption "Enable graphical session";
 
   config = lib.mkIf config.graphical.enable {
     graphical.hyprland.enable = lib.mkDefault true;
