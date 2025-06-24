@@ -38,7 +38,7 @@ in {
           fade_on_empty = false;
           placeholder_text = ''<i><span foreground="##cdd6f4">Type to Unlock!</span></i>'';
           hide_input = false;
-          position = [0 120];
+          position = "0, -120";
           halign = "center";
           valign = "center";
         };
@@ -51,7 +51,7 @@ in {
             color = "rgba(255, 255, 255, 0.6)";
             font_size = 120;
             font_family = "JetBrains Mono Nerd Font Mono ExtraBold";
-            position = [300];
+            position = "0, -300";
             halign = "center";
             valign = "top";
           }
@@ -63,7 +63,7 @@ in {
             color = "rgba(255, 255, 255, 0.6)";
             font_size = 25;
             font_family = "JetBrains Mono Nerd Font Mono";
-            position = [40];
+            position = "0, -40";
             halign = "center";
             valign = "center";
           }
@@ -75,7 +75,7 @@ in {
           #   color = "rgba(255, 255, 255, 0.6)";
           #   font_size = 18;
           #   font_family = "JetBrainsMono, Font Awesome 6 Free Solid";
-          #   position = [0 5];
+          #   position = "0, 5";
           #   halign = "center";
           #   valign = "bottom";
           # }
@@ -87,7 +87,7 @@ in {
             color = "rgba(255, 255, 255, 0.6)";
             font_size = 15;
             font_family = "JetBrains Mono Nerd Font Mono ExtraBold";
-            position = [0 10];
+            position = "0, -10";
             halign = "center";
             valign = "top";
           }

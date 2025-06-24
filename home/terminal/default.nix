@@ -17,6 +17,7 @@ in {
       eza
       wl-clipboard
       cliphist
+      killall
     ];
   };
 }
