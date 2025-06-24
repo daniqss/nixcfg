@@ -123,9 +123,9 @@
     chromium
     google-chrome
 
-    rofi-wayland
     blueberry
     pavucontrol
+    pulseaudio
 
     spotify
     (discord.override {withVencord = true;})

@@ -15,9 +15,8 @@ in {
     home.packages = with pkgs; [
       bat
       eza
-      wl-clipboard
-      cliphist
       killall
+      fastfetch
     ];
   };
 }

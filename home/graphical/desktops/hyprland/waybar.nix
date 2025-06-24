@@ -3,9 +3,9 @@
   config,
   ...
 }: {
-  options.graphical.hyprland.waybar.enable = lib.mkEnableOption "enable waybar as hyprland bar";
+  options.graphical.waybar.enable = lib.mkEnableOption "enable waybar as hyprland bar";
 
-  config = lib.mkIf config.graphical.hyprland.waybar.enable {
+  config = lib.mkIf config.graphical.waybar.enable {
     programs.waybar = {
       enable = true;
       systemd.enable = true;
