@@ -6,11 +6,8 @@
 }: let
 in {
   config = lib.mkIf config.graphical.hyprland.enable {
-    home.packages = [
-      pkgs.swww
-      # set-random-wallpaper
-      # init-swww-with-wallpaper
-      # wallpaper-randomizer
+    home.packages = with pkgs; [
+      swww
     ];
 
     wayland.windowManager.hyprland.settings.exec-once = [

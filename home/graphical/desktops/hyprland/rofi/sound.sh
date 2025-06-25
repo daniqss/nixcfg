@@ -1,40 +1,32 @@
 #!/usr/bin/env bash
-LANG="en_US.utf8"
-# Outputs have spaces in them, so let's make \n the IFS
-IFS=$'\n'
 
-# Make script independent on particular implementation of send client
-if command -v notify-send > /dev/null 2>&1; then
-    SEND="notify-send"
-elif command -v dunstify > /dev/null 2>&1; then
-    SEND="dunstify"
-else
-    SEND="/bin/false"
-fi
+set -euo pipefail
 
-# An option was passed, so let's check it
-if [ "$@" ]
-then
-    # the output from the selection will be the desciption.  Save that for alerts
-    desc="$*"
-    # Figure out what the device name is based on the description passed
-    device=$(pactl list sinks|grep -C2 -F "Description: $desc"|grep Name|cut -d: -f2|xargs)
-    # Try to set the default to the device chosen
-    if pactl set-default-sink "$device"
-    then
-        # if it worked, alert the user
-        $SEND -t 2000 -r 2 -u low "Activated: $desc"
-    else
-        # didn't work, critically alert the user
-        $SEND -t 2000 -r 2 -u critical "Error activating $desc"
-    fi
+export LC_NUMERIC=C
+
+sinks_json=$(pactl -f json list sinks)
+current_sink=$(pactl get-default-sink)
+
+descriptions=()
+mapfile -t descriptions < <(echo "$sinks_json" | jq -r '.[].description')
+
+names=()
+mapfile -t names < <(echo "$sinks_json" | jq -r '.[].name')
+
+# like alsa_output.pci-0000_04_00.1.hdmi-stereo
+current_index=$(echo "$sinks_json" | jq -r --arg current "$current_sink" '
+  map(.name) | to_entries | map(select(.value == $current)) | .[0].key')
+
+selected_description=$(printf '%s\n' "${descriptions[@]}" | rofi -dmenu -selected-row "$current_index")
+
+[[ -z "$selected_description" ]] && exit 0
+
+selected_name=$(echo "$sinks_json" | jq -r --arg desc "$selected_description" '
+  .[] | select(.description == $desc) | .name')
+
+if pactl set-default-sink "$selected_name"; then
+  notify-send "Activated: $selected_description"
 else
-    echo -en "\x00prompt\x1fSelect Output\n"
-    # Get the list of outputs based on the description, which is what makes sense to a human
-    # and is what we want to show in the menu
-    for x in $(pactl list sinks | grep -ie "description:"|cut -d: -f2|sort)
-    do
-        # outputs with cut may have spaces, so use empty xargs to remove them, and output that to the rofi list
-        echo "$x"|xargs
-    done
+  notify-send "Error activating: $selected_description"
+  exit 1
 fi

@@ -10,6 +10,7 @@ in {
     ./swww.nix
     ./rofi
     ./waybar.nix
+    ./mako.nix
   ];
 
   options.graphical.hyprland.enable = lib.mkEnableOption "Enable hyprland as desktop";
@@ -17,9 +18,9 @@ in {
   config = lib.mkIf config.graphical.hyprland.enable {
     graphical.waybar.enable = lib.mkDefault false;
     graphical.rofi.enable = lib.mkDefault true;
+    graphical.mako.enable = lib.mkDefault true;
 
     home.packages = with pkgs; [
-      swww
       alsa-utils
       playerctl
       brightnessctl

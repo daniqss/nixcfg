@@ -4,19 +4,10 @@
   config,
   ...
 }: let
-  # raw scripts
-  clipboardScript = builtins.readFile ./clipboard.sh;
-  soundScript = builtins.readFile ./sound.sh;
-
-  # available rofi scripts
   applauncher = pkgs.writeShellScriptBin "applauncher" "${pkgs.rofi-wayland}/bin/rofi -config $HOME/.config/rofi/config.rasi -show drun";
-  emoji = pkgs.writeShellScriptBin "emoji" " rofi -modi emoji -show emoji";
-  # clipboard = pkgs.writeShellScriptBin ''
-  #   clipboard" "rofi -modi clipboard:'rofi-cliphist' -show clipboard
-  # '';
-  # sound = pkgs.writeShellScriptBin "sound" ''
-  #   rofi -show rofi-sound -modi 'rofi-sound:rofi-sound-output-chooser
-  # '';
+  emoji = pkgs.writeShellScriptBin "emoji" "rofi -modi emoji -show emoji";
+  clipboard = pkgs.writeShellScriptBin "clipboard" "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
+  sound = pkgs.writeShellScriptBin "sound" (builtins.readFile ./sound.sh);
   powermenu = pkgs.writeShellScriptBin "powermenu" (builtins.readFile ./powermenu.sh);
   wallpaper = pkgs.writeShellScriptBin "wallpaper" (builtins.readFile ./wallpaper.sh);
   bluetooth = pkgs.writeShellScriptBin "bluetooth" (builtins.readFile ./bluetooth.sh);
@@ -25,10 +16,13 @@ in {
 
   config = lib.mkIf config.graphical.rofi.enable {
     home.packages = [
+      pkgs.jq
+      pkgs.libnotify
+
       applauncher
       emoji
-      # clipboard
-      # sound
+      clipboard
+      sound
       powermenu
       wallpaper
       bluetooth
@@ -55,10 +49,5 @@ in {
         rofi-emoji-wayland
       ];
     };
-
-    # home.file = {
-    #   ".config/rofi/rofi-cliphist".text = clipboardScript;
-    #   ".config/rofi/rofi-sound-output-chooser".text = soundScript;
-    # };
   };
 }
