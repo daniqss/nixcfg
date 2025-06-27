@@ -5,13 +5,13 @@
   ...
 }: let
   mainMod = "SUPER";
+  scripts = config.graphical.rofi.scripts;
 in {
   config = lib.mkIf config.graphical.hyprland.enable {
     wayland.windowManager.hyprland.settings = {
       bind =
         [
           "${mainMod}, return, exec, ${pkgs.ghostty}/bin/ghostty"
-          "${mainMod}, TAB, exec, ${pkgs.rofi-wayland}/bin/rofi -show drun"
           "${mainMod}, W, killactive,"
           "${mainMod}, Q, togglefloating,"
           "${mainMod}, F, fullscreen,"
@@ -25,6 +25,13 @@ in {
 
           "${mainMod}, S, togglespecialworkspace, magic"
           "${mainMod} ALT, S, movetoworkspacesilent, special:magic"
+
+          "${mainMod}, TAB, exec, ${scripts.applauncher}/bin/applauncher"
+          "${mainMod} CTRL, W, exec, ${scripts.wallpaper}/bin/wallpaper"
+          "${mainMod} CTRL, B, exec, ${scripts.bluetooth}/bin/bluetooth"
+          "${mainMod} CTRL, S, exec, ${scripts.sound}/bin/sound"
+          "${mainMod} CTRL, E, exec, ${scripts.emoji}/bin/emoji"
+          "${mainMod} CTRL, C, exec, ${scripts.clipboard}/bin/clipboard"
         ]
         ++ (
           builtins.concatLists (builtins.genList (
@@ -53,8 +60,8 @@ in {
         ", XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
         ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
         ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
-        ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
-        ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+        ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
+        ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
         ", Print, exec, $screenshot"
       ];
 

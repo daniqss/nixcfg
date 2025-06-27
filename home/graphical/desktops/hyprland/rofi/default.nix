@@ -12,9 +12,17 @@
   wallpaper = pkgs.writeShellScriptBin "wallpaper" (builtins.readFile ./wallpaper.sh);
   bluetooth = pkgs.writeShellScriptBin "bluetooth" (builtins.readFile ./bluetooth.sh);
 in {
-  options.graphical.rofi.enable = lib.mkEnableOption "enable rofi";
+  options.graphical.rofi.enable = lib.mkEnableOption "enable rofi as launcher";
+  options.graphical.rofi.scripts = lib.mkOption {
+    type = lib.types.attrsOf lib.types.package;
+    description = "Custom Rofi scripts";
+  };
 
   config = lib.mkIf config.graphical.rofi.enable {
+    graphical.rofi.scripts = {
+      inherit applauncher emoji clipboard sound powermenu wallpaper bluetooth;
+    };
+
     home.packages = [
       pkgs.jq
       pkgs.libnotify
