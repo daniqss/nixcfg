@@ -1,5 +1,4 @@
 {pkgs, ...}: let
-  orchisPkg = pkgs.orchis-theme.override {tweaks = ["black"];};
 in {
   home.pointerCursor = {
     gtk.enable = true;
@@ -13,13 +12,13 @@ in {
     enable = true;
 
     theme = {
-      package = orchisPkg;
-      name = "Orchis-Purple";
+      name = "Orchis-Purple-Dark";
+      package = pkgs.orchis-theme;
     };
 
     iconTheme = {
-      package = orchisPkg;
-      name = "Orchis-Purple";
+      name = "Tela-purple-dark";
+      package = pkgs.tela-icon-theme;
     };
 
     gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;

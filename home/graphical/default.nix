@@ -7,6 +7,7 @@ in {
   imports = [
     ./desktops/hyprland
     ./emulators
+    ./misc.nix
   ];
 
   options.graphical.enable = lib.mkEnableOption "Enable graphical session";
