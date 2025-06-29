@@ -32,6 +32,7 @@ in {
           "${mainMod} CTRL, S, exec, ${scripts.sound}/bin/sound"
           "${mainMod} CTRL, E, exec, ${scripts.emoji}/bin/emoji"
           "${mainMod} CTRL, C, exec, ${scripts.clipboard}/bin/clipboard"
+          "${mainMod} CTRL, P, exec, ${scripts.powermenu}/bin/powermenu"
         ]
         ++ (
           builtins.concatLists (builtins.genList (

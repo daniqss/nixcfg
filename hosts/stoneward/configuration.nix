@@ -30,7 +30,7 @@
     # of just the bare essentials.
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.enable = false;
+    powerManagement.enable = true;
     powerManagement.finegrained = false;
 
     # Use the NVidia open source kernel module (not to be confused with the
@@ -52,7 +52,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.consoleMode = "max";
-  # boot.loader.systemd-boot.consoleMode = "2";
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = hostname; # Define your hostname.
@@ -127,11 +126,17 @@
     pavucontrol
     pulseaudio
 
+    nautilus
+    nautilus-open-any-terminal
+
     spotify
     (discord.override {withVencord = true;})
   ];
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+
+  # for gtk
+  programs.dconf.enable = true;
 
   programs.steam = {
     enable = true;
