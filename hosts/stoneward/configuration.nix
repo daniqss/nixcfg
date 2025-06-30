@@ -4,6 +4,7 @@
 {
   inputs,
   pkgs,
+  lib,
   config,
   hostname,
   ...
@@ -53,6 +54,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.consoleMode = "max";
   boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.enable = lib.mkForce false;
+  # boot.lanzaboote = {
+  #   enable = true;
+  #   pkiBundle = "/var/lib/sbctl";
+  # };
 
   networking.hostName = hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -131,6 +137,8 @@
 
     spotify
     (discord.override {withVencord = true;})
+
+    sbctl
   ];
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];

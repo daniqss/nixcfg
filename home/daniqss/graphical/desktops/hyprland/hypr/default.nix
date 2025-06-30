@@ -34,8 +34,8 @@ in {
         ];
 
         general = {
-          gaps_in = 6;
-          gaps_out = 10;
+          gaps_in = 4;
+          gaps_out = 8;
           border_size = 2;
           "col.active_border" = "${border}";
           "col.inactive_border" = "rgba(00000000)";
@@ -51,7 +51,7 @@ in {
         };
 
         decoration = {
-          rounding = 8;
+          rounding = 1;
 
           blur = {
             enabled = true;

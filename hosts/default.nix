@@ -39,7 +39,7 @@
             home-manager.extraSpecialArgs = lib.recursiveUpdate {
               inherit inputs outputs hostname username system;
             } (args.specialArgs or {});
-            home-manager.users.${username}.imports = [../home/${hostname}.nix];
+            home-manager.users.${username}.imports = [./${hostname}/home.nix];
           }
         ]
       ];
@@ -51,6 +51,17 @@ in {
     username = "daniqss";
     system = "x86_64-linux";
 
-    modules = [];
+    modules = [
+      # inputs.lanzaboote.nixosModules.lanzaboote
+    ];
   };
+
+  # amd laptop
+  # windrunner = mkSystem {
+  #   hostname = "windrunner";
+  #   username = "daniqss";
+  #   system = "x86_64-linux";
+
+  #   modules = [];
+  # };
 }

@@ -9,6 +9,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # lanzaboote = {
+    #   url = "github:nix-community/lanzaboote/v0.4.2";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = {
