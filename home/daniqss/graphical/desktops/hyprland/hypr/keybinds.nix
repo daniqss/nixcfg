@@ -6,8 +6,33 @@
 }: let
   mainMod = "SUPER";
   scripts = config.graphical.rofi.scripts;
+
+  defaultApp = pkgs.writeShellScriptBin "default-app" ''
+    workspace_id=$(hyprctl -j activeworkspace | jq -r '.id')
+
+    # default apps
+    case $workspace_id in
+        1) code;;
+        2) chromium;;
+        3) ghostty & disown;;
+        4) obsidian;;
+        5) nautilus;;
+        6) vesktop;;
+        7) steam;;
+        8) spotify-launcher;;
+        9) google-chrome-stable;;
+        *) ;;
+    esac
+  '';
 in {
   config = lib.mkIf config.graphical.hyprland.enable {
+    home.packages = [
+      defaultApp
+      pkgs.hyprshot
+    ];
+
+    home.sessionVariables.HYPRSHOT_DIR = "$XDG_SCREENSHOTS_DIR";
+
     wayland.windowManager.hyprland.settings = {
       bind =
         [
@@ -33,6 +58,8 @@ in {
           "${mainMod} CTRL, E, exec, ${scripts.emoji}/bin/emoji"
           "${mainMod} CTRL, C, exec, ${scripts.clipboard}/bin/clipboard"
           "${mainMod} CTRL, P, exec, ${scripts.powermenu}/bin/powermenu"
+
+          "${mainMod}, 0, exec, default-app"
         ]
         ++ (
           builtins.concatLists (builtins.genList (
@@ -63,7 +90,8 @@ in {
         ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
         ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
         ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
-        ", Print, exec, $screenshot"
+        ", Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m region"
+        "${mainMod}, M, exec, ${pkgs.hyprshot}/bin/hyprshot -m region"
       ];
 
       # Repeat binds for window resizing
