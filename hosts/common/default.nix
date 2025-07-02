@@ -54,7 +54,7 @@
     waylandCompositors.hyprland = {
       prettyName = "Hyprland";
       comment = "Hyprland compositor managed by UWSM";
-      binPath = "/run/current-system/sw/bin/Hyprland";
+      binPath = "/home/${username}/.nix-profile/bin/Hyprland";
     };
   };
 }

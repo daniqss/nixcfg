@@ -17,6 +17,10 @@ in {
       eza
       killall
       fastfetch
+
+      micro 
+      vim
+      neovim
     ];
   };
 }
