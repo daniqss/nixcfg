@@ -26,6 +26,7 @@ in {
       nerd-fonts.fira-code
       nerd-fonts.droid-sans-mono
       nerd-fonts.jetbrains-mono
+      noto-fonts-color-emoji
     ];
 
     fonts.fontconfig.enable = true;
