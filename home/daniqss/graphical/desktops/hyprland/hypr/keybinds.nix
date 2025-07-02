@@ -10,19 +10,23 @@
   defaultApp = pkgs.writeShellScriptBin "default-app" ''
     workspace_id=$(hyprctl -j activeworkspace | jq -r '.id')
 
-    # default apps
-    case $workspace_id in
-        1) code;;
-        2) chromium;;
-        3) ghostty & disown;;
-        4) obsidian;;
-        5) nautilus;;
-        6) vesktop;;
-        7) steam;;
-        8) spotify-launcher;;
-        9) google-chrome-stable;;
-        *) ;;
-    esac
+    declare -A apps=(
+      [1]="code"
+      [2]="chromium"
+      [3]="ghostty"
+      [4]="obsidian"
+      [5]="nautilus"
+      [6]="vesktop"
+      [7]="steam"
+      [8]="spotify-launcher"
+      [9]="google-chrome-stable"
+    )
+
+    app_command=''${apps[$workspace_id]}
+
+    if [[ -n "$app_command" ]]; then
+      hyprctl dispatch -- exec "[workspace ''${workspace_id} silent] uwsm app -- $app_command"
+    fi
   '';
 in {
   config = lib.mkIf config.graphical.hyprland.enable {

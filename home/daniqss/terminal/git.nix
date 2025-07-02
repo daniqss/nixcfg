@@ -1,27 +1,34 @@
-{username, ...}: let
+{
+  username,
+  lib,
+  config,
+  ...
+}: let
 in {
-  programs.ssh = {
-    enable = true;
-    compression = true;
+  config = lib.mkIf config.terminal.enable {
+    programs.ssh = {
+      enable = true;
+      compression = true;
 
-    extraConfig = ''
-      Host github.com
-        User git
-        Hostname github.com
-        IdentityFile ~/.ssh/github_ed25519
-        IdentitiesOnly yes
-    '';
-  };
+      extraConfig = ''
+        Host github.com
+          User git
+          Hostname github.com
+          IdentityFile ~/.ssh/github_ed25519
+          IdentitiesOnly yes
+      '';
+    };
 
-  programs.git = {
-    enable = true;
-    userName = username;
-    userEmail = "danielqueijo14@gmail.com";
+    programs.git = {
+      enable = true;
+      userName = username;
+      userEmail = "danielqueijo14@gmail.com";
 
-    extraConfig = {
-      core.editor = "nvim";
-      push.default = "current";
-      push.autoSetupRemote = true;
+      extraConfig = {
+        core.editor = "nvim";
+        push.default = "current";
+        push.autoSetupRemote = true;
+      };
     };
   };
 }
