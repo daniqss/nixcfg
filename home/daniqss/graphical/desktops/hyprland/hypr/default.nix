@@ -24,7 +24,6 @@ in {
       enable = true;
       systemd.enable = false;
 
-
       settings = {
         env = [
           "HYPRCURSOR_THEME,${cursor}"
@@ -33,6 +32,8 @@ in {
 
         exec-once = [
           "hyprctl setcursor ${cursor} ${toString cursorSize}"
+          "wl-paste --type text --watch cliphist store"
+          "wl-paste --type image --watch cliphist store"
         ];
 
         general = {

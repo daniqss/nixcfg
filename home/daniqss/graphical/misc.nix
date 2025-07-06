@@ -22,6 +22,8 @@ in {
       spotify
       (discord.override {withVencord = true;})
 
+      qbittorrent
+
       nerd-fonts.caskaydia-cove
       nerd-fonts.fira-code
       nerd-fonts.droid-sans-mono

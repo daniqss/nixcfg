@@ -14,6 +14,12 @@ in {
       syntaxHighlighting.enable = true;
       autosuggestion.enable = true;
 
+      loginExtra = ''
+        if uwsm check may-start; then
+            exec uwsm start hyprland-uwsm.desktop
+        fi
+      '';
+
       shellAliases = {
         rebuild = "sudo nixos-rebuild switch --flake ~/nixcfg/#${hostname}";
         update = "sudo nix flake update";
@@ -33,7 +39,22 @@ in {
         catp = "${pkgs.bat}/bin/bat --paging=never";
         icat = "kitten icat";
         cls = "clear";
+
+        gitgraph = "git log --graph --decorate --all --pretty=format:'%C(auto)%h%d %C(#888888)(%an; %ar)%Creset %s'";
       };
+
+      initExtra = ''
+        code() {
+          ${pkgs.vscode}/bin/code "$@" > /dev/null 2>&1
+        }
+
+        bindkey "^[[1;5C" forward-word
+        bindkey "^[[1;5D" backward-word
+        bindkey "\033[1~" beginning-of-line
+        bindkey "\033[4~" end-of-line
+        bindkey "^H" backward-kill-word
+        bindkey "\e\r" forward-char
+      '';
     };
 
     programs.starship = {

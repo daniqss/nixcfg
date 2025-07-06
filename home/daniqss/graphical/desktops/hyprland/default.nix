@@ -14,7 +14,7 @@ in {
     ./mako.nix
   ];
 
-  options.graphical.hyprland.enable = lib.mkEnableOption "Enable hyprland as desktop";
+  options.graphical.hyprland.enable = lib.mkEnableOption "enable hyprland as desktop";
 
   config = lib.mkIf config.graphical.hyprland.enable {
     graphical.waybar.enable = lib.mkDefault false;
