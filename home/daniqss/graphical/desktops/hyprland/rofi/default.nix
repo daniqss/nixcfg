@@ -4,7 +4,9 @@
   config,
   ...
 }: let
-  applauncher = pkgs.writeShellScriptBin "applauncher" "${pkgs.rofi-wayland}/bin/rofi -config $HOME/.config/rofi/config.rasi -show drun";
+  applauncher = pkgs.writeShellScriptBin "applauncher" ''
+    ${pkgs.rofi-wayland}/bin/rofi -config $HOME/.config/rofi/config.rasi -show drun -run-command "uwsm app -- {cmd}"
+  '';
   emoji = pkgs.writeShellScriptBin "emoji" "rofi -modi emoji -show emoji";
   clipboard = pkgs.writeShellScriptBin "clipboard" "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
   sound = pkgs.writeShellScriptBin "sound" (builtins.readFile ./sound.sh);
