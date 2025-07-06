@@ -17,7 +17,7 @@ in {
   options.graphical.rofi.enable = lib.mkEnableOption "enable rofi as launcher";
   options.graphical.rofi.scripts = lib.mkOption {
     type = lib.types.attrsOf lib.types.package;
-    description = "Custom Rofi scripts";
+    description = "my rofi scripts";
   };
 
   config = lib.mkIf config.graphical.rofi.enable {

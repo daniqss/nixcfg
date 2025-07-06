@@ -57,7 +57,7 @@ in {
 
           "${mainMod}, TAB, exec, ${scripts.applauncher}/bin/applauncher"
           "${mainMod} CTRL, W, exec, ${scripts.wallpaper}/bin/wallpaper"
-          "${mainMod} CTRL, B, exec, ${scripts.bluetooth}/bin/bluetooth"
+          "${mainMod} CTRL, B, exec, uwsm app ${scripts.bluetooth}/bin/bluetooth"
           "${mainMod} CTRL, S, exec, ${scripts.sound}/bin/sound"
           "${mainMod} CTRL, E, exec, ${scripts.emoji}/bin/emoji"
           "${mainMod} CTRL, C, exec, ${scripts.clipboard}/bin/clipboard"
