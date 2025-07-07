@@ -1,15 +1,15 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+{inputs, ...}: {
+  nix = {
+    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
-  environment.systemPackages = with pkgs; [pulseaudio];
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    settings = {
+      download-buffer-size = 524288000; # 500 MiB
+      experimental-features = ["nix-command" "flakes"];
+    };
 
-  nix.gc = {
-    automatic = true;
-    options = "--delete-older-than 14d";
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+    };
   };
 }

@@ -24,6 +24,7 @@
     shell = pkgs.zsh;
   };
   environment.pathsToLink = ["/share/zsh"];
+  environment.systemPackages = with pkgs; [pulseaudio];
 
   # for gtk
   programs.dconf.enable = true;
