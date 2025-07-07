@@ -130,5 +130,7 @@
   ],
   "zig.zls.enabled": "on",
   "C_Cpp.intelliSenseEngine": "disabled",
+  "qt-qml.qmlls.useQmlImportPathEnvVar": true,
+
   "github.copilot.selectedCompletionModel": "gpt-4o-copilot"
 }

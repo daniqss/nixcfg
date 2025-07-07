@@ -1,6 +1,5 @@
 {
   username,
-  inputs,
   pkgs,
   ...
 }: {
@@ -8,6 +7,7 @@
     ./gaming.nix
     ./minecraft.nix
     ./network.nix
+    ./nix.nix
   ];
 
   services.pipewire = {
@@ -23,12 +23,7 @@
     extraGroups = ["networkmanager" "wheel"];
     shell = pkgs.zsh;
   };
-
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-
   environment.pathsToLink = ["/share/zsh"];
-  environment.systemPackages = with pkgs; [pulseaudio];
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   # for gtk
   programs.dconf.enable = true;

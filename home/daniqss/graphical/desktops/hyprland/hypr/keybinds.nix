@@ -8,24 +8,26 @@
   scripts = config.graphical.rofi.scripts;
 
   defaultApp = pkgs.writeShellScriptBin "default-app" ''
+    #!/usr/bin/env bash
+
     workspace_id=$(hyprctl -j activeworkspace | jq -r '.id')
 
     declare -A apps=(
-      [1]="code"
-      [2]="chromium"
-      [3]="ghostty"
-      [4]="obsidian"
-      [5]="nautilus"
-      [6]="vesktop"
-      [7]="steam"
-      [8]="spotify-launcher"
-      [9]="google-chrome-stable"
+      [1]="${pkgs.vscode}/bin/code"
+      [2]="${pkgs.chromium}/bin/chromium"
+      [3]="${pkgs.ghostty}/bin/ghostty"
+      [4]="${pkgs.obsidian}/bin/obsidian"
+      [5]="${pkgs.nautilus}/bin/nautilus"
+      [6]="${pkgs.vesktop}/bin/vesktop"
+      [7]="${pkgs.steam}/bin/steam"
+      [8]="${pkgs.spotify}/bin/spotify"
+      [9]="${pkgs.google-chrome}/bin/google-chrome-stable"
     )
 
     app_command=''${apps[$workspace_id]}
 
     if [[ -n "$app_command" ]]; then
-      hyprctl dispatch -- exec "[workspace ''${workspace_id} silent] uwsm app -- $app_command"
+      hyprctl dispatch -- exec "[workspace ''${workspace_id} silent] uwsm app -- ''${app_command}"
     fi
   '';
 in {

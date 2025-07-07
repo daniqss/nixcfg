@@ -7,6 +7,7 @@
 in {
   imports = [
     ./desktops/hyprland
+    ./shells/quickshell
     ./emulators
     ./misc.nix
     ./gaming.nix
@@ -16,6 +17,7 @@ in {
 
   config = lib.mkIf config.graphical.enable {
     graphical.hyprland.enable = lib.mkDefault true;
+    graphical.quickshell.enable = lib.mkDefault true;
 
     home.sessionVariables = {
       HOME = "/home/${username}/";

@@ -43,7 +43,7 @@ in {
         gitgraph = "git log --graph --decorate --all --pretty=format:'%C(auto)%h%d %C(#888888)(%an; %ar)%Creset %s'";
       };
 
-      initExtra = ''
+      initContent = ''
         code() {
           ${pkgs.vscode}/bin/code "$@" > /dev/null 2>&1
         }
