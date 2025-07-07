@@ -1,17 +1,13 @@
 {
-  pkgs,
   lib,
   config,
   ...
 }: {
   config = lib.mkIf config.graphical.enable {
-    home.packages = with pkgs; [
-      ghostty
-    ];
-
     programs.ghostty = {
       enable = true;
       enableZshIntegration = true;
+
       themes = {
         kinda-onedark = {
           background = "0A0A0A";

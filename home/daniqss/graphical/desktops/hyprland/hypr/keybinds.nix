@@ -15,7 +15,7 @@
     declare -A apps=(
       [1]="${pkgs.vscode}/bin/code"
       [2]="${pkgs.chromium}/bin/chromium"
-      [3]="${pkgs.ghostty}/bin/ghostty"
+      [3]="${pkgs.wezterm}/bin/wezterm"
       [4]="${pkgs.obsidian}/bin/obsidian"
       [5]="${pkgs.nautilus}/bin/nautilus"
       [6]="${pkgs.vesktop}/bin/vesktop"
@@ -42,7 +42,7 @@ in {
     wayland.windowManager.hyprland.settings = {
       bind =
         [
-          "${mainMod}, return, exec, ${pkgs.ghostty}/bin/ghostty"
+          "${mainMod}, return, exec, ${pkgs.wezterm}/bin/wezterm"
           "${mainMod}, W, killactive,"
           "${mainMod}, Q, togglefloating,"
           "${mainMod}, F, fullscreen,"

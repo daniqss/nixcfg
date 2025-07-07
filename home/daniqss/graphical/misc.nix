@@ -16,6 +16,8 @@ in {
       blueberry
       pavucontrol
 
+	  wezterm
+	  
       nautilus
       nautilus-open-any-terminal
 

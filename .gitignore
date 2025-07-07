@@ -1,22 +1,19 @@
 *
 !README.md
 !.gitignore
-!*.nix
 !*/
+!*.nix
 !**/*.nix
 !*.json
-!*/
 !**/*.json
 !*.py
-!*/
 !**/*.py
 !*.sh
-!*/
 !**/*.sh
 !*.rasi
-!*/
 !**/*.rasi
 !*.qml
-!*/
 !**/*.qml
+!*.lua
+!**/*.lua
 
