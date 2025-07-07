@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -7,11 +6,9 @@
   config = lib.mkIf config.graphical.enable {
     qt = {
       enable = true;
-
-      platformTheme.name = "gtk";
+      platformTheme.name = "kvantum";
       style = {
-        name = "adwaita-dark";
-        package = pkgs.adwaita-qt;
+        name = "kvantum";
       };
     };
   };
