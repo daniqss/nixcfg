@@ -15,7 +15,7 @@
     declare -A apps=(
       [1]="${pkgs.vscode}/bin/code"
       [2]="${pkgs.chromium}/bin/chromium"
-      [3]="${pkgs.wezterm}/bin/wezterm"
+      [3]="${config.graphical.emulators}"
       [4]="${pkgs.obsidian}/bin/obsidian"
       [5]="${pkgs.nautilus}/bin/nautilus"
       [6]="${pkgs.vesktop}/bin/vesktop"
