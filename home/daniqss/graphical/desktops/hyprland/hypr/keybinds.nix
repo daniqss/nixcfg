@@ -10,7 +10,7 @@
   defaultApp = pkgs.writeShellScriptBin "default-app" ''
     #!/usr/bin/env bash
 
-    workspace_id=$(hyprctl -j activeworkspace | jq -r '.id')
+    workspace_id="''${1:-$(hyprctl -j activeworkspace | jq -r '.id')}"
 
     declare -A apps=(
       [1]="${pkgs.vscode}/bin/code"
@@ -24,10 +24,11 @@
       [9]="${pkgs.google-chrome}/bin/google-chrome-stable"
     )
 
-    app_command=''${apps[$workspace_id]}
+    app="''${apps[$workspace_id]}"
 
-    if [[ -n "$app_command" ]]; then
-      hyprctl dispatch -- exec "[workspace ''${workspace_id} silent] uwsm app -- ''${app_command}"
+    # Verifica si existe la app para ese workspace
+    if [[ -n "$app" ]]; then
+      hyprctl dispatch exec "[workspace ''${workspace_id} silent] uwsm app -- ''${app}"
     fi
   '';
 in {
@@ -35,6 +36,7 @@ in {
     home.packages = [
       defaultApp
       pkgs.hyprshot
+      pkgs.jq
     ];
 
     home.sessionVariables.HYPRSHOT_DIR = "$XDG_SCREENSHOTS_DIR";
@@ -42,7 +44,7 @@ in {
     wayland.windowManager.hyprland.settings = {
       bind =
         [
-          "${mainMod}, return, exec, ${pkgs.wezterm}/bin/wezterm"
+          "${mainMod}, return, exec, ${config.graphical.emulators}"
           "${mainMod}, W, killactive,"
           "${mainMod}, Q, togglefloating,"
           "${mainMod}, F, fullscreen,"

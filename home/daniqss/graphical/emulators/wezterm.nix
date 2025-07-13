@@ -1,11 +1,10 @@
 {
-  pkgs,
   lib,
   config,
   ...
 }: {
   config = lib.mkIf config.graphical.enable {
-    home.packages = with pkgs; [wezterm];
+    programs.wezterm.enable = true;
 
     xdg.configFile."wezterm" = {
       source = ./wezterm;

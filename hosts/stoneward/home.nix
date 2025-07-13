@@ -6,6 +6,7 @@
   graphical = {
     enable = true;
     gaming.enable = true;
+    emulators = "alacritty";
   };
   dev.enable = true;
   terminal.enable = true;

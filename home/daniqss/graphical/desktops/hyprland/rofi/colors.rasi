@@ -1,133 +1,132 @@
-    * {
-    	gruv0: #15171c;
-    	gruv1: #545454;
-    	gruv2: #545454;
-    	gruv3: #545454;
-    	gruv4: #ffffff;
-    	gruv5: #ffffff;
-    	gruv8: #545454;
-    	gruv9: #545454;
-    	gruv10: #15171c;
-    	red: #ff6973;
-    	orange: #ffd156;
-    	yellow: #ffd156;
-    	aqua: #83e8e4;
-    	purple: #ff55ff;
-    	reddark: #ff55ff;
-    	yellowdark: #ffd156;
+/**
+ * User: Avasz
+ * Copyleft: Avasz
+ * This theme was copied directly from deadguy's sidetab theme for rofi. Edited for my liking.
+ */
 
-    	primary: #CAA6F7;
-    	foreground: rgba(10, 10, 10, 0.6);
-    	background-color:  rgba(10, 10, 10, 0);
-    	highlight: underline bold #eeece7;
-    	transparent: rgba(10,10,10,0.2);
-    }
+configuration {
+	display-drun:    "Activate";
+	display-run:     "Execute";
+	display-window:  "Window";
+	show-icons:      true;
+	sidebar-mode:    false;
+}
 
-    window {
-        location: center;
-        anchor:   center;
-        height: 460px;
-        width: 500px;
+* {
+	background-color:            #080808;
+	text-color:                  #d3d7cf;
+	selbg:                       #215d9c;
+	actbg:                       #262626;
+	urgbg:                       #e53935;
+	winbg:			     		 #26c6da;
 
-        background-color: @transparent;
-        spacing: 0;
-        children:  [mainbox];
-        orientation: horizontal;
-    }
+	selected-normal-foreground:  @winbg;
+	normal-foreground:           @text-color;
+	selected-normal-background:  @actbg;
+	normal-background:           @background-color;
 
-    mainbox {
-        border-radius: 0px;
-        spacing: 0;
-        children: [ inputbar, message, listview ];
-    }
+	selected-urgent-foreground:  @background-color;
+	urgent-foreground:           @text-color;
+	selected-urgent-background:  @urgbg;
+	urgent-background:           @background-color;
 
-    message {
-        padding: 10px;
-        border:  0px 4px 2px 4px;
-        border-color: @primary;
-        background-color: @transparent;
-    }
+	selected-active-foreground:  @winbg;
+	active-foreground:           @text-color;
+	selected-active-background:  @actbg;
+	active-background:           @selbg;
 
-    inputbar {
-        color: @primary;
-        padding: 14px;
-        background-color: @transparent;
-        border-color: @primary;
+	line-margin:                 2;
+	line-padding:                2;
+	separator-style:             "none";
+	hide-scrollbar:              "true";
+	margin:                      0;
+	padding:                     0;
+}
 
-        border: 4px;
-        border-radius: 0px;
-    }
+window {
+	location:	 0;
+	anchor:		 0;
+	height:		 30%;
+	width:		 30%;
+	orientation: horizontal;
+	children:	 [mainbox];
+}
 
-    entry, prompt, case-indicator {
-        text-font: inherit;
-        text-color: inherit;
-    }
+mainbox {
+	spacing:  0.8em;
+	children: [ entry,listview,mode-switcher ];
+}
 
-    prompt {
-        margin: 0px 1em 0em 0em ;
-    }
+button { padding: 5px 2px; }
 
-    listview {
-        padding: 8px;
-        border-radius: 0px;
-        border: 2px 4px 4px 4px;
-        border-color: @primary;
-        background-color: @transparent;
-        dynamic: false;
-    }
+button selected {
+	background-color: @active-background;
+	text-color:       @background-color;
+}
 
-    element {
-        padding: 5px;
-        vertical-align: 0.5;
-        border-radius: 5px;
-        color: @foreground;
-        text-color: #F8FAFC;
-        background-color: @transparent;
-    }
+inputbar {
+	padding: 5px;
+	spacing: 5px;
+}
 
-    element.normal.active {
-        background-color: @yellow;
-    }
+listview {
+	spacing: 0.5em;
+	dynamic: false;
+	cycle:   true;
+}
 
-    element.normal.urgent {
-        background-color: @reddark;
-    }
+element { padding: 10px; }
 
-    element.selected.normal {
-        background-color: @foreground;
-        text-color: #F8FAFC;
-    }
+entry {
+	expand:         false;
+	text-color:     @normal-foreground;
+	vertical-align: 1;
+	padding:        5px;
+}
 
-    element.selected.active {
-        background-color: @yellowdark;
-    }
+element normal.normal {
+	background-color: @normal-background;
+	text-color:       @normal-foreground;
+}
 
-    element.selected.urgent {
-        background-color: @red;
-    }
+element normal.urgent {
+	background-color: @urgent-background;
+	text-color:       @urgent-foreground;
+}
 
-    element.alternate.normal {
-        background-color: @transparent;
-    }
+element normal.active {
+	background-color: @active-background;
+	text-color:       @active-foreground;
+}
 
-    element-text, element-icon {
-        size: 3ch;
-        margin: 0 10 0 0;
-        vertical-align: 0.5;
-        text-color: #F8FAFC;
-    }
+element selected.normal {
+	background-color: @selected-normal-background;
+	text-color:       @selected-normal-foreground;
+	border:           0 5px solid 0 0;
+	border-color:	    @active-background;
+}
 
-    button {
-        padding: 6px;
-        color: @foreground;
-        horizontal-align: 0.5;
+element selected.urgent {
+	background-color: @selected-urgent-background;
+	text-color:       @selected-urgent-foreground;
+}
 
-        border: 2px 0px 2px 2px;
-        border-radius: 5px;
-        border-color: @foreground;
-    }
+element selected.active {
+	background-color: @selected-active-background;
+	text-color:       @selected-active-foreground;
+}
 
-    button.selected.normal {
-        border: 2px 0px 2px 2px;
-        border-color: @foreground;
-    }
+element alternate.normal {
+	background-color: @normal-background;
+	text-color:       @normal-foreground;
+}
+
+element alternate.urgent {
+	background-color: @urgent-background;
+	text-color:       @urgent-foreground;
+}
+
+element alternate.active {
+	background-color: @active-background;
+	text-color:       @active-foreground;
+}

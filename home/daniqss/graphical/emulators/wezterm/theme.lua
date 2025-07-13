@@ -3,299 +3,93 @@ local wezterm = require("wezterm")
 local M = {}
 
 local colors = {
-  latte = {
-    rosewater = "#dc8a78",
-    flamingo = "#dd7878",
-    pink = "#ea76cb",
-    mauve = "#8839ef",
-    red = "#d20f39",
-    maroon = "#e64553",
-    peach = "#fe640b",
-    yellow = "#df8e1d",
-    green = "#40a02b",
-    teal = "#179299",
-    sky = "#04a5e5",
-    sapphire = "#209fb5",
-    blue = "#1e66f5",
-    lavender = "#7287fd",
-    text = "#4c4f69",
-    subtext1 = "#5c5f77",
-    subtext0 = "#6c6f85",
-    overlay2 = "#7c7f93",
-    overlay1 = "#8c8fa1",
-    overlay0 = "#9ca0b0",
-    surface2 = "#acb0be",
-    surface1 = "#bcc0cc",
-    surface0 = "#ccd0da",
-    crust = "#dce0e8",
-    mantle = "#e6e9ef",
-    base = "#eff1f5",
-  },
-  frappe = {
-    rosewater = "#f2d5cf",
-    flamingo = "#eebebe",
-    pink = "#f4b8e4",
-    mauve = "#ca9ee6",
-    red = "#e78284",
-    maroon = "#ea999c",
-    peach = "#ef9f76",
-    yellow = "#e5c890",
-    green = "#a6d189",
-    teal = "#81c8be",
-    sky = "#99d1db",
-    sapphire = "#85c1dc",
-    blue = "#8caaee",
-    lavender = "#babbf1",
-    text = "#c6d0f5",
-    subtext1 = "#b5bfe2",
-    subtext0 = "#a5adce",
-    overlay2 = "#949cbb",
-    overlay1 = "#838ba7",
-    overlay0 = "#737994",
-    surface2 = "#626880",
-    surface1 = "#51576d",
-    surface0 = "#414559",
-    base = "#303446",
-    mantle = "#292c3c",
-    crust = "#232634",
-  },
-  macchiato = {
-    rosewater = "#f4dbd6",
-    flamingo = "#f0c6c6",
-    pink = "#f5bde6",
-    mauve = "#c6a0f6",
-    red = "#ed8796",
-    maroon = "#ee99a0",
-    peach = "#f5a97f",
-    yellow = "#eed49f",
-    green = "#a6da95",
-    teal = "#8bd5ca",
-    sky = "#91d7e3",
-    sapphire = "#7dc4e4",
-    blue = "#8aadf4",
-    lavender = "#b7bdf8",
-    text = "#cad3f5",
-    subtext1 = "#b8c0e0",
-    subtext0 = "#a5adcb",
-    overlay2 = "#939ab7",
-    overlay1 = "#8087a2",
-    overlay0 = "#6e738d",
-    surface2 = "#5b6078",
-    surface1 = "#494d64",
-    surface0 = "#363a4f",
-    base = "#24273a",
-    mantle = "#1e2030",
-    crust = "#181926",
-  },
-  mocha = {
-    rosewater = "#f5e0dc",
-    flamingo = "#f2cdcd",
-    pink = "#f5c2e7",
-    mauve = "#cba6f7",
-    red = "#f38ba8",
-    maroon = "#eba0ac",
-    peach = "#fab387",
-    yellow = "#f9e2af",
-    green = "#a6e3a1",
-    teal = "#94e2d5",
-    sky = "#89dceb",
-    sapphire = "#74c7ec",
-    blue = "#89b4fa",
-    lavender = "#b4befe",
-    text = "#cdd6f4",
-    subtext1 = "#bac2de",
-    subtext0 = "#a6adc8",
-    overlay2 = "#9399b2",
-    overlay1 = "#7f849c",
-    overlay0 = "#6c7086",
-    surface2 = "#585b70",
-    surface1 = "#45475a",
-    surface0 = "#313244",
-    base = "#1e1e2e",
-    mantle = "#181825",
-    crust = "#11111b",
-  },
-  espresso = {
-    rosewater = "#ece3e1",
-    flamingo = "#e1d2d2",
-    pink = "#ddccd8",
-    mauve = "#bbb2c9",
-    red = "#c4a2aa",
-    maroon = "#cbadb1",
-    peach = "#d5beb4",
-    yellow = "#ece3d3",
-    green = "#b9ddb6",
-    teal = "#badad4",
-    sky = "#b8d4db",
-    sapphire = "#a9c0ce",
-    blue = "#aab3c7",
-    lavender = "#bfc1d2",
-    text = "#d3d6e1",
-    subtext1 = "#bec2d2",
-    subtext0 = "#a8adc3",
-    overlay2 = "#9299b4",
-    overlay1 = "#7c84a5",
-    overlay0 = "#686f94",
-    surface2 = "#555a7b",
-    surface1 = "#434664",
-    surface0 = "#30314b",
-    base = "#101010",
-    mantle = "#090909",
-    crust = "#080808",
-  },
-  evergarden = {
-    rosewater = "#E3A8D1",
-    flamingo = "#E3A8D1",
-    pink = "#E3A8D1",
-    mauve = "#D6A0D1",
-    red = "#E67E80",
-    maroon = "#E67E80",
-    peach = "#E69875",
-    yellow = "#DBBC7F",
-    green = "#B2C98F",
-    teal = "#93C9A1",
-    sky = "#97C9C3",
-    sapphire = "#9BB5CF",
-    blue = "#9BB5CF",
-    lavender = "#D6A0D1",
-    text = "#D9E4DC",
-    subtext1 = "#C9D6D0",
-    subtext0 = "#AEC2BE",
-    overlay2 = "#99ADAD",
-    overlay1 = "#6E8585",
-    overlay0 = "#5E6C70",
-    surface2 = "#46545B",
-    surface1 = "#3D494F",
-    surface0 = "#343E44",
-    base = "#252B2E",
-    mantle = "#1C2225",
-    crust = "#171C1F",
-  },
-  cuddlefish = {
-    rosewater = "#f6edde",
-    flamingo = "#f0a0ad",
-    pink = "#F186ED",
-    mauve = "#B37FED",
-    red = "#F6598E",
-    maroon = "#CC6D91",
-    peach = "#F09262",
-    yellow = "#EDE874",
-    green = "#91E478",
-    teal = "#83EDCF",
-    sky = "#86DCE9",
-    sapphire = "#83C4E6",
-    blue = "#7796DF",
-    lavender = "#8B79E8",
-    text = "#CED1F0",
-    subtext1 = "#B6B8DE",
-    subtext0 = "#999AC7",
-    overlay2 = "#8787B2",
-    overlay1 = "#6D6D93",
-    overlay0 = "#545573",
-    surface2 = "#3C3D53",
-    surface1 = "#2A2C3B",
-    surface0 = "#1E1F2A",
-    base = "#14161D",
-    mantle = "#0E0F15",
-    crust = "#090A0F",
+  kinda_onedark = {
+    background = "#0A0A0A",
+    foreground = "#bdb9ae",
+    cursor_color = "#bdb9ae",
+    selection_background = "#15171c",
+    selection_foreground = "#eeece7",
+    ansi = {
+      "#15171c", -- black
+      "#ec5f67", -- red
+      "#80a763", -- green
+      "#fdc253", -- yellow
+      "#5485c0", -- blue
+      "#bf83c0", -- magenta
+      "#57c2c0", -- cyan
+      "#eeece7", -- white
+    },
+    brights = {
+      "#15171c", -- black
+      "#ec5f67", -- red
+      "#80a763", -- green
+      "#fdc253", -- yellow
+      "#5485c0", -- blue
+      "#bf83c0", -- magenta
+      "#57c2c0", -- cyan
+      "#eeece7", -- white
+    },
   },
 }
 
 local mappings = {
-  -- custom flavor
-  cuddlefish = "Catppuccin Cuddlefish",
-  evergarden = "Catppuccin Evergarden",
-  espresso = "Catppuccin Espresso",
-  -- default flavors
-  mocha = "Catppuccin Mocha",
-  macchiato = "Catppuccin Macchiato",
-  frappe = "Catppuccin Frappe",
-  latte = "Catppuccin Latte",
+  kinda_onedark = "Kinda OneDark",
 }
 
 function M.select(palette, flavor, accent)
   local c = palette[flavor]
-  -- shorthand to check for the Latte flavor
-  local isLatte = palette == "latte"
 
   return {
-    foreground = c.text,
-    background = c.base,
+    foreground = c.foreground,
+    background = c.background,
 
-    cursor_fg = isLatte and c.base or c.crust,
-    cursor_bg = c.rosewater,
-    cursor_border = c.rosewater,
+    cursor_fg = c.background,
+    cursor_bg = c.cursor_color,
+    cursor_border = c.cursor_color,
 
-    selection_fg = c.text,
-    selection_bg = c.surface2,
+    selection_fg = c.selection_foreground,
+    selection_bg = c.selection_background,
 
-    scrollbar_thumb = c.surface2,
+    scrollbar_thumb = c.selection_background,
 
-    split = c.overlay0,
+    split = c.ansi[1],
 
-    ansi = {
-      isLatte and c.subtext1 or c.surface1,
-      c.red,
-      c.green,
-      c.yellow,
-      c.blue,
-      c.pink,
-      c.teal,
-      isLatte and c.surface2 or c.subtext1,
-    },
+    ansi = c.ansi,
+    brights = c.brights,
 
-    brights = {
-      isLatte and c.subtext0 or c.surface2,
-      c.red,
-      c.green,
-      c.yellow,
-      c.blue,
-      c.pink,
-      c.teal,
-      isLatte and c.surface1 or c.subtext0,
-    },
-
-    indexed = { [16] = c.peach, [17] = c.rosewater },
+    indexed = { [16] = c.ansi[2], [17] = c.ansi[3] },
 
     -- nightbuild only
-    compose_cursor = c.flamingo,
+    compose_cursor = c.ansi[2],
 
     tab_bar = {
-      background = c.crust,
+      background = c.background,
       active_tab = {
-        bg_color = c[accent],
-        fg_color = c.crust,
+        bg_color = c.ansi[5],
+        fg_color = c.background,
       },
       inactive_tab = {
-        bg_color = c.mantle,
-        fg_color = c.text,
+        bg_color = c.selection_background,
+        fg_color = c.foreground,
       },
       inactive_tab_hover = {
-        bg_color = c.base,
-        fg_color = c.text,
+        bg_color = c.ansi[1],
+        fg_color = c.foreground,
       },
       new_tab = {
-        bg_color = c.surface0,
-        fg_color = c.text,
+        bg_color = c.selection_background,
+        fg_color = c.foreground,
       },
       new_tab_hover = {
-        bg_color = c.surface1,
-        fg_color = c.text,
+        bg_color = c.ansi[1],
+        fg_color = c.foreground,
       },
       -- fancy tab bar
-      inactive_tab_edge = c.surface0,
+      inactive_tab_edge = c.selection_background,
     },
 
-    visual_bell = c.surface0,
+    visual_bell = c.selection_background,
   }
-end
-
-local function select_for_appearance(appearance, options)
-  if appearance:find("Dark") then
-    return options.dark
-  else
-    return options.light
-  end
 end
 
 local function tableMerge(t1, t2)
@@ -320,33 +114,19 @@ function M.apply_to_config(c, opts)
 
   -- default options
   local defaults = {
-    flavor = "cuddlefish",
-    accent = "pink",
-    sync = false,
-    sync_flavors = { light = "latte", dark = "mocha" },
+    flavor = "kinda_onedark",
+    accent = "blue",
     color_overrides = {
-      cuddlefish = {},
-      evergarden = {},
-      espresso = {},
-      mocha = {},
-      macchiato = {},
-      frappe = {},
-      latte = {},
+      kinda_onedark = {},
     },
     token_overrides = {
-      cuddlefish = {},
-      evergarden = {},
-      espresso = {},
-      mocha = {},
-      macchiato = {},
-      frappe = {},
-      latte = {},
+      kinda_onedark = {},
     },
   }
 
   local o = tableMerge(defaults, opts)
 
-  -- insert all flavors
+  -- insert the theme
   local color_schemes = {}
   local palette = tableMerge(colors, o.color_overrides)
   for flavor, name in pairs(mappings) do
@@ -359,32 +139,17 @@ function M.apply_to_config(c, opts)
   end
   c.color_schemes = tableMerge(c.color_schemes, color_schemes)
 
-  if opts.sync then
-    c.color_scheme = select_for_appearance(wezterm.gui.get_appearance(), {
-      dark = mappings[o.sync_flavors.dark],
-      light = mappings[o.sync_flavors.light],
-    })
-    c.command_palette_bg_color = select_for_appearance(wezterm.gui.get_appearance(), {
-      dark = colors[o.sync_flavors.dark].crust,
-      light = colors[o.sync_flavors.light].crust,
-    })
-    c.command_palette_fg_color = select_for_appearance(wezterm.gui.get_appearance(), {
-      dark = colors[o.sync_flavors.dark].text,
-      light = colors[o.sync_flavors.light].text,
-    })
-  else
-    c.color_scheme = mappings[o.flavor]
-    c.command_palette_bg_color = colors[o.flavor].crust
-    c.command_palette_fg_color = colors[o.flavor].text
-  end
+  c.color_scheme = mappings[o.flavor]
+  c.command_palette_bg_color = colors[o.flavor].background
+  c.command_palette_fg_color = colors[o.flavor].foreground
 
   local window_frame = {
-    active_titlebar_bg = colors[o.flavor].crust,
-    active_titlebar_fg = colors[o.flavor].text,
-    inactive_titlebar_bg = colors[o.flavor].crust,
-    inactive_titlebar_fg = colors[o.flavor].text,
-    button_fg = colors[o.flavor].text,
-    button_bg = colors[o.flavor].base,
+    active_titlebar_bg = colors[o.flavor].background,
+    active_titlebar_fg = colors[o.flavor].foreground,
+    inactive_titlebar_bg = colors[o.flavor].background,
+    inactive_titlebar_fg = colors[o.flavor].foreground,
+    button_fg = colors[o.flavor].foreground,
+    button_bg = colors[o.flavor].selection_background,
   }
 
   if c.window_frame == nil then

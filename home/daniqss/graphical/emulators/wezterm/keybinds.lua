@@ -1,46 +1,9 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
-local utils = require("utils")
-
 local M = {}
-
-local openUrl = act.QuickSelectArgs({
-  label = "open url",
-  patterns = { "https?://\\S+" },
-  action = wezterm.action_callback(function(window, pane)
-    local url = window:get_selection_text_for_pane(pane)
-    wezterm.open_with(url)
-  end),
-})
-
-local changeCtpFlavor = act.InputSelector({
-  title = "Change Catppuccin flavor",
-  choices = {
-    { label = "Evergarden" },
-    { label = "Espresso" },
-    { label = "Mocha" },
-    { label = "Macchiato" },
-    { label = "Frappe" },
-    { label = "Latte" },
-  },
-  action = wezterm.action_callback(function(window, _, _, label)
-    if label then
-      window:set_config_overrides({ color_scheme = "Catppuccin " .. label })
-    end
-  end),
-})
-
-local getNewName = act.PromptInputLine({
-  description = "Enter new name for tab",
-  action = wezterm.action_callback(function(window, pane, line)
-    if line then
-      window:active_tab():set_title(line)
-    end
-  end),
-})
-
 local keys = {}
+
 local map = function(key, mods, action)
   if type(mods) == "string" then
     table.insert(keys, { key = key, mods = mods, action = action })
@@ -51,27 +14,29 @@ local map = function(key, mods, action)
   end
 end
 
-map("Enter", "ALT", act.ToggleFullScreen)
+local openUrl = act.QuickSelectArgs({
+  label = "open url",
+  patterns = { "https?://\\S+" },
+  action = wezterm.action_callback(function(window, pane)
+    local url = window:get_selection_text_for_pane(pane)
+    wezterm.open_with(url)
+  end),
+})
 
-map("e", "CTRL|SHIFT", getNewName)
-map("o", { "LEADER", "SUPER" }, openUrl)
-map("t", "ALT", changeCtpFlavor)
-
-local mods
-if utils.is_windows() then
-  mods = "ALT"
-else
-  mods = "SUPER"
+map("o", { "LEADER", "ALT" }, openUrl)
+map("t", "ALT", act.SpawnTab("CurrentPaneDomain"))
+map("w", "ALT", act.CloseCurrentTab({ confirm = true }))
+for i = 1, 9 do
+  map(tostring(i), "ALT", act.ActivateTab(i - 1))
 end
 
 M.apply = function(c)
   c.leader = {
     key = " ",
-    mods = mods,
+    mods = "ALT",
     timeout_milliseconds = math.maxinteger,
   }
   c.keys = keys
-  -- c.disable_default_key_bindings = true
 end
 
 return M

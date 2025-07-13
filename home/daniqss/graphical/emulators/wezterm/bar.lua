@@ -32,7 +32,7 @@ local config = {
     },
   },
   clock = {
-    enabled = false,
+    enabled = true,
     format = "%I:%M %P", -- https://docs.rs/chrono/latest/chrono/format/strftime/index.html
   },
 }

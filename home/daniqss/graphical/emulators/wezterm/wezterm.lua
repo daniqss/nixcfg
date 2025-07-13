@@ -1,3 +1,5 @@
+-- taken from isabelroses amazing config, thanks
+
 local utils = require("utils")
 local wezterm = require("wezterm")
 
@@ -8,28 +10,18 @@ end
 
 c.enable_wayland = true
 
--- theme
 require("theme").apply_to_config(c)
 require("bar").apply_to_config(c)
-
--- if utils.is_linux() then
---   c.window_background_opacity = 0.90
--- elseif utils.is_darwin() then
---   c.window_background_opacity = 0.95
---   c.macos_window_background_blur = 15
--- elseif utils.is_windows() then
---   c.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\catgirl.jpg"
---   c.window_background_image_hsb = {
---   	brightness = 0.03, -- make the bg darker so we can see what we are doing
---   }
---   -- c.win32_system_backdrop = "Tabbed"
---   -- c.window_background_opacity = 0.95
--- end
-
--- load my keybinds
 require("keybinds").apply(c)
 
--- default shell
+
+if utils.is_linux() then
+  c.window_background_opacity = 0.95
+elseif utils.is_darwin() then
+  c.window_background_opacity = 0.95
+  c.macos_window_background_blur = 15
+end
+
 if utils.is_linux() or utils.is_darwin() then
   c.default_prog = { "zsh" }
 elseif utils.is_windows() then
@@ -58,21 +50,19 @@ else
 end
 
 -- fonts
-c.font = wezterm.font_with_fallback({
-  "CaskaydiaCove Nerd Font Mono",
-})
-c.font_size = 13
+c.font = wezterm.font("CaskaydiaCove Nerd Font")
+
+c.font_size = 14
 c.adjust_window_size_when_changing_font_size = false
 c.window_frame = {
-  font = wezterm.font("CaskaydiaCove Nerd Font Mono"),
-  font_size = c.font_size,
+  font = wezterm.font("CaskaydiaCove Nerd Font"),
+  font_size = (c.font_size - 4),
 }
 
 -- QOL
 c.audible_bell = "Disabled"
 c.default_cursor_style = "BlinkingBar"
 c.window_close_confirmation = "NeverPrompt"
--- c.prefer_to_spawn_tabs = true
 
 if utils.is_windows() then
   c.front_end = "OpenGL"
@@ -80,12 +70,6 @@ else
   c.front_end = "WebGpu"
 end
 
--- this is nix so lets not do it
--- enable this if i ever setup nix to statically link
--- c.automatically_reload_config = false
 c.check_for_updates = false
-
--- TODO:
--- https://wezfurlong.org/wezterm/config/lua/config/tiling_desktop_environments.html
 
 return c

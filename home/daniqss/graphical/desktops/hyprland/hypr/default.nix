@@ -41,7 +41,7 @@ in {
           gaps_out = 8;
           border_size = 2;
           "col.active_border" = "${border}";
-          "col.inactive_border" = "rgba(00000000)";
+          "col.inactive_border" = "rgba(000000f0)";
           layout = "dwindle";
           allow_tearing = true;
 
@@ -54,7 +54,7 @@ in {
         };
 
         decoration = {
-          rounding = 1;
+          rounding = 0;
 
           blur = {
             enabled = true;
@@ -62,6 +62,13 @@ in {
             passes = 1;
             new_optimizations = true;
             special = true;
+          };
+
+          shadow = {
+            enabled = true;
+            # color = "rgb(424242)";
+            offset = "4 4";
+            range = 0;
           };
         };
 
