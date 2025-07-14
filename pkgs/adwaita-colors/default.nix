@@ -49,7 +49,7 @@ stdenv.mkDerivation {
       Adwaita Colors customizes Adwaita icons to match your GNOME theme's accent color, providing a cohesive, personalized look.
     '';
     homepage = "https://github.com/dpejoh/Adwaita-colors";
-    license = licenses.gpl3;
+    license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = [];
   };
