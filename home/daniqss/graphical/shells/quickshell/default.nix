@@ -23,10 +23,6 @@
       kdePackages.qtdeclarative
       kdePackages.qtbase
       kdePackages.qtdeclarative
-
-      cosmic-icons
     ];
-
-    # home.sessionVariables.QS_ICON_THEME = "Tela purple dark";
   };
 }

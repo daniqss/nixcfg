@@ -28,6 +28,7 @@
 
   # for gtk
   programs.dconf.enable = true;
+
   programs.zsh.enable = true;
 
   time.timeZone = "Europe/Madrid";
@@ -53,4 +54,5 @@
       binPath = "/home/${username}/.nix-profile/bin/Hyprland";
     };
   };
+  services.gnome.gnome-keyring.enable = true;
 }

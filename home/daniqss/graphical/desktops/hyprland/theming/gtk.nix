@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   config,
@@ -7,7 +8,7 @@
 in {
   config = lib.mkIf config.graphical.enable {
     home.packages = with pkgs; [
-      gtk3
+      morewaita-icon-theme
     ];
 
     home.pointerCursor = {
@@ -27,8 +28,8 @@ in {
       };
 
       iconTheme = {
-        name = "adwaita";
-        package = pkgs.adwaita-icon-theme;
+        name = "Adwaita-purple";
+        package = inputs.self.packages.${pkgs.system}.adwaita-colors;
       };
 
       gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;

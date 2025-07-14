@@ -25,7 +25,7 @@ Scope {
       }
 
       margins {
-        left: 4
+        left: 6
         right: 0
         top: 5
         bottom: 5
@@ -53,40 +53,40 @@ Scope {
           //   font.family: "CaskaydiaCove Nerd Font"
           //   font.pointSize: 13
           // }
-          Icon{
-          }
+          Icon{}
         }
+
         ColumnLayout {
           anchors {
             left: parent.left
             right: parent.right
-            top: parent.verticalCenter
+            bottom: parent.bottom
+            bottomMargin: 15
           }
-
-          
 
           Clock {
             anchors.centerIn: parent
           }
         }
-        ColumnLayout {
-          anchors {
-            left: parent.left
-            bottom: parent.bottom
-            right: parent.right
-            bottomMargin: 15
-          }
 
-          // spacing: 15
+        // ColumnLayout {
+        //   anchors {
+        //     left: parent.left
+        //     bottom: parent.bottom
+        //     right: parent.right
+        //     bottomMargin: 15
+        //   }
 
-          Text {
-            anchors.centerIn: parent
-            text: "@"
-            color: "#ffffff"
-            font.family: "CaskaydiaCove Nerd Font"
-            font.pointSize: 13
-          }
-        }
+        //   // spacing: 15
+
+        //   Text {
+        //     anchors.centerIn: parent
+        //     text: "@"
+        //     color: "#ffffff"
+        //     font.family: "CaskaydiaCove Nerd Font"
+        //     font.pointSize: 13
+        //   }
+        // }
       }
     }
   }

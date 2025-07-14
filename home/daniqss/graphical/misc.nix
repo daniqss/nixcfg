@@ -16,13 +16,12 @@ in {
       blueberry
       pavucontrol
 
-	  wezterm
-	  
       nautilus
       nautilus-open-any-terminal
 
       spotify
       (discord.override {withVencord = true;})
+      element-desktop
 
       qbittorrent
 
