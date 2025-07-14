@@ -1,4 +1,5 @@
 {
+  hostname,
   outputs,
   pkgs,
   lib,
@@ -6,6 +7,18 @@
   ...
 }: let
   border = "rgba(cba6f7ff) rgba(89b4faff) rgba(94e2d5ff) 10deg";
+
+  monitors =
+    if hostname == "stoneward"
+    then [
+      "DP-1,1920x1080@143.85,0x0,1.0"
+    ]
+    else if hostname == "windrunner"
+    then [
+      "eDP-1,1920x1080@60.06,0x0, 1.0"
+      "HDMI-A-1,1920x1080@60.06,0x0,1.0,mirror, eDP-1"
+    ]
+    else null;
 
   cursor = "Bibata-Modern-Classic-Hyprcursor";
   cursorSize = 24;
@@ -35,6 +48,8 @@ in {
           "wl-paste --type text --watch cliphist store"
           "wl-paste --type image --watch cliphist store"
         ];
+
+        monitor = monitors;
 
         general = {
           gaps_in = 4;

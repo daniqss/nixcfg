@@ -1,8 +1,14 @@
 {
+  hostname,
   lib,
   config,
   ...
-}: {
+}: let
+  size =
+    if hostname == "stoneward"
+    then 13
+    else 14;
+in {
   config = lib.mkIf config.graphical.enable {
     programs.ghostty = {
       enable = true;
@@ -42,7 +48,7 @@
 
         # Font
         font-family = "CaskaydiaCove Nerd Font Mono";
-        font-size = 14;
+        font-size = size;
         font-thicken = true;
         bold-is-bright = false;
         adjust-box-thickness = 1;
