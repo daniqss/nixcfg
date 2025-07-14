@@ -7,7 +7,7 @@
 
   options.graphical.emulators = lib.mkOption {
     type = lib.types.enum ["alacritty" "wezterm" "ghostty"];
-    default = "alacritty";
+    default = "ghostty";
     description = "enables as default one of the available terminal emulators";
   };
 }

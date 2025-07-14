@@ -20,7 +20,7 @@ in {
     graphical.waybar.enable = lib.mkDefault false;
     graphical.rofi.enable = lib.mkDefault true;
     graphical.mako.enable = lib.mkDefault true;
-    graphical.emulators = "alacritty";
+    graphical.emulators = "ghostty";
 
     home.packages = with pkgs; [
       alsa-utils

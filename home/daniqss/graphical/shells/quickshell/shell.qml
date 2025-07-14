@@ -1,6 +1,8 @@
-// shell.qml
+//@ pragma IconTheme Cosmic
 import Quickshell
+import "modules"
 
-Scope {
+
+ShellRoot {
   Bar {}
 }

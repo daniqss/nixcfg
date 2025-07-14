@@ -17,9 +17,33 @@
 
           # langs
           jnoortheen.nix-ide
+          astro-build.astro-vscode
+          attilabuti.brainfuck-syntax
+          ms-vscode.cpptools
+          ms-vscode.cpptools-extension-pack
+          ms-azuretools.vscode-docker
+          dbaeumer.vscode-eslint
+          tamasfe.even-better-toml
+          github.vscode-github-actions
+          gleam.gleam
+          golang.go
+          ms-toolsai.jupyter
+          ms-toolsai.vscode-jupyter-cell-tags
+          ms-toolsai.jupyter-renderers
+          ms-toolsai.jupyter-keymap
+          ms-toolsai.vscode-jupyter-slideshow
+          yzane.markdown-pdf
+          ocamllabs.ocaml-platform
+          ms-python.python
+          ms-python.debugpy
+          ms-python.pylint
+          mechatroner.rainbow-csv
+          bradlc.vscode-tailwindcss
+          rust-lang.rust-analyzer
+          tauri-apps.tauri-vscode
 
           # envs
-          mkhl.direnv
+          # mkhl.direnv
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {

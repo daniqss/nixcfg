@@ -6,6 +6,10 @@
 }: let
 in {
   config = lib.mkIf config.graphical.enable {
+    home.packages = with pkgs; [
+      gtk3
+    ];
+
     home.pointerCursor = {
       gtk.enable = true;
       x11.enable = true;
@@ -23,8 +27,8 @@ in {
       };
 
       iconTheme = {
-        name = "Tela-purple-dark";
-        package = pkgs.tela-icon-theme;
+        name = "adwaita";
+        package = pkgs.adwaita-icon-theme;
       };
 
       gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
