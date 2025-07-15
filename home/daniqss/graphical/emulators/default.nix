@@ -1,13 +1,26 @@
 {lib, ...}: {
   imports = [
     ./ghostty.nix
-    ./wezterm.nix
     ./alacritty.nix
   ];
 
   options.graphical.emulators = lib.mkOption {
-    type = lib.types.enum ["alacritty" "wezterm" "ghostty"];
-    default = "ghostty";
-    description = "enables as default one of the available terminal emulators";
+    type = lib.types.submodule {
+      options = {
+        emulator = lib.mkOption {
+          type = lib.types.enum ["alacritty" "ghostty"];
+          default = "ghostty";
+          description = "available terminal emulators";
+        };
+
+        fontsize = lib.mkOption {
+          type = lib.types.ints.positive;
+          default = 14;
+          description = "wanted fontsize in the selected terminal emulator";
+        };
+      };
+    };
+
+    description = "terminal emulator config";
   };
 }

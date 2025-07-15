@@ -27,9 +27,13 @@ in {
         package = pkgs.orchis-theme;
       };
 
+      # iconTheme = {
+      #   name = "Adwaita-purple";
+      #   package = inputs.self.packages.${pkgs.system}.adwaita-colors;
+      # };
       iconTheme = {
-        name = "Adwaita-purple";
-        package = inputs.self.packages.${pkgs.system}.adwaita-colors;
+        name = "MoreWaita";
+        package = pkgs.morewaita-icon-theme;
       };
 
       gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;

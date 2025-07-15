@@ -6,7 +6,9 @@
   config,
   ...
 }: let
-  border = "rgba(cba6f7ff) rgba(89b4faff) rgba(94e2d5ff) 10deg";
+  activeBorderColor = "rgba(cba6f7ff) rgba(89b4faff) rgba(94e2d5ff) 10deg";
+  inactiveBorderColor = "rgb(313244)";
+  shadowColor = "rgb(11111b)";
 
   monitors =
     if hostname == "stoneward"
@@ -25,9 +27,12 @@
   cursorPackage = outputs.packages.${pkgs.system}.bibata-hyprcursor;
 in {
   imports = [
+    ./keybinds.nix
+
     ./hypridle.nix
     ./hyprlock.nix
-    ./keybinds.nix
+    ./hyprsunset.nix
+    ./hyprpolkitagent.nix
   ];
 
   config = lib.mkIf config.graphical.hyprland.enable {
@@ -54,9 +59,11 @@ in {
         general = {
           gaps_in = 4;
           gaps_out = 8;
-          border_size = 2;
-          "col.active_border" = "${border}";
-          "col.inactive_border" = "rgba(000000f0)";
+
+          border_size = 3;
+          "col.active_border" = "${activeBorderColor}";
+          "col.inactive_border" = "${inactiveBorderColor}";
+
           layout = "dwindle";
           allow_tearing = true;
 
@@ -69,21 +76,25 @@ in {
         };
 
         decoration = {
-          rounding = 0;
+          rounding = 10;
+          rounding_power = 2;
 
           blur = {
             enabled = true;
-            size = 5;
-            passes = 1;
-            new_optimizations = true;
+            size = 8;
+            passes = 2;
+
+            vibrancy = 0.1696;
+            brightness = 0.5;
+
             special = true;
           };
 
           shadow = {
             enabled = true;
-            # color = "rgb(424242)";
-            offset = "4 4";
-            range = 0;
+            range = 4;
+            render_power = 3;
+            color = "${shadowColor}";
           };
         };
 

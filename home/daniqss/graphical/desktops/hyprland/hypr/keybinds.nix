@@ -6,6 +6,7 @@
 }: let
   mainMod = "SUPER";
   scripts = config.graphical.rofi.scripts;
+  emulator = config.graphical.emulators.emulator;
 
   defaultApp = pkgs.writeShellScriptBin "default-app" ''
     #!/usr/bin/env bash
@@ -15,7 +16,7 @@
     declare -A apps=(
       [1]="${pkgs.vscode}/bin/code"
       [2]="${pkgs.chromium}/bin/chromium"
-      [3]="${config.graphical.emulators}"
+      [3]="${emulator}"
       [4]="${pkgs.obsidian}/bin/obsidian"
       [5]="${pkgs.nautilus}/bin/nautilus"
       [6]="${pkgs.vesktop}/bin/vesktop"
@@ -44,7 +45,7 @@ in {
     wayland.windowManager.hyprland.settings = {
       bind =
         [
-          "${mainMod}, return, exec, ${config.graphical.emulators}"
+          "${mainMod}, return, exec, ${emulator}"
           "${mainMod}, W, killactive,"
           "${mainMod}, Q, togglefloating,"
           "${mainMod}, F, fullscreen,"
