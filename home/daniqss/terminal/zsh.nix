@@ -14,12 +14,6 @@ in {
       syntaxHighlighting.enable = true;
       autosuggestion.enable = true;
 
-      loginExtra = ''
-        if uwsm check may-start; then
-            exec uwsm start hyprland-uwsm.desktop
-        fi
-      '';
-
       shellAliases = {
         rebuild = "sudo nixos-rebuild switch --flake ~/nixcfg/#${hostname}";
         update = "sudo nix flake update";

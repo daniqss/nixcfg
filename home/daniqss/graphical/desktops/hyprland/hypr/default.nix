@@ -44,8 +44,9 @@ in {
 
       settings = {
         env = [
-          "HYPRCURSOR_THEME,${cursor}"
-          "HYPRCURSOR_SIZE,${toString cursorSize}"
+          "HYPRCURSOR_THEME, ${cursor}"
+          "HYPRCURSOR_SIZE, ${toString cursorSize}"
+          "NIXOS_OZONE_WL , 1"
         ];
 
         exec-once = [

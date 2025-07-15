@@ -1,6 +1,8 @@
 {
+  hostname,
   username,
   pkgs,
+  config,
   ...
 }: {
   imports = [
@@ -55,4 +57,18 @@
     };
   };
   services.gnome.gnome-keyring.enable = true;
+
+  services.greetd = let
+    tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+  in {
+    enable = true;
+    settings = {
+      default_session = {
+        command = ''
+          ${tuigreet} --greeting 'welcome to ${hostname}!!' --asterisks --remember --remember-user-session --time --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions
+        '';
+        user = "${username}";
+      };
+    };
+  };
 }

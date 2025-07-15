@@ -21,7 +21,6 @@ in {
 
       spotify
       (discord.override {withVencord = true;})
-      element-desktop
 
       qbittorrent
 
