@@ -65,7 +65,7 @@
     settings = {
       default_session = {
         command = ''
-          ${tuigreet} --greeting 'welcome to ${hostname}!!' --asterisks --remember --remember-user-session --time --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions
+          ${tuigreet} --greeting 'welcome to ${hostname}!!' --asterisks --time --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions
         '';
         user = "${username}";
       };

@@ -49,14 +49,14 @@
           {
             name = "qt-qml";
             publisher = "TheQtCompany";
-            version = "1.5.1";
-            sha256 = "sha256-l19OW4lJR8+SxHeLvRzBGtxC+y5seNdOz9jnlK9HDkQ=";
+            version = "1.7.0";
+            sha256 = "sha256-QjfvZIcE4LcJU93YiYN/zykEluHtR7zVOwYiPL0k+cQ=";
           }
           {
             name = "qt-core";
             publisher = "TheQtCompany";
-            version = "1.5.1";
-            sha256 = "sha256-0I41cw809oeL5n78TkNKJ+YdFBu237vaNBZuWv3xKn8=";
+            version = "1.7.0";
+            sha256 = "sha256-2413vMpvxSYBKpaD14sMgI92W8NtCYa/sJ7PZO62WfY=";
           }
         ];
 
