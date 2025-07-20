@@ -1,8 +1,6 @@
 {
-  hostname,
   username,
   pkgs,
-  config,
   ...
 }: {
   imports = [
@@ -57,17 +55,17 @@
   };
   services.gnome.gnome-keyring.enable = true;
 
-  # services.greetd = let
-  #   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
-  # in {
-  #   enable = true;
-  #   settings = {
-  #     default_session = {
-  #       command = ''
-  #         ${tuigreet} --time --remember --remember-session
-  #       '';
-  #       user = username;
-  #     };
-  #   };
-  # };
+  services.greetd = let
+    tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+  in {
+    enable = false;
+    settings = {
+      default_session = {
+        command = ''
+          ${tuigreet} --time --remember
+        '';
+        user = username;
+      };
+    };
+  };
 }

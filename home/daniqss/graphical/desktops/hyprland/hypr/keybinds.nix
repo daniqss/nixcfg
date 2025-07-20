@@ -7,6 +7,10 @@
   mainMod = "SUPER";
   scripts = config.graphical.rofi.scripts;
   emulator = config.graphical.emulators.emulator;
+  prefix =
+    if config.graphical.uwsm.enable
+    then "uwsm app --"
+    else "";
 
   defaultApp = pkgs.writeShellScriptBin "default-app" ''
     #!/usr/bin/env bash
@@ -25,7 +29,7 @@
       [9]="${pkgs.google-chrome}/bin/google-chrome-stable"
     )
 
-    hyprctl dispatch exec -- [workspace ''${workspace_id} silent] uwsm app -- ''${apps[''$workspace_id]}
+    hyprctl dispatch exec -- [workspace ''${workspace_id} silent] ${prefix} ''${apps[''$workspace_id]}
   '';
 in {
   config = lib.mkIf config.graphical.hyprland.enable {
@@ -57,7 +61,7 @@ in {
 
           "${mainMod}, TAB, exec, ${scripts.applauncher}/bin/applauncher"
           "${mainMod} CTRL, W, exec, ${scripts.wallpaper}/bin/wallpaper"
-          "${mainMod} CTRL, B, exec, uwsm app ${scripts.bluetooth}/bin/bluetooth"
+          "${mainMod} CTRL, B, exec, ${prefix} ${scripts.bluetooth}/bin/bluetooth"
           "${mainMod} CTRL, S, exec, ${scripts.sound}/bin/sound"
           "${mainMod} CTRL, E, exec, ${scripts.emoji}/bin/emoji"
           "${mainMod} CTRL, C, exec, ${scripts.clipboard}/bin/clipboard"

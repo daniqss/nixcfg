@@ -5,9 +5,13 @@
   ...
 }: let
   emulator = config.graphical.emulators.emulator;
+  prefix =
+    if config.graphical.uwsm.enable
+    then ''-run-command "uwsm app -- {cmd}"''
+    else "";
 
   applauncher = pkgs.writeShellScriptBin "applauncher" ''
-    ${pkgs.rofi-wayland}/bin/rofi -config $HOME/.config/rofi/config.rasi -show drun -run-command "uwsm app -- {cmd}"
+    ${pkgs.rofi-wayland}/bin/rofi -config $HOME/.config/rofi/config.rasi -show drun ${prefix}
   '';
   emoji = pkgs.writeShellScriptBin "emoji" "rofi -modi emoji -show emoji";
   clipboard = pkgs.writeShellScriptBin "clipboard" "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
