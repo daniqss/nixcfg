@@ -48,8 +48,7 @@
   };
 
   programs.uwsm = {
-    enable = true;
-
+    enable = false;
     waylandCompositors.hyprland = {
       prettyName = "Hyprland";
       comment = "Hyprland compositor managed by UWSM";
@@ -58,17 +57,17 @@
   };
   services.gnome.gnome-keyring.enable = true;
 
-  services.greetd = let
-    tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
-  in {
-    enable = true;
-    settings = {
-      default_session = {
-        command = ''
-          ${tuigreet} --greeting 'welcome to ${hostname}!!' --asterisks --time --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions
-        '';
-        user = "${username}";
-      };
-    };
-  };
+  # services.greetd = let
+  #   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+  # in {
+  #   enable = true;
+  #   settings = {
+  #     default_session = {
+  #       command = ''
+  #         ${tuigreet} --time --remember --remember-session
+  #       '';
+  #       user = username;
+  #     };
+  #   };
+  # };
 }
