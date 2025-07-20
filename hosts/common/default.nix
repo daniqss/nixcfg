@@ -58,11 +58,11 @@
   services.greetd = let
     tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
   in {
-    enable = false;
+    enable = true;
     settings = {
       default_session = {
         command = ''
-          ${tuigreet} --time --remember
+          ${tuigreet} -t -r
         '';
         user = username;
       };
