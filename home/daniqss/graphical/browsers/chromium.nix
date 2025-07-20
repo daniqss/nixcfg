@@ -1,0 +1,20 @@
+{
+  config,
+  lib,
+  ...
+}: {
+  programs.chromium = lib.mkIf config.graphical.enable {
+    enable = true;
+    package = config.graphical.browsers.dev;
+    commandLineArgs = [
+      "restore-last-session"
+      "hide-crash-restore-bubble"
+    ];
+
+    extensions = [
+      {id = "gpmodmeblccallcadopbcoeoejepgpnb";} # json formatter
+      {id = "fmkadmapgofadopljbjfkapdkoienihi";} # react dev tools
+      {id = "gppongmhjkpfnbhagpmjfkannfbllamg";} # wappalizer
+    ];
+  };
+}

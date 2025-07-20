@@ -1,4 +1,18 @@
-{lib, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (pkgs) ghostty alacritty;
+
+  allowedEmulators = [alacritty ghostty];
+
+  emulatorType =
+    lib.types.package
+    // {
+      check = pkg: builtins.elem pkg allowedEmulators;
+    };
+in {
   imports = [
     ./ghostty.nix
     ./alacritty.nix
@@ -8,8 +22,8 @@
     type = lib.types.submodule {
       options = {
         emulator = lib.mkOption {
-          type = lib.types.enum ["alacritty" "ghostty"];
-          default = "ghostty";
+          type = emulatorType;
+          default = ghostty;
           description = "available terminal emulators";
         };
 

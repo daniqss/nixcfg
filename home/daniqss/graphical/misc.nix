@@ -10,9 +10,6 @@ in {
       gnome-calculator
       gnome-disk-utility
 
-      chromium
-      google-chrome
-
       blueberry
       pavucontrol
 

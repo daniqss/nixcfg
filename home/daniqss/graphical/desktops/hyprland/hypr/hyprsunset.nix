@@ -4,8 +4,8 @@
   config,
   ...
 }: let
-  sunsetTime = "21";
-  sunriseTime = "8";
+  sunsetTime = "21:00";
+  sunriseTime = "08:00";
   sunsetTemp = "3000";
   sunriseTemp = "6500";
 
@@ -24,8 +24,9 @@ in {
       checkSunsetOnStart
     ];
 
+    # fuck it, just didn't figured out how to make the service work1
     wayland.windowManager.hyprland.settings.exec-once = [
-      "sleep 1 && ${checkSunsetOnStart}/bin/checkSunsetOnStart"
+      "sleep 2 && ${checkSunsetOnStart}/bin/checkSunsetOnStart"
     ];
 
     services.hyprsunset = {
@@ -34,7 +35,7 @@ in {
 
       transitions = {
         sunrise = {
-          calendar = "*-*-* 0${sunriseTime}:00";
+          calendar = "*-*-* ${sunriseTime}";
           requests = [
             ["temperature ${sunriseTemp}"]
             ["identity"]
@@ -42,7 +43,7 @@ in {
         };
 
         sunset = {
-          calendar = "*-*-* ${sunsetTime}:00";
+          calendar = "*-*-* ${sunsetTime}";
           requests = [["temperature ${sunsetTemp}"]];
         };
       };

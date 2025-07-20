@@ -4,6 +4,8 @@
   config,
   ...
 }: let
+  emulator = config.graphical.emulators.emulator;
+
   applauncher = pkgs.writeShellScriptBin "applauncher" ''
     ${pkgs.rofi-wayland}/bin/rofi -config $HOME/.config/rofi/config.rasi -show drun -run-command "uwsm app -- {cmd}"
   '';
@@ -41,7 +43,7 @@ in {
     programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
-      terminal = "${pkgs.ghostty}/bin/ghostty";
+      terminal = "${lib.getExe emulator}";
       theme = ./colors.rasi;
       extraConfig = {
         show-icons = true;

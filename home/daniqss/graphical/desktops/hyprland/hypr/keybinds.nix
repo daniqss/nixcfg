@@ -16,7 +16,7 @@
     declare -A apps=(
       [1]="${pkgs.vscode}/bin/code"
       [2]="${pkgs.chromium}/bin/chromium"
-      [3]="${emulator}"
+      [3]="${lib.getExe emulator}"
       [4]="${pkgs.obsidian}/bin/obsidian"
       [5]="${pkgs.nautilus}/bin/nautilus"
       [6]="${pkgs.vesktop}/bin/vesktop"
@@ -25,12 +25,7 @@
       [9]="${pkgs.google-chrome}/bin/google-chrome-stable"
     )
 
-    app="''${apps[$workspace_id]}"
-
-    # Verifica si existe la app para ese workspace
-    if [[ -n "$app" ]]; then
-      hyprctl dispatch exec "[workspace ''${workspace_id} silent] uwsm app -- ''${app}"
-    fi
+    hyprctl dispatch exec -- [workspace ''${workspace_id} silent] uwsm app -- ''${apps[''$workspace_id]}
   '';
 in {
   config = lib.mkIf config.graphical.hyprland.enable {
@@ -45,7 +40,7 @@ in {
     wayland.windowManager.hyprland.settings = {
       bind =
         [
-          "${mainMod}, return, exec, ${emulator}"
+          "${mainMod}, return, exec, ${lib.getExe emulator}"
           "${mainMod}, W, killactive,"
           "${mainMod}, Q, togglefloating,"
           "${mainMod}, F, fullscreen,"

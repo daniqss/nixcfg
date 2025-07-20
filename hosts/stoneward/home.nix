@@ -1,4 +1,8 @@
-{username, ...}: {
+{
+  username,
+  pkgs,
+  ...
+}: {
   imports = [
     ../../home/${username}
   ];
@@ -7,7 +11,7 @@
     enable = true;
     gaming.enable = true;
     emulators = {
-      emulator = "ghostty";
+      emulator = pkgs.ghostty;
       fontsize = 13;
     };
   };
