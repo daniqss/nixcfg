@@ -53,6 +53,11 @@ in {
           "hyprctl setcursor ${cursor} ${toString cursorSize}"
           "wl-paste --type text --watch cliphist store"
           "wl-paste --type image --watch cliphist store"
+          (
+            if config.graphical.quickshell.enable
+            then "qs"
+            else ""
+          )
         ];
 
         monitor = monitors;

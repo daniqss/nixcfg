@@ -1,5 +1,6 @@
 {
   system,
+  username,
   inputs,
   pkgs,
   lib,
@@ -24,9 +25,8 @@
       qt6.qt5compat
       qt6.qtmultimedia
       qt6.qtdeclarative
-
-      grim
-      imagemagick
     ];
+
+    xdg.configFile."quickshell".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/graphical/shells/quickshell";
   };
 }
