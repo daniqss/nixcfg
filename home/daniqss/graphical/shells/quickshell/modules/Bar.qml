@@ -7,7 +7,6 @@ import qs.components
 
 
 Scope {
-
   Variants {
     model: Quickshell.screens
 
@@ -44,7 +43,7 @@ Scope {
             topMargin: 8
           }
 
-          spacing: 20
+          spacing: 5
 
           Icon{}
           Workspaces {

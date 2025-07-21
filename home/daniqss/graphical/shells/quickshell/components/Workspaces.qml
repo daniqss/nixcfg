@@ -6,97 +6,93 @@ import Quickshell.Hyprland
 import qs.components
 import qs.config
 
-
 FullwidthMouseArea {
 	id: root
-	required property var bar;
-	required property int wsBaseIndex;
-	property int wsCount: 10;
-	property bool hideWhenEmpty: false;
+	required property var bar
+	required property int wsBaseIndex
+	property int wsCount: 9
+	property bool hideWhenEmpty: false
 
-	implicitHeight: column.implicitHeight + 10;
-
+	implicitHeight: column.implicitHeight
 	fillWindowWidth: true
 	acceptedButtons: Qt.NoButton
 
-	onWheel: event => {
-		event.accepted = true;
-		const step = -Math.sign(event.angleDelta.y);
-		const targetWs = currentIndex + step;
+	property int currentIndex: 0
+	property int existsCount: 0
+	readonly property HyprlandMonitor monitor: Hyprland.monitorFor(bar.screen)
 
-		if (targetWs >= wsBaseIndex && targetWs < wsBaseIndex + wsCount) {
-			Hyprland.dispatch(`workspace ${targetWs}`)
+	visible: !hideWhenEmpty || existsCount > 0
+
+	signal workspaceAdded(workspace: HyprlandWorkspace)
+
+	onWheel: event => {
+		event.accepted = true
+		const step = -Math.sign(event.angleDelta.y)
+		let target = currentIndex + step
+
+		if (target < wsBaseIndex) target = wsBaseIndex
+		if (target >= wsBaseIndex + wsCount) target = wsBaseIndex + wsCount - 1
+
+		if (target !== currentIndex) {
+			Hyprland.dispatch(`workspace ${target}`)
 		}
 	}
-
-	readonly property HyprlandMonitor monitor: Hyprland.monitorFor(bar.screen);
-	property int currentIndex: 0;
-	property int existsCount: 0;
-	visible: !hideWhenEmpty || existsCount > 0;
-
-	// destructor takes care of nulling
-	signal workspaceAdded(workspace: HyprlandWorkspace);
 
 	ColumnLayout {
 		id: column
 		spacing: 0
-		anchors {
-			fill: parent;
-			topMargin: 0;
-			margins: 5;
-		}
+		anchors.fill: parent
+		anchors.margins: 5
 
 		Repeater {
 			model: root.wsCount
 
 			FullwidthMouseArea {
 				id: wsItem
-				onPressed: Hyprland.dispatch(`workspace ${wsIndex}`);
+				required property int index
 
-				Layout.fillWidth: true
-				implicitHeight: 15
-
-				fillWindowWidth: true
-
-				required property int index;
-				property int wsIndex: root.wsBaseIndex + index;
-				property HyprlandWorkspace workspace: null;
-				property bool exists: workspace != null;
+				property int wsIndex: root.wsBaseIndex + index
+				property HyprlandWorkspace workspace: null
+				property bool exists: workspace != null
 				property bool active: workspace?.active ?? false
 
-				onActiveChanged: {
-					if (active) root.currentIndex = wsIndex;
-				}
+				onPressed: Hyprland.dispatch(`workspace ${wsIndex}`)
 
-				onExistsChanged: {
-					root.existsCount += exists ? 1 : -1;
-				}
+				onActiveChanged: if (active) root.currentIndex = wsIndex
+				onExistsChanged: root.existsCount += exists ? 1 : -1
+
+				Layout.fillWidth: true
+				implicitHeight: active ? 32 : 22
+				fillWindowWidth: true
 
 				Connections {
 					target: root
-
 					function onWorkspaceAdded(workspace: HyprlandWorkspace) {
-						if (workspace.id == wsItem.wsIndex) {
-							wsItem.workspace = workspace;
-						}
+						if (workspace.id === wsItem.wsIndex)
+							wsItem.workspace = workspace
 					}
 				}
 
 				property real animActive: active ? 1 : 0
-				Behavior on animActive { NumberAnimation { duration: 150 } }
-
 				property real animExists: exists ? 1 : 0
+
+				Behavior on animActive { NumberAnimation { duration: 150 } }
 				Behavior on animExists { NumberAnimation { duration: 100 } }
 
 				Rectangle {
 					anchors.centerIn: parent
-					height: 10
-					width: parent.width
-					scale: 1 + wsItem.animActive * 0.3
+					width: active ? (parent.width / 1.3) : 16
+					height: active ? 28 : 16
 					radius: height / 2
+					scale: 1 + animActive * 0.1
+
+					color: Global.interpolateColors(
+						animExists,
+						Global.colors.widget,
+						Global.colors.widgetActive
+					)
 					border.color: Global.colors.widgetOutline
 					border.width: 1
-					color: Global.interpolateColors(animExists, Global.colors.widget, Global.colors.widgetActive);
 				}
 			}
 		}
@@ -104,15 +100,14 @@ FullwidthMouseArea {
 
 	Connections {
 		target: Hyprland.workspaces
-
 		function onObjectInsertedPost(workspace) {
-			root.workspaceAdded(workspace);
+			root.workspaceAdded(workspace)
 		}
 	}
 
 	Component.onCompleted: {
-		Hyprland.workspaces.values.forEach(workspace => {
+		for (const workspace of Hyprland.workspaces.values) {
 			root.workspaceAdded(workspace)
-		});
+		}
 	}
 }
