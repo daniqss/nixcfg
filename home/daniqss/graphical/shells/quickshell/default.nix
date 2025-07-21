@@ -20,9 +20,13 @@
         withHyprland = true;
         withI3 = false;
       })
-      kdePackages.qtdeclarative
-      kdePackages.qtbase
-      kdePackages.qtdeclarative
+      qt6.qtimageformats
+      qt6.qt5compat
+      qt6.qtmultimedia
+      qt6.qtdeclarative
+
+      grim
+      imagemagick
     ];
   };
 }

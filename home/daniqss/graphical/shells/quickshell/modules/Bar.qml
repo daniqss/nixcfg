@@ -3,7 +3,7 @@ import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import "../components"
+import qs.components
 
 
 Scope {
@@ -46,14 +46,12 @@ Scope {
 
           spacing: 20
 
-          // Text {
-          //   anchors.centerIn: parent
-          //   text: "@"
-          //   color: "#ffffff"
-          //   font.family: "CaskaydiaCove Nerd Font"
-          //   font.pointSize: 13
-          // }
           Icon{}
+          Workspaces {
+            bar: bar
+            Layout.fillWidth: true
+            wsBaseIndex: 1;
+          }
         }
 
         ColumnLayout {
@@ -65,28 +63,9 @@ Scope {
           }
 
           Clock {
-            anchors.centerIn: parent
+            Layout.alignment: Qt.AlignHCenter
           }
         }
-
-        // ColumnLayout {
-        //   anchors {
-        //     left: parent.left
-        //     bottom: parent.bottom
-        //     right: parent.right
-        //     bottomMargin: 15
-        //   }
-
-        //   // spacing: 15
-
-        //   Text {
-        //     anchors.centerIn: parent
-        //     text: "@"
-        //     color: "#ffffff"
-        //     font.family: "CaskaydiaCove Nerd Font"
-        //     font.pointSize: 13
-        //   }
-        // }
       }
     }
   }
