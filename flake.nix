@@ -15,10 +15,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # matugen = {
-    #   url = "github:/InioX/Matugen";
-    #   ref = "refs/tags/matugen-v2.4.1";
-    # };
+    matugen = {
+      url = "github:/InioX/matugen";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {

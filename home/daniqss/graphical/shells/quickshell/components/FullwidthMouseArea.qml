@@ -34,11 +34,7 @@ Item {
 
 		Component.onCompleted: {
 			this.clicked.connect(root.clicked);
-			//this.entered.connect(root.entered);
-			//this.exited.connect(root.exited);
-			//this.pressed.connect(root.pressed);
 			this.released.connect(root.released);
-			//this.wheel.connect(root.wheel);
 		}
 
 		// for some reason MouseArea.pressed is both a prop and signal so connect doesn't work

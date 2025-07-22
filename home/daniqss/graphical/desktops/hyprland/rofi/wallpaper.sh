@@ -20,7 +20,7 @@
 
 
 # Set some variables
-wall_dir="${HOME}/.config/wallpapers/"
+wall_dir="${HOME}/nixcfg/assets/wallpapers/"
 cacheDir="${HOME}/.cache/jp/${theme}"
 rofi_command="rofi -dmenu -theme ${HOME}/.config/rofi/config.rasi -theme-str ${rofi_override}"
 

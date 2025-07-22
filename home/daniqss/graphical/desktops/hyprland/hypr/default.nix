@@ -1,5 +1,6 @@
 {
   hostname,
+  username,
   outputs,
   pkgs,
   lib,
@@ -42,11 +43,15 @@ in {
       enable = true;
       systemd.enable = false;
 
+      extraConfig = "source = ${config.xdg.configHome}/hypr/programs.conf";
+
       settings = {
         env = [
           "HYPRCURSOR_THEME, ${cursor}"
           "HYPRCURSOR_SIZE, ${toString cursorSize}"
-          "NIXOS_OZONE_WL , 1"
+          "HYPRSHOT_DIR, /home/${username}/Pictures/screenshots"
+
+          "NIXOS_OZONE_WL, 1"
         ];
 
         exec-once = [
@@ -66,7 +71,7 @@ in {
           gaps_in = 4;
           gaps_out = 8;
 
-          border_size = 3;
+          border_size = 2;
           "col.active_border" = "${activeBorderColor}";
           "col.inactive_border" = "${inactiveBorderColor}";
 
@@ -86,7 +91,7 @@ in {
           rounding_power = 2;
 
           blur = {
-            enabled = true;
+            enabled = false;
             size = 8;
             passes = 2;
 

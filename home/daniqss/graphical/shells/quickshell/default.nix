@@ -18,13 +18,14 @@
         withX11 = false;
         withPipewire = true;
         withPam = true;
-        withHyprland = true;
+        withHyprland = config.graphical.hyprland.enable;
         withI3 = false;
       })
       qt6.qtimageformats
       qt6.qt5compat
       qt6.qtmultimedia
       qt6.qtdeclarative
+      material-symbols
     ];
 
     xdg.configFile."quickshell".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/graphical/shells/quickshell";

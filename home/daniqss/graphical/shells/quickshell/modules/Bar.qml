@@ -1,10 +1,7 @@
 import Quickshell
-import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 import qs.components
-
 
 Scope {
   Variants {
@@ -25,7 +22,7 @@ Scope {
 
       margins {
         left: 6
-        right: 0
+        right: -60
         top: 5
         bottom: 5
       }

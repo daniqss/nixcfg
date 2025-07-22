@@ -1,0 +1,23 @@
+[config.wallpaper]
+command = "swww"
+arguments = ["img", "--transition-type", "center"] 
+
+[templates.hyprland]
+input_path = "~/.config/matugen/templates/hyprland-colors.conf"
+output_path = "~/.config/hypr/colors.conf"
+
+[templates.gtk3]
+input_path = "~/.config/matugen/templates/gtk-colors.css"
+output_path = "~/.config/gtk-3.0/colors.css"
+
+[templates.gtk4]
+input_path = "~/.config/matugen/templates/gtk-colors.css"
+output_path = "~/.config/gtk-4.0/colors.css"
+
+[templates.qt]
+input_path = "~/.config/matugen/templates/qtct-colors.conf"
+output_path = "~/.config/qtct/qtct.conf"
+
+[templates.quickshell]
+input_path = "~/.config/matugen/templates/quickshell-colors.qml"
+output_path = "~/.config/quickshell/config/Colors.qml"

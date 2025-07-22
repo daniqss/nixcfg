@@ -13,10 +13,10 @@ IconImage {
   width: 20
   height: 20
 
-//   Process {
-//     id: launcherProcess
-//     command: ["qs", "ipc", "call", "launcher", "toggle"]
-//   }
+  Process {
+    id: launcherProcess
+    command: ["qs", "ipc", "call", "launcher", "toggle"]
+  }
 
   MouseArea {
     anchors.fill: parent

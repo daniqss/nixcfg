@@ -4,8 +4,8 @@
   config,
   ...
 }: let
-  sunsetTime = "21:00";
-  sunriseTime = "08:00";
+  sunsetTime = "21";
+  sunriseTime = "8";
   sunsetTemp = "3000";
   sunriseTemp = "6500";
 
@@ -35,7 +35,7 @@ in {
 
       transitions = {
         sunrise = {
-          calendar = "*-*-* ${sunriseTime}";
+          calendar = "*-*-* 0${sunriseTime}:00";
           requests = [
             ["temperature ${sunriseTemp}"]
             ["identity"]
@@ -43,7 +43,7 @@ in {
         };
 
         sunset = {
-          calendar = "*-*-* ${sunsetTime}";
+          calendar = "*-*-* ${sunsetTime}:00";
           requests = [["temperature ${sunsetTemp}"]];
         };
       };
