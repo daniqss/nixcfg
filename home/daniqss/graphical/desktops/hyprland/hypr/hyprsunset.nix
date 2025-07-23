@@ -24,7 +24,7 @@ in {
       checkSunsetOnStart
     ];
 
-    # fuck it, just didn't figured out how to make the service work1
+    # fuck it, just didn't figured out how to make the service work
     wayland.windowManager.hyprland.settings.exec-once = [
       "sleep 2 && ${checkSunsetOnStart}/bin/checkSunsetOnStart"
     ];

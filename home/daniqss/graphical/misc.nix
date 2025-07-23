@@ -11,6 +11,7 @@ in {
       gnome-disk-utility
 
       blueberry
+      pavucontrol
       pwvucontrol
       lxqt.pavucontrol-qt
 

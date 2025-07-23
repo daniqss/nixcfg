@@ -8,8 +8,7 @@ in {
   imports = [
     ./hypr
     ./rofi
-    ./theming
-    ./swww.nix
+    ./theme
     ./waybar.nix
     ./mako.nix
   ];

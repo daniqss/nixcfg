@@ -36,7 +36,7 @@
     };
     settings = {
       theme = "kinda-onedark";
-      background-opacity = 0.99;
+      background-opacity = 0.95;
 
       font-family = "CaskaydiaCove Nerd Font Mono";
       font-size = config.graphical.emulators.fontsize;
