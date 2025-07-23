@@ -27,7 +27,7 @@ in {
     programs.matugen = {
       enable = true;
       variant = "dark";
-      jsonFormat = "hex";
+      # jsonFormat = "hex";
       wallpaper = wallpaper;
     };
 
@@ -37,7 +37,7 @@ in {
     home.activation.miScript = lib.hm.dag.entryAfter ["writeBoundary"] (lib.getExe createMatugen);
 
     wayland.windowManager.hyprland.settings.exec-once = [
-      "${pkgs.swww}/bin/swww-daemon && ${lib.getExe createMatugen}"
+      "${pkgs.swww}/bin/swww-daemon && sleep 1 && ${lib.getExe createMatugen}"
     ];
   };
 }

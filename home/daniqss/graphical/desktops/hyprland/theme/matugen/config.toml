@@ -9,12 +9,20 @@ output_path = "~/.config/hypr/colors.conf"
 [templates.gtk3]
 input_path = "~/.config/matugen/templates/gtk-colors.css"
 output_path = '~/.config/gtk-3.0/colors.css'
-post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
-
+# post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
 
 [templates.gtk4]
 input_path = "~/.config/matugen/templates/gtk-colors.css"
 output_path = "~/.config/gtk-4.0/colors.css"
+
+[templates.qt5ct]
+input_path = "~/.config/matugen/templates/qtct-colors.conf"
+output_path = '~/.config/qt5ct/matugen.conf'
+
+[templates.qt6ct]
+input_path = "~/.config/matugen/templates/qtct-colors.conf"
+output_path = '~/.config/qt6ct/matugen.conf'
+
 
 [templates.quickshell]
 input_path = "~/.config/matugen/templates/quickshell-colors.qml"

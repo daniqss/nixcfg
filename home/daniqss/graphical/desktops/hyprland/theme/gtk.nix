@@ -23,6 +23,13 @@ in {
     gtk = {
       enable = true;
 
+      # todo -> separated theme for gtk3 and gtk4
+      # https://github.com/nix-community/home-manager/pull/7349
+      # theme = {
+      #   package = pkgs.adw-gtk3;
+      #   name = "adw-gtk3-dark";
+      # };
+
       iconTheme = {
         name = "MoreWaita";
         package = pkgs.morewaita-icon-theme;

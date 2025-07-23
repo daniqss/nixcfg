@@ -11,9 +11,7 @@ in {
       gnome-disk-utility
 
       blueberry
-      pavucontrol
       pwvucontrol
-      lxqt.pavucontrol-qt
 
       nautilus
       nautilus-open-any-terminal
