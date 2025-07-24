@@ -70,7 +70,7 @@ in {
 
           border_size = 3;
           "col.active_border" = "$primary $secondary $tertiary 10deg";
-          "col.inactive_border" = "$surface";
+          "col.inactive_border" = "$surface_bright";
 
           layout = "dwindle";
           allow_tearing = true;

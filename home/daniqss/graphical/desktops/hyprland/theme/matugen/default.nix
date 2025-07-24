@@ -34,10 +34,11 @@ in {
     home.file."${config.xdg.configHome}/matugen/templates".source = ./templates;
     home.file."${config.xdg.configHome}/matugen/config.toml".source = ./config.toml;
 
-    home.activation.miScript = lib.hm.dag.entryAfter ["writeBoundary"] (lib.getExe createMatugen);
+    home.activation.createMatugen = lib.hm.dag.entryAfter ["writeBoundary"] (lib.getExe createMatugen);
 
     wayland.windowManager.hyprland.settings.exec-once = [
-      "${pkgs.swww}/bin/swww-daemon && sleep 1 && ${lib.getExe createMatugen}"
+      "${lib.getExe' pkgs.swww "swww-daemon"}"
+      "${lib.getExe createMatugen}"
     ];
   };
 }

@@ -1,6 +1,6 @@
 [config.wallpaper]
 command = "swww"
-arguments = ["img", "--transition-type", "center"] 
+arguments = ["img", "--transition-type", "none"] 
 
 [templates.hyprland]
 input_path = "~/.config/matugen/templates/hyprland-colors.conf"
@@ -22,7 +22,6 @@ output_path = '~/.config/qt5ct/matugen.conf'
 [templates.qt6ct]
 input_path = "~/.config/matugen/templates/qtct-colors.conf"
 output_path = '~/.config/qt6ct/matugen.conf'
-
 
 [templates.quickshell]
 input_path = "~/.config/matugen/templates/quickshell-colors.qml"

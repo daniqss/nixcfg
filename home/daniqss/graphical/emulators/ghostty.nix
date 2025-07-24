@@ -38,6 +38,11 @@
       theme = "kinda-onedark";
       background-opacity = 0.9;
 
+      keybind = [
+        "alt+t=new_tab"
+        "alt+w=close_tab"
+      ];
+
       font-family = "CaskaydiaCove Nerd Font Mono";
       font-size = config.graphical.emulators.fontsize;
       font-thicken = true;
@@ -53,7 +58,6 @@
       window-padding-color = "background";
       window-inherit-working-directory = true;
       window-inherit-font-size = true;
-      window-decoration = true;
       resize-overlay = "never";
       confirm-close-surface = false;
       mouse-hide-while-typing = true;
