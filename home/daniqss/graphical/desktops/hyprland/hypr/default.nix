@@ -26,6 +26,8 @@ in {
   imports = [
     ./keybinds.nix
 
+    ./portals.nix
+
     ./hypridle.nix
     ./hyprlock.nix
     ./hyprsunset.nix

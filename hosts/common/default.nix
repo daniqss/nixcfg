@@ -53,7 +53,6 @@
       binPath = "/home/${username}/.nix-profile/bin/Hyprland";
     };
   };
-  services.gnome.gnome-keyring.enable = true;
 
   services.greetd = let
     tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
