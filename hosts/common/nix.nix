@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  username,
+  ...
+}: {
   nix = {
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
@@ -7,9 +11,16 @@
       experimental-features = ["nix-command" "flakes"];
     };
 
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 14d";
-    };
+    # gc = {
+    #   automatic = true;
+    #   options = "--delete-older-than 14d";
+    # };
+  };
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/${username}/nixcfg/";
   };
 }

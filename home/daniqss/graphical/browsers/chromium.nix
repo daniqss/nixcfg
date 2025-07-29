@@ -8,7 +8,7 @@
     package = config.graphical.browsers.dev;
     commandLineArgs = [
       "--no-default-browser-check"
-      "--restore-last-session"
+      "--hide-crash-restore-bubble"
     ];
 
     extensions = [
