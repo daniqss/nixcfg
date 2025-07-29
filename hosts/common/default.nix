@@ -46,7 +46,7 @@
   };
 
   programs.uwsm = {
-    enable = false;
+    enable = true;
     waylandCompositors.hyprland = {
       prettyName = "Hyprland";
       comment = "Hyprland compositor managed by UWSM";
@@ -61,9 +61,9 @@
     settings = {
       default_session = {
         command = ''
-          ${tuigreet} -t -r
+          ${tuigreet} -t --user-menu --remember --remember-session
         '';
-        user = username;
+        user = "greeter";
       };
     };
   };

@@ -22,7 +22,7 @@ Scope {
 
       margins {
         left: 6
-        right: -60
+        right: 4
         top: 5
         bottom: 5
       }

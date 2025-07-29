@@ -20,7 +20,7 @@ in {
     graphical.waybar.enable = lib.mkDefault false;
     graphical.rofi.enable = lib.mkDefault true;
     graphical.mako.enable = lib.mkDefault true;
-    graphical.uwsm.enable = lib.mkDefault false;
+    graphical.uwsm.enable = lib.mkDefault true;
 
     home.packages = with pkgs; [
       alsa-utils

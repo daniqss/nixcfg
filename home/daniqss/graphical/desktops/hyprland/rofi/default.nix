@@ -34,6 +34,8 @@ in {
     home.packages = [
       pkgs.jq
       pkgs.libnotify
+      pkgs.imagemagick
+      pkgs.bc
 
       applauncher
       emoji

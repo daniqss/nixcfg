@@ -42,7 +42,7 @@ for imagen in "$wall_dir"/*.{jpg,jpeg,png,webp,gif}; do
 	if [ -f "$imagen" ]; then
 		nombre_archivo=$(basename "$imagen")
 			if [ ! -f "${cacheDir}/${nombre_archivo}" ] ; then
-				convert -strip "$imagen" -thumbnail 500x500^ -gravity center -extent 500x500 "${cacheDir}/${nombre_archivo}"
+				magick convert -strip "$imagen" -thumbnail 500x500^ -gravity center -extent 500x500 "${cacheDir}/${nombre_archivo}"
 			fi
     fi
 done
@@ -52,9 +52,6 @@ wall_selection=$(find "${wall_dir}"  -maxdepth 1  -type f \( -iname "*.jpg" -o -
 # Set the wallpaper
 [[ -n "$wall_selection" ]] || exit 1
 cp -f "${wall_dir}/${wall_selection}" "${wall_dir}/current.jpg"
-swww img -t grow                                               \
-	--transition-duration 1.5 --transition-pos 'bottom-right'  \
-	--transition-fps 60 --transition-step 120				   \
-	${wall_dir}/${wall_selection}
+matugen image ${wall_dir}/${wall_selection}
 
 exit 0

@@ -11,7 +11,7 @@
     };
 
     quickshell = {
-      url = "git+https://git.outfoxxed.me/quickshell/quickshell/";
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=refs/tags/v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -21,11 +21,11 @@
     };
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
     nixpkgs,
     ...
-  } @ inputs: let
+  }: let
     inherit (self) outputs;
     systems = [
       "aarch64-linux"
