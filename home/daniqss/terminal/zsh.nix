@@ -1,5 +1,4 @@
 {
-  hostname,
   pkgs,
   lib,
   config,
@@ -15,9 +14,6 @@ in {
       autosuggestion.enable = true;
 
       shellAliases = {
-        rebuild = "sudo nixos-rebuild switch --flake ~/nixcfg/#${hostname}";
-        update = "sudo nix flake update";
-
         ls = "${pkgs.eza}/bin/eza --icons";
         la = "${pkgs.eza}/bin/eza --icons -a";
         ll = "${pkgs.eza}/bin/eza --header --icons --git -t=mod --time-style=long-iso -l";

@@ -4,6 +4,7 @@
   config,
   ...
 }: let
+  inherit (lib) mkIf mkEnableOption mkDefault;
 in {
   imports = [
     ./hypr
@@ -13,14 +14,17 @@ in {
     ./mako.nix
   ];
 
-  options.graphical.hyprland.enable = lib.mkEnableOption "enable hyprland as desktop";
-  options.graphical.uwsm.enable = lib.mkEnableOption "enable uwsm as session manager";
+  options.graphical.hyprland.enable = mkEnableOption "enable hyprland as desktop";
+  options.graphical.hyprland.hyprqtile.enable = mkEnableOption "enable hyprqtile as workspace switcher";
 
-  config = lib.mkIf config.graphical.hyprland.enable {
-    graphical.waybar.enable = lib.mkDefault false;
-    graphical.rofi.enable = lib.mkDefault true;
-    graphical.mako.enable = lib.mkDefault true;
-    graphical.uwsm.enable = lib.mkDefault true;
+  options.graphical.uwsm.enable = mkEnableOption "enable uwsm as session manager";
+
+  config = mkIf config.graphical.hyprland.enable {
+    graphical.waybar.enable = mkDefault false;
+    graphical.rofi.enable = mkDefault true;
+    graphical.mako.enable = mkDefault true;
+    graphical.uwsm.enable = mkDefault true;
+    graphical.hyprland.hyprqtile.enable = mkDefault false;
 
     home.packages = with pkgs; [
       alsa-utils

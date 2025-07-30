@@ -1,4 +1,5 @@
 {
+  outputs,
   pkgs,
   lib,
   config,
@@ -11,6 +12,11 @@
     if config.graphical.uwsm.enable
     then "uwsm app --"
     else "";
+
+  switcher = ws:
+    if config.graphical.hyprland.hyprqtile.enable
+    then "${mainMod}, ${toString ws}, exec, hyprqtile -w ${toString ws}"
+    else "${mainMod}, ${toString ws}, workspace, ${toString ws}";
 
   defaultApp = pkgs.writeShellScriptBin "default-app" ''
     #!/usr/bin/env bash
@@ -34,6 +40,7 @@
 in {
   config = lib.mkIf config.graphical.hyprland.enable {
     home.packages = [
+      outputs.packages.${pkgs.system}.hyprqtile
       defaultApp
       pkgs.hyprshot
       pkgs.jq
@@ -74,7 +81,7 @@ in {
               i: let
                 ws = i + 1;
               in [
-                "${mainMod}, ${toString ws}, workspace, ${toString ws}"
+                (switcher ws)
                 "${mainMod} ALT, ${toString ws}, movetoworkspacesilent, ${toString ws}"
               ]
             )
