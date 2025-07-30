@@ -36,14 +36,6 @@ in {
       pkgs.libnotify
       pkgs.imagemagick
       pkgs.bc
-
-      applauncher
-      emoji
-      clipboard
-      sound
-      powermenu
-      wallpaper
-      bluetooth
     ];
 
     programs.rofi = {

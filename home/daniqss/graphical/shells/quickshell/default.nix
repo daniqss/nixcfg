@@ -7,6 +7,7 @@
   config,
   ...
 }: let
+  cfg = config.graphical.shells;
   quickshellPkg = inputs.quickshell.packages.${system}.default.override {
     withJemalloc = true;
     withQtSvg = true;
@@ -18,9 +19,7 @@
     withI3 = false;
   };
 in {
-  options.graphical.quickshell.enable = lib.mkEnableOption "enable quickshell as desktop shell";
-
-  config = lib.mkIf config.graphical.quickshell.enable {
+  config = (lib.mkIf cfg.shell == "quickshell") {
     home.packages = [
       quickshellPkg
       pkgs.kdePackages.qtdeclarative
@@ -34,7 +33,7 @@ in {
     home.sessionVariables = {
       HOME = "/home/${username}/";
       QMLLS_BUILD_DIRS = "${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml/:${quickshellPkg}/lib/qt-6/qml/";
-      QML_IMPORT_PATH = "/home/${username}/nixcfg/home/daniqss/graphical/shells/quickshell";
+      QML_IMPORT_PATH = "/home/${username}/nixcfg/home/daniqss/graphical/shells/quickshell/mandra";
     };
 
     xdg.configFile."quickshell".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/graphical/shells/quickshell";

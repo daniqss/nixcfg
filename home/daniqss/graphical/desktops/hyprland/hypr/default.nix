@@ -57,8 +57,8 @@ in {
           "wl-paste --type text --watch cliphist store"
           "wl-paste --type image --watch cliphist store"
           (
-            if config.graphical.quickshell.enable
-            then "qs"
+            if config.graphical.shells.shell == "quickshell"
+            then "qs -c mandra"
             else ""
           )
         ];
