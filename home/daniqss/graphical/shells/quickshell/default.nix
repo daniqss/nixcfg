@@ -8,6 +8,8 @@
   ...
 }: let
   cfg = config.graphical.shells;
+  rofi = config.graphical.rofi.scripts;
+
   quickshellPkg = inputs.quickshell.packages.${system}.default.override {
     withJemalloc = true;
     withQtSvg = true;
@@ -19,7 +21,23 @@
     withI3 = false;
   };
 in {
-  config = (lib.mkIf cfg.shell == "quickshell") {
+  config = lib.mkIf (cfg.shell == "quickshell") {
+    # quickshell shells option config
+    graphical.shells.commands = {
+      bar = pkgs.writeShellScriptBin "bar" "qs -c mandra";
+      notifications = pkgs.writeShellScriptBin "notifications" "${lib.getExe pkgs.mako}";
+      applauncher = rofi.applauncher;
+      emoji = rofi.emoji;
+      clipboard = rofi.clipboard;
+      sound = rofi.sound;
+      powermenu = rofi.powermenu;
+      wallpaper = rofi.wallpaper;
+      bluetooth = rofi.bluetooth;
+    };
+    graphical.rofi.enable = lib.mkDefault true;
+    graphical.mako.enable = lib.mkDefault true;
+
+    # quickshell config
     home.packages = [
       quickshellPkg
       pkgs.kdePackages.qtdeclarative

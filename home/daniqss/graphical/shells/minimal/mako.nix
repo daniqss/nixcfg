@@ -8,6 +8,7 @@
   config = lib.mkIf config.graphical.mako.enable {
     services.mako = {
       enable = true;
+
       settings = {
         font = "FiraCode Nerd Font Ret 10";
         background-color = "#0a0a0a99";

@@ -1,10 +1,9 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
-  inherit (lib) mkIf mkOption types mkEnableOption;
+  inherit (lib) mkIf mkOption types;
   cfg = config.graphical.shells;
 in {
   imports = [
@@ -13,8 +12,6 @@ in {
   ];
 
   options.graphical.shells = {
-    enable = mkEnableOption "desktop shells";
-
     shell = mkOption {
       type = types.enum ["quickshell" "minimal"];
       default = "quickshell";
@@ -23,41 +20,34 @@ in {
 
     commands = lib.mkOption {
       type = lib.types.attrsOf lib.types.package;
+      default = {};
       description = "available desktop shell commands";
     };
   };
 
-  config = mkIf cfg.enable {
-    systemd.user.services = {
-      shell-bar = mkIf cfg.bar.enable {
-        description = "Desktop shell bar";
-        wantedBy = ["graphical-session.target"];
-        partOf = ["graphical-session.target"];
-        serviceConfig = {
-          ExecStart = cfg.commands.bar;
-          Restart = "on-failure";
-        };
+  config = mkIf config.graphical.enable {
+    systemd.user.services.shell-bar = {
+      Unit = {
+        Description = "start shell bar";
       };
-
-      shell-notifications = mkIf cfg.notifications.enable {
-        description = "Desktop shell notifications";
-        wantedBy = ["graphical-session.target"];
-        partOf = ["graphical-session.target"];
-        serviceConfig = {
-          ExecStart = cfg.commands.notifications;
-          Restart = "on-failure";
-        };
+      Service = {
+        Type = "oneshot";
+        ExecStart = lib.getExe cfg.commands.bar;
+      };
+      Install = {
+        WantedBy = ["default.target"];
       };
     };
 
-    home.packages = [
-      cfg.commands.launcher
-      cfg.commands.emoji
-      cfg.commands.clipboard
-      cfg.commands.sound
-      cfg.commands.powermenu
-      cfg.commands.wallpaper
-      cfg.commands.bluetooth
+    home.packages = with cfg.commands; [
+      bar
+      applauncher
+      emoji
+      clipboard
+      sound
+      powermenu
+      wallpaper
+      bluetooth
     ];
   };
 }

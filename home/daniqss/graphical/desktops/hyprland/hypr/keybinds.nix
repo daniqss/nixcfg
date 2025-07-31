@@ -6,7 +6,7 @@
   ...
 }: let
   mainMod = "SUPER";
-  scripts = config.graphical.rofi.scripts;
+  shellCommands = config.graphical.shells.commands;
   emulator = config.graphical.emulators.emulator;
   prefix =
     if config.graphical.uwsm.enable
@@ -24,15 +24,15 @@
     workspace_id="''${1:-$(hyprctl -j activeworkspace | jq -r '.id')}"
 
     declare -A apps=(
-      [1]="${pkgs.vscode}/bin/code"
-      [2]="${pkgs.chromium}/bin/chromium"
+      [1]="${lib.getExe pkgs.vscode}"
+      [2]="${lib.getExe pkgs.chromium}"
       [3]="${lib.getExe emulator}"
-      [4]="${pkgs.obsidian}/bin/obsidian"
-      [5]="${pkgs.nautilus}/bin/nautilus"
-      [6]="${pkgs.vesktop}/bin/vesktop"
-      [7]="${pkgs.steam}/bin/steam"
-      [8]="${pkgs.spotify}/bin/spotify"
-      [9]="${pkgs.google-chrome}/bin/google-chrome-stable"
+      [4]="${lib.getExe pkgs.obsidian}"
+      [5]="${lib.getExe pkgs.nautilus}"
+      [6]="${lib.getExe pkgs.vesktop}"
+      [7]="${lib.getExe pkgs.steam}"
+      [8]="${lib.getExe pkgs.spotify}"
+      [9]="${lib.getExe pkgs.google-chrome}"
     )
 
     hyprctl dispatch exec -- [workspace ''${workspace_id} silent] ${prefix} ''${apps[''$workspace_id]}
@@ -66,13 +66,13 @@ in {
           "${mainMod}, S, togglespecialworkspace, magic"
           "${mainMod} ALT, S, movetoworkspacesilent, special:magic"
 
-          "${mainMod}, TAB, exec, ${scripts.applauncher}/bin/applauncher"
-          "${mainMod} CTRL, W, exec, ${scripts.wallpaper}/bin/wallpaper"
-          "${mainMod} CTRL, B, exec, ${prefix} ${scripts.bluetooth}/bin/bluetooth"
-          "${mainMod} CTRL, S, exec, ${scripts.sound}/bin/sound"
-          "${mainMod} CTRL, E, exec, ${scripts.emoji}/bin/emoji"
-          "${mainMod} CTRL, C, exec, ${scripts.clipboard}/bin/clipboard"
-          "${mainMod} CTRL, P, exec, ${scripts.powermenu}/bin/powermenu"
+          "${mainMod}, TAB, exec, ${lib.getExe shellCommands.applauncher}"
+          "${mainMod} CTRL, W, exec, ${lib.getExe shellCommands.wallpaper}"
+          "${mainMod} CTRL, B, exec, ${prefix} ${lib.getExe shellCommands.bluetooth}"
+          "${mainMod} CTRL, S, exec, ${lib.getExe shellCommands.sound}"
+          "${mainMod} CTRL, E, exec, ${lib.getExe shellCommands.emoji}"
+          "${mainMod} CTRL, C, exec, ${lib.getExe shellCommands.clipboard}"
+          "${mainMod} CTRL, P, exec, ${lib.getExe shellCommands.powermenu}"
 
           "${mainMod}, 0, exec, default-app"
         ]

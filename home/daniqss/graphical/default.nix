@@ -7,7 +7,7 @@
 in {
   imports = [
     ./desktops/hyprland
-    ./shells/quickshell
+    ./shells
     ./browsers
     ./emulators
     ./misc.nix
@@ -18,7 +18,6 @@ in {
 
   config = lib.mkIf config.graphical.enable {
     graphical.hyprland.enable = lib.mkDefault true;
-    graphical.quickshell.enable = lib.mkDefault true;
     graphical.browsers = {};
 
     home.sessionVariables = {
