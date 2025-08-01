@@ -54,8 +54,5 @@ in {
       Install.WantedBy = ["default.target"];
       Service.ExecStart = lib.getExe checkSunsetOnStart;
     };
-
-    # check time and temp in rebuild, not sure if it really works
-    home.activation.checkSunsetOnStart = lib.hm.dag.entryAfter ["writeBoundary"] (lib.getExe checkSunsetOnStart);
   };
 }
