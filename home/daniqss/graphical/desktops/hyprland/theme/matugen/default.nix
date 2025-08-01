@@ -66,8 +66,5 @@ in {
         };
       };
     };
-
-    # not sure if it really works
-    home.activation.createMatugen = lib.hm.dag.entryAfter ["writeBoundary"] (lib.getExe createMatugen);
   };
 }

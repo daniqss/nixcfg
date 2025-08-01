@@ -134,6 +134,7 @@ in {
         };
 
         misc = {
+          disable_hyprland_logo = false;
           always_follow_on_dnd = false;
           layers_hog_keyboard_focus = true;
           animate_manual_resizes = false;
