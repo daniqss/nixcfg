@@ -19,20 +19,18 @@
     else "${mainMod}, ${toString ws}, workspace, ${toString ws}";
 
   defaultApp = pkgs.writeShellScriptBin "default-app" ''
-    #!/usr/bin/env bash
-
     workspace_id="''${1:-$(hyprctl -j activeworkspace | jq -r '.id')}"
 
     declare -A apps=(
       [1]="${lib.getExe pkgs.vscode}"
-      [2]="${lib.getExe pkgs.chromium}"
+      [2]="chromium"
       [3]="${lib.getExe emulator}"
       [4]="${lib.getExe pkgs.obsidian}"
       [5]="${lib.getExe pkgs.nautilus}"
       [6]="${lib.getExe pkgs.vesktop}"
       [7]="${lib.getExe pkgs.steam}"
       [8]="${lib.getExe pkgs.spotify}"
-      [9]="${lib.getExe pkgs.google-chrome}"
+      [9]="google-chrome-stable"
     )
 
     hyprctl dispatch exec -- [workspace ''${workspace_id} silent] ${prefix} ''${apps[''$workspace_id]}
