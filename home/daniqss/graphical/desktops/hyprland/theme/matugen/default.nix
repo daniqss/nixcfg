@@ -34,7 +34,7 @@ in {
     home.file."${config.xdg.configHome}/matugen/templates".source = ./templates;
     home.file."${config.xdg.configHome}/matugen/config.toml".source = ./config.toml;
 
-    home.activation.createMatugen = lib.hm.dag.entryAfter ["writeBoundary"] (lib.getExe createMatugen);
+    home.activationScripts.createMatugen = lib.getExe createMatugen;
 
     wayland.windowManager.hyprland.settings.exec-once = [
       "${lib.getExe' pkgs.swww "swww-daemon"}"

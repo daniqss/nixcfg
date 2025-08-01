@@ -20,15 +20,9 @@
   '';
 in {
   config = lib.mkIf config.graphical.hyprland.enable {
-    home.packages = [
-      checkSunsetOnStart
-    ];
+    home.packages = [checkSunsetOnStart];
 
-    # fuck it, just didn't figured out how to make the service work
-    wayland.windowManager.hyprland.settings.exec-once = [
-      "sleep 3 && ${checkSunsetOnStart}/bin/checkSunsetOnStart"
-    ];
-
+    # change temperature in sunrise and sunset
     services.hyprsunset = {
       enable = true;
       extraArgs = ["--identity"];
@@ -49,19 +43,19 @@ in {
       };
     };
 
-    # systemd.user.services."checkSunsetOnStart" = {
-    #   Unit = {
-    #     Description = "check if its required to change the temperatura on start";
-    #     After = ["hyprsunset.service"];
-    #     Requires = ["hyprsunset.service"];
-    #   };
+    # check time and temp in start
+    systemd.user.services."checkSunsetOnStart" = {
+      Unit = {
+        Description = "check if its required to change the temperatura on start";
+        After = ["hyprsunset.service"];
+        Requires = ["hyprsunset.service"];
+      };
 
-    #   Install.WantedBy = ["default.target"];
+      Install.WantedBy = ["default.target"];
+      Service.ExecStart = lib.getExe checkSunsetOnStart;
+    };
 
-    #   Service = {
-    #     Type = "oneshot";
-    #     ExecStart = checkSunsetOnStart;
-    #   };
-    # };
+    # check time and temp in rebuild
+    home.activationScripts.createMatugen = lib.getExe checkSunsetOnStart;
   };
 }
