@@ -29,14 +29,15 @@ in {
     systemd.user.services.shell-bar = {
       Unit = {
         Description = "start shell bar";
+        After = "wayland-wm@Hyprland.service";
       };
       Service = {
-        Type = "oneshot";
         ExecStart = lib.getExe cfg.commands.bar;
+        Type = "simple";
+        Restart = "on-failure";
+        RestartSec = 3;
       };
-      Install = {
-        WantedBy = ["default.target"];
-      };
+      Install.WantedBy = ["graphical-session.target"];
     };
 
     home.packages = with cfg.commands; [

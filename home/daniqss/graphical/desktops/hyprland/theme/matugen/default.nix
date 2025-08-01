@@ -34,11 +34,40 @@ in {
     home.file."${config.xdg.configHome}/matugen/templates".source = ./templates;
     home.file."${config.xdg.configHome}/matugen/config.toml".source = ./config.toml;
 
-    home.activationScripts.createMatugen = lib.getExe createMatugen;
+    systemd.user.services = {
+      startSwwwDaemon = {
+        Unit = {
+          Description = "starts swww daemon";
+          After = "wayland-wm@Hyprland.service";
+        };
 
-    wayland.windowManager.hyprland.settings.exec-once = [
-      "${lib.getExe' pkgs.swww "swww-daemon"}"
-      "${lib.getExe createMatugen}"
-    ];
+        Install.WantedBy = ["default.target"];
+
+        Service = {
+          ExecStart = lib.getExe' pkgs.swww "swww-daemon";
+          Type = "simple";
+          Restart = "on-failure";
+          RestartSec = 3;
+        };
+      };
+
+      createMatugen = {
+        Unit = {
+          Description = "starts swww daemon";
+          After = "startSwwwDaemon.service";
+        };
+
+        Install.WantedBy = ["default.target"];
+        Service = {
+          ExecStart = lib.getExe createMatugen;
+          Type = "simple";
+          Restart = "on-failure";
+          RestartSec = 3;
+        };
+      };
+    };
+
+    # not sure if it really works
+    home.activation.createMatugen = lib.hm.dag.entryAfter ["writeBoundary"] (lib.getExe createMatugen);
   };
 }

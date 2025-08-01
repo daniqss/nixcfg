@@ -44,7 +44,7 @@ in {
     };
 
     # check time and temp in start
-    systemd.user.services."checkSunsetOnStart" = {
+    systemd.user.services.checkSunsetOnStart = {
       Unit = {
         Description = "check if its required to change the temperatura on start";
         After = ["hyprsunset.service"];
@@ -55,7 +55,7 @@ in {
       Service.ExecStart = lib.getExe checkSunsetOnStart;
     };
 
-    # check time and temp in rebuild
-    home.activationScripts.createMatugen = lib.getExe checkSunsetOnStart;
+    # check time and temp in rebuild, not sure if it really works
+    home.activation.checkSunsetOnStart = lib.hm.dag.entryAfter ["writeBoundary"] (lib.getExe checkSunsetOnStart);
   };
 }
