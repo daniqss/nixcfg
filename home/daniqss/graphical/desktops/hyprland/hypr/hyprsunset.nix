@@ -7,7 +7,6 @@
   sunsetTime = "21";
   sunriseTime = "8";
   sunsetTemp = "3000";
-  sunriseTemp = "6500";
 
   checkSunsetOnStart = pkgs.writeShellScriptBin "checkSunsetOnStart" ''
     hour=$(date +%H)
@@ -15,7 +14,8 @@
       echo "after ${sunsetTemp} -> setting temperature at ${sunsetTemp}"
       hyprctl hyprsunset temperature ${sunsetTemp}
     else
-      echo "before ${sunriseTime} -> not setting temperature"
+      echo "before ${sunriseTime} -> disabling blue-light filter"
+      hyprctl hyprsunset identity
     fi
   '';
 in {
@@ -30,10 +30,7 @@ in {
       transitions = {
         sunrise = {
           calendar = "*-*-* 0${sunriseTime}:00";
-          requests = [
-            ["temperature ${sunriseTemp}"]
-            ["identity"]
-          ];
+          requests = [["identity"]];
         };
 
         sunset = {

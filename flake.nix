@@ -19,6 +19,11 @@
       url = "github:/InioX/matugen";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprqtile = {
+      url = "github:daniqss/hyprqtile";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
