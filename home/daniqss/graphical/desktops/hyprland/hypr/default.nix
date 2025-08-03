@@ -50,6 +50,7 @@ in {
           "HYPRSHOT_DIR, /home/${username}/Pictures/screenshots"
 
           "NIXOS_OZONE_WL, 1"
+          "QT_QPA_PLATFORMTHEME, qt6ct"
         ];
 
         exec-once = [

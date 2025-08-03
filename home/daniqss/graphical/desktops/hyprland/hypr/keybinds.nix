@@ -18,7 +18,7 @@
     then "${mainMod}, ${toString ws}, exec, hyprqtile -w ${toString ws}"
     else "${mainMod}, ${toString ws}, workspace, ${toString ws}";
 
-  defaultApp = pkgs.writeShellScriptBin "default-app" ''
+  defaultApp = pkgs.writeShellScriptBin "defaultApp" ''
     workspace_id="''${1:-$(hyprctl -j activeworkspace | jq -r '.id')}"
 
     declare -A apps=(
@@ -35,6 +35,18 @@
 
     hyprctl dispatch exec -- [workspace ''${workspace_id} silent] ${prefix} ''${apps[''$workspace_id]}
   '';
+
+  changeLang = pkgs.writeShellScriptBin "changeLang" ''
+    current_layout=$(hyprctl devices | grep "active keymap: Spanish" | awk '{print $3}' | awk '!seen[$0]++')
+
+    if [ "$current_layout" = "Spanish" ]; then
+        echo "hyprctl keyword input:kb_layout us"
+        hyprctl keyword input:kb_layout us
+    else
+        echo "hyprctl keyword input:kb_layout es"
+        hyprctl keyword input:kb_layout es
+    fi
+  '';
 in {
   config = lib.mkIf config.graphical.hyprland.enable {
     home.packages = [
@@ -47,6 +59,14 @@ in {
     home.sessionVariables.HYPRSHOT_DIR = "$XDG_SCREENSHOTS_DIR";
 
     wayland.windowManager.hyprland.settings = {
+      # l -> do stuff even when locked
+      # r -> release, will trigger on release of a key.
+      # e -> repeat, will repeat when held.
+      # n -> non-consuming, key/mouse events will be passed
+      #      to the active window in addition to triggering the dispatcher.
+      # m -> mouse
+      # t -> transparent, cannot be shadowed by other binds.
+      # i -> ignore mods, will ignore modifiers.
       bind =
         [
           "${mainMod}, return, exec, ${lib.getExe emulator}"
@@ -72,7 +92,7 @@ in {
           "${mainMod} CTRL, C, exec, ${lib.getExe shellCommands.clipboard}"
           "${mainMod} CTRL, P, exec, ${lib.getExe shellCommands.powermenu}"
 
-          "${mainMod}, 0, exec, default-app"
+          "${mainMod}, 0, exec, ${lib.getExe defaultApp}"
         ]
         ++ (
           builtins.concatLists (builtins.genList (
@@ -105,6 +125,7 @@ in {
         ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
         ", Print, exec, ${pkgs.hyprshot}/bin/hyprshot -m region"
         "${mainMod}, M, exec, ${pkgs.hyprshot}/bin/hyprshot -m region"
+        "${mainMod}, SPACE, exec, ${lib.getExe changeLang}"
       ];
 
       # Repeat binds for window resizing
