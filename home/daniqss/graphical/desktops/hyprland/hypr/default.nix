@@ -111,8 +111,10 @@ in {
 
           animation = [
             "windows, 1, 4, overshot, slide"
+
             "border, 1, 10, default"
             "fade, 1, 7, default"
+
             "workspaces, 0"
             "workspacesIn, 0"
             "workspacesOut, 0"

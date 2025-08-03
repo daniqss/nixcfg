@@ -23,4 +23,11 @@
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/home/${username}/nixcfg/";
   };
+
+  programs.direnv = {
+    enable = true;
+    silent = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
 }
