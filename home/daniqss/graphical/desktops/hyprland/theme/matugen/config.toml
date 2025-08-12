@@ -25,4 +25,4 @@ output_path = '~/.config/qt6ct/matugen.conf'
 
 [templates.quickshell]
 input_path = "~/.config/matugen/templates/quickshell-colors.qml"
-output_path = "~/.config/quickshell/config/Colors.qml"
+output_path = "~/.config/quickshell/mandra/config/Colors.qml"

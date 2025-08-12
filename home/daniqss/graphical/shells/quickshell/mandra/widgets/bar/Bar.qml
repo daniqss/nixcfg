@@ -1,7 +1,7 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import qs.components
+import qs.widgets.bar
 
 Scope {
   Variants {

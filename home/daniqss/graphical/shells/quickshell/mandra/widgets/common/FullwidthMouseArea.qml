@@ -1,4 +1,6 @@
 import QtQuick
+import Quickshell.Io
+
 
 Item {
 	id: root
@@ -22,6 +24,7 @@ Item {
 
 	MouseArea {
 		id: mouseArea
+		acceptedButtons: root.acceptedButtons
 
 		anchors {
 			fill: parent

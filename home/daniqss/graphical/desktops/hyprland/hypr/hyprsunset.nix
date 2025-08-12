@@ -9,7 +9,7 @@
   sunsetTemp = "3000";
 
   checkSunsetOnStart = pkgs.writeShellScriptBin "checkSunsetOnStart" ''
-    hour=$(date +%H)
+    hour=$(${lib.getExe' pkgs.coreutils "date"} +%H)
     if [ "''$hour" -ge ${sunsetTime} ] || [ "''$hour" -lt ${sunriseTime} ]; then
       echo "after ${sunsetTemp} -> setting temperature at ${sunsetTemp}"
       hyprctl hyprsunset temperature ${sunsetTemp}
@@ -48,7 +48,7 @@ in {
         Requires = ["hyprsunset.service"];
       };
 
-      Install.WantedBy = ["default.target"];
+      # Install.WantedBy = ["default.target"];
       Service.ExecStart = lib.getExe checkSunsetOnStart;
     };
   };

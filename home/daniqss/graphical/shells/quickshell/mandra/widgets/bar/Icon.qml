@@ -14,13 +14,14 @@ IconImage {
   height: 20
 
   Process {
-    id: launcherProcess
-    command: ["qs", "ipc", "call", "launcher", "toggle"]
+    id: applauncherProcess
+    // rofi or future quickshell launcher
+    command: ["applauncher"]
   }
 
   MouseArea {
     anchors.fill: parent
     hoverEnabled: true
-    onClicked: () => console.log("hola caracola")
+    onClicked: applauncherProcess.running = true;
   }
 }

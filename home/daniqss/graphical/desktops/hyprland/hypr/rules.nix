@@ -56,6 +56,8 @@
       "fullscreen, class:^(steam_app_22380)$"
       "immediate, class:^(steam_app_1145360)$"
       "fullscreen, class:^(steam_app_1145360)$"
+      "immediate, class:^(steam_app_3241660)$"
+      "fullscreen, class:^(steam_app_3241660)$"
     ];
 
     layerrule = [];
