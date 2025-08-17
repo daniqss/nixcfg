@@ -66,7 +66,7 @@
           options = [
             "--asterisks"
             "--time"
-            "--remember-session"
+            "--remember"
             "--sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
           ];
         in
