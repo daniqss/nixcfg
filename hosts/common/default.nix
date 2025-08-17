@@ -61,14 +61,13 @@
     settings = {
       terminal.vt = 1;
       default_session = let
-        tuigreet = lib.getExe pkgs.greetd.tuigreet;
+        tuigreet = lib.getExe pkgs.tuigreet;
         options = let
           options = [
+            "--asterisks"
             "--time"
-            "--remember"
             "--remember-session"
             "--sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
-            # "--cmd 'uwsm start default'"
           ];
         in
           lib.concatStringsSep " " options;
