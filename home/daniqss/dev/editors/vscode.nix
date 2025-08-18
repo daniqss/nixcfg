@@ -16,6 +16,9 @@
           pkief.material-icon-theme
           zhuangtongfa.material-theme
 
+          # linters and formatters
+          esbenp.prettier-vscode
+
           # langs
           jnoortheen.nix-ide
           astro-build.astro-vscode
@@ -34,17 +37,18 @@
           ms-toolsai.jupyter-keymap
           ms-toolsai.vscode-jupyter-slideshow
           yzane.markdown-pdf
-          ocamllabs.ocaml-platform
+
           ms-python.python
           ms-python.debugpy
           ms-python.pylint
+
           mechatroner.rainbow-csv
           bradlc.vscode-tailwindcss
           rust-lang.rust-analyzer
           tauri-apps.tauri-vscode
 
           # envs
-          # mkhl.direnv
+          mkhl.direnv
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
