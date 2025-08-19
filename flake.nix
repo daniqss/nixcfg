@@ -41,7 +41,12 @@
   in {
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     overlays = import ./overlays {inherit inputs outputs;};
-    templates = import ./templates {inherit inputs outputs self;};
+    templates = {
+      rust = {
+        path = ./templates/rust;
+        description = "Template básico para proyectos en Rust";
+      };
+    };
     nixosConfigurations = import ./hosts {inherit inputs outputs;};
   };
 }
