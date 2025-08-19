@@ -57,11 +57,11 @@ in {
   };
 
   # amd laptop
-  # windrunner = mkSystem {
-  #   hostname = "windrunner";
-  #   username = "daniqss";
-  #   system = "x86_64-linux";
+  windrunner = mkSystem {
+    hostname = "windrunner";
+    username = "daniqss";
+    system = "x86_64-linux";
 
-  #   modules = [];
-  # };
+    modules = [];
+  };
 }
