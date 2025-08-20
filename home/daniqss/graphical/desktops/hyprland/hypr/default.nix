@@ -11,7 +11,7 @@
     if hostname == "stoneward"
     then [
       "DP-1,1920x1080@143.85,0x0,1.0"
-      "HDMI-A-1,1920x1080@60.0,1920x0,1.0"
+      # "HDMI-A-1,1920x1080@60.0,1920x0,1.0"
     ]
     else if hostname == "windrunner"
     then [

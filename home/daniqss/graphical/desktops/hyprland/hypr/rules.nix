@@ -60,7 +60,10 @@
       "fullscreen, class:^(steam_app_3241660)$"
     ];
 
-    layerrule = [];
+    layerrule = lib.mkIf (config.graphical.shells.shell == "quickshell") [
+      "blur, quickshell"
+      "ignorezero, quickshell"
+    ];
 
     workspace = [];
   };
