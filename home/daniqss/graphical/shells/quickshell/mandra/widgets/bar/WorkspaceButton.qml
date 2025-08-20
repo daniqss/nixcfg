@@ -6,44 +6,14 @@ import Quickshell.Io
 import qs.config
 import qs.widgets.common
 
-FullwidthMouseArea {
-    id: wsItem
-    acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+Item {
+    id: wsButton
 
-    required property int index
-
-    property int wsIndex: 1 + index
-    property HyprlandWorkspace workspace: null
-    property bool exists: workspace != null
-    property bool active: Hyprland.focusedWorkspace?.id == wsIndex
-
-    Process {
-        id: workspaceProcess
-        // rofi or future quickshell launcher
-        command: ["hyprqtile", "-w", `${wsIndex}`]
-    }
-    Process {
-        id: defaultAppProcess
-        command: ["defaultApp"]
-    }
-
-    // onPressed: Hyprland.dispatch(`workspace ${wsIndex}`)
-    onPressed: event => {
-        if (event.button === Qt.RightButton) {
-            defaultAppProcess.running = true;
-        }
-        else if (event.button === Qt.LeftButton) {
-            workspaceProcess.running = true;
-        }
-    }
-
-    onActiveChanged: if (active) root.currentIndex = wsIndex
+    required property int wsIndex
+    property bool focused: true
 
     Layout.fillHeight: true
     width: 22
-
-    property real animActive: active ? 1 : 0
-    Behavior on animActive { NumberAnimation { duration: 150 } }
 
     Rectangle {
         anchors.centerIn: parent
@@ -52,7 +22,20 @@ FullwidthMouseArea {
         radius: width / 2
 
         color: Colors.primary
-        opacity: active ? 1 : 0.5
+        opacity: focused ? 1 : 0.5
+
+        Text {
+            text: wsIndex
+            anchors.centerIn: parent
+            color: Colors.on_primary
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            cursorShape: Qt.PointingHandCursor
+            onPressed: event => console.log(`${event} in ws ${wsIndex}`)
+        }
     }
+
 }
 

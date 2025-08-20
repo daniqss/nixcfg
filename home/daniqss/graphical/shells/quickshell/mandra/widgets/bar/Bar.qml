@@ -26,11 +26,13 @@ Scope {
       Rectangle {
         anchors.fill: parent
         color: Colors.background
-        opacity: 0.86
 
         RowLayout {
-          anchors.fill: parent
-          anchors.margins: 10
+          anchors {
+            fill: parent
+            rightMargin: 10
+            leftMargin: 10
+          }
           spacing: 20
 
           RowLayout {
@@ -40,23 +42,23 @@ Scope {
             Icon {}
             Workspaces {
               bar: bar
-              wsBaseIndex: 1
+              wsCount: 9
             }
           }
 
-          // RowLayout {
-          //   Layout.alignment: Qt.AlignCenter
+          RowLayout {
+            Layout.alignment: Qt.AlignCenter
+            
+            Text {
+                id: hours
+                font.pointSize: 13
+                color: Colors.on_background
+                font.family: "CaskaydiaCove Nerd Font"
+                // Layout.alignment: Qt.AlignHCenter
 
-          //   Text {
-          //       id: hours
-          //       font.pointSize: 13
-          //       color: Colors.on_background
-          //       font.family: "CaskaydiaCove Nerd Font"
-          //       // Layout.alignment: Qt.AlignHCenter
-
-          //       text: "hola"
-          //   }
-          // }
+                text: "hola"
+            }
+          }
 
           RowLayout {
             Layout.alignment: Qt.AlignRight

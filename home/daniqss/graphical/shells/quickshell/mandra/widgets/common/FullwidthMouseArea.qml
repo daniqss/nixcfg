@@ -41,10 +41,14 @@ Item {
 		}
 
 		// for some reason MouseArea.pressed is both a prop and signal so connect doesn't work
-		onPressed: event => root.pressed(event);
+		onPressed: event => {
+			console.log("hofas")
+			root.pressed(event);
+		}
 
 		// connecting to onwheel seems to implicitly accept it. undo that.
 		onWheel: event => {
+			console.log("hofas")
 			event.accepted = false;
 			root.wheel(event);
 		}

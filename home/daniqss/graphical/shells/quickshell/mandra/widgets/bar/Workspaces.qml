@@ -1,60 +1,25 @@
-
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Hyprland
-import Quickshell.Io
-import qs.widgets.common
-import qs.widgets.bar
 import qs.config
+import qs.widgets.common
 
-FullwidthMouseArea {
-	id: root
-	acceptedButtons: Qt.NoButton
-
+Item {
+    id: root
+    required property int wsCount
 	required property var bar
-	required property int wsBaseIndex
-	property int wsCount: 9
-	property bool hideWhenEmpty: false
 
-	fillWindowWidth: true
+    RowLayout {
+        id: row
+        anchors.fill: parent
+        spacing: 6
 
-	property int currentIndex: 0
-	property int existsCount: 0
-	readonly property HyprlandMonitor monitor: Hyprland.monitorFor(bar.screen)
+        Repeater {
+            model: wsCount
 
-	visible: !hideWhenEmpty || existsCount > 0
-
-    // Process {
-    //     id: workspaceProcess
-    //     command: ["hyprqtile", "-w", `${target}`]
-    // }
-
-	onWheel: event => {
-		event.accepted = true
-		const step = -Math.sign(event.angleDelta.y)
-		let target = currentIndex + step
-
-		if (target < wsBaseIndex) target = wsBaseIndex
-		if (target >= wsBaseIndex + wsCount) target = wsBaseIndex + wsCount - 1
-
-		if (target !== currentIndex) {
-			Hyprland.dispatch(`workspace ${target}`)
-    		// onPressed: workspaceProcess.running = true;
-		}
-	}
-
-	RowLayout {
-		id: row
-		spacing: 6
-		
-		anchors.fill: parent
-		Layout.alignment: Qt.AlignHCenter
-		
-		Repeater {
-			Layout.alignment: Qt.AlignHCenter
-			model: 9
-
-			WorkspaceButton{}
-		}
-	}
+            WorkspaceButton {
+                wsIndex: index + 1
+            }
+        }
+    }
 }
