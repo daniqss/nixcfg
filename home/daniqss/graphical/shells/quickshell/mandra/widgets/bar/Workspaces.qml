@@ -1,4 +1,3 @@
-pragma ComponentBehavior: Bound;
 
 import QtQuick
 import QtQuick.Layouts
@@ -17,7 +16,6 @@ FullwidthMouseArea {
 	property int wsCount: 9
 	property bool hideWhenEmpty: false
 
-	implicitHeight: column.implicitHeight
 	fillWindowWidth: true
 
 	property int currentIndex: 0
@@ -25,9 +23,6 @@ FullwidthMouseArea {
 	readonly property HyprlandMonitor monitor: Hyprland.monitorFor(bar.screen)
 
 	visible: !hideWhenEmpty || existsCount > 0
-
-	signal workspaceAdded(workspace: HyprlandWorkspace)
-
 
     // Process {
     //     id: workspaceProcess
@@ -48,29 +43,18 @@ FullwidthMouseArea {
 		}
 	}
 
-	ColumnLayout {
-		id: column
-		spacing: 0
+	RowLayout {
+		id: row
+		spacing: 6
+		
 		anchors.fill: parent
-		anchors.margins: 5
-
+		Layout.alignment: Qt.AlignHCenter
+		
 		Repeater {
-			model: root.wsCount
+			Layout.alignment: Qt.AlignHCenter
+			model: 9
 
 			WorkspaceButton{}
-		}
-	}
-
-	Connections {
-		target: Hyprland.workspaces
-		function onObjectInsertedPost(workspace) {
-			root.workspaceAdded(workspace)
-		}
-	}
-
-	Component.onCompleted: {
-		for (const workspace of Hyprland.workspaces.values) {
-			root.workspaceAdded(workspace)
 		}
 	}
 }

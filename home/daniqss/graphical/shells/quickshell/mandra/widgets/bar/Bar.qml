@@ -1,7 +1,10 @@
+pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import qs.widgets.bar
+import qs.widgets.common
+import qs.config
 
 Scope {
   Variants {
@@ -11,55 +14,60 @@ Scope {
       property var modelData
       screen: modelData
       color: "transparent"
-      implicitWidth: 32
+      implicitHeight: 36
       id: bar
 
       anchors {
-        top: true
         bottom: true
+        right: true
         left: true
-      }
-
-      margins {
-        left: 6
-        right: 4
-        top: 5
-        bottom: 5
       }
 
       Rectangle {
         anchors.fill: parent
-        radius: 20
-        color: "#000000"
+        color: Colors.background
+        opacity: 0.86
 
-        ColumnLayout {
-          anchors {
-            left: parent.left
-            top: parent.top
-            right: parent.right
-            topMargin: 8
+        RowLayout {
+          anchors.fill: parent
+          anchors.margins: 10
+          spacing: 20
+
+          RowLayout {
+            Layout.alignment: Qt.AlignLeft
+            spacing: 10
+
+            Icon {}
+            Workspaces {
+              bar: bar
+              wsBaseIndex: 1
+            }
           }
 
-          spacing: 5
+          // RowLayout {
+          //   Layout.alignment: Qt.AlignCenter
 
-          Icon{}
-          Workspaces {
-            bar: bar
-            Layout.fillWidth: true
-            wsBaseIndex: 1;
-          }
-        }
+          //   Text {
+          //       id: hours
+          //       font.pointSize: 13
+          //       color: Colors.on_background
+          //       font.family: "CaskaydiaCove Nerd Font"
+          //       // Layout.alignment: Qt.AlignHCenter
 
-        ColumnLayout {
-          anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-            bottomMargin: 15
-          }
+          //       text: "hola"
+          //   }
+          // }
 
-          Clock {
-            Layout.alignment: Qt.AlignHCenter
+          RowLayout {
+            Layout.alignment: Qt.AlignRight
+            spacing: 10
+
+            Clock {}
+            MaterialSymbol {
+              color: Colors.primary
+              font.pixelSize: 20
+              icon: "battery_5_bar"
+            }
           }
         }
       }

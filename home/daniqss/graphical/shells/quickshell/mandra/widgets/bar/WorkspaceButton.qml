@@ -12,10 +12,10 @@ FullwidthMouseArea {
 
     required property int index
 
-    property int wsIndex: root.wsBaseIndex + index
+    property int wsIndex: 1 + index
     property HyprlandWorkspace workspace: null
     property bool exists: workspace != null
-    property bool active: workspace?.active ?? false
+    property bool active: Hyprland.focusedWorkspace?.id == wsIndex
 
     Process {
         id: workspaceProcess
@@ -26,7 +26,7 @@ FullwidthMouseArea {
         id: defaultAppProcess
         command: ["defaultApp"]
     }
-    // onPressed: 
+
     // onPressed: Hyprland.dispatch(`workspace ${wsIndex}`)
     onPressed: event => {
         if (event.button === Qt.RightButton) {
@@ -38,35 +38,21 @@ FullwidthMouseArea {
     }
 
     onActiveChanged: if (active) root.currentIndex = wsIndex
-    onExistsChanged: root.existsCount += exists ? 1 : -1
 
-    Layout.fillWidth: true
-    implicitHeight: active ? 32 : 22
-    fillWindowWidth: true
-
-    Connections {
-        target: root
-        function onWorkspaceAdded(workspace: HyprlandWorkspace) {
-            if (workspace.id === wsItem.wsIndex)
-                wsItem.workspace = workspace
-        }
-    }
+    Layout.fillHeight: true
+    width: 22
 
     property real animActive: active ? 1 : 0
-    property real animExists: exists ? 1 : 0
-
     Behavior on animActive { NumberAnimation { duration: 150 } }
-    Behavior on animExists { NumberAnimation { duration: 100 } }
 
     Rectangle {
         anchors.centerIn: parent
-        width: active ? (parent.width / 1.3) : 16
-        height: active ? 28 : 16
-        radius: height / 2
-        scale: 1 + animActive * 0.1
+        height: 22
+        width: 22
+        radius: width / 2
 
-        color: active ? Colors.primary : Colors.tertiary
-        border.width: 1
+        color: Colors.primary
+        opacity: active ? 1 : 0.5
     }
 }
 

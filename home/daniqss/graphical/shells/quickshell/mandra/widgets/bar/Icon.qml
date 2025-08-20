@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
+import qs.config
 
 IconImage {
   id: launcher
@@ -10,8 +11,8 @@ IconImage {
 
   Layout.alignment: Qt.AlignCenter
 
-  width: 20
-  height: 20
+  width: 22
+  height: 22
 
   Process {
     id: applauncherProcess

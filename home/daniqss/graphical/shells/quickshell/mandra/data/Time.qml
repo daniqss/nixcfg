@@ -19,7 +19,6 @@ Singleton {
   readonly property string day: _formatted.split("-")[1].split(":")[0]
   readonly property string month: _formatted.split("-")[1].split(":")[1]
 
-  // Opcionales para mantener compatibilidad con el anterior
-  readonly property string time: hours + "\n" + minutes
+  readonly property string time: hours + ":" + minutes
   readonly property string date: day + "/" + month
 }
