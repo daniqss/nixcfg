@@ -19,13 +19,12 @@
     "sql": false
   },
 
-
   "nix.serverPath": "nixd",
   "nix.enableLanguageServer": true,
   "nix.serverSettings": {
     "nixd": {
       "formatting": {
-        "command": [ "alejandra" ]
+        "command": ["alejandra"]
       }
     }
   },
@@ -131,6 +130,8 @@
   "zig.zls.enabled": "on",
   "C_Cpp.intelliSenseEngine": "disabled",
   "qt-qml.qmlls.useQmlImportPathEnvVar": true,
+  "qt-qml.doNotAskForQmllsDownload": true,
+  "qt-qml.qmlls.customExePath": "/home/daniqss/.nix-profile/bin/qmlls",
 
   "github.copilot.selectedCompletionModel": "gpt-4o-copilot"
 }

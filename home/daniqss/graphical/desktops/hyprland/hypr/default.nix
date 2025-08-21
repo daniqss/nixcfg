@@ -41,7 +41,7 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      systemd.enable = false;
+      systemd.enable = !config.graphical.uwsm.enable;
 
       settings = {
         env = [

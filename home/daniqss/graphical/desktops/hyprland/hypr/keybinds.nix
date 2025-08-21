@@ -19,7 +19,8 @@
     else "${mainMod}, ${toString ws}, workspace, ${toString ws}";
 
   defaultApp = pkgs.writeShellScriptBin "defaultApp" ''
-    workspace_id="''${1:-$(hyprctl -j activeworkspace | jq -r '.id')}"
+    current_workspace="$(hyprctl -j activeworkspace | jq -r '.id')"
+    wanted_app="''${1:-$current_workspace}"
 
     declare -A apps=(
       [1]="${lib.getExe pkgs.vscode}"
@@ -33,7 +34,7 @@
       [9]="google-chrome-stable"
     )
 
-    hyprctl dispatch exec -- [workspace ''${workspace_id} silent] ${prefix} ''${apps[''$workspace_id]}
+    hyprctl dispatch exec -- [workspace ''${current_workspace} silent] ${prefix} ''${apps[''$wanted_app]}
   '';
 
   changeLang = pkgs.writeShellScriptBin "changeLang" ''
