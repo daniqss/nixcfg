@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound;
+
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Hyprland
@@ -9,17 +11,30 @@ Item {
     required property int wsCount
 	required property var bar
 
+    signal workspaceAdded(workspace: HyprlandWorkspace)
+
     RowLayout {
         id: row
-        anchors.fill: parent
-        spacing: 6
+		anchors.fill: parent
+        spacing: 0
 
         Repeater {
-            model: wsCount
+            model: root.wsCount
 
-            WorkspaceButton {
-                wsIndex: index + 1
-            }
+            WorkspaceButton {}
+        }
+    }
+
+    Connections {
+        target: Hyprland.workspaces
+        function onObjectInsertedPost(workspace) {
+            root.workspaceAdded(workspace)
+        }
+	}
+
+    Component.onCompleted: {
+        for (const workspace of Hyprland.workspaces.values) {
+            root.workspaceAdded(workspace)
         }
     }
 }
