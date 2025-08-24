@@ -45,6 +45,7 @@ in {
       pkgs.qt6.qt5compat
       pkgs.qt6.qtmultimedia
       pkgs.qt6.qtdeclarative
+
       pkgs.material-symbols
     ];
 

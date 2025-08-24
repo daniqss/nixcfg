@@ -11,16 +11,18 @@ Scope {
     model: Quickshell.screens
 
     PanelWindow {
-      property var modelData
-      screen: modelData
-      color: "transparent"
-      implicitHeight: 36
       id: bar
+
+      property var modelData
+
+      color: "transparent"
+      implicitHeight: 30
+      screen: modelData
 
       anchors {
         bottom: true
-        right: true
         left: true
+        right: true
       }
 
       Rectangle {
@@ -28,43 +30,44 @@ Scope {
         color: Config.Colors.background
 
         RowLayout {
+          spacing: 20
+
           anchors {
             fill: parent
-            rightMargin: 10
             leftMargin: 10
+            rightMargin: 10
           }
-          spacing: 20
 
           RowLayout {
             Layout.alignment: Qt.AlignLeft
             spacing: 14
 
-            Icon {}
+            Icon {
+            }
+
             Workspaces {
               bar: bar
               wsCount: 9
             }
           }
 
-          // RowLayout {
-          //   Layout.alignment: Qt.AlignCenter
-            
-          //   Text {
-          //       id: hours
-          //       font.pointSize: 13
-          //       color: Config.Colors.on_background
-          //       font.family: "CaskaydiaCove Nerd Font"
-          //       // Layout.alignment: Qt.AlignHCenter
+          RowLayout {
+            // qs warns this but I didn't get this in center with Layout.alignament
+            anchors.horizontalCenter: parent.horizontalCenter
 
-          //       text: "hola"
-          //   }
-          // }
+            Taskbar {
+            }
+          }
 
           RowLayout {
             Layout.alignment: Qt.AlignRight
             spacing: 10
 
-            Clock {}
+            Systray {
+            }
+
+            Clock {
+            }
             // Common.MaterialSymbol {
             //   color: Config.Colors.primary
             //   font.pixelSize: 20

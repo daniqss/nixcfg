@@ -1,4 +1,4 @@
-pragma ComponentBehavior: Bound;
+pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Layouts
@@ -7,34 +7,38 @@ import qs.config
 import qs.widgets.common
 
 Item {
-    id: root
-    required property int wsCount
-	required property var bar
+  id: root
 
-    signal workspaceAdded(workspace: HyprlandWorkspace)
+  required property var bar
+  required property int wsCount
 
-    RowLayout {
-        id: row
-		anchors.fill: parent
-        spacing: 0
+  signal workspaceAdded(workspace: HyprlandWorkspace)
 
-        Repeater {
-            model: root.wsCount
+  Component.onCompleted: {
+    for (const workspace of Hyprland.workspaces.values) {
+      root.workspaceAdded(workspace);
+    }
+  }
 
-            WorkspaceButton {}
-        }
+  RowLayout {
+    id: row
+
+    anchors.fill: parent
+    spacing: 0
+
+    Repeater {
+      model: root.wsCount
+
+      WorkspaceButton {
+      }
+    }
+  }
+
+  Connections {
+    function onObjectInsertedPost(workspace) {
+      root.workspaceAdded(workspace);
     }
 
-    Connections {
-        target: Hyprland.workspaces
-        function onObjectInsertedPost(workspace) {
-            root.workspaceAdded(workspace)
-        }
-	}
-
-    Component.onCompleted: {
-        for (const workspace of Hyprland.workspaces.values) {
-            root.workspaceAdded(workspace)
-        }
-    }
+    target: Hyprland.workspaces
+  }
 }
