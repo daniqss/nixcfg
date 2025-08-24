@@ -32,6 +32,10 @@
   "[nix]": {
     "editor.formatOnSave": true
   },
+  "[qml]": {
+    "editor.defaultFormatter": "delgan.qml-format",
+    "editor.formatOnSave": true
+  },
 
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",

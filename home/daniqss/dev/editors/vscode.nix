@@ -63,6 +63,12 @@
             version = "1.7.0";
             sha256 = "sha256-2413vMpvxSYBKpaD14sMgI92W8NtCYa/sJ7PZO62WfY=";
           }
+          {
+            name = "qml-format";
+            publisher = "delgan";
+            version = "1.1.0";
+            sha256 = "sha256-QOovj9loSWAgaBCwW3HBPD/Wr7GwVppSRcCJ4R5X/as=";
+          }
         ];
 
       profiles.default.userSettings = builtins.fromJSON (builtins.readFile ./settings.json);
