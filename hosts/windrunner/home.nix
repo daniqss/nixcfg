@@ -12,7 +12,7 @@
     gaming.enable = false;
     emulators = {
       emulator = pkgs.ghostty;
-      fontsize = 14;
+      fontsize = 13;
     };
     hyprland.hyprqtile.enable = true;
   };

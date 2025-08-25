@@ -177,6 +177,11 @@ in {
           workspace_swipe_cancel_ratio = 0.5;
           workspace_swipe_create_new = false;
         };
+
+        device = lib.mkIf (hostname == "windrunner") {
+          name = "elan071a:00-04f3:30fd-touchpad";
+          sensitivity = 0.1;
+        };
       };
     };
   };
