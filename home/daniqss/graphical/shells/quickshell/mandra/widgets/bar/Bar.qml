@@ -51,12 +51,12 @@ Scope {
             }
           }
 
-          RowLayout {
-            // qs warns this but I didn't get this in center with Layout.alignament
-            anchors.horizontalCenter: parent.horizontalCenter
+          // qs warns this but I didn't get this in center with Layout.alignament
+          // anchors.horizontalCenter: parent.horizontalCenter
 
-            Taskbar {
-            }
+          // Taskbar {
+          // }
+          RowLayout {
           }
 
           RowLayout {

@@ -7,23 +7,34 @@ import qs.config
 
 IconImage {
   id: launcher
-  source: Quickshell.iconPath("nix-snowflake")
 
   Layout.alignment: Qt.AlignCenter
-
-  width: 22
   height: 22
+  width: 22
+
+  Process {
+    command: ["sh", "-c", ". /etc/os-release && echo $LOGO"]
+    running: true
+
+    stdout: StdioCollector {
+      onStreamFinished: () => {
+        launcher.source = Quickshell.iconPath(this.text.trim());
+      }
+    }
+  }
 
   Process {
     id: applauncherProcess
+
     // rofi or future quickshell launcher
     command: ["applauncher"]
   }
 
   MouseArea {
     anchors.fill: parent
-    hoverEnabled: true
     cursorShape: Qt.PointingHandCursor
-    onClicked: applauncherProcess.running = true;
+    hoverEnabled: true
+
+    onClicked: applauncherProcess.running = true
   }
 }
