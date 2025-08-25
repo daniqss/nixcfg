@@ -50,7 +50,7 @@ RowLayout {
         anchors.centerIn: parent
         height: parent.height
         source: trayItem.item.icon
-        visible: false
+        // visible: trayItem.item.icon === "spotify-linux-32" ? null : trayItem.item.icon
         width: parent.width
       }
 
