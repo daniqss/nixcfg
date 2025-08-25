@@ -1,26 +1,21 @@
-{username, ...}: {
-  home = {
-    username = username;
-    homeDirectory = "/home/${username}";
-    stateVersion = "25.05";
-  };
-
+{
+  username,
+  pkgs,
+  ...
+}: {
   imports = [
-    ./graphical
-    ./dev
-    ./terminal
+    ../../home/${username}
   ];
 
   graphical = {
     enable = true;
+    gaming.enable = false;
+    emulators = {
+      emulator = pkgs.ghostty;
+      fontsize = 14;
+    };
+    hyprland.hyprqtile.enable = true;
   };
   dev.enable = true;
   terminal.enable = true;
-
-  wayland.windowManager.hyprland.settings = {
-    device = {
-      name = "elan071a:00-04f3:30fd-touchpad";
-      sensitivity = 0.1;
-    };
-  };
 }
