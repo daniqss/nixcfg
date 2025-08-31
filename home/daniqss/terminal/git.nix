@@ -8,15 +8,20 @@ in {
   config = lib.mkIf config.terminal.enable {
     programs.ssh = {
       enable = true;
-      compression = true;
+      enableDefaultConfig = false;
 
-      extraConfig = ''
-        Host github.com
-          User git
-          Hostname github.com
-          IdentityFile ~/.ssh/github_ed25519
-          IdentitiesOnly yes
-      '';
+      matchBlocks = {
+        "*" = {
+          compression = true;
+        };
+
+        "github.com" = {
+          user = "git";
+          hostname = "github.com";
+          identityFile = "~/.ssh/github_ed25519";
+          identitiesOnly = true;
+        };
+      };
     };
 
     programs.git = {
