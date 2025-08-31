@@ -64,10 +64,10 @@
     enable = true;
     config.hyprland = {
       default = ["hyprland"];
-      "org.freedesktop.impl.portal.FileChooser" = ["kde"];
+      "org.freedesktop.impl.portal.FileChooser" = ["gnome"];
     };
     extraPortals = with pkgs; [
-      kdePackages.xdg-desktop-portal-kde
+      xdg-desktop-portal-gnome
       xdg-desktop-portal-hyprland
     ];
   };
