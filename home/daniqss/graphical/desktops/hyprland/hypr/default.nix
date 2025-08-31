@@ -28,11 +28,10 @@ in {
     ./keybinds.nix
     ./rules.nix
 
-    ./portals.nix
-
     ./hypridle.nix
     ./hyprlock.nix
-    ./hyprsunset.nix
+    # must fix deprecation
+    # ./hyprsunset.nix
     ./hyprpolkitagent.nix
   ];
 
@@ -42,6 +41,9 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = !config.graphical.uwsm.enable;
+
+      package = null;
+      portalPackage = null;
 
       settings = {
         env = [

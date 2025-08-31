@@ -47,13 +47,29 @@
     LC_TIME = "es_ES.UTF-8";
   };
 
-  programs.uwsm = {
+  # programs.uwsm = {
+  #   enable = true;
+  #   waylandCompositors.hyprland = {
+  #     prettyName = "Hyprland";
+  #     comment = "Hyprland compositor managed by UWSM";
+  #     binPath = "/home/${username}/.nix-profile/bin/Hyprland";
+  #   };
+  # };
+  programs.hyprland = {
     enable = true;
-    waylandCompositors.hyprland = {
-      prettyName = "Hyprland";
-      comment = "Hyprland compositor managed by UWSM";
-      binPath = "/home/${username}/.nix-profile/bin/Hyprland";
+    withUWSM = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    config.hyprland = {
+      default = ["hyprland"];
+      "org.freedesktop.impl.portal.FileChooser" = ["kde"];
     };
+    extraPortals = with pkgs; [
+      kdePackages.xdg-desktop-portal-kde
+      xdg-desktop-portal-hyprland
+    ];
   };
 
   services.greetd = {
