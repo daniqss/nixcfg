@@ -20,6 +20,7 @@ RowLayout {
 
       implicitHeight: 16
       implicitWidth: 16
+      visible: !trayItem.item.icon.includes("spotify-linux-32")
 
       onClicked: event => {
         if (item.hasMenu) {
@@ -50,7 +51,6 @@ RowLayout {
         anchors.centerIn: parent
         height: parent.height
         source: trayItem.item.icon
-        // visible: trayItem.item.icon === "spotify-linux-32" ? null : trayItem.item.icon
         width: parent.width
       }
 
