@@ -7,7 +7,7 @@
   config,
   ...
 }: let
-  wallpaper = "/home/${username}/nixcfg/assets/wallpapers/hill.gif";
+  wallpaper = "/home/${username}/nixcfg/assets/wallpapers/current";
   createMatugen = pkgs.writeShellScriptBin "createMatugen" ''
     echo "creating matugen theme..."
     ${lib.getExe' inputs.matugen.packages.${system}.default "matugen"} image ${wallpaper}
@@ -23,6 +23,13 @@ in {
       pkgs.swww
       createMatugen
     ];
+
+    home.sessionVariables = {
+      SWWW_TRANSITION = "any";
+      SWWW_DURATION = "1.5";
+      SWWW_TRANSITION_FPS = "60";
+      SWWW_TRANSITION_STEP = "120";
+    };
 
     programs.matugen = {
       enable = true;

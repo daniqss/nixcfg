@@ -30,7 +30,6 @@ in {
 
     ./hypridle.nix
     ./hyprlock.nix
-    # must fix deprecation
     # ./hyprsunset.nix
     ./hyprpolkitagent.nix
   ];
