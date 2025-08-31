@@ -31,8 +31,8 @@ in {
       # };
 
       iconTheme = {
-        name = "MoreWaita";
-        package = pkgs.morewaita-icon-theme;
+        name = "Adwaita";
+        package = pkgs.adwaita-icon-theme;
       };
 
       gtk2.extraConfig = ''
