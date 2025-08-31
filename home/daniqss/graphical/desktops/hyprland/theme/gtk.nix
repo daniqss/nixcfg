@@ -23,13 +23,6 @@ in {
     gtk = {
       enable = true;
 
-      # todo -> separated theme for gtk3 and gtk4
-      # https://github.com/nix-community/home-manager/pull/7349
-      # theme = {
-      #   package = pkgs.adw-gtk3;
-      #   name = "adw-gtk3-dark";
-      # };
-
       iconTheme = {
         name = "Adwaita";
         package = pkgs.adwaita-icon-theme;
@@ -43,6 +36,10 @@ in {
       '';
 
       gtk3 = {
+        theme = {
+          package = pkgs.adw-gtk3;
+          name = "adw-gtk3-dark";
+        };
         extraConfig = {
           gtk-application-prefer-dark-theme = 1;
           gtk-xft-antialias = 1;
