@@ -25,17 +25,25 @@ Scope {
         right: true
       }
 
+      margins {
+        bottom: 5
+        left: 6
+        right: 6
+        top: -2
+      }
+
       Rectangle {
         anchors.fill: parent
         color: Config.Colors.background
+        radius: 13
 
         RowLayout {
           spacing: 20
 
           anchors {
             fill: parent
-            leftMargin: 10
-            rightMargin: 10
+            leftMargin: 12
+            rightMargin: 12
           }
 
           RowLayout {

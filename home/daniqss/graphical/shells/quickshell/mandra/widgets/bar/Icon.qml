@@ -9,8 +9,8 @@ IconImage {
   id: launcher
 
   Layout.alignment: Qt.AlignCenter
-  height: 22
-  width: 22
+  height: 20
+  width: 20
 
   Process {
     command: ["sh", "-c", ". /etc/os-release && echo $LOGO"]

@@ -4,73 +4,81 @@ import Quickshell.Hyprland
 import Quickshell.Io
 
 import qs.config as Config
-import qs.widgets.common 
+import qs.widgets.common
 
 Item {
-    id: wsButton
+  id: wsButton
 
-    required property int index
-    property int wsIndex: index + 1
-    property bool focused: true
-    property HyprlandWorkspace workspace: null
-    property bool active: workspace?.active ?? false
+  property bool active: workspace?.active ?? false
+  property real animActive: active ? 1 : 0
+  property bool focused: true
+  required property int index
+  property HyprlandWorkspace workspace: null
+  property int wsIndex: index + 1
 
+  Layout.fillHeight: true
+  Layout.leftMargin: active ? 4 : 0
+  Layout.rightMargin: active ? 4 : 0
+  width: 20
 
-    Layout.fillHeight: true
-    Layout.leftMargin: active ? 8 : 0
-    Layout.rightMargin: active ? 8 : 0
-    width: 20
+  Behavior on animActive {
+    NumberAnimation {
+      duration: 150
+    }
+  }
 
-    Rectangle {
-        anchors.centerIn: parent
+  Rectangle {
+    anchors.centerIn: parent
+    color: Config.Colors.primary
+    height: wsButton.active ? (parent.width / 1.3) : 10
+    opacity: wsButton.active ? 1 : 0.5
+    radius: 10
+    scale: 1 + wsButton.animActive * 0.1
+    width: wsButton.active ? 22 : 10
 
-        height: wsButton.active ? (parent.width / 1.3) : 12
-        width: wsButton.active ? 26 : 12
-        radius: width / 2
-        scale: 1 + wsButton.animActive * 0.1
+    Connections {
+      function onWorkspaceAdded(workspace: HyprlandWorkspace) {
+        if (workspace.id === wsButton.wsIndex)
+          wsButton.workspace = workspace;
+      }
 
+      target: root
+    }
 
-        color: Config.Colors.primary
-        opacity: wsButton.active ? 1 : 0.5
+    // maybe mouseareas should be bigger using the same styled rectangles
+    // Rectangle {
+    //   color: Config.Colors.error
+    //   height: 5
+    //   width: 5
+    // }
 
-        
-        Connections {
-            target: root
-            function onWorkspaceAdded(workspace: HyprlandWorkspace) {
-                if (workspace.id === wsButton.wsIndex)
-                    wsButton.workspace = workspace
-            }
+    // accepted inputs in the button
+    MouseArea {
+      acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+      anchors.fill: parent
+      cursorShape: Qt.PointingHandCursor
+
+      onPressed: event => {
+        if (event.button === Qt.RightButton) {
+          defaultAppProcess.running = true;
+        } else if (event.button === Qt.LeftButton) {
+          workspaceProcess.running = true;
         }
-
-        // accepted inputs in the button
-        MouseArea {
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
-            acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
-            onPressed: event => {
-                if (event.button === Qt.RightButton) {
-                    defaultAppProcess.running = true;
-                }
-                else if (event.button === Qt.LeftButton) {
-                    workspaceProcess.running = true;
-                }
-            }
-        }
+      }
     }
+  }
 
-    property real animActive: active ? 1 : 0
-    Behavior on animActive { NumberAnimation { duration: 150 } }
+  // processes that will run on left and right click
+  Process {
+    id: workspaceProcess
 
-    // processes that will run on left and right click
-    Process {
-        id: workspaceProcess
-        // rofi or future quickshell launcher
-        command: ["hyprqtile", "-w", `${wsButton.wsIndex}`]
-    }
+    // rofi or future quickshell launcher
+    command: ["hyprqtile", "-w", `${wsButton.wsIndex}`]
+  }
 
-    Process {
-        id: defaultAppProcess
-        command: ["defaultApp", `${wsButton.wsIndex}`]
-    }
+  Process {
+    id: defaultAppProcess
+
+    command: ["defaultApp", `${wsButton.wsIndex}`]
+  }
 }
-
