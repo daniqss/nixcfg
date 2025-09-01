@@ -29,12 +29,23 @@ Item {
 
   Rectangle {
     anchors.centerIn: parent
-    color: Config.Colors.primary
-    height: wsButton.active ? (parent.width / 1.3) : 10
-    opacity: wsButton.active ? 1 : 0.5
+    color: {
+      // ws.modelData.workspace ?? false ? Colors.monitorColors[ws.modelData.workspace?.monitor?.id] : Colors.bgBlur;
+      if (wsButton.workspace) {
+        if (wsButton.workspace?.monitor?.id == 0 && wsButton.active) {
+          return Config.Colors.primary;
+        } else if (wsButton.workspace?.monitor?.id == 1 && wsButton.active) {
+          return Config.Colors.tertiary;
+        }
+      }
+
+      return Config.Colors.primary;
+    }
+    height: wsButton.active ? (parent.width / 1.3) : (wsButton.workspace ? 12 : 10)
+    opacity: wsButton.workspace ? 1 : 0.5
     radius: 10
     scale: 1 + wsButton.animActive * 0.1
-    width: wsButton.active ? 22 : 10
+    width: wsButton.active ? 22 : (wsButton.workspace ? 12 : 10)
 
     Connections {
       function onWorkspaceAdded(workspace: HyprlandWorkspace) {
