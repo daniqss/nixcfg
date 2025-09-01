@@ -30,7 +30,6 @@ Item {
   Rectangle {
     anchors.centerIn: parent
     color: {
-      // ws.modelData.workspace ?? false ? Colors.monitorColors[ws.modelData.workspace?.monitor?.id] : Colors.bgBlur;
       if (wsButton.workspace) {
         if (wsButton.workspace?.monitor?.id == 0 && wsButton.active) {
           return Config.Colors.primary;
@@ -80,11 +79,15 @@ Item {
   }
 
   // processes that will run on left and right click
+  // must move to a separate process with ipc to allow running refreshMonitors() from hyprland keybind
   Process {
     id: workspaceProcess
 
-    // rofi or future quickshell launcher
     command: ["hyprqtile", "-w", `${wsButton.wsIndex}`]
+
+    stdout: StdioCollector {
+      onStreamFinished: () => Hyprland.refreshMonitors()
+    }
   }
 
   Process {
