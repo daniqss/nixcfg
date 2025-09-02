@@ -16,8 +16,9 @@ in {
       nautilus
       nautilus-open-any-terminal
 
-      spotify
+      obsidian
       (discord.override {withVencord = true;})
+      spotify
 
       qbittorrent
 

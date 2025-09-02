@@ -14,10 +14,10 @@
     else "";
 
   switcher = ws:
-    if config.graphical.hyprland.hyprqtile.enable
-    then "${mainMod}, ${toString ws}, exec, hyprqtile -w ${toString ws}"
-    else if config.graphical.hyprland.hyprqtile.enable && (config.graphical.shells.shell == "quickshell")
+    if (config.graphical.hyprland.hyprqtile.enable && (config.graphical.shells.shell == "quickshell"))
     then "${mainMod}, ${toString ws}, exec, qs ipc -c mandra call workspaces moveToWorkspaceSilent ${toString ws}"
+    else if config.graphical.hyprland.hyprqtile.enable
+    then "${mainMod}, ${toString ws}, exec, hyprqtile -w ${toString ws}"
     else "${mainMod}, ${toString ws}, workspace, ${toString ws}";
 
   defaultApp = pkgs.writeShellScriptBin "defaultApp" ''
