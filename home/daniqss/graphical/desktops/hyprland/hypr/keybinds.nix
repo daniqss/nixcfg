@@ -16,6 +16,8 @@
   switcher = ws:
     if config.graphical.hyprland.hyprqtile.enable
     then "${mainMod}, ${toString ws}, exec, hyprqtile -w ${toString ws}"
+    else if config.graphical.hyprland.hyprqtile.enable && (config.graphical.shells.shell == "quickshell")
+    then "${mainMod}, ${toString ws}, exec, qs ipc -c mandra call workspaces moveToWorkspaceSilent ${toString ws}"
     else "${mainMod}, ${toString ws}, workspace, ${toString ws}";
 
   defaultApp = pkgs.writeShellScriptBin "defaultApp" ''
@@ -23,14 +25,14 @@
     wanted_app="''${1:-$current_workspace}"
 
     declare -A apps=(
-      [1]="${lib.getExe pkgs.vscode}"
+      [1]="code"
       [2]="chromium"
       [3]="${lib.getExe emulator}"
-      [4]="${lib.getExe pkgs.obsidian}"
-      [5]="${lib.getExe pkgs.nautilus}"
-      [6]="${lib.getExe pkgs.vesktop}"
-      [7]="${lib.getExe pkgs.steam}"
-      [8]="${lib.getExe pkgs.spotify}"
+      [4]="obsidian"
+      [5]="nautilus"
+      [6]="discord"
+      [7]="steam"
+      [8]="spotify"
       [9]="google-chrome-stable"
     )
 
