@@ -4,7 +4,7 @@ import QtQuick
 import Quickshell
 
 Singleton {
-  id: root
+  id: timeSingleton
 
   SystemClock {
     id: clock

@@ -50,7 +50,7 @@ Scope {
             Layout.alignment: Qt.AlignLeft
             spacing: 14
 
-            Icon {
+            OsIcon {
             }
 
             Workspaces {

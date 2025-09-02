@@ -1,10 +1,10 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Hyprland
-import Quickshell.Io
 
 import qs.config as Config
 import qs.widgets.common
+import qs.data as Data
 
 Item {
   id: wsButton
@@ -55,44 +55,19 @@ Item {
       target: root
     }
 
-    // maybe mouseareas should be bigger using the same styled rectangles
-    // Rectangle {
-    //   color: Config.Colors.error
-    //   height: 5
-    //   width: 5
-    // }
-
-    // accepted inputs in the button
     MouseArea {
+      // accepted inputs in the button
       acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
       anchors.fill: parent
       cursorShape: Qt.PointingHandCursor
 
       onPressed: event => {
-        if (event.button === Qt.RightButton) {
-          defaultAppProcess.running = true;
-        } else if (event.button === Qt.LeftButton) {
-          workspaceProcess.running = true;
+        if (event.button === Qt.LeftButton) {
+          Data.WorkspacesIpc.moveToWorkspaceSilent(wsButton.wsIndex);
+        } else if (event.button === Qt.RightButton) {
+          Data.WorkspacesIpc.defaultWorkspaceApp(wsButton.wsIndex);
         }
       }
     }
-  }
-
-  // processes that will run on left and right click
-  // must move to a separate process with ipc to allow running refreshMonitors() from hyprland keybind
-  Process {
-    id: workspaceProcess
-
-    command: ["hyprqtile", "-w", `${wsButton.wsIndex}`]
-
-    stdout: StdioCollector {
-      onStreamFinished: () => Hyprland.refreshMonitors()
-    }
-  }
-
-  Process {
-    id: defaultAppProcess
-
-    command: ["defaultApp", `${wsButton.wsIndex}`]
   }
 }

@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Hyprland
+
 import qs.config
 import qs.widgets.common
 
@@ -27,8 +28,7 @@ Item {
     Repeater {
       model: root.wsCount
 
-      WorkspaceButton {
-      }
+      WorkspaceButton {}
     }
   }
 

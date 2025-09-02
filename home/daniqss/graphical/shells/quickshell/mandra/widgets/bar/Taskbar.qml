@@ -3,6 +3,7 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick.Layouts
 import Quickshell.Widgets
+
 import qs.config as Config
 
 RowLayout {

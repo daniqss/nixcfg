@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
-import qs.data
-import qs.config
+
+import qs.data as Data
+import qs.config as Config
 
 RowLayout {
   spacing: 10
@@ -10,19 +11,19 @@ RowLayout {
     id: hours
 
     Layout.alignment: Qt.AlignHCenter
-    color: Colors.on_background
+    color: Config.Colors.on_background
     font.family: "CaskaydiaCove Nerd Font"
     font.pointSize: 13
-    text: Time.time
+    text: Data.Time.time
   }
 
   Text {
     id: date
 
     Layout.alignment: Qt.AlignHCenter
-    color: Colors.on_background
+    color: Config.Colors.on_background
     font.family: "CaskaydiaCove Nerd Font"
     font.pointSize: 13
-    text: Time.date
+    text: Data.Time.date
   }
 }
