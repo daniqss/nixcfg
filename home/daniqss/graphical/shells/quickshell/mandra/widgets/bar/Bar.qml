@@ -35,7 +35,7 @@ Scope {
       Rectangle {
         anchors.fill: parent
         color: Config.Colors.background
-        radius: 13
+        radius: bar.implicitHeight / 2
 
         RowLayout {
           spacing: 20
@@ -50,8 +50,7 @@ Scope {
             Layout.alignment: Qt.AlignLeft
             spacing: 14
 
-            OsIcon {
-            }
+            OsIcon {}
 
             Workspaces {
               bar: bar
@@ -64,18 +63,15 @@ Scope {
 
           // Taskbar {
           // }
-          RowLayout {
-          }
+          RowLayout {}
 
           RowLayout {
             Layout.alignment: Qt.AlignRight
             spacing: 10
 
-            Systray {
-            }
+            Systray {}
 
-            Clock {
-            }
+            Clock {}
             // Common.MaterialSymbol {
             //   color: Config.Colors.primary
             //   font.pixelSize: 20
