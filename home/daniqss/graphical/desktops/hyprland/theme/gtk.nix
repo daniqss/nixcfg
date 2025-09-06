@@ -20,6 +20,12 @@ in {
       size = 24;
     };
 
+    dconf.settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+    };
+
     gtk = {
       enable = true;
 
@@ -52,8 +58,11 @@ in {
       };
 
       gtk4 = {
+        theme = {
+          name = "Adwaita-dark";
+          package = pkgs.gnome-themes-extra;
+        };
         extraConfig = {
-          gtk-application-prefer-dark-theme = 1;
           gtk-decoration-layout = "menu:";
         };
         extraCss = "@import 'colors.css';";

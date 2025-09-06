@@ -12,6 +12,8 @@
     ./nix.nix
   ];
 
+  services.gvfs.enable = true;
+
   services.pipewire = {
     enable = true;
     pulse.enable = true;
