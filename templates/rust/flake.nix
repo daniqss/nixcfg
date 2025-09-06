@@ -1,8 +1,5 @@
-let
-  name = "rust-template";
+{
   description = "basic rust template";
-in {
-  inherit description;
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -13,7 +10,7 @@ in {
     self,
     nixpkgs,
     utils,
-  }:
+  } @ description:
     utils.lib.eachDefaultSystem (
       system: let
         pkgs = import nixpkgs {inherit system;};
@@ -32,21 +29,25 @@ in {
             RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
           };
 
-        packages.default = pkgs.rustPlatform.buildRustPackage {
-          pname = name;
-          version = "0.1.0";
+        packages.default = let
+          name = "rust-template";
+          description = "basic rust template";
+        in
+          pkgs.rustPlatform.buildRustPackage {
+            pname = name;
+            version = "0.1.0";
 
-          src = self;
-          cargoLock.lockFile = ./Cargo.lock;
+            src = self;
+            cargoLock.lockFile = ./Cargo.lock;
 
-          meta = with pkgs.lib; {
-            mainProgram = name;
-            inherit description;
-            homepage = "https://github.com/daniqss/${name}";
-            license = licenses.unlicense;
-            platforms = platforms.linux;
+            meta = with pkgs.lib; {
+              mainProgram = name;
+              inherit description;
+              homepage = "https://github.com/daniqss/${name}";
+              license = licenses.unlicense;
+              platforms = platforms.linux;
+            };
           };
-        };
       }
     );
 }
