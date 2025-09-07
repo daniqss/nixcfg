@@ -13,6 +13,7 @@
   ];
 
   services.gvfs.enable = true;
+  services.upower.enable = true;
 
   services.pipewire = {
     enable = true;

@@ -70,13 +70,8 @@ Scope {
             spacing: 10
 
             Systray {}
-
+            Battery {}
             Clock {}
-            // Common.MaterialSymbol {
-            //   color: Config.Colors.primary
-            //   font.pixelSize: 20
-            //   icon: "battery_5_bar"
-            // }
           }
         }
       }
