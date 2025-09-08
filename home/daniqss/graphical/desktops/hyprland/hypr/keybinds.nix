@@ -80,9 +80,9 @@ in {
           "${mainMod}, I, togglesplit,"
 
           "${mainMod}, H, movefocus, l"
+          "${mainMod}, J, movefocus, d"
+          "${mainMod}, K, movefocus, u"
           "${mainMod}, L, movefocus, r"
-          "${mainMod}, J, movefocus, u"
-          "${mainMod}, K, movefocus, d"
 
           "${mainMod}, S, togglespecialworkspace, magic"
           "${mainMod} ALT, S, movetoworkspacesilent, special:magic"
