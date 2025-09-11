@@ -14,6 +14,7 @@
 
   services.gvfs.enable = true;
   services.upower.enable = true;
+  programs.dconf.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -25,14 +26,11 @@
   users.users.${username} = {
     isNormalUser = true;
     description = "${username}";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "kvm" "adbusers"];
     shell = pkgs.zsh;
   };
   environment.pathsToLink = ["/share/zsh"];
   environment.systemPackages = with pkgs; [pulseaudio];
-
-  # for gtk
-  programs.dconf.enable = true;
 
   programs.zsh.enable = true;
 

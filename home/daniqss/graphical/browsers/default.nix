@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  inherit (pkgs) chromium google-chrome;
+  inherit (pkgs) chromium google-chrome ungoogled-chromium;
 
-  availableBrowsers = [chromium google-chrome];
+  availableBrowsers = [chromium google-chrome ungoogled-chromium];
 in {
   imports = [
     ./chromium.nix
@@ -17,7 +17,7 @@ in {
       options = {
         dev = lib.mkOption {
           type = lib.types.enum availableBrowsers;
-          default = chromium;
+          default = ungoogled-chromium;
           description = "dev browser";
         };
 

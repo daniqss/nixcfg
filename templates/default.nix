@@ -11,4 +11,8 @@
     path = ./arm;
     description = "basic arm template";
   };
+  android = {
+    path = ./android;
+    description = "basic android dev template";
+  };
 }

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ../common
@@ -23,6 +19,12 @@
     layout = "es";
     variant = "";
   };
+
+  programs.adb.enable = true;
+
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];
 
   system.stateVersion = "25.05";
 }

@@ -8,26 +8,26 @@ import qs.widgets.common as Common
 RowLayout {
   readonly property var battery: UPower.displayDevice
   readonly property int percentage: Math.round(battery.percentage * 100)
+  property bool fullyCharged: battery.state === UPowerDeviceState.FullyCharged
+  property bool charging: battery.state === UPowerDeviceState.Charging
 
   function batteryIcon() {
-    if (battery.state === UPowerDeviceState.Charging)
-      return "battery_charging_full";
-    else if (battery.state === UPowerDeviceState.FullyCharged || percentage >= 90)
+    if (fullyCharged | percentage >= 90)
       return "battery_full";
     else if (percentage >= 80)
-      return "battery_6_bar";
+      return !charging ? "battery_6_bar" : "battery_charging_90";
     else if (percentage >= 70)
-      return "battery_5_bar";
+      return !charging ? "battery_5_bar" : "battery_charging_80";
     else if (percentage >= 60)
-      return "battery_4_bar";
+      return !charging ? "battery_4_bar" : "battery_charging_80";
     else if (percentage >= 50)
-      return "battery_3_bar";
+      return !charging ? "battery_3_bar" : "battery_charging_30";
     else if (percentage >= 40)
-      return "battery_2_bar";
+      return !charging ? "battery_2_bar" : "battery_charging_30";
     else if (percentage >= 30)
-      return "battery_1_bar";
+      return !charging ? "battery_1_bar" : "battery_charging_20";
     else if (percentage >= 20)
-      return "battery_0_bar";
+      return !charging ? "battery_0_bar" : "battery_charging_full";
     else
       return "battery_alert";
   }
