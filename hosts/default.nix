@@ -25,6 +25,7 @@
             networking.hostName = hostname;
             nixpkgs.hostPlatform = system;
             nixpkgs.config.allowUnfree = true;
+            nixpkgs.config.android_sdk.accept_license = true;
           }
         ]
         (lib.flatten [

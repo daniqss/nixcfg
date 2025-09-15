@@ -16,6 +16,11 @@
   services.upower.enable = true;
   programs.dconf.enable = true;
 
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
+
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -30,7 +35,10 @@
     shell = pkgs.zsh;
   };
   environment.pathsToLink = ["/share/zsh"];
-  environment.systemPackages = with pkgs; [pulseaudio];
+  environment.systemPackages = with pkgs; [
+    pulseaudio
+    distrobox
+  ];
 
   programs.zsh.enable = true;
 

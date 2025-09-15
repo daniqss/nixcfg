@@ -34,6 +34,8 @@ in {
       };
 
       initContent = ''
+        compdef eza=ls
+
         code() {
           ${pkgs.vscode}/bin/code "$@" > /dev/null 2>&1
         }
