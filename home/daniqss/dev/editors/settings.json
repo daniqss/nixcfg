@@ -1,59 +1,30 @@
 {
-  "window.titleBarStyle": "custom",
-  "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorTheme": "One Dark Pro Night Flat",
-  "editor.fontFamily": "'CaskaydiaCove Nerd Font', 'Courier New', monospace",
-  "editor.fontLigatures": true,
-  "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font', monospace",
-  "terminal.integrated.fontSize": 16,
-  "editor.fontSize": 16,
-  "editor.stickyScroll.enabled": false,
-  "github.copilot.enable": {
-    "*": true,
-    "plaintext": true,
-    "markdown": true,
-    "scminput": false,
-    "typescript": true,
-    "rust": true,
-    "cpp": true,
-    "sql": false
-  },
-
-  "nix.serverPath": "nixd",
-  "nix.enableLanguageServer": true,
-  "nix.serverSettings": {
-    "nixd": {
-      "formatting": {
-        "command": ["alejandra"]
-      }
-    }
-  },
-
-  "[nix]": {
-    "editor.formatOnSave": true
-  },
-  "[qml]": {
-    "editor.defaultFormatter": "delgan.qml-format",
-    "editor.formatOnSave": true
-  },
-
-  "[javascript]": {
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format",
     "editor.formatOnSave": true
   },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format",
     "editor.formatOnSave": true
   },
-  "[typescriptreact]": {
+  "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
   "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
@@ -69,17 +40,16 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": false
   },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[astro]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
   "[mdx]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": false
+  },
+  "[nix]": {
+    "editor.formatOnSave": true
+  },
+  "[qml]": {
+    "editor.defaultFormatter": "delgan.qml-format",
+    "editor.formatOnSave": true
   },
   "[rust]": {
     "editor.defaultFormatter": "rust-lang.rust-analyzer",
@@ -89,37 +59,32 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
-  "[c]": {
-    "editor.defaultFormatter": "xaver.clang-format",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
-  "[cpp]": {
-    "editor.defaultFormatter": "xaver.clang-format",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
-
-  "rust-analyzer.inlayHints.closingBraceHints.enable": false,
-  "rust-analyzer.inlayHints.parameterHints.enable": false,
-  "rust-analyzer.inlayHints.typeHints.enable": false,
-  "rust-analyzer.inlayHints.lifetimeElisionHints.useParameterNames": true,
-  "rust-analyzer.inlayHints.chainingHints.enable": false,
-  "rust-analyzer.checkOnSave": true,
-  "redhat.telemetry.enabled": false,
-
+  "editor.fontFamily": "'CaskaydiaCove Nerd Font', 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 16,
   "editor.mouseWheelZoom": true,
+  "editor.stickyScroll.enabled": false,
   "explorer.confirmDragAndDrop": false,
-  "workbench.editorAssociations": {
-    "*.copilotmd": "vscode.markdown.preview.editor",
-    "*.jpeg": "imagePreview.previewEditor",
-    "*.odp": "default",
-    "*.wav": "default"
-  },
   "git.autofetch": true,
-  "makefile.configureOnOpen": true,
-  "rust-analyzer.diagnostics.styleLints.enable": true,
-  "workbench.startupEditor": "none",
-  "workbench.editor.empty.hint": "hidden",
-  "typescript.updateImportsOnFileMove.enabled": "always",
+  "github.copilot.enable": {
+    "*": true,
+    "cpp": true,
+    "markdown": true,
+    "plaintext": true,
+    "rust": true,
+    "scminput": false,
+    "sql": false,
+    "typescript": true
+  },
+  "github.copilot.selectedCompletionModel": "gpt-4o-copilot",
   "java.completion.favoriteStaticMembers": [
     "org.junit.Assert.*",
     "org.junit.Assume.*",
@@ -131,11 +96,41 @@
     "org.mockito.ArgumentMatchers.*",
     "org.mockito.Answers.*"
   ],
-  "zig.zls.enabled": "on",
-  "C_Cpp.intelliSenseEngine": "disabled",
-  "qt-qml.qmlls.useQmlImportPathEnvVar": true,
+  "makefile.configureOnOpen": true,
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "nixd",
+  "nix.serverSettings": {
+    "nixd": {
+      "formatting": {
+        "command": ["alejandra"]
+      }
+    }
+  },
   "qt-qml.doNotAskForQmllsDownload": true,
   "qt-qml.qmlls.customExePath": "/home/daniqss/.nix-profile/bin/qmlls",
-
-  "github.copilot.selectedCompletionModel": "gpt-4o-copilot"
+  "qt-qml.qmlls.useQmlImportPathEnvVar": true,
+  "redhat.telemetry.enabled": false,
+  "rust-analyzer.checkOnSave": true,
+  "rust-analyzer.diagnostics.styleLints.enable": true,
+  "rust-analyzer.inlayHints.chainingHints.enable": false,
+  "rust-analyzer.inlayHints.closingBraceHints.enable": false,
+  "rust-analyzer.inlayHints.lifetimeElisionHints.useParameterNames": true,
+  "rust-analyzer.inlayHints.parameterHints.enable": false,
+  "rust-analyzer.inlayHints.typeHints.enable": false,
+  "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font', monospace",
+  "terminal.integrated.fontSize": 16,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "window.titleBarStyle": "custom",
+  "workbench.colorTheme": "One Dark Pro Night Flat",
+  "workbench.editor.empty.hint": "hidden",
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.jpeg": "imagePreview.previewEditor",
+    "*.odp": "default",
+    "*.wav": "default"
+  },
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "none",
+  "zig.zls.enabled": "on",
+  "workbench.secondarySideBar.defaultVisibility": "hidden"
 }

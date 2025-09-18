@@ -1,7 +1,9 @@
 pragma ComponentBehavior: Bound
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
+
 import qs.widgets.bar
 import qs.widgets.common as Common
 import qs.config as Config
@@ -18,6 +20,8 @@ Scope {
       color: "transparent"
       implicitHeight: 30
       screen: modelData
+
+      WlrLayershell.layer: WlrLayer.Bottom
 
       anchors {
         bottom: true
