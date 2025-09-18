@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  username,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../common
@@ -25,6 +29,13 @@
   services.udev.packages = [
     pkgs.android-udev-rules
   ];
+
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [username];
+  # usb forwarding
+  # virtualisation.virtualbox.host.enableExtensionPack = true;
+
+  environment.systemPackages = with pkgs; [vagrant];
 
   system.stateVersion = "25.05";
 }
