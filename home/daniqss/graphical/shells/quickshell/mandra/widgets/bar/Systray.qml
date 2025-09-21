@@ -7,6 +7,7 @@ import QtQuick.Effects
 
 RowLayout {
   id: sysTrayRow
+  spacing: 10
 
   Repeater {
     id: sysTray

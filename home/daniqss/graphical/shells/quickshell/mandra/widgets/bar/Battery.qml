@@ -2,10 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.Services.UPower
 
-import qs.config as Config
-import qs.widgets.common as Common
+import qs.config
+import qs.widgets.common
 
 RowLayout {
+  spacing: 0
+
   readonly property var battery: UPower.displayDevice
   readonly property int percentage: Math.round(battery.percentage * 100)
   property bool fullyCharged: battery.state === UPowerDeviceState.FullyCharged
@@ -34,16 +36,8 @@ RowLayout {
 
   visible: battery.isLaptopBattery
 
-  Text {
-    Layout.alignment: Qt.AlignHCenter
-    color: Config.Colors.on_background
-    font.family: "CaskaydiaCove Nerd Font"
-    font.pointSize: 13
-    text: parent.percentage
-  }
-
-  Common.MaterialSymbol {
-    color: Config.Colors.on_background
+  MaterialSymbol {
+    color: Colors.on_background
     font.pixelSize: 20
     icon: parent.batteryIcon()
   }

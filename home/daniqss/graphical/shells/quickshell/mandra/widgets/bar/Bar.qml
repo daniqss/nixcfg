@@ -71,10 +71,16 @@ Scope {
 
           RowLayout {
             Layout.alignment: Qt.AlignRight
-            spacing: 10
+            spacing: 15
 
             Systray {}
-            Battery {}
+            RowLayout {
+              Layout.alignment: Qt.AlignRight
+              spacing: 2
+
+              Network {}
+              Battery {}
+            }
             Clock {}
           }
         }
