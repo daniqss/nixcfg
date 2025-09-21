@@ -16,7 +16,7 @@
     else if hostname == "windrunner"
     then [
       "eDP-1,1920x1080@60.06,0x0, 1.0"
-      "HDMI-A-1,1920x1080@60.06,0x0,1.0,mirror, eDP-1"
+      # "HDMI-A-1,1920x1080@60.06,0x0,1.0,mirror, eDP-1"
     ]
     else null;
 

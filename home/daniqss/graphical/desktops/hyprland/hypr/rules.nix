@@ -47,7 +47,11 @@
       "noinitialfocus, class:^jetbrains-(?!toolbox), floating:1"
 
       "immediate, class:^(Stardew Valley)$"
+      "fullscreen, class:^(Stardew Valley)$"
       "immediate, class:^(Hollow_Knight.exe)$"
+      "fullscreen, class:^(Hollow_Knight.exe)$"
+      "immediate, class:^(Hollow Knight Silksong)$"
+      "fullscreen, class:^(Hollow Knight Silksong)$"
       "immediate, class:^(Minecraft* 1.21.8)$"
       "fullscreen, class:^(Minecraft* 1.21.8)$"
       "immediate, class:^(cs2)$"
