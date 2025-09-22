@@ -3,12 +3,12 @@
   lib,
   config,
   ...
-}: let
-in {
+}: {
   imports = [
     ./zsh.nix
     ./git.nix
   ];
+  
   options.terminal.enable = lib.mkEnableOption "Enable some terminal";
 
   config = lib.mkIf config.terminal.enable {
@@ -17,9 +17,11 @@ in {
       eza
       killall
       fastfetch
+      bottom
+      htop
+      cava
 
-      micro 
-      vim
+      micro
       neovim
     ];
   };

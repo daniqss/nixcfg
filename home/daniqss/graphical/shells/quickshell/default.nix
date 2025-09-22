@@ -47,6 +47,11 @@ in {
       pkgs.qt6.qtdeclarative
 
       pkgs.material-symbols
+
+      # programs used in quickshell
+      pkgs.pwvucontrol
+      pkgs.bottom
+      pkgs.networkmanager #nmtui and nmcli
     ];
 
     home.sessionVariables = {
