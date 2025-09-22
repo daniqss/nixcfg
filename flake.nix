@@ -10,6 +10,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
+
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=refs/tags/v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +28,15 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://nixos-raspberrypi.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+    ];
   };
 
   outputs = inputs @ {
