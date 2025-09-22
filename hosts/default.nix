@@ -78,7 +78,6 @@ in {
   #   ];
   # };
   bondsmith = inputs.nixos-raspberrypi.lib.nixosSystem {
-    specialArgs = inputs outputs;
     modules = [
       ({...}: {
         imports = with inputs.nixos-raspberrypi.nixosModules; [
