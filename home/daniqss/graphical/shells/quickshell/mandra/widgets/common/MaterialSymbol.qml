@@ -1,6 +1,6 @@
 import QtQuick
 
-// from
+// from rexiecrazy snippet in quickshell discord
 Text {
   id: root
   property real fill: 0

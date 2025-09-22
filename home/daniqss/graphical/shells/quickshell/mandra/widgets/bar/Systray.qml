@@ -51,8 +51,8 @@ RowLayout {
 
         anchors.centerIn: parent
         height: parent.height
-        source: trayItem.item.icon
         width: parent.width
+        source: trayItem.item.icon
       }
 
       Loader {

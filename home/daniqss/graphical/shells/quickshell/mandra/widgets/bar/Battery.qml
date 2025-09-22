@@ -1,3 +1,4 @@
+import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Services.UPower
@@ -6,12 +7,15 @@ import qs.config
 import qs.widgets.common
 
 RowLayout {
+  id: battery
   spacing: 0
 
-  readonly property var battery: UPower.displayDevice
-  readonly property int percentage: Math.round(battery.percentage * 100)
-  property bool fullyCharged: battery.state === UPowerDeviceState.FullyCharged
-  property bool charging: battery.state === UPowerDeviceState.Charging
+  readonly property var batteryDevice: UPower.displayDevice
+  readonly property int percentage: Math.round(batteryDevice.percentage * 100)
+  property bool fullyCharged: batteryDevice.state === UPowerDeviceState.FullyCharged
+  property bool charging: batteryDevice.state === UPowerDeviceState.Charging
+
+  visible: batteryDevice.isLaptopBattery
 
   function batteryIcon() {
     if (fullyCharged | percentage >= 90)
@@ -34,11 +38,22 @@ RowLayout {
       return "battery_alert";
   }
 
-  visible: battery.isLaptopBattery
+  Process {
+    id: batteryProcess
+    command: ["ghostty", "-e", "btm"]
+  }
 
   MaterialSymbol {
     color: Colors.on_background
     font.pixelSize: 20
-    icon: parent.batteryIcon()
+    icon: battery.batteryIcon()
+
+    MouseArea {
+      anchors.fill: parent
+      onClicked: event => {
+        if (!batteryProcess.running)
+          batteryProcess.running = true;
+      }
+    }
   }
 }
