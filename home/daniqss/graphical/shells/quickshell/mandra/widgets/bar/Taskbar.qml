@@ -11,6 +11,7 @@ RowLayout {
 
   property string topLevelClass: ToplevelManager.activeToplevel?.activated && ToplevelManager.activeToplevel?.appId || ""
   property string topLevelTitle: ToplevelManager.activeToplevel?.activated && ToplevelManager.activeToplevel?.title || ""
+  property int maxTitleLength: 60
 
   spacing: 10
 
@@ -41,6 +42,6 @@ RowLayout {
     color: Colors.on_background
     font.family: "CaskaydiaCove Nerd Font"
     font.pointSize: 12
-    text: taskbar.topLevelTitle
+    text: taskbar.topLevelTitle.length > taskbar.maxTitleLength ? taskbar.topLevelTitle.substring(0, taskbar.maxTitleLength) + "…" : taskbar.topLevelTitle
   }
 }
