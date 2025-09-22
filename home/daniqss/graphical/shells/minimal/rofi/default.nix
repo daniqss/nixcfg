@@ -11,7 +11,7 @@
     else "";
 
   applauncher = pkgs.writeShellScriptBin "applauncher" ''
-    ${pkgs.rofi-wayland}/bin/rofi -config $HOME/.config/rofi/config.rasi -show drun ${prefix}
+    ${pkgs.rofi}/bin/rofi -config $HOME/.config/rofi/config.rasi -show drun ${prefix}
   '';
   emoji = pkgs.writeShellScriptBin "emoji" "rofi -modi emoji -show emoji";
   clipboard = pkgs.writeShellScriptBin "clipboard" "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
@@ -40,7 +40,6 @@ in {
 
     programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
       terminal = "${lib.getExe emulator}";
       theme = ./colors.rasi;
       extraConfig = {
@@ -56,7 +55,7 @@ in {
       };
 
       plugins = with pkgs; [
-        rofi-emoji-wayland
+        rofi-emoji
       ];
     };
   };

@@ -170,16 +170,6 @@ in {
           vfr = 1;
         };
 
-        gestures = {
-          workspace_swipe = true;
-          workspace_swipe_fingers = 3;
-          workspace_swipe_distance = 250;
-          workspace_swipe_invert = true;
-          workspace_swipe_min_speed_to_force = 15;
-          workspace_swipe_cancel_ratio = 0.5;
-          workspace_swipe_create_new = false;
-        };
-
         device = lib.mkIf (hostname == "windrunner") {
           name = "elan071a:00-04f3:30fd-touchpad";
           sensitivity = 0.1;

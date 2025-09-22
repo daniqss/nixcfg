@@ -85,7 +85,7 @@ in {
           "${mainMod}, L, movefocus, r"
 
           "${mainMod}, S, togglespecialworkspace, magic"
-          "${mainMod} ALT, S, movetoworkspacesilent, special:magic"
+          "${mainMod} ALT, S, movetoworkspacesilent, special"
 
           "${mainMod}, TAB, exec, ${lib.getExe shellCommands.applauncher}"
           "${mainMod} CTRL, W, exec, ${lib.getExe shellCommands.wallpaper}"
@@ -147,6 +147,12 @@ in {
       bindm = [
         "${mainMod}, mouse:272, movewindow"
         "${mainMod}, mouse:273, resizewindow"
+      ];
+
+      gesture = [
+        "3, horizontal, workspace"
+        "3, up, float"
+        "3, down, dispatcher, movetoworkspacesilent special"
       ];
     };
   };
