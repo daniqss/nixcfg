@@ -1,6 +1,7 @@
 {
   username,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -30,6 +31,7 @@
     pkgs.android-udev-rules
   ];
 
+  boot.kernelParams = ["kvm.enable_virt_at_load=0"];
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [username];
   # usb forwarding
