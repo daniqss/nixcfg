@@ -29,17 +29,9 @@ Scope {
         right: true
       }
 
-      // margins {
-      //   bottom: 5
-      //   left: 6
-      //   right: 6
-      //   top: -2
-      // }
-
       Rectangle {
         anchors.fill: parent
         color: Config.Colors.background
-        // radius: bar.implicitHeight / 2
 
         RowLayout {
           anchors.bottom: parent.bottom
@@ -83,6 +75,7 @@ Scope {
             Layout.alignment: Qt.AlignRight
             spacing: 2
 
+            Sound {}
             Network {}
             Battery {}
           }
