@@ -18,7 +18,7 @@ Scope {
       property var modelData
 
       color: "transparent"
-      implicitHeight: 30
+      implicitHeight: 34
       screen: modelData
 
       WlrLayershell.layer: WlrLayer.Bottom
@@ -29,60 +29,64 @@ Scope {
         right: true
       }
 
-      margins {
-        bottom: 5
-        left: 6
-        right: 6
-        top: -2
-      }
+      // margins {
+      //   bottom: 5
+      //   left: 6
+      //   right: 6
+      //   top: -2
+      // }
 
       Rectangle {
         anchors.fill: parent
         color: Config.Colors.background
-        radius: bar.implicitHeight / 2
+        // radius: bar.implicitHeight / 2
 
         RowLayout {
-          spacing: 20
+          anchors.bottom: parent.bottom
+          anchors.left: parent.left
+          anchors.top: parent.top
 
-          anchors {
-            fill: parent
-            leftMargin: 12
-            rightMargin: 12
+          anchors.leftMargin: height / 3
+          anchors.rightMargin: height / 3
+          spacing: height / 3
+
+          OsIcon {}
+          Workspaces {
+            bar: bar
+            wsCount: 9
           }
+        }
 
-          RowLayout {
-            Layout.alignment: Qt.AlignLeft
-            spacing: 14
+        RowLayout {
+          anchors.bottom: parent.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          anchors.top: parent.top
 
-            OsIcon {}
+          anchors.leftMargin: height / 3
+          anchors.rightMargin: height / 3
+          spacing: height / 3
 
-            Workspaces {
-              bar: bar
-              wsCount: 9
-            }
-          }
+          Taskbar {}
+        }
 
-          // qs warns this but I didn't get this in center with Layout.alignament
-          // anchors.horizontalCenter: parent.horizontalCenter
+        RowLayout {
+          anchors.bottom: parent.bottom
+          anchors.right: parent.right
+          anchors.top: parent.top
 
-          // Taskbar {
-          // }
-          RowLayout {}
+          anchors.leftMargin: height / 3
+          anchors.rightMargin: height / 3
+          spacing: height / 3
 
+          Systray {}
           RowLayout {
             Layout.alignment: Qt.AlignRight
-            spacing: 15
+            spacing: 2
 
-            Systray {}
-            RowLayout {
-              Layout.alignment: Qt.AlignRight
-              spacing: 2
-
-              Network {}
-              Battery {}
-            }
-            Clock {}
+            Network {}
+            Battery {}
           }
+          Clock {}
         }
       }
     }

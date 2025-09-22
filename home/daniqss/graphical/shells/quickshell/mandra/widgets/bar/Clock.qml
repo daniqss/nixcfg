@@ -23,7 +23,7 @@ RowLayout {
     Layout.alignment: Qt.AlignHCenter
     color: Config.Colors.on_background
     font.family: "CaskaydiaCove Nerd Font"
-    font.pointSize: 13
+    font.pointSize: 12
     text: Data.Time.date
   }
 }

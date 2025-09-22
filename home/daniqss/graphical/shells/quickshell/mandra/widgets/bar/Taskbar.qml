@@ -1,10 +1,10 @@
 import QtQuick
-import Quickshell
+// import Quickshell
 import Quickshell.Wayland
 import QtQuick.Layouts
-import Quickshell.Widgets
+// import Quickshell.Widgets
 
-import qs.config as Config
+import qs.config
 
 RowLayout {
   id: taskbar
@@ -14,33 +14,33 @@ RowLayout {
 
   spacing: 10
 
-  IconImage {
-    id: appicon
+  // IconImage {
+  //   id: appicon
 
-    Layout.alignment: Qt.AlignCenter
-    Layout.preferredHeight: 22
-    Layout.preferredWidth: 22
-    source: Quickshell.iconPath(taskbar.topLevelClass)
+  //   Layout.alignment: Qt.AlignCenter
+  //   Layout.preferredHeight: 22
+  //   Layout.preferredWidth: 22
+  //   source: Quickshell.iconPath(taskbar.topLevelClass)
 
-    // Process {
-    //   id: applauncherProcess
-    //   // rofi or future quickshell launcher
-    //   command: ["applauncher"]
-    // }
+  //   // Process {
+  //   //   id: applauncherProcess
+  //   //   // rofi or future quickshell launcher
+  //   //   command: ["applauncher"]
+  //   // }
 
-    MouseArea {
-      anchors.fill: parent
-      // cursorShape: Qt.PointingHandCursor
-      // onClicked: applauncherProcess.running = true;
-    }
-  }
+  //   MouseArea {
+  //     anchors.fill: parent
+  //     // cursorShape: Qt.PointingHandCursor
+  //     // onClicked: applauncherProcess.running = true;
+  //   }
+  // }
 
   Text {
     id: apptitle
 
-    color: Config.Colors.on_background
+    color: Colors.on_background
     font.family: "CaskaydiaCove Nerd Font"
-    font.pointSize: 13
+    font.pointSize: 12
     text: taskbar.topLevelTitle
   }
 }
