@@ -1,5 +1,12 @@
-{pkgs, ...}: {
-  imports = [./hardware-configuration.nix];
+{
+  pkgs,
+  username,
+  ...
+}: {
+  imports = [
+    ./hardware-configuration.nix
+    ../common/nix.nix
+  ];
 
   services.openssh = {
     enable = true;
@@ -9,15 +16,13 @@
     };
   };
 
-  users.users = {
-    daniqss = {
-      initialPassword = "1234";
-      isNormalUser = true;
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-      ];
-    };
+  users.users.${username} = {
+    initialPassword = "1234";
+    isNormalUser = true;
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
   };
 
   environment.systemPackages = with pkgs; [
