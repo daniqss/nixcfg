@@ -67,14 +67,26 @@ in {
   };
 
   # rpi5 home server
-  bondsmith = mkSystem {
-    hostname = "bondsmith";
-    username = "daniqss";
-    system = "aarch64-linux";
+  # bondsmith = mkSystem {
+  #   hostname = "bondsmith";
+  #   username = "daniqss";
+  #   system = "aarch64-linux";
 
+  #   modules = [
+  #     inputs.nixos-raspberrypi.nixosModules.raspberry-pi-5.base
+  #     inputs.nixos-raspberrypi.nixosModules.raspberry-pi-5.bluetooth
+  #   ];
+  # };
+  bondsmith = inputs.nixos-raspberrypi.lib.nixosSystem {
+    specialArgs = inputs outputs;
     modules = [
-      inputs.nixos-raspberrypi.nixosModules.raspberry-pi-5.base
-      inputs.nixos-raspberrypi.nixosModules.raspberry-pi-5.bluetooth
+      ({...}: {
+        imports = with inputs.nixos-raspberrypi.nixosModules; [
+          ./bondsmith/configuration.nix
+          raspberry-pi-5.base
+          raspberry-pi-5.bluetooth
+        ];
+      })
     ];
   };
 }
