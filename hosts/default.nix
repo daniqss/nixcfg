@@ -5,15 +5,15 @@
   lib = inputs.nixpkgs.lib;
   homeModules = inputs.home-manager.nixosModules.home-manager;
 
-  # from https://github.com/raexera/yuki, thanks!!
   mkSystem = {
     hostname,
     username,
     system,
+    createSystem ? lib.nixosSystem,
     ...
   } @ args:
-    lib.nixosSystem {
-      system = system;
+    createSystem {
+      inherit system;
 
       specialArgs = lib.recursiveUpdate {
         inherit inputs outputs hostname username system;
@@ -64,5 +64,23 @@ in {
     system = "x86_64-linux";
 
     modules = [];
+  };
+
+  # rpi5 home server
+  bondsmith = mkSystem {
+    hostname = "bondsmith";
+    username = "daniqss";
+    system = "aarch64-linux";
+
+    createSystem = inputs.nixos-raspberrypi.lib.nixosSystem;
+    specialArgs = {nixos-raspberrypi = inputs.nixos-raspberrypi;};
+    modules = [
+      ({...}: {
+        imports = with inputs.nixos-raspberrypi.nixosModules; [
+          raspberry-pi-5.base
+          raspberry-pi-5.bluetooth
+        ];
+      })
+    ];
   };
 }

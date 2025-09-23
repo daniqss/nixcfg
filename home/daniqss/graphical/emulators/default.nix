@@ -35,6 +35,7 @@ in {
       };
     };
 
+    default = {};
     description = "terminal emulator config";
   };
 }

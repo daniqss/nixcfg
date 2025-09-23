@@ -21,7 +21,7 @@
     withI3 = false;
   };
 in {
-  config = lib.mkIf (cfg.shell == "quickshell") {
+  config = lib.mkIf (config.graphical.enable && (cfg.shell == "quickshell")) {
     # quickshell shells option config
     graphical.shells.commands = {
       bar = pkgs.writeShellScriptBin "bar" "qs -c mandra";

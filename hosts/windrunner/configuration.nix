@@ -1,12 +1,15 @@
 {
   username,
   pkgs,
-  lib,
   ...
 }: {
   imports = [
     ./hardware-configuration.nix
-    ../common
+    ../common/desktop.nix
+    ../common/gaming.nix
+    ../common/minecraft.nix
+    ../common/network.nix
+    ../common/nix.nix
   ];
 
   hardware.graphics = {

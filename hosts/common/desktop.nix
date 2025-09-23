@@ -5,13 +5,6 @@
   lib,
   ...
 }: {
-  imports = [
-    ./gaming.nix
-    ./minecraft.nix
-    ./network.nix
-    ./nix.nix
-  ];
-
   services.gvfs.enable = true;
   services.upower.enable = true;
   programs.dconf.enable = true;

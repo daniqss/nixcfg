@@ -1,4 +1,5 @@
 {
+  pkgs,
   username,
   lib,
   config,
@@ -19,6 +20,10 @@ in {
   config = lib.mkIf config.graphical.enable {
     graphical.hyprland.enable = lib.mkDefault true;
     graphical.browsers = {};
+    graphical.emulators = lib.mkDefault {
+      emulator = pkgs.ghostty;
+      fontsize = 13;
+    };
 
     home.sessionVariables = {
       HOME = "/home/${username}/";
