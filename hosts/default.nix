@@ -78,20 +78,24 @@ in {
   #     inputs.nixos-raspberrypi.nixosModules.raspberry-pi-5.bluetooth
   #   ];
   # };
-  bondsmith = inputs.nixos-raspberrypi.lib.nixosSystem {
-    system = "aarch64-linux";
-    specialArgs = {
-      inherit inputs outputs;
-      nixos-raspberrypi = inputs.nixos-raspberrypi;
+  bondsmith = let
+    hostname = "bondsmith";
+    username = "daniqss";
+  in
+    inputs.nixos-raspberrypi.lib.nixosSystem {
+      system = "aarch64-linux";
+      specialArgs = {
+        inherit inputs outputs hostname username;
+        nixos-raspberrypi = inputs.nixos-raspberrypi;
+      };
+      modules = [
+        ({...}: {
+          imports = with inputs.nixos-raspberrypi.nixosModules; [
+            ./bondsmith/configuration.nix
+            raspberry-pi-5.base
+            raspberry-pi-5.bluetooth
+          ];
+        })
+      ];
     };
-    modules = [
-      ({...}: {
-        imports = with inputs.nixos-raspberrypi.nixosModules; [
-          ./bondsmith/configuration.nix
-          raspberry-pi-5.base
-          raspberry-pi-5.bluetooth
-        ];
-      })
-    ];
-  };
 }
