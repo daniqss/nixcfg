@@ -42,7 +42,6 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    nixos-raspberrypi,
     ...
   }: let
     inherit (self) outputs;
@@ -56,6 +55,6 @@
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     overlays = import ./overlays {inherit inputs outputs;};
     templates = import ./templates {inherit inputs outputs;};
-    nixosConfigurations = import ./hosts {inherit inputs outputs nixos-raspberrypi;};
+    nixosConfigurations = import ./hosts {inherit inputs outputs;};
   };
 }
