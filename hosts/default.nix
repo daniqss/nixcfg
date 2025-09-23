@@ -91,7 +91,7 @@ in {
       modules = [
         ({...}: {
           imports = with inputs.nixos-raspberrypi.nixosModules; [
-            ./bondsmith/configuration.nix
+            ./${hostname}/configuration.nix
             raspberry-pi-5.base
             raspberry-pi-5.bluetooth
           ];
@@ -103,7 +103,7 @@ in {
           home-manager.extraSpecialArgs = {
             inherit inputs outputs hostname username;
           };
-          home-manager.users.${username}.imports = [./bondsmith/home.nix];
+          home-manager.users.${username}.imports = [./${hostname}/home.nix];
         }
       ];
     };

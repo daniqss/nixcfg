@@ -1,6 +1,6 @@
-{...}: {
+{username, ...}: {
   imports = [
-    ../../home/daniqss
+    ../../home/${username}
   ];
 
   graphical.enable = false;
