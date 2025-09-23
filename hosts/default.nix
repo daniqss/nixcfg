@@ -81,11 +81,12 @@ in {
   bondsmith = let
     hostname = "bondsmith";
     username = "daniqss";
+    system = "aarch64-linux";
   in
     inputs.nixos-raspberrypi.lib.nixosSystem {
-      system = "aarch64-linux";
+      inherit system;
       specialArgs = {
-        inherit inputs outputs hostname username;
+        inherit inputs outputs hostname username system;
         nixos-raspberrypi = inputs.nixos-raspberrypi;
       };
       modules = [
@@ -101,7 +102,7 @@ in {
           home-manager.useGlobalPkgs = true;
           home-manager.backupFileExtension = "bak";
           home-manager.extraSpecialArgs = {
-            inherit inputs outputs hostname username;
+            inherit inputs outputs hostname username system;
           };
           home-manager.users.${username}.imports = [./${hostname}/home.nix];
         }
