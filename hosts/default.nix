@@ -106,6 +106,11 @@ in {
           };
           home-manager.users.${username}.imports = [./${hostname}/home.nix];
         }
+        {
+          networking.hostName = hostname;
+          nixpkgs.hostPlatform = system;
+          nixpkgs.config.allowUnfree = true;
+        }
       ];
     };
 }
