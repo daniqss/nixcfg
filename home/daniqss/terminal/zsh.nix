@@ -36,9 +36,11 @@ in {
       initContent = ''
         compdef eza=ls
 
-        code() {
-          ${pkgs.vscode}/bin/code "$@" > /dev/null 2>&1
-        }
+        ${lib.optionalString config.graphical.enable ''
+          code() {
+            ${pkgs.vscode}/bin/code "$@" > /dev/null 2>&1
+          }
+        ''}
 
         bindkey "^[[1;5C" forward-word
         bindkey "^[[1;5D" backward-word
