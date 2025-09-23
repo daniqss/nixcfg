@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{username, ...}: {
   imports = [
     ./hardware-configuration.nix
     ../common/nix.nix
@@ -12,7 +12,7 @@
     };
   };
 
-  users.users.daniqss = {
+  users.users.${username} = {
     initialPassword = "1234";
     isNormalUser = true;
     extraGroups = [

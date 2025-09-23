@@ -96,6 +96,15 @@ in {
             raspberry-pi-5.bluetooth
           ];
         })
+        inputs.home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.backupFileExtension = "bak";
+          home-manager.extraSpecialArgs = {
+            inherit inputs outputs hostname username;
+          };
+          home-manager.users.${username}.imports = [./bondsmith/home.nix];
+        }
       ];
     };
 }
