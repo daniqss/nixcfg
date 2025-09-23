@@ -9,7 +9,7 @@
     hostname,
     username,
     system,
-    createSystem ? lib.nixosSystem, # por defecto usa lib.nixosSystem
+    createSystem ? lib.nixosSystem,
     ...
   } @ args:
     createSystem {

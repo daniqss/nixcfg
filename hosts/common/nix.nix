@@ -9,12 +9,11 @@
     settings = {
       download-buffer-size = 524288000; # 500 MiB
       experimental-features = ["nix-command" "flakes"];
-    };
 
-    # gc = {
-    #   automatic = true;
-    #   options = "--delete-older-than 14d";
-    # };
+      substituters = ["https://nixos-raspberrypi.cachix.org"];
+      trusted-substituters = ["https://nixos-raspberrypi.cachix.org"];
+      trusted-public-keys = ["nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="];
+    };
   };
 
   programs.nh = {
