@@ -1,4 +1,8 @@
-{username, ...}: {
+{
+  pkgs,
+  username,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../common/nix.nix
@@ -13,13 +17,12 @@
   };
 
   users.users.${username} = {
-    initialPassword = "1234";
     isNormalUser = true;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
+    description = "${username}";
+    extraGroups = ["networkmanager" "wheel"];
+    shell = pkgs.zsh;
   };
 
   networking.networkmanager.enable = true;
+  system.stateVersion = "25.05";
 }
