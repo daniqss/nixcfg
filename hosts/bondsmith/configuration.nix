@@ -22,6 +22,7 @@
     extraGroups = ["networkmanager" "wheel"];
     shell = pkgs.zsh;
   };
+  programs.zsh.enable = true;
 
   networking.networkmanager.enable = true;
   system.stateVersion = "25.05";
