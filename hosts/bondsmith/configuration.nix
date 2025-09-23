@@ -21,12 +21,5 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    hello
-    git
-    curl
-    nvim
-  ];
-
   networking.networkmanager.enable = true;
 }
