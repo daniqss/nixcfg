@@ -1,6 +1,7 @@
 {
   inputs,
   outputs,
+  nixos-raspberrypi,
 }: let
   lib = inputs.nixpkgs.lib;
   homeModules = inputs.home-manager.nixosModules.home-manager;
