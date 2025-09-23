@@ -78,6 +78,11 @@ in {
   #   ];
   # };
   bondsmith = inputs.nixos-raspberrypi.lib.nixosSystem {
+    system = "aarch64-linux";
+    specialArgs = {
+      inherit inputs outputs;
+      nixos-raspberrypi = inputs.nixos-raspberrypi;
+    };
     modules = [
       ({...}: {
         imports = with inputs.nixos-raspberrypi.nixosModules; [
