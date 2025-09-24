@@ -84,7 +84,7 @@ in {
           "${mainMod}, K, movefocus, u"
           "${mainMod}, L, movefocus, r"
 
-          "${mainMod}, S, togglespecialworkspace, magic"
+          "${mainMod}, S, togglespecialworkspace"
           "${mainMod} ALT, S, movetoworkspacesilent, special"
 
           "${mainMod}, TAB, exec, ${lib.getExe shellCommands.applauncher}"
@@ -152,7 +152,7 @@ in {
       gesture = [
         "3, horizontal, workspace"
         "3, up, float"
-        "3, down, dispatcher, movetoworkspacesilent special"
+        "3, down, dispatcher, movetoworkspacesilent, special"
       ];
     };
   };

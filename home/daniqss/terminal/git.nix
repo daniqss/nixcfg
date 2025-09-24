@@ -30,6 +30,7 @@ in {
       userEmail = "danielqueijo14@gmail.com";
 
       extraConfig = {
+        init.defaultBranch = "main";
         core.editor = "nvim";
         push.default = "current";
         push.autoSetupRemote = true;

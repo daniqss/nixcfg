@@ -43,9 +43,6 @@
 
       "suppressevent maximize, class:.*"
 
-      # fix intellij subwindows bugs
-      "noinitialfocus, class:^jetbrains-(?!toolbox), floating:1"
-
       "immediate, class:^(Stardew Valley)$"
       "fullscreen, class:^(Stardew Valley)$"
       "immediate, class:^(Hollow_Knight.exe)$"
