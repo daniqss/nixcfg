@@ -47,6 +47,8 @@
           rust-lang.rust-analyzer
           tauri-apps.tauri-vscode
 
+          bradlc.vscode-tailwindcss
+
           # envs
           mkhl.direnv
         ]
