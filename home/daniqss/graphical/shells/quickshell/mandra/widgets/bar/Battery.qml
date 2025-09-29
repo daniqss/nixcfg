@@ -35,7 +35,7 @@ RowLayout {
     else if (percentage >= 20)
       return !charging ? "battery_0_bar" : "battery_charging_full";
     else
-      return "battery_alert";
+      return !charging ? "battery_alert" : "battery_charging_full";
   }
 
   Process {
@@ -44,7 +44,7 @@ RowLayout {
   }
 
   MaterialSymbol {
-    color: Colors.on_background
+    color: (battery.percentage < 20 && !battery.charging) ? Colors.on_error : Colors.on_background
     font.pixelSize: 20
     icon: battery.batteryIcon()
 

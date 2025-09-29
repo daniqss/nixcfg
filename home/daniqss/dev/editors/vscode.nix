@@ -25,6 +25,8 @@
           attilabuti.brainfuck-syntax
           ms-vscode.cpptools
           ms-vscode.cpptools-extension-pack
+          llvm-vs-code-extensions.vscode-clangd
+          ms-vscode.makefile-tools
           ms-azuretools.vscode-docker
           dbaeumer.vscode-eslint
           tamasfe.even-better-toml
