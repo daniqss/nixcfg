@@ -151,8 +151,6 @@ in {
 
       gesture = [
         "3, horizontal, workspace"
-        "3, up, float"
-        "3, down, dispatcher, movetoworkspacesilent, special"
       ];
     };
   };
