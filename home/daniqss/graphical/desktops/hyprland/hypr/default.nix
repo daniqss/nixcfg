@@ -1,7 +1,6 @@
 {
   hostname,
   username,
-  outputs,
   pkgs,
   lib,
   config,
@@ -22,7 +21,7 @@
 
   cursor = "Bibata-Modern-Classic-Hyprcursor";
   cursorSize = 24;
-  cursorPackage = outputs.packages.${pkgs.system}.bibata-hyprcursor;
+  cursorPackage = pkgs.bibata-hyprcursor;
 in {
   imports = [
     ./keybinds.nix

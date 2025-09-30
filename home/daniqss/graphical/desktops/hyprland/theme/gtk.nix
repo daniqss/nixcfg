@@ -9,7 +9,7 @@ in {
   config = lib.mkIf config.graphical.enable {
     home.packages = [
       pkgs.morewaita-icon-theme
-      inputs.self.packages.${pkgs.system}.adwaita-colors
+      pkgs.adwaita-colors
     ];
 
     home.pointerCursor = {
