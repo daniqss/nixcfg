@@ -15,7 +15,6 @@
     stable = import inputs.nixpkgs-stable {
       system = final.system;
       config.allowUnfree = true;
-      config.android_sdk.accept_license = true;
     };
   };
 }

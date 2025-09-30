@@ -38,21 +38,15 @@
   boot.kernelParams = ["kvm.enable_virt_at_load=0"];
   virtualisation.virtualbox.host = {
     enable = true;
-    package = pkgs-stable.virtualbox;
+    package = pkgs.stable.virtualbox;
   };
   users.extraGroups.vboxusers.members = [username];
   # usb forwarding
   # virtualisation.virtualbox.host.enableExtensionPack = true;
 
-  environment.systemPackages =
-    (with pkgs-stable; [
-      vagrant
-      htop
-    ])
-    ++ (with pkgs; [
-      bottom
-      nitch
-    ]);
+  environment.systemPackages = with pkgs; [
+    stable.vagrant
+  ];
 
   system.stateVersion = "25.05";
 }

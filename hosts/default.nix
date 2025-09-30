@@ -11,27 +11,12 @@
     system,
     createSystem ? lib.nixosSystem,
     ...
-  } @ args: let
-    pkgs = import inputs.nixpkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
-        android_sdk.accept_license = true;
-      };
-    };
-    pkgs-stable = import inputs.nixpkgs-stable {
-      inherit system;
-      config = {
-        allowUnfree = true;
-        android_sdk.accept_license = true;
-      };
-    };
-  in
+  } @ args:
     createSystem {
       inherit system;
 
       specialArgs = lib.recursiveUpdate {
-        inherit inputs outputs hostname username pkgs pkgs-stable;
+        inherit inputs outputs hostname username;
       } (args.specialArgs or {});
 
       modules = lib.concatLists [
@@ -39,6 +24,9 @@
           {
             networking.hostName = hostname;
             nixpkgs.hostPlatform = system;
+            nixpkgs.config.allowUnfree = true;
+
+            nixpkgs.overlays = builtins.attrValues outputs.overlays;
           }
         ]
         (lib.flatten [
@@ -51,7 +39,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.backupFileExtension = "bak";
             home-manager.extraSpecialArgs = lib.recursiveUpdate {
-              inherit inputs outputs hostname username system pkgs pkgs-stable;
+              inherit inputs outputs hostname username system;
             } (args.specialArgs or {});
             home-manager.users.${username}.imports = [./${hostname}/home.nix];
           }
