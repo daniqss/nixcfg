@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  config = lib.mkIf config.graphical.hyprland.enable {
+  config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     services.hyprpolkitagent.enable = true;
   };
 }

@@ -4,7 +4,7 @@
   ...
 }: let
 in {
-  config = lib.mkIf config.graphical.hyprland.enable {
+  config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     programs.hyprlock = {
       enable = true;
 

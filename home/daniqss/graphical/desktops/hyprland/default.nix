@@ -11,14 +11,20 @@ in {
     ./theme
   ];
 
-  options.graphical.hyprland.enable = mkEnableOption "enable hyprland as desktop";
-  options.graphical.hyprland.hyprqtile.enable = mkEnableOption "enable hyprqtile as workspace switcher";
+  options.graphical.desktops.hyprland.hyprqtile.enable = mkEnableOption "enable hyprqtile as workspace switcher";
 
-  options.graphical.uwsm.enable = mkEnableOption "enable uwsm as session manager";
+  config = (mkIf config.graphical.desktops.desktop == "hyprland") {
+    graphical.desktops.monitorToDesktopConfig = monitors:
+      builtins.map (
+        monitor: let
+          r = monitor.resolution;
+          p = monitor.position;
+        in "${monitor.name},${toString r.x}x${toString r.y}@${monitor.refresh},${toString p.x}x${toString p.y},${monitor.scale}"
+      )
+      monitors;
 
-  config = mkIf config.graphical.hyprland.enable {
-    graphical.uwsm.enable = mkDefault true;
-    graphical.hyprland.hyprqtile.enable = mkDefault false;
+    graphical.desktops.uwsm.enable = mkDefault true;
+    graphical.desktops.hyprland.hyprqtile.enable = mkDefault false;
     graphical.shells.shell = mkDefault "quickshell";
 
     home.packages = with pkgs; [

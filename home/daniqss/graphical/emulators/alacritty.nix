@@ -2,8 +2,10 @@
   lib,
   config,
   ...
-}: {
-  config = lib.mkIf config.graphical.enable {
+}: let
+  cfg = config.graphical.emulators;
+in {
+  config = (lib.mkIf cfg.emulator == "alacritty") {
     programs.alacritty = {
       enable = true;
 

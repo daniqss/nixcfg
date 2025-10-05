@@ -19,7 +19,7 @@
     fi
   '';
 in {
-  config = lib.mkIf config.graphical.hyprland.enable {
+  config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     home.packages = [checkSunsetOnStart];
 
     # change temperature in sunrise and sunset

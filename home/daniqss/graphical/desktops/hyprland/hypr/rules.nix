@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  config.wayland.windowManager.hyprland.settings = lib.mkIf config.graphical.hyprland.enable {
+  config.wayland.windowManager.hyprland.settings = lib.mkIf config.graphical.desktops.hyprland.enable {
     windowrule = ["noblur, class:^(com.mitchellh.ghostty)"];
 
     windowrulev2 = [

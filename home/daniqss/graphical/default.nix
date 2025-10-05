@@ -1,13 +1,11 @@
 {
-  pkgs,
   username,
   lib,
   config,
   ...
-}: let
-in {
+}: {
   imports = [
-    ./desktops/hyprland
+    ./desktops
     ./shells
     ./browsers
     ./emulators
@@ -18,10 +16,10 @@ in {
   options.graphical.enable = lib.mkEnableOption "Enable graphical session";
 
   config = lib.mkIf config.graphical.enable {
-    graphical.hyprland.enable = lib.mkDefault true;
+    graphical.desktops.desktop = "hyprland";
     graphical.browsers = {};
     graphical.emulators = lib.mkDefault {
-      emulator = pkgs.ghostty;
+      emulator = "ghostty";
       fontsize = 13;
     };
 
