@@ -17,7 +17,7 @@
     withX11 = false;
     withPipewire = true;
     withPam = true;
-    withHyprland = config.graphical.hyprland.enable;
+    withHyprland = config.graphical.desktops.desktop == "hyprland";
     withI3 = false;
   };
 in {

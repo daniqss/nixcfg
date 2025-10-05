@@ -6,7 +6,7 @@
 }: let
   emulator = config.graphical.emulators.emulator;
   prefix =
-    if config.graphical.uwsm.enable
+    if config.graphical.desktops.uwsm.enable
     then ''-run-command "uwsm app -- {cmd}"''
     else "";
 
@@ -40,7 +40,7 @@ in {
 
     programs.rofi = {
       enable = true;
-      terminal = "${lib.getExe emulator}";
+      terminal = "${emulator}";
       theme = ./colors.rasi;
       extraConfig = {
         show-icons = true;

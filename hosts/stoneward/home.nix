@@ -40,11 +40,14 @@ in {
       fontsize = 13;
     };
 
-    desktops.monitors = monitors;
-    desktops.hyprland.hyprqtile.enable =
-      if monitors.length > 1
-      then true
-      else false;
+    desktops = {
+      desktop = "hyprland";
+      monitors = monitors;
+      hyprland.hyprqtile.enable =
+        if (builtins.length monitors > 1)
+        then true
+        else false;
+    };
   };
   dev.enable = true;
   terminal.enable = true;

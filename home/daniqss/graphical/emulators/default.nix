@@ -1,4 +1,9 @@
 {lib, ...}: {
+  imports = [
+    ./ghostty.nix
+    ./alacritty.nix
+  ];
+
   options.graphical.emulators = lib.mkOption {
     type = lib.types.submodule {
       options = {

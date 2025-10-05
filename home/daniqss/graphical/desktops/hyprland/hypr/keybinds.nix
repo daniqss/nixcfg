@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   config,
@@ -53,7 +54,7 @@ in {
   config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     home.packages = [
       defaultApp
-      pkgs.hyprqtile
+      inputs.hyprqtile.packages.${pkgs.system}.default
       pkgs.hyprshot
       pkgs.jq
     ];

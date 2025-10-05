@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  config.wayland.windowManager.hyprland.settings = lib.mkIf config.graphical.desktops.hyprland.enable {
+  config.wayland.windowManager.hyprland.settings = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     windowrule = ["noblur, class:^(com.mitchellh.ghostty)"];
 
     windowrulev2 = [
@@ -61,7 +61,7 @@
       "fullscreen, class:^(steam_app_3241660)$"
     ];
 
-    layerrule = lib.mkIf (config.graphical.enable && (config.graphical.shells.shell == "quickshell")) [
+    layerrule = lib.mkIf (config.graphical.shells.shell == "quickshell") [
       "blur, quickshell"
       "ignorezero, quickshell"
     ];

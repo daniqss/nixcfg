@@ -14,20 +14,24 @@
     };
   };
 in {
+  imports = [
+    ./hyprland
+    ./theme
+  ];
+
   options.graphical.desktops = {
     desktop = lib.mkOption {
       type = lib.types.enum ["hyprland"];
-      default = "hyprland";
       description = "which desktop to use";
     };
 
     monitorToDesktopConfig = lib.mkOption {
-      type = lib.types.function;
+      type = lib.types.unspecified;
       description = "generate the config for the desktop from the monitors option";
     };
 
     monitors = lib.mkOption {
-      type = lib.types.listOf lib.types.submodule {
+      type = lib.types.listOf (lib.types.submodule {
         options = {
           name = lib.mkOption {
             type = lib.types.str;
@@ -52,10 +56,9 @@ in {
           scale = lib.mkOption {
             type = lib.types.str;
             description = "scale of the monitor";
-            default = 1.0;
           };
         };
-      };
+      });
     };
   };
 

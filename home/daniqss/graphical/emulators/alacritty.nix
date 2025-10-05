@@ -5,7 +5,7 @@
 }: let
   cfg = config.graphical.emulators;
 in {
-  config = (lib.mkIf cfg.emulator == "alacritty") {
+  config = lib.mkIf (cfg.emulator == "alacritty") {
     programs.alacritty = {
       enable = true;
 

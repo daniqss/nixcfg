@@ -8,12 +8,11 @@
 in {
   imports = [
     ./hypr
-    ./theme
   ];
 
   options.graphical.desktops.hyprland.hyprqtile.enable = mkEnableOption "enable hyprqtile as workspace switcher";
 
-  config = (mkIf config.graphical.desktops.desktop == "hyprland") {
+  config = mkIf (config.graphical.desktops.desktop == "hyprland") {
     graphical.desktops.monitorToDesktopConfig = monitors:
       builtins.map (
         monitor: let

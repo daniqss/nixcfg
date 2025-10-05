@@ -13,6 +13,7 @@
     };
 
     desktops = {
+      desktop = "hyprland";
       monitors = [
         {
           name = "eDP-1";

@@ -5,7 +5,7 @@
 }: let
   cfg = config.graphical.emulators;
 in {
-  programs.ghostty = (lib.mkIf cfg.emulator == "ghostty") {
+  programs.ghostty = lib.mkIf (cfg.emulator == "ghostty") {
     enable = true;
     enableZshIntegration = true;
 
