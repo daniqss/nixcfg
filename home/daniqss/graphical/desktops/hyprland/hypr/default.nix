@@ -6,18 +6,7 @@
   config,
   ...
 }: let
-  monitors =
-    if hostname == "stoneward"
-    then [
-      "DP-1,1920x1080@143.85,0x0,1.0"
-      # "HDMI-A-1,1920x1080@60.0,1920x0,1.0"
-    ]
-    else if hostname == "windrunner"
-    then [
-      "eDP-1,1920x1080@60.06,0x0, 1.0"
-      # "HDMI-A-1,1920x1080@60.06,0x0,1.0,mirror, eDP-1"
-    ]
-    else null;
+  cfg = config.graphical.desktops;
 
   cursor = "Bibata-Modern-Classic-Hyprcursor";
   cursorSize = 24;
@@ -33,12 +22,12 @@ in {
     ./hyprpolkitagent.nix
   ];
 
-  config = lib.mkIf config.graphical.hyprland.enable {
+  config = lib.mkIf (cfg.desktop == "hyprland") {
     xdg.dataFile."icons/${cursor}".source = "${cursorPackage}/share/icons/${cursor}";
 
     wayland.windowManager.hyprland = {
       enable = true;
-      systemd.enable = !config.graphical.uwsm.enable;
+      systemd.enable = !cfg.uwsm.enable;
 
       package = null;
       portalPackage = null;
@@ -63,7 +52,7 @@ in {
         source = "${config.xdg.configHome}/hypr/colors.conf";
 
         # host specific config
-        monitor = monitors;
+        monitor = cfg.monitorToDesktopConfig cfg.monitors;
 
         # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
         input = {

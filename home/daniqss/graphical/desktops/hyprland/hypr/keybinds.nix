@@ -9,14 +9,14 @@
   shellCommands = config.graphical.shells.commands;
   emulator = config.graphical.emulators.emulator;
   prefix =
-    if config.graphical.uwsm.enable
+    if config.graphical.desktops.uwsm.enable
     then "uwsm app --"
     else "";
 
   switcher = ws:
-    if (config.graphical.hyprland.hyprqtile.enable && (config.graphical.shells.shell == "quickshell"))
+    if ((config.graphical.desktops.desktop == "hyprland") && (config.graphical.shells.shell == "quickshell"))
     then "${mainMod}, ${toString ws}, exec, qs ipc -c mandra call workspaces moveToWorkspaceSilent ${toString ws}"
-    else if config.graphical.hyprland.hyprqtile.enable
+    else if config.graphical.desktops.hyprland.hyprqtile.enable
     then "${mainMod}, ${toString ws}, exec, hyprqtile -w ${toString ws}"
     else "${mainMod}, ${toString ws}, workspace, ${toString ws}";
 
@@ -27,7 +27,7 @@
     declare -A apps=(
       [1]="code"
       [2]="chromium"
-      [3]="${lib.getExe emulator}"
+      [3]="${emulator}"
       [4]="obsidian"
       [5]="nautilus"
       [6]="discord"
@@ -51,10 +51,10 @@
     fi
   '';
 in {
-  config = lib.mkIf config.graphical.hyprland.enable {
+  config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     home.packages = [
-      inputs.hyprqtile.packages.${pkgs.system}.default
       defaultApp
+      inputs.hyprqtile.packages.${pkgs.system}.default
       pkgs.hyprshot
       pkgs.jq
     ];
@@ -72,7 +72,7 @@ in {
       # i -> ignore mods, will ignore modifiers.
       bind =
         [
-          "${mainMod}, return, exec, ${lib.getExe emulator}"
+          "${mainMod}, return, exec, ${emulator}"
           "${mainMod}, W, killactive,"
           "${mainMod}, Q, togglefloating,"
           "${mainMod}, F, fullscreen,"

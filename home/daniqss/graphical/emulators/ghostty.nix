@@ -2,8 +2,10 @@
   lib,
   config,
   ...
-}: {
-  programs.ghostty = lib.mkIf config.graphical.enable {
+}: let
+  cfg = config.graphical.emulators;
+in {
+  programs.ghostty = lib.mkIf (cfg.emulator == "ghostty") {
     enable = true;
     enableZshIntegration = true;
 
@@ -44,7 +46,7 @@
       ];
 
       font-family = "CaskaydiaCove Nerd Font Mono";
-      font-size = config.graphical.emulators.fontsize;
+      font-size = cfg.fontsize;
       font-thicken = true;
       bold-is-bright = false;
       adjust-box-thickness = 1;
