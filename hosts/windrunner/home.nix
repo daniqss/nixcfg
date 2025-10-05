@@ -9,7 +9,7 @@
 
   graphical = {
     enable = true;
-    gaming.enable = false;
+    gaming.enable = true;
     emulators = {
       emulator = pkgs.ghostty;
       fontsize = 13;

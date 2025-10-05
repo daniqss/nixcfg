@@ -64,9 +64,10 @@
       clipboard-paste-protection = false;
 
       gtk-titlebar = true;
-      gtk-single-instance = true;
+      gtk-single-instance = false;
       gtk-tabs-location = "top";
       gtk-wide-tabs = true;
+      working-directory = "home";
 
       copy-on-select = true;
       auto-update = "off";
