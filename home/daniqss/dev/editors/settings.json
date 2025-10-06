@@ -76,11 +76,11 @@
   "git.autofetch": true,
   "github.copilot.enable": {
     "*": true,
-    "cpp": true,
-    "markdown": true,
     "plaintext": true,
-    "rust": true,
+    "markdown": true,
     "scminput": false,
+    "cpp": true,
+    "rust": false,
     "sql": false,
     "typescript": true
   },

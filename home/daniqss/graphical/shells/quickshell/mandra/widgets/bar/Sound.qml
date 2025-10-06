@@ -12,24 +12,6 @@ RowLayout {
 
   property real soundLevel: Math.round(Audio.sinkVolume * 100)
 
-  readonly property string soundIcon: {
-    if (Audio.muted)
-      return "volume_off";
-    else if (soundLevel < 30)
-      return "volume_mute";
-    else if (soundLevel < 70)
-      return "volume_down";
-    else
-      return "volume_up";
-  }
-
-  readonly property string sourceIcon: {
-    if (Audio.sourceMuted)
-      return "mic_off";
-
-    return "mic";
-  }
-
   Process {
     id: soundProcess
     command: ["pwvucontrol"]
@@ -39,7 +21,7 @@ RowLayout {
     color: Colors.on_background
     font.pixelSize: 20
     font.weight: 600
-    icon: sound.soundIcon
+    icon: Audio.soundIcon
 
     MouseArea {
       anchors.fill: parent
@@ -58,7 +40,7 @@ RowLayout {
     color: Colors.on_background
     font.pixelSize: 20
     font.weight: 600
-    icon: sound.sourceIcon
+    icon: Audio.sourceIcon
 
     MouseArea {
       anchors.fill: parent

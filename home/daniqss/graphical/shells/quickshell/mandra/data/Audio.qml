@@ -18,6 +18,24 @@ Singleton {
   readonly property var sourceVolume: source?.audio.volume
   readonly property var volume: sink?.audio.volume
 
+  readonly property string soundIcon: {
+    if (Audio.muted)
+      return "volume_off";
+    else if (soundLevel < 30)
+      return "volume_mute";
+    else if (soundLevel < 70)
+      return "volume_down";
+    else
+      return "volume_up";
+  }
+
+  readonly property string sourceIcon: {
+    if (Audio.sourceMuted)
+      return "mic_off";
+
+    return "mic";
+  }
+
   function toggleMute(node: PwNode) {
     node.audio.muted = !node.audio.muted;
   }
