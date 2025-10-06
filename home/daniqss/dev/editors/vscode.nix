@@ -1,4 +1,5 @@
 {
+  username,
   pkgs,
   lib,
   config,
@@ -74,8 +75,7 @@
             sha256 = "sha256-QOovj9loSWAgaBCwW3HBPD/Wr7GwVppSRcCJ4R5X/as=";
           }
         ];
-
-      profiles.default.userSettings = builtins.fromJSON (builtins.readFile ./settings.json);
     };
+    xdg.configFile."Code/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/dev/editors/settings.json";
   };
 }
