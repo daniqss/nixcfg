@@ -28,12 +28,6 @@
     variant = "";
   };
 
-  programs.adb.enable = true;
-
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
-
   boot.kernelParams = ["kvm.enable_virt_at_load=0"];
   virtualisation.virtualbox.host = {
     enable = true;

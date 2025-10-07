@@ -27,6 +27,7 @@ in {
       nerd-fonts.droid-sans-mono
       nerd-fonts.jetbrains-mono
       noto-fonts-color-emoji
+      noto-fonts-cjk-serif
     ];
 
     fonts.fontconfig.enable = true;
