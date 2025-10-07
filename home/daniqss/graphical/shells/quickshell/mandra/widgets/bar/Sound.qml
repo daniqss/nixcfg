@@ -10,8 +10,6 @@ RowLayout {
   id: sound
   spacing: 1
 
-  property real soundLevel: Math.round(Audio.sinkVolume * 100)
-
   Process {
     id: soundProcess
     command: ["pwvucontrol"]

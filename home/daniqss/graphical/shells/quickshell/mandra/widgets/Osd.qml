@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Pipewire
-import Quickshell.Widgets
 
 import qs.config
 import qs.widgets.common
@@ -10,12 +9,18 @@ import qs.data
 
 Scope {
   id: root
+  property bool isFirstLaunch: true
   property bool shouldShowOsd: false
 
   Connections {
-    target: Audio.sink.audio
+    target: Audio.sink?.audio
 
     function onVolumeChanged() {
+      if (root.isFirstLaunch) {
+        root.isFirstLaunch = false;
+        return;
+      }
+
       root.shouldShowOsd = true;
       hideTimer.restart();
     }
@@ -28,7 +33,7 @@ Scope {
 
   Timer {
     id: hideTimer
-    interval: 1000
+    interval: 1500
     onTriggered: root.shouldShowOsd = false
   }
 
@@ -73,17 +78,9 @@ Scope {
 
           MaterialSymbol {
             color: Colors.on_background
-            font.pixelSize: 20
+            font.pixelSize: 26
             font.weight: 600
             icon: Audio.soundIcon
-          }
-
-          Text {
-            Layout.alignment: Qt.AlignHCenter
-            color: Colors.on_background
-            font.family: "CaskaydiaCove Nerd Font"
-            font.pointSize: 13
-            text: Math.round(Audio.sinkVolume * 100) + "%"
           }
 
           Rectangle {
