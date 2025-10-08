@@ -82,7 +82,8 @@
     "cpp": true,
     "rust": false,
     "sql": false,
-    "typescript": true
+    "typescript": true,
+    "python": false
   },
   "github.copilot.selectedCompletionModel": "gpt-4o-copilot",
   "java.completion.favoriteStaticMembers": [

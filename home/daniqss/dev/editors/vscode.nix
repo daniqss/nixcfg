@@ -41,9 +41,7 @@
           ms-toolsai.vscode-jupyter-slideshow
           yzane.markdown-pdf
 
-          ms-python.python
-          ms-python.debugpy
-          ms-python.pylint
+          charliermarsh.ruff
 
           mechatroner.rainbow-csv
           bradlc.vscode-tailwindcss
@@ -73,6 +71,12 @@
             publisher = "delgan";
             version = "1.1.0";
             sha256 = "sha256-QOovj9loSWAgaBCwW3HBPD/Wr7GwVppSRcCJ4R5X/as=";
+          }
+          {
+            name = "ty";
+            publisher = "astral-sh";
+            version = "2025.43.12620731";
+            sha256 = "sha256-XgBzwebFnhWZfZ914w1ppEtO4qZeOy+qRSCbmEQOP7k=";
           }
         ];
     };
