@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Services.Pipewire
 
 import qs.config
 import qs.widgets.common
@@ -63,7 +62,7 @@ Scope {
       Rectangle {
         anchors.fill: parent
         radius: 10
-        color: Colors.background
+        color: Colors.surface_container_high
         anchors {
           leftMargin: 20
           topMargin: 20
@@ -77,7 +76,7 @@ Scope {
           }
 
           MaterialSymbol {
-            color: Colors.on_background
+            color: Colors.on_surface
             font.pixelSize: 26
             font.weight: 600
             icon: Audio.soundIcon
@@ -89,16 +88,21 @@ Scope {
 
             implicitHeight: 16
             radius: 10
-            color: Colors.background
+            color: Colors.surface_container_high
 
             Rectangle {
+              property real wantedWidth: parent.width * (Audio.volume ?? 0)
               anchors {
                 left: parent.left
                 top: parent.top
                 bottom: parent.bottom
               }
 
-              implicitWidth: parent.width * (Pipewire.defaultAudioSink?.audio.volume ?? 0)
+              implicitWidth: {
+                if (wantedWidth == 0 || wantedWidth >= 16)
+                  return wantedWidth;
+                return 16;
+              }
               radius: parent.radius
               color: Colors.primary
             }
