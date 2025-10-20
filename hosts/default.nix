@@ -41,6 +41,7 @@
             home-manager.extraSpecialArgs = lib.recursiveUpdate {
               inherit inputs outputs hostname username system;
             } (args.specialArgs or {});
+            home-manager.sharedModules = [inputs.pinnacle.hmModules.default];
             home-manager.users.${username}.imports = [./${hostname}/home.nix];
           }
         ]
