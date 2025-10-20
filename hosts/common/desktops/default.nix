@@ -7,11 +7,13 @@
 }: {
   imports = [
     ./hyprland.nix
+    ./pinnacle.nix
   ];
 
   services.gvfs.enable = true;
   services.upower.enable = true;
   programs.dconf.enable = true;
+  security.polkit.enable = true;
 
   virtualisation.podman = {
     enable = true;

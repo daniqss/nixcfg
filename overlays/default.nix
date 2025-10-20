@@ -17,4 +17,6 @@
       config.allowUnfree = true;
     };
   };
+
+  pinnacle = inputs.pinnacle.overlays.default;
 }
