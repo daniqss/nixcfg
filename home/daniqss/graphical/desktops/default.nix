@@ -16,12 +16,13 @@
 in {
   imports = [
     ./hyprland
+    ./pinnacle
     ./theme
   ];
 
   options.graphical.desktops = {
     desktop = lib.mkOption {
-      type = lib.types.enum ["hyprland"];
+      type = lib.types.enum ["hyprland" "pinnacle"];
       description = "which desktop to use";
     };
 

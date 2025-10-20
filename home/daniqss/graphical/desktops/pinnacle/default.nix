@@ -3,15 +3,9 @@
   config,
   ...
 }: let
-  inherit (lib) mkIf mkEnableOption mkDefault;
+  inherit (lib) mkIf mkDefault;
 in {
-  imports = [
-    ./hypr
-  ];
-
-  options.graphical.desktops.hyprland.hyprqtile.enable = mkEnableOption "enable hyprqtile as workspace switcher";
-
-  config = mkIf (config.graphical.desktops.desktop == "hyprland") {
+  config = mkIf (config.graphical.desktops.desktop == "pinnacle") {
     graphical.desktops.monitorToDesktopConfig = monitors:
       builtins.map (
         monitor: let
@@ -22,7 +16,18 @@ in {
       monitors;
 
     graphical.desktops.uwsm.enable = mkDefault true;
-    graphical.desktops.hyprland.hyprqtile.enable = mkDefault false;
-    graphical.shells.shell = mkDefault "quickshell";
+    graphical.shells.shell = mkDefault "minimal";
+
+    wayland.windowManager.pinnacle = {
+      enable = true;
+
+      # not sure how it works yet
+      # config.execCmd = "/path/to/config?";
+
+      systemd = {
+        enable = true;
+        useService = !config.graphical.desktops.uwsm.enable;
+      };
+    };
   };
 }
