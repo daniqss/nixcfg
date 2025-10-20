@@ -5,6 +5,10 @@
   lib,
   ...
 }: {
+  imports = [
+    ./hyprland.nix
+  ];
+
   services.gvfs.enable = true;
   services.upower.enable = true;
   programs.dconf.enable = true;
@@ -52,31 +56,6 @@
     LC_PAPER = "es_ES.UTF-8";
     LC_TELEPHONE = "es_ES.UTF-8";
     LC_TIME = "es_ES.UTF-8";
-  };
-
-  # programs.uwsm = {
-  #   enable = true;
-  #   waylandCompositors.hyprland = {
-  #     prettyName = "Hyprland";
-  #     comment = "Hyprland compositor managed by UWSM";
-  #     binPath = "/home/${username}/.nix-profile/bin/Hyprland";
-  #   };
-  # };
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-  };
-
-  xdg.portal = {
-    enable = true;
-    config.hyprland = {
-      default = ["hyprland"];
-      "org.freedesktop.impl.portal.FileChooser" = ["gnome"];
-    };
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome
-      xdg-desktop-portal-hyprland
-    ];
   };
 
   services.greetd = {

@@ -5,7 +5,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    ../common/desktop.nix
+    ../common/desktops
     ../common/gaming.nix
     ../common/minecraft.nix
     ../common/network.nix
