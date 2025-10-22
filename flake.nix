@@ -13,7 +13,7 @@
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
 
     quickshell = {
-      url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=refs/tags/v0.2.0";
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=refs/tags/v0.2.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
