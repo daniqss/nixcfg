@@ -58,6 +58,12 @@ in {
             type = lib.types.str;
             description = "scale of the monitor";
           };
+
+          mirror = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "name of the monitor to mirror";
+          };
         };
       });
     };

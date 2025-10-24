@@ -17,7 +17,11 @@ in {
         monitor: let
           r = monitor.resolution;
           p = monitor.position;
-        in "${monitor.name},${toString r.x}x${toString r.y}@${monitor.refresh},${toString p.x}x${toString p.y},${monitor.scale}"
+          mirror =
+            if monitor.mirror != ""
+            then ",mirror,${monitor.mirror}"
+            else "";
+        in "${monitor.name},${toString r.x}x${toString r.y}@${monitor.refresh},${toString p.x}x${toString p.y},${monitor.scale}${mirror}"
       )
       monitors;
 

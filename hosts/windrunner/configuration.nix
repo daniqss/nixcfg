@@ -37,6 +37,7 @@
   # virtualisation.virtualbox.host.enableExtensionPack = true;
 
   environment.systemPackages = with pkgs; [
+  	blender
     vagrant
   ];
 
