@@ -15,4 +15,8 @@
     path = ./android;
     description = "basic android dev template";
   };
+  python-fastapi = {
+    path = ./python-fastapi;
+    description = "basic python fastapi template";
+  };
 }
