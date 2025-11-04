@@ -17,7 +17,7 @@ in {
       options = {
         dev = lib.mkOption {
           type = lib.types.enum availableBrowsers;
-          default = ungoogled-chromium;
+          default = chromium;
           description = "dev browser";
         };
 
