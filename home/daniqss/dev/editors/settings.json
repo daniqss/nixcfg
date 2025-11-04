@@ -80,7 +80,7 @@
     "markdown": true,
     "scminput": false,
     "cpp": true,
-    "rust": false,
+    "rust": true,
     "sql": false,
     "typescript": true,
     "python": false

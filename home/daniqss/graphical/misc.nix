@@ -15,6 +15,7 @@ in {
 
       nautilus
       nautilus-open-any-terminal
+      loupe
 
       obsidian
       (discord.override {withVencord = true;})
@@ -31,5 +32,12 @@ in {
     ];
 
     fonts.fontconfig.enable = true;
+
+    services.flatpak.packages = [
+      {
+        appId = "app.fotema.Fotema";
+        origin = "flathub";
+      }
+    ];
   };
 }

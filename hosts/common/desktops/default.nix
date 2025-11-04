@@ -18,6 +18,14 @@
     dockerCompat = true;
   };
 
+  boot.kernelParams = ["kvm.enable_virt_at_load=0"];
+  virtualisation.virtualbox.host = {
+    enable = true;
+  };
+  users.extraGroups.vboxusers.members = [username];
+  # usb forwarding
+  # virtualisation.virtualbox.host.enableExtensionPack = true;
+
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -35,13 +43,11 @@
   environment.systemPackages = with pkgs; [
     pulseaudio
     distrobox
+    vagrant
   ];
+  services.flatpak.enable = true;
 
   programs.adb.enable = true;
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
-
   programs.zsh.enable = true;
 
   time.timeZone = "Europe/Madrid";
