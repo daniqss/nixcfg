@@ -28,17 +28,5 @@
     variant = "";
   };
 
-  boot.kernelParams = ["kvm.enable_virt_at_load=0"];
-  virtualisation.virtualbox.host = {
-    enable = true;
-  };
-  users.extraGroups.vboxusers.members = [username];
-  # usb forwarding
-  # virtualisation.virtualbox.host.enableExtensionPack = true;
-
-  environment.systemPackages = with pkgs; [
-    vagrant
-  ];
-
   system.stateVersion = "25.05";
 }
