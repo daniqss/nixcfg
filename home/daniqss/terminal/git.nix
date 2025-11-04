@@ -26,10 +26,12 @@ in {
 
     programs.git = {
       enable = true;
-      userName = username;
-      userEmail = "danielqueijo14@gmail.com";
+      settings = {
+        user = {
+          name = username;
+          email = "danielqueijo14@gmail.com";
+        };
 
-      extraConfig = {
         init.defaultBranch = "main";
         core.editor = "nvim";
         push.default = "current";
