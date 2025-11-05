@@ -25,7 +25,7 @@ in {
       )
       monitors;
 
-    graphical.desktops.uwsm.enable = mkDefault true;
+    graphical.desktops.uwsm.enable = mkDefault false;
     graphical.desktops.hyprland.hyprqtile.enable = mkDefault false;
     graphical.shells.shell = mkDefault "quickshell";
   };

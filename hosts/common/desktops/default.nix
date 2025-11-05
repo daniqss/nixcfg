@@ -37,13 +37,11 @@
   environment.systemPackages = with pkgs; [
     pulseaudio
     distrobox
+    vagrant
   ];
+  services.flatpak.enable = true;
 
   programs.adb.enable = true;
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
-
   programs.zsh.enable = true;
 
   time.timeZone = "Europe/Madrid";
