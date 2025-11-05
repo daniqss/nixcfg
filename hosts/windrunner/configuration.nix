@@ -1,8 +1,4 @@
-{
-  username,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ../common/desktops
