@@ -7,24 +7,18 @@
 }: {
   imports = [
     ./hyprland.nix
+    ./pinnacle.nix
   ];
 
   services.gvfs.enable = true;
   services.upower.enable = true;
   programs.dconf.enable = true;
+  security.polkit.enable = true;
 
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
   };
-
-  boot.kernelParams = ["kvm.enable_virt_at_load=0"];
-  virtualisation.virtualbox.host = {
-    enable = true;
-  };
-  users.extraGroups.vboxusers.members = [username];
-  # usb forwarding
-  # virtualisation.virtualbox.host.enableExtensionPack = true;
 
   services.pipewire = {
     enable = true;

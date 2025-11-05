@@ -16,12 +16,13 @@
 in {
   imports = [
     ./hyprland
+    ./pinnacle
     ./theme
   ];
 
   options.graphical.desktops = {
     desktop = lib.mkOption {
-      type = lib.types.enum ["hyprland"];
+      type = lib.types.enum ["hyprland" "pinnacle"];
       description = "which desktop to use";
     };
 
@@ -56,6 +57,12 @@ in {
           scale = lib.mkOption {
             type = lib.types.str;
             description = "scale of the monitor";
+          };
+
+          mirror = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "name of the monitor to mirror";
           };
         };
       });

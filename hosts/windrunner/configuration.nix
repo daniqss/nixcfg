@@ -28,5 +28,9 @@
     variant = "";
   };
 
+  environment.systemPackages = with pkgs; [
+    blender
+  ];
+
   system.stateVersion = "25.05";
 }

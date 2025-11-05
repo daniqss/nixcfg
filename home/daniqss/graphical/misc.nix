@@ -29,9 +29,16 @@ in {
       nerd-fonts.jetbrains-mono
       noto-fonts-color-emoji
       noto-fonts-cjk-serif
+
+      alsa-utils
+      playerctl
+      brightnessctl
+      cliphist
+      wl-clipboard
     ];
 
     fonts.fontconfig.enable = true;
+    home.sessionVariables.NIXOS_OZONE_WL = "1";
 
     services.flatpak.packages = [
       {

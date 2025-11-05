@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -18,22 +17,16 @@ in {
         monitor: let
           r = monitor.resolution;
           p = monitor.position;
-        in "${monitor.name},${toString r.x}x${toString r.y}@${monitor.refresh},${toString p.x}x${toString p.y},${monitor.scale}"
+          mirror =
+            if monitor.mirror != ""
+            then ",mirror,${monitor.mirror}"
+            else "";
+        in "${monitor.name},${toString r.x}x${toString r.y}@${monitor.refresh},${toString p.x}x${toString p.y},${monitor.scale}${mirror}"
       )
       monitors;
 
     graphical.desktops.uwsm.enable = mkDefault false;
     graphical.desktops.hyprland.hyprqtile.enable = mkDefault false;
     graphical.shells.shell = mkDefault "quickshell";
-
-    home.packages = with pkgs; [
-      alsa-utils
-      playerctl
-      brightnessctl
-      cliphist
-      wl-clipboard
-    ];
-
-    home.sessionVariables.NIXOS_OZONE_WL = "1";
   };
 }
