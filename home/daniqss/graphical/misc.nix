@@ -21,6 +21,8 @@ in {
       (discord.override {withVencord = true;})
       spotify
 
+      blender
+
       qbittorrent
 
       nerd-fonts.caskaydia-cove
