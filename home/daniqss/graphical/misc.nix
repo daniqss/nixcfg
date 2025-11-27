@@ -22,8 +22,8 @@ in {
       spotify
 
       blender
-
       qbittorrent
+      libreoffice
 
       nerd-fonts.caskaydia-cove
       nerd-fonts.fira-code
