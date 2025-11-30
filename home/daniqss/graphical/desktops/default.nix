@@ -22,7 +22,8 @@ in {
 
   options.graphical.desktops = {
     desktop = lib.mkOption {
-      type = lib.types.enum ["hyprland" "pinnacle"];
+      type = lib.types.enum ["hyprland" "pinnacle" "none"];
+      default = "none";
       description = "which desktop to use";
     };
 

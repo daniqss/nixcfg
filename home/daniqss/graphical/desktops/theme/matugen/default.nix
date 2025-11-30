@@ -1,5 +1,6 @@
 {
   inputs,
+  system,
   username,
   pkgs,
   lib,
@@ -9,7 +10,7 @@
   wallpaper = "/home/${username}/nixcfg/assets/wallpapers/current";
   createMatugen = pkgs.writeShellScriptBin "createMatugen" ''
     echo "creating matugen theme..."
-    ${lib.getExe' inputs.matugen.packages.${pkgs.system}.default "matugen"} image ${wallpaper}
+    ${lib.getExe' inputs.matugen.packages.${system}.default "matugen"} image ${wallpaper}
   '';
 in {
   imports = [
@@ -18,7 +19,7 @@ in {
 
   config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     home.packages = [
-      inputs.matugen.packages.${pkgs.system}.default
+      inputs.matugen.packages.${system}.default
       pkgs.swww
       createMatugen
     ];
