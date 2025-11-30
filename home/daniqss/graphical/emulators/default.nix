@@ -8,8 +8,8 @@
     type = lib.types.submodule {
       options = {
         emulator = lib.mkOption {
-          type = lib.types.enum ["ghostty" "alacritty"];
-          default = "ghostty";
+          type = lib.types.enum ["ghostty" "alacritty" "none"];
+          default = "none";
           description = "available terminal emulators";
         };
 
