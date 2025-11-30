@@ -19,4 +19,5 @@
   };
 
   pinnacle = inputs.pinnacle.overlays.default;
+  nix-minecraft = inputs.nix-minecraft.overlays.default;
 }

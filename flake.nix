@@ -30,6 +30,8 @@
     pinnacle.url = "github:pinnacle-comp/pinnacle";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
+
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
   outputs = inputs @ {

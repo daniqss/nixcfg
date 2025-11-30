@@ -43,6 +43,8 @@
 
           charliermarsh.ruff
 
+          ms-vscode-remote.remote-ssh
+
           mechatroner.rainbow-csv
           bradlc.vscode-tailwindcss
           rust-lang.rust-analyzer

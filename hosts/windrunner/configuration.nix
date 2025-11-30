@@ -3,7 +3,6 @@
     ./hardware-configuration.nix
     ../common/desktops
     ../common/gaming.nix
-    ../common/minecraft.nix
     ../common/network.nix
     ../common/nix.nix
   ];

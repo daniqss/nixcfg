@@ -6,6 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     ../common/nix.nix
+    # ../common/services/minecraft.nix
   ];
 
   services.openssh = {
