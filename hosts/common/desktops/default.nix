@@ -37,7 +37,6 @@
   environment.systemPackages = with pkgs; [
     pulseaudio
     distrobox
-    vagrant
   ];
   services.flatpak.enable = true;
 

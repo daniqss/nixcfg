@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  inherit (pkgs) chromium google-chrome ungoogled-chromium;
+  inherit (pkgs) chromium google-chrome;
 
-  availableBrowsers = [chromium google-chrome ungoogled-chromium];
+  availableBrowsers = [chromium google-chrome];
 in {
   imports = [
     ./chromium.nix
