@@ -32,10 +32,18 @@ RowLayout {
       return !charging ? "battery_2_bar" : "battery_charging_30";
     else if (percentage >= 30)
       return !charging ? "battery_1_bar" : "battery_charging_20";
-    else if (percentage >= 20)
+    else if (percentage >= 20) {
+      batteryNotifier.running = true;
       return !charging ? "battery_0_bar" : "battery_charging_full";
-    else
+    } else {
+      batteryNotifier.running = true;
       return !charging ? "battery_alert" : "battery_charging_full";
+    }
+  }
+
+  Process {
+    id: batteryNotifier
+    command: ["notify-send", "-u", "critical", "-i", "battery-alert", "Battery Low", "Battery level is at " + battery.percentage + "%"]
   }
 
   Process {
