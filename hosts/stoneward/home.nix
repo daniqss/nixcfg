@@ -37,7 +37,7 @@ in {
     gaming.enable = true;
     emulators = {
       emulator = "ghostty";
-      fontsize = 13;
+      fontsize = 12;
     };
 
     desktops = {
