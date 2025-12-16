@@ -21,7 +21,6 @@ in {
       (discord.override {withVencord = true;})
       spotify
 
-      blender
       qbittorrent
       libreoffice
 

@@ -120,7 +120,7 @@
   "rust-analyzer.inlayHints.parameterHints.enable": false,
   "rust-analyzer.inlayHints.typeHints.enable": false,
   "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font', monospace",
-  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.fontSize": 15,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "window.titleBarStyle": "custom",
   "workbench.colorTheme": "One Dark Pro Night Flat",

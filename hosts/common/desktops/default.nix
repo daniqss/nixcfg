@@ -37,6 +37,7 @@
   environment.systemPackages = with pkgs; [
     pulseaudio
     distrobox
+    (blender.override {cudaSupport = true;})
   ];
   services.flatpak.enable = true;
 
