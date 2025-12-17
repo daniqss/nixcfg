@@ -94,14 +94,6 @@ in {
       xdg.configFile."Code/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/dev/editors/settings.json";
     })
     (lib.mkIf (config.dev.enable && is_server) {
-      /*
-      systemctl --user enable auto-fix-vscode-server.service
-      Enabling the user service creates a symlink to the Nix store, but the linked store path could be garbage collected at some point. One workaround to this particular issue is creating the following symlink:
-
-      ln -sfT /run/current-system/etc/systemd/user/auto-fix-vscode-server.service ~/.config/systemd/user/auto-fix-vscode-server.service
-
-      */
-      services.vscode-server.enable = true;
-    })
+      })
   ];
 }

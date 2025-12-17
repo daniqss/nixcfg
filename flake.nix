@@ -27,8 +27,6 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
-
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
 
   outputs = inputs @ {
