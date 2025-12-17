@@ -1,5 +1,4 @@
 {
-  inputs,
   hostname,
   username,
   pkgs,
@@ -14,7 +13,6 @@ in {
       && config.graphical.enable) {
       programs.vscode = {
         enable = true;
-        package = pkgs.vscode-fhs;
 
         profiles.default.extensions = with pkgs.vscode-extensions;
           [
@@ -90,7 +88,7 @@ in {
       xdg.configFile."Code/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/dev/editors/settings.json";
     })
     (lib.mkIf (config.dev.enable && is_server) {
-      
+      programs.nix-ld.enable = true;
     })
   ];
 }

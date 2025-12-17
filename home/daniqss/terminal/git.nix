@@ -21,6 +21,11 @@ in {
           identityFile = "~/.ssh/github_ed25519";
           identitiesOnly = true;
         };
+
+        "bondsmith" = {
+          user = "daniqss";
+          hostname = "192.168.0.170";
+        };
       };
     };
 
