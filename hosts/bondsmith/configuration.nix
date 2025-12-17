@@ -25,6 +25,8 @@
   };
   programs.zsh.enable = true;
 
+  programs.nix-ld.enable = true;
+
   networking.networkmanager.enable = true;
   system.stateVersion = "25.05";
 }
