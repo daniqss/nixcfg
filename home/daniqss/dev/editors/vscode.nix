@@ -90,6 +90,7 @@ in {
       xdg.configFile."Code/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/dev/editors/settings.json";
     })
     (lib.mkIf (config.dev.enable && is_server) {
-      })
+      
+    })
   ];
 }
