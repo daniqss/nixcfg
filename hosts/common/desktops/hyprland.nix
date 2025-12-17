@@ -20,6 +20,7 @@ in {
         "org.freedesktop.impl.portal.FileChooser" = ["gnome"];
       };
       extraPortals = with pkgs; [
+        xdg-desktop-portal-gnome
         xdg-desktop-portal-gtk
         xdg-desktop-portal-hyprland
       ];
