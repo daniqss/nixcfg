@@ -9,10 +9,6 @@
 }: let
   is_server = hostname == "bondsmith";
 in {
-  imports = [
-    inputs.vscode-server.nixosModules.default
-  ];
-
   config = lib.mkMerge [
     (lib.mkIf (config.dev.enable
       && config.graphical.enable) {
