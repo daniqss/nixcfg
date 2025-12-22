@@ -19,9 +19,10 @@
       enable = true;
 
       serverProperties = {
-        motd = "mc con pauli ";
+        motd = "mc con pauli";
         allow-cheats = true;
-        level-name = "mc-gf";
+        # copy world to /srv/minecraft/mc-gf/<level-name>, and change ownership to user and group minecraft
+        level-name = "merdacraft girlfriend edition";
       };
 
       package = pkgs.fabricServers.fabric-1_21_10.override {
