@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ../common/nix.nix
     # ../common/services/minecraft.nix
+    # ../common/services/immich.nix
   ];
 
   services.openssh = {
