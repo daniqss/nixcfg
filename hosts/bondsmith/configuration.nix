@@ -19,7 +19,7 @@
     };
   };
 
-  networking.hostId = "b0ndsm1t";
+  networking.hostId = "863585c9";
   users.users.${username} = {
     isNormalUser = true;
     description = "${username}";
