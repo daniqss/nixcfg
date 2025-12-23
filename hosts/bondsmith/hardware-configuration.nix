@@ -1,4 +1,9 @@
 {...}: {
+  # imports = [./disko.nix];
+  boot.supportedFilesystems = ["zfs"];
+  # networking.hostId is set somewhere else
+  services.zfs.autoScrub.enable = true;
+  services.zfs.trim.enable = true;
   boot.loader.raspberryPi.enable = true;
   hardware.raspberry-pi.config = {
     # [all] conditional filter, https://www.raspberrypi.com/documentation/computers/config_txt.html#conditional-filters
