@@ -4,8 +4,8 @@
   ...
 }: {
   imports = [
-    ./hardware-configuration.nix
-    # ./disko.nix
+    # ./hardware-configuration.nix
+    ./disko.nix
     ../common/nix.nix
     # ../common/services/minecraft.nix
     # ../common/services/immich.nix
@@ -37,7 +37,10 @@
   # networking.hostId is set somewhere else
   services.zfs.autoScrub.enable = true;
   services.zfs.trim.enable = true;
+
   boot.loader.raspberryPi.enable = true;
+  boot.loader.raspberryPi.bootloader = "kernel";
+
   hardware.raspberry-pi.config = {
     # [all] conditional filter, https://www.raspberrypi.com/documentation/computers/config_txt.html#conditional-filters
     all.options = {
