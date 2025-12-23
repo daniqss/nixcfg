@@ -57,27 +57,26 @@
         value = true;
       };
     };
-
-    # Base DTB parameters
-    # https://github.com/raspberrypi/linux/blob/a1d3defcca200077e1e382fe049ca613d16efd2b/arch/arm/boot/dts/overlays/README#L132
-    base-dt-params = {
-      # # https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#enable-pcie
-      # pciex1 = {
-      #   enable = true;
-      # };
-      # # PCIe Gen 3.0
-      # # https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie-gen-3-0
-      # pciex1_gen = {
-      #   enable = true;
-      #   value = "3";
-      # };
-    };
-    dt-overlays = {
-      # Enable DRM VC4 V3D driver
-      vc4-kms-v3d = {
-        enable = false;
-        params = {};
-      };
-    };
+    # # Base DTB parameters
+    # # https://github.com/raspberrypi/linux/blob/a1d3defcca200077e1e382fe049ca613d16efd2b/arch/arm/boot/dts/overlays/README#L132
+    # base-dt-params = {
+    #   # # https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#enable-pcie
+    #   pciex1 = {
+    #     enable = true;
+    #   };
+    #   # PCIe Gen 3.0
+    #   # https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie-gen-3-0
+    #   pciex1_gen = {
+    #     enable = true;
+    #     value = "3";
+    #   };
+    # };
+    # dt-overlays = {
+    #   # Enable DRM VC4 V3D driver
+    #   vc4-kms-v3d = {
+    #     enable = false;
+    #     params = {};
+    #   };
+    # };
   };
 }
