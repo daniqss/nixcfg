@@ -1,5 +1,6 @@
 {
   pkgs,
+  hostname,
   username,
   ...
 }: {
@@ -18,6 +19,7 @@
     };
   };
 
+  networking.hostId = hostname;
   users.users.${username} = {
     isNormalUser = true;
     description = "${username}";
