@@ -23,7 +23,7 @@
         allow-cheats = true;
         # copy world to /srv/minecraft/mc-gf/<level-name>, and change ownership to user and group minecraft
         # if you mess up permissions, the best is disable this module and `sudo `sudo rm -rf /srv/minecraft && sudo rm -rf /run/minecraft`
-        # level-name = "merdacraft girlfriend edition";
+        level-name = "merdacraft girlfriend edition";
       };
 
       package = pkgs.fabricServers.fabric-1_21_10.override {
