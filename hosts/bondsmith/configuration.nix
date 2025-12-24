@@ -19,7 +19,6 @@
     };
   };
 
-  networking.hostId = "863585c9";
   users.users.${username} = {
     isNormalUser = true;
     description = "${username}";
@@ -28,15 +27,8 @@
   };
   programs.zsh.enable = true;
 
-  programs.nix-ld.enable = true;
-
   networking.networkmanager.enable = true;
   system.stateVersion = "25.05";
-
-  boot.supportedFilesystems = ["zfs"];
-  # networking.hostId is set somewhere else
-  services.zfs.autoScrub.enable = true;
-  services.zfs.trim.enable = true;
 
   boot.loader.raspberryPi.enable = true;
   boot.loader.raspberryPi.bootloader = "kernel";
