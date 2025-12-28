@@ -69,25 +69,26 @@ in {
   };
 
   # rpi5 home server
-  bondsmith = mkSystem {
-    hostname = "bondsmith";
-    username = "daniqss";
-    system = "aarch64-linux";
+  bondsmith = let
+    nixosRaspberryPi = inputs.nixos-raspberrypi;
+  in
+    mkSystem {
+      hostname = "bondsmith";
+      username = "daniqss";
+      system = "aarch64-linux";
 
-    createSystem = inputs.nixos-raspberrypi.lib.nixosSystem;
-    specialArgs = {nixos-raspberrypi = inputs.nixos-raspberrypi;};
-    modules = [
-      ({...}: {
-        imports = with inputs.nixos-raspberrypi.nixosModules; [
-          raspberry-pi-5.base
-          raspberry-pi-5.page-size-16k
-          # raspberry-pi-5.display-vc4
-          raspberry-pi-5.bluetooth
-        ];
-      })
-      ({...}: {
-        imports = [inputs.disko.nixosModules.disko];
-      })
-    ];
-  };
+      createSystem = inputs.nixos-raspberrypi.lib.nixosSystem;
+      specialArgs = {inherit nixosRaspberryPi;};
+      modules = [
+        {
+          imports = [
+            nixosRaspberryPi.nixosModules.raspberry-pi-5.base
+            nixosRaspberryPi.nixosModules.raspberry-pi-5.page-size-16k
+            nixosRaspberryPi.nixosModules.raspberry-pi-5.display-vc4
+            nixosRaspberryPi.nixosModules.raspberry-pi-5.bluetooth
+            inputs.disko.nixosModules.disko
+          ];
+        }
+      ];
+    };
 }
