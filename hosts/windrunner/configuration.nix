@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   imports = [
-    ./hardware-configuration.nix
     ../common/desktops
     ../common/gaming.nix
     ../common/network.nix

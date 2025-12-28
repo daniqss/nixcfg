@@ -10,6 +10,7 @@
     username,
     system,
     createSystem ? lib.nixosSystem,
+    useDisko ? false,
     ...
   } @ args:
     createSystem {
@@ -31,6 +32,8 @@
         ]
         (lib.flatten [
           (lib.singleton ./${hostname}/configuration.nix)
+          (lib.singleton ./${hostname}/hardware-configuration.nix)
+          (lib.optional useDisko [./${hostname}/disko.nix])
           (args.modules or [])
         ])
         [
@@ -78,6 +81,7 @@ in {
       system = "aarch64-linux";
 
       createSystem = inputs.nixos-raspberrypi.lib.nixosSystem;
+      useDisko = true;
       specialArgs = {inherit nixos-raspberrypi;};
       modules = [
         {
