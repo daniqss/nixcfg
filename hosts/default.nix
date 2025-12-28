@@ -70,7 +70,7 @@ in {
 
   # rpi5 home server
   bondsmith = let
-    nixosRaspberryPi = inputs.nixos-raspberrypi;
+    nixos-raspberrypi = inputs.nixos-raspberrypi;
   in
     mkSystem {
       hostname = "bondsmith";
@@ -78,17 +78,17 @@ in {
       system = "aarch64-linux";
 
       createSystem = inputs.nixos-raspberrypi.lib.nixosSystem;
-      specialArgs = {inherit nixosRaspberryPi;};
+      specialArgs = {inherit nixos-raspberrypi;};
       modules = [
-        ({...}: {
+        {
           imports = [
-            nixosRaspberryPi.nixosModules.raspberry-pi-5.base
-            nixosRaspberryPi.nixosModules.raspberry-pi-5.page-size-16k
-            nixosRaspberryPi.nixosModules.raspberry-pi-5.display-vc4
-            nixosRaspberryPi.nixosModules.raspberry-pi-5.bluetooth
+            nixos-raspberrypi.nixosModules.raspberry-pi-5.base
+            nixos-raspberrypi.nixosModules.raspberry-pi-5.page-size-16k
+            nixos-raspberrypi.nixosModules.raspberry-pi-5.display-vc4
+            nixos-raspberrypi.nixosModules.raspberry-pi-5.bluetooth
             inputs.disko.nixosModules.disko
           ];
-        })
+        }
       ];
     };
 }
