@@ -80,7 +80,7 @@ in {
       createSystem = inputs.nixos-raspberrypi.lib.nixosSystem;
       specialArgs = {inherit nixosRaspberryPi;};
       modules = [
-        {
+        ({...}: {
           imports = [
             nixosRaspberryPi.nixosModules.raspberry-pi-5.base
             nixosRaspberryPi.nixosModules.raspberry-pi-5.page-size-16k
@@ -88,7 +88,7 @@ in {
             nixosRaspberryPi.nixosModules.raspberry-pi-5.bluetooth
             inputs.disko.nixosModules.disko
           ];
-        }
+        })
       ];
     };
 }
