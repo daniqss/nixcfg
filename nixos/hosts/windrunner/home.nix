@@ -1,8 +1,4 @@
-{username, ...}: {
-  imports = [
-    ../../home/${username}
-  ];
-
+{...}: {
   graphical = {
     enable = true;
     gaming.enable = true;

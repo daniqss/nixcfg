@@ -31,9 +31,12 @@
           }
         ]
         (lib.flatten [
-          (lib.singleton ./${hostname}/configuration.nix)
-          (lib.singleton ./${hostname}/hardware-configuration.nix)
-          (lib.optional useDisko [./${hostname}/disko.nix])
+          (lib.singleton ./profiles/common)
+          (lib.singleton ./profiles/desktop)
+          (lib.singleton ./profiles/server)
+          (lib.singleton ./hosts/${hostname}/configuration.nix)
+          (lib.singleton ./hosts/${hostname}/hardware-configuration.nix)
+          (lib.optional useDisko [./hosts/${hostname}/disko.nix])
           (args.modules or [])
         ])
         [
@@ -45,7 +48,10 @@
               inherit inputs outputs hostname username system;
             } (args.specialArgs or {});
             home-manager.sharedModules = [inputs.pinnacle.hmModules.default];
-            home-manager.users.${username}.imports = [./${hostname}/home.nix];
+            home-manager.users.${username}.imports = [
+              ./hosts/${hostname}/home.nix
+              ../home/${username}
+            ];
           }
         ]
       ];

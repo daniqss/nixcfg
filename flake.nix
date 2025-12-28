@@ -46,6 +46,6 @@
     packages = forAllSystems (system: import ./pkgs {pkgs = import nixpkgs {inherit system;};});
     overlays = import ./overlays {inherit inputs outputs;};
     templates = import ./templates {inherit inputs outputs;};
-    nixosConfigurations = import ./hosts {inherit inputs outputs;};
+    nixosConfigurations = import ./nixos {inherit inputs outputs;};
   };
 }

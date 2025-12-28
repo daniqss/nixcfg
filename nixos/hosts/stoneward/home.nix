@@ -1,4 +1,4 @@
-{username, ...}: let
+{...}: let
   monitors = [
     {
       name = "DP-1";
@@ -28,10 +28,6 @@
     }
   ];
 in {
-  imports = [
-    ../../home/${username}
-  ];
-
   graphical = {
     enable = true;
     gaming.enable = true;
