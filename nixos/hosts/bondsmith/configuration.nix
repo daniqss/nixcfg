@@ -4,6 +4,10 @@
   ...
 }: {
   config = {
+    common.tailscale = {
+      enable = true;
+      role = "both";
+    };
     server = {
       enable = true;
       immich.enable = false;
