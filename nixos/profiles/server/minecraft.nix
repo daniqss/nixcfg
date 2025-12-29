@@ -79,8 +79,15 @@ in {
             }
           );
 
-          "server-icon.png" = /home/${username}/minecraft/mc-gf/server-icon.png;
-          world = /home/${username}/minecraft/mc-gf/world;
+          "server-icon.png" = builtins.path {
+            path = /home/${username}/minecraft/mc-gf/server-icon.png;
+            name = "server-icon.png";
+          };
+
+          world = builtins.path {
+            path = /home/${username}/minecraft/mc-gf/world;
+            name = "world";
+          };
         };
       };
     };
