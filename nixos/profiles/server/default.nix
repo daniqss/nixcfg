@@ -6,6 +6,7 @@
   imports = [
     ./minecraft.nix
     ./immich.nix
+    ./terminfo.nix
   ];
 
   options.server.enable = lib.mkEnableOption "enable server profile";
@@ -13,5 +14,6 @@
   config = lib.mkIf config.server.enable {
     server.immich.enable = lib.mkDefault true;
     server.minecraft.enable = lib.mkDefault true;
+    server.terminfo.enable = lib.mkDefault true;
   };
 }
