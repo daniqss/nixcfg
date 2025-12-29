@@ -33,7 +33,6 @@
   #   sudo find "$WORLD_DIR" -type d -exec chmod 770 {} \;
   #   sudo find "$WORLD_DIR" -type f -exec chmod 660 {} \;
   #   if [[ -f "$WORLD_DIR/session.lock" ]]; then
-  #     echo "🧹 Eliminando session.lock"
   #     sudo rm -f "$WORLD_DIR/session.lock"
   #   fi
   # '';
@@ -49,7 +48,7 @@ in {
     ];
 
     services.minecraft-servers = {
-      enable = true;
+      enable = false;
       eula = true;
       openFirewall = true;
 
@@ -79,8 +78,8 @@ in {
             }
           );
 
-          "server-icon.png" = "/home/${username}/minecraft/mc-gf/server-icon.png";
-          world = "/home/${username}/minecraft/mc-gf/world";
+          # "server-icon.png" = "/home/${username}/minecraft/mc-gf/server-icon.png";
+          # world = "/home/${username}/minecraft/mc-gf/world";
         };
       };
     };
