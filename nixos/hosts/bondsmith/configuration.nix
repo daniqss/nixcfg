@@ -4,7 +4,10 @@
   ...
 }: {
   config = {
-    server.enable = true;
+    server = {
+      enable = true;
+      immich.enable = false;
+    };
     desktop.enable = false;
 
     services.openssh = {
