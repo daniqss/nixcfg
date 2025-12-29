@@ -1,42 +1,10 @@
 {
   inputs,
-  username,
   lib,
   config,
   pkgs,
   ...
-}: let
-  # worldToServer = pkgs.writeShellScriptBin "world-to-server" ''
-  #   #!/usr/bin/env bash
-  #   set -euo pipefail
-  #   SERVER_DIR="/srv/minecraft/mc-gf"
-  #   WORLD_DIR="$SERVER_DIR/world"
-  #   if [[ $# -ne 1 ]]; then
-  #     echo "Usage: $0 <path-to-world>"
-  #     exit 1
-  #   fi
-  #   NEW_WORLD="$(realpath "$1")"
-  #   if [[ ! -d "$NEW_WORLD" ]]; then
-  #     echo "Non valid Minecraft world directory: $NEW_WORLD"
-  #     exit 1
-  #   fi
-  #   if [[ ! -f "$NEW_WORLD/level.dat" ]]; then
-  #     echo "Non valid Minecraft world directory, no level.dat: $NEW_WORLD"
-  #     exit 1
-  #   fi
-  #   if [[ -d "$WORLD_DIR" ]]; then
-  #     BACKUP="$SERVER_DIR/world.$(date +%Y%m%d%H%M%S).bak"
-  #     sudo mv "$WORLD_DIR" "$BACKUP"
-  #   fi
-  #   sudo cp -r "$NEW_WORLD" "$WORLD_DIR"
-  #   sudo chown -R "$MC_USER:$MC_GROUP" "$WORLD_DIR"
-  #   sudo find "$WORLD_DIR" -type d -exec chmod 770 {} \;
-  #   sudo find "$WORLD_DIR" -type f -exec chmod 660 {} \;
-  #   if [[ -f "$WORLD_DIR/session.lock" ]]; then
-  #     sudo rm -f "$WORLD_DIR/session.lock"
-  #   fi
-  # '';
-in {
+}: {
   imports = [inputs.nix-minecraft.nixosModules.minecraft-servers];
 
   options.server.minecraft.enable = lib.mkEnableOption "enable minecraft server profile";
