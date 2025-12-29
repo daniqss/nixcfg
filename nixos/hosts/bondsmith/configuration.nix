@@ -7,6 +7,7 @@
     server = {
       enable = true;
       immich.enable = false;
+      mineos.enable = false;
     };
     desktop.enable = false;
 
