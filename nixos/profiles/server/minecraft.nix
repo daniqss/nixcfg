@@ -78,8 +78,17 @@ in {
             }
           );
 
-          # "server-icon.png" = "/home/${username}/minecraft/mc-gf/server-icon.png";
-          # world = "/home/${username}/minecraft/mc-gf/world";
+          # to add world and server icon:
+          # ```sh
+          # mv /srv/minecraft/mc-gf/world /srv/minecraft/mc-gf/world.bak
+          # cp -r /home/daniqss/minecraft/mc-gf/world /srv/minecraft/mc-gf/
+          # cp /home/daniqss/minecraft/mc-gf/server-icon.png /srv/minecraft/mc-gf/
+          # chown -R minecraft:minecraft /srv/minecraft/mc-gf/world
+          # chown -R minecraft:minecraft /srv/minecraft/mc-gf/server-icon.png
+          # rm /srv/minecraft/mc-gf/world/session.lock
+          # find /srv/minecraft/mc-gf/world -type d -exec chmod 770 {} \;
+          # find /srv/minecraft/mc-gf/world -type f -exec chmod 660 {} \;
+          # ```
         };
       };
     };
