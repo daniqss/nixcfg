@@ -22,9 +22,14 @@ in {
           identitiesOnly = true;
         };
 
-        "bondsmith" = {
+        "bondsmith-lan" = {
           user = "daniqss";
           hostname = "192.168.0.170";
+        };
+
+        "bondsmith" = {
+          user = "daniqss";
+          hostname = "bondsmith.tailb76493.ts.net";
         };
       };
     };
