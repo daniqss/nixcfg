@@ -13,7 +13,7 @@
       openFirewall = true;
       database = {
         enableVectors = false;
-        enableVectorChoad = true;
+        enableVectorChord = true;
       };
     };
 
