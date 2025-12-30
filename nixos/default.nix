@@ -93,7 +93,7 @@ in {
         {
           imports = [
             nixos-raspberrypi.nixosModules.raspberry-pi-5.base
-            # nixos-raspberrypi.nixosModules.raspberry-pi-5.page-size-16k
+            nixos-raspberrypi.nixosModules.raspberry-pi-5.page-size-16k
             nixos-raspberrypi.nixosModules.raspberry-pi-5.display-vc4
             nixos-raspberrypi.nixosModules.raspberry-pi-5.bluetooth
             inputs.disko.nixosModules.disko
