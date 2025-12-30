@@ -1,10 +1,15 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
 in {
   imports = [
     ./vscode.nix
   ];
 
-  home.packages = with pkgs; [
-    gemini-cli
+  home.packages = lib.mkIf (config.dev.enable && config.graphical.enable) [
+    pkgs.gemini-cli
   ];
 }
