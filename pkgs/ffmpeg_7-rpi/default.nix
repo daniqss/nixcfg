@@ -6,6 +6,7 @@
   version ? "7.1.2",
   ffmpegVariant ? "small",
   ffmpeg-rpi-nix,
+  ...
 }: let
   ffmpegVersion = version;
   rpiFfmpegSrc = fetchFromGitHub {

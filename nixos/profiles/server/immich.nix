@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   ...
@@ -10,14 +11,9 @@
       enable = true;
       port = 2283;
       openFirewall = true;
-      package = pkgs.immich.override {
-        valkey = pkgs.valkey.overrideAttrs (_: {
-          doCheck = false;
-        });
-      };
       database = {
-	enableVectors = false;
-	enableVectorChoad = false;
+        enableVectors = false;
+        enableVectorChoad = true;
       };
     };
 
