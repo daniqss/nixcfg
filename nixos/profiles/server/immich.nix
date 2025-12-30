@@ -10,6 +10,15 @@
       enable = true;
       port = 2283;
       openFirewall = true;
+      package = pkgs.immich.override {
+        valkey = pkgs.valkey.overrideAttrs (_: {
+          doCheck = false;
+        });
+      };
+      database = {
+	enableVectors = false;
+	enableVectorChoad = false;
+      };
     };
 
     users.users.immich.extraGroups = ["video" "render"];

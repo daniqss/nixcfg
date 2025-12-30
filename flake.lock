@@ -256,11 +256,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1767060083,
-        "narHash": "sha256-BPooPMt0PIvqzIlf8FR+JnrW3uO1slbuderLJAtJ73s=",
+        "lastModified": 1767111253,
+        "narHash": "sha256-AXsMslMmatvSQ0vOc4/h/bKVK0AIG3JzZAJWQCHaZTE=",
         "owner": "daniqss",
         "repo": "nixos-raspberrypi",
-        "rev": "1806bb7ed375fc6b56f6eb7f33397b371ace47a6",
+        "rev": "e746fcb1131ee70d758cfff92a5f87a86d0e26b1",
         "type": "github"
       },
       "original": {
