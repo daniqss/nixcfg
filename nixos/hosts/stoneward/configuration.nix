@@ -4,6 +4,10 @@
   ...
 }: {
   config = {
+    common.tailscale = {
+      enable = true;
+      role = "client";
+    };
     desktop.enable = true;
     server.enable = false;
 

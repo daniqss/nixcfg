@@ -86,7 +86,7 @@ in {
       username = "daniqss";
       system = "aarch64-linux";
 
-      createSystem = inputs.nixos-raspberrypi.lib.nixosSystem;
+      createSystem = inputs.nixos-raspberrypi.lib.nixosSystemFull;
       useDisko = true;
       specialArgs = {inherit nixos-raspberrypi;};
       modules = [
