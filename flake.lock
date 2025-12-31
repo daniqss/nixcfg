@@ -209,11 +209,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1766975172,
-        "narHash": "sha256-cxBO7AN4kZJu2zwgX23fKYKLsxgzft36y8ShSQiSRkk=",
+        "lastModified": 1767060660,
+        "narHash": "sha256-8sqnhJcmHZ4OzLxmTtblQgpazosuhggeGZ2yeMvWOi0=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "a0f29488bed0b2cd7f2111b41f56145cef7cc148",
+        "rev": "1d3efec981bcb162a7921b29502ad369056295cb",
         "type": "github"
       },
       "original": {
@@ -256,15 +256,15 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1767111253,
-        "narHash": "sha256-AXsMslMmatvSQ0vOc4/h/bKVK0AIG3JzZAJWQCHaZTE=",
-        "owner": "daniqss",
+        "lastModified": 1765673398,
+        "narHash": "sha256-vgaFfxB2c0Nd+fGyMpxtJM7+XVT5H8bu3e6TmHfA+xw=",
+        "owner": "nvmd",
         "repo": "nixos-raspberrypi",
-        "rev": "e746fcb1131ee70d758cfff92a5f87a86d0e26b1",
+        "rev": "f8900910f63477626010938da8d849ba2cc3d011",
         "type": "github"
       },
       "original": {
-        "owner": "daniqss",
+        "owner": "nvmd",
         "repo": "nixos-raspberrypi",
         "type": "github"
       }
@@ -372,11 +372,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1767057609,
-        "narHash": "sha256-M3Phnxxai3541HsHff8u7D2J4tVNVBnZzEJqC/cSKs0=",
+        "lastModified": 1767130321,
+        "narHash": "sha256-ssqb2uLt498xyAHK960iluSTnmsXm5ZKIbCqbMXxXps=",
         "owner": "pinnacle-comp",
         "repo": "pinnacle",
-        "rev": "1457ce64f56f267b0b488e9850e4c5e2f166607c",
+        "rev": "121ed22c2d24aac7ba6cd5f01261631cc66bbe78",
         "type": "github"
       },
       "original": {

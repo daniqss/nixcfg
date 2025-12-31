@@ -97,6 +97,9 @@ in {
           "${mainMod} CTRL, P, exec, ${lib.getExe shellCommands.powermenu}"
 
           "${mainMod}, 0, exec, ${lib.getExe defaultApp}"
+
+          "${mainMod}, mouse_down, workspace, e-1"
+          "${mainMod}, mouse_up, workspace, e+1"
         ]
         ++ (
           builtins.concatLists (builtins.genList (
