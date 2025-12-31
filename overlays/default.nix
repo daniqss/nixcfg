@@ -6,9 +6,9 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    # example = prev.example.overrideAttrs (oldAttrs: rec {
-    # ...
-    # });
+    valkey = prev.valkey.overrideAttrs (_old: {
+      doCheck = false;
+    });
   };
 
   unstable-packages = final: _prev: {
@@ -20,4 +20,5 @@
 
   pinnacle = inputs.pinnacle.overlays.default;
   nix-minecraft = inputs.nix-minecraft.overlays.default;
+  ffmpeg_7_rpi = import ./ffmpeg_7-rpi.nix;
 }

@@ -1,7 +1,7 @@
 {
-  lib,
-  config,
   pkgs,
+  config,
+  lib,
   ...
 }: let
 in {
@@ -9,7 +9,7 @@ in {
     ./vscode.nix
   ];
 
-  home.packages = lib.mkIf (config.graphical.enable && config.dev.enable) [
+  home.packages = lib.mkIf (config.dev.enable && config.graphical.enable) [
     pkgs.gemini-cli
   ];
 }
