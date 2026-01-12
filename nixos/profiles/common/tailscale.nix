@@ -14,6 +14,8 @@
   };
 
   config = lib.mkIf config.common.tailscale.enable {
+    services.resolved.enable = true;
+
     services.tailscale = {
       inherit (config.common.tailscale) enable;
       useRoutingFeatures = config.common.tailscale.role;

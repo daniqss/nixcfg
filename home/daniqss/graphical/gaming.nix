@@ -16,6 +16,7 @@
     && config.graphical.gaming.enable) {
     home.packages = with pkgs; [
       prismlauncher
+      scarab
     ];
 
     # roblox
