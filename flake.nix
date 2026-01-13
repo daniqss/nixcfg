@@ -10,8 +10,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
-    disko.url = "github:nix-community/disko";
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     matugen = {
       url = "github:/InioX/matugen";
@@ -23,11 +30,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    pinnacle.url = "github:pinnacle-comp/pinnacle";
+    pinnacle = {
+      url = "github:pinnacle-comp/pinnacle";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
-    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
