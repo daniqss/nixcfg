@@ -85,7 +85,13 @@
       };
     };
 
-    security.pam.services.greetd.enableGnomeKeyring = true;
-    security.pam.services.hyprland.enableGnomeKeyring = true;
+    security.pam = {
+      enableFscrypt = true;
+
+      services = {
+        greetd.enableGnomeKeyring = true;
+        hyprland.enableGnomeKeyring = true;
+      };
+    };
   };
 }

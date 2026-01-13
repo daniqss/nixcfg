@@ -36,6 +36,8 @@ in {
       brightnessctl
       cliphist
       wl-clipboard
+
+      dirlock
     ];
 
     fonts.fontconfig.enable = true;

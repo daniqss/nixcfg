@@ -16,6 +16,7 @@
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
+  # I need encrypt feature to use dirlock, so I will enable it when I move this machine to disko
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/0e6c8449-a31a-4cf7-9092-0c663770a1fb";
     fsType = "ext4";
