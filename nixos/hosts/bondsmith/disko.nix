@@ -81,6 +81,7 @@ in {
               mountOptions = [
                 "noatime"
               ];
+              # extraArgs = ["-O" "encrypt"];
             };
           };
         };
