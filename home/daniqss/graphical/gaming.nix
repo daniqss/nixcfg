@@ -1,6 +1,6 @@
 {
-  hostname,
   inputs,
+  hostname,
   pkgs,
   lib,
   config,
@@ -15,7 +15,10 @@
   config = lib.mkIf (config.graphical.enable
     && config.graphical.gaming.enable) {
     home.packages = with pkgs; [
+      # minecraft launcher
       prismlauncher
+
+      # hollow knight mod manager
       scarab
     ];
 
