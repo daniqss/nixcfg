@@ -9,6 +9,7 @@ in {
   imports = [
     ./quickshell
     ./minimal
+    ./zlaunch.nix
   ];
 
   options.graphical.shells = {

@@ -340,7 +340,8 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "pinnacle": "pinnacle"
+        "pinnacle": "pinnacle",
+        "zlaunch": "zlaunch"
       }
     },
     "rust-analyzer-src": {
@@ -436,6 +437,23 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "type": "github"
+      }
+    },
+    "zlaunch": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768589479,
+        "narHash": "sha256-FsB3dx1b8tlO7p1aJEdznmfwHoGiPUUVJF+L95O5BOs=",
+        "path": "/home/daniqss/dev/zlaunch",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/daniqss/dev/zlaunch",
+        "type": "path"
       }
     }
   },
