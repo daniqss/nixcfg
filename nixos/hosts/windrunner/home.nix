@@ -38,7 +38,6 @@
           mirror = "eDP-1";
         }
       ];
-      hyprland.hyprqtile.enable = false;
     };
   };
 

@@ -3,9 +3,9 @@
   config,
   ...
 }: {
-  options.graphical.mako.enable = lib.mkEnableOption "enable mako as notification daemon";
+  options.graphical.shells.mako.enable = lib.mkEnableOption "enable mako as notification daemon";
 
-  config = lib.mkIf config.graphical.mako.enable {
+  config = lib.mkIf config.graphical.shells.mako.enable {
     services.mako = {
       enable = true;
 

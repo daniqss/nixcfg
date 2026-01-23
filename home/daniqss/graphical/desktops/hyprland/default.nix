@@ -3,13 +3,11 @@
   config,
   ...
 }: let
-  inherit (lib) mkIf mkEnableOption mkDefault;
+  inherit (lib) mkIf mkDefault;
 in {
   imports = [
     ./hypr
   ];
-
-  options.graphical.desktops.hyprland.hyprqtile.enable = mkEnableOption "enable hyprqtile as workspace switcher";
 
   config = mkIf (config.graphical.desktops.desktop == "hyprland") {
     graphical.desktops.monitorToDesktopConfig = monitors:
@@ -25,8 +23,8 @@ in {
       )
       monitors;
 
-    graphical.desktops.uwsm.enable = mkDefault false;
-    graphical.desktops.hyprland.hyprqtile.enable = mkDefault false;
-    graphical.shells.shell = mkDefault "quickshell";
+    graphical.shells.quickshell.enable = mkDefault true;
+    graphical.shells.vicinae.enable = mkDefault false;
+    # graphical.shells.mako.enable = mkDefault true;
   };
 }

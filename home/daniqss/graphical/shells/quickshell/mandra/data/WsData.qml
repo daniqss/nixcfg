@@ -18,34 +18,9 @@ Singleton {
     return workspace?.monitor?.id == 1;
   }
 
-  function moveToWorkspaceSilent(wsIndex: int) {
-    moveToWorkspaceSilentProcess.wsIndex = wsIndex;
-    moveToWorkspaceSilentProcess.running = true;
-  }
-
   function defaultWorkspaceApp(wsIndex: int) {
     defaultWorkspaceAppProcess.wsIndex = wsIndex;
     defaultWorkspaceAppProcess.running = true;
-  }
-
-  IpcHandler {
-    target: "workspaces"
-
-    function moveToWorkspaceSilent(wsIndex: string) {
-      workspacesSingleton.moveToWorkspaceSilent(wsIndex);
-    }
-
-    function defaultWorkspaceApp(wsIndex: string) {
-      workspacesSingleton.defaultWorkspaceApp(wsIndex);
-    }
-  }
-
-  Process {
-    id: moveToWorkspaceSilentProcess
-    property int wsIndex
-
-    command: ["hyprqtile", "-w", wsIndex]
-    onExited: Hyprland.refreshMonitors()
   }
 
   Process {

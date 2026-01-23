@@ -4,25 +4,24 @@
   lib,
   config,
   ...
-}: let
-  cfg = config.graphical.shells;
-  rofi = config.graphical.rofi.scripts;
-in {
-  config = lib.mkIf (config.graphical.enable && (cfg.shell == "quickshell")) {
-    # quickshell shells option config
-    graphical.shells.commands = {
-      bar = pkgs.writeShellScriptBin "bar" "qs -c mandra";
-      notifications = pkgs.writeShellScriptBin "notifications" "${lib.getExe pkgs.mako}";
-      applauncher = rofi.applauncher;
-      emoji = rofi.emoji;
-      clipboard = rofi.clipboard;
-      sound = rofi.sound;
-      powermenu = rofi.powermenu;
-      wallpaper = rofi.wallpaper;
-      bluetooth = rofi.bluetooth;
+}: {
+  options.graphical.shells.quickshell = {
+    enable = lib.mkEnableOption "enable quickshell as shell bar";
+    systemd = {
+      enable = lib.mkEnableOption "quickshell systemd integration";
+
+      autoStart = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "whether to auto start quickshell service";
+      };
     };
-    graphical.rofi.enable = lib.mkDefault true;
-    graphical.mako.enable = lib.mkDefault true;
+  };
+
+  config = lib.mkIf config.graphical.shells.quickshell.enable {
+    graphical.shells.mako.enable = lib.mkDefault true;
+
+    graphical.shells.quickshell.systemd.enable = lib.mkDefault true;
 
     # quickshell config
     home.packages = with pkgs; [
@@ -48,5 +47,19 @@ in {
     };
 
     xdg.configFile."quickshell".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/graphical/shells/quickshell";
+
+    systemd.user.services.quickshell = lib.mkIf config.graphical.shells.quickshell.systemd.enable {
+      Unit = {
+        Description = "start quickshell bar";
+        After = "hyprland-session.target";
+      };
+      Service = {
+        ExecStart = "${lib.getExe' pkgs.quickshell "quickshell"} -c mandra";
+        Type = "simple";
+        Restart = "on-failure";
+        RestartSec = 3;
+      };
+      Install.WantedBy = ["hyprland-session.target"];
+    };
   };
 }

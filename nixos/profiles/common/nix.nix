@@ -11,8 +11,14 @@
       experimental-features = ["nix-command" "flakes"];
 
       substituters = ["https://nixos-raspberrypi.cachix.org"];
-      trusted-substituters = ["https://nixos-raspberrypi.cachix.org"];
-      trusted-public-keys = ["nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="];
+      trusted-substituters = [
+        "https://nixos-raspberrypi.cachix.org"
+        "https://vicinae.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+        "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
+      ];
 
       trusted-users = ["root" "@wheel" username];
     };

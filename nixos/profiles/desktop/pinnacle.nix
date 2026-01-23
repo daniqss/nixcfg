@@ -15,7 +15,6 @@ in {
     programs.pinnacle = {
       enable = true;
       xdg-portals.enable = true;
-      withUWSM = cfg.graphical.desktops.uwsm.enable;
     };
   };
 }

@@ -25,8 +25,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprqtile = {
-      url = "github:daniqss/hyprqtile";
+    vicinae = {
+      url = "github:vicinaehq/vicinae";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    vicinae-extensions = {
+      url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

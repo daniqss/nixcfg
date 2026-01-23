@@ -15,8 +15,8 @@ in {
       )
       monitors;
 
-    graphical.desktops.uwsm.enable = mkDefault true;
-    graphical.shells.shell = mkDefault "minimal";
+    graphical.shells.vicinae.enable = mkDefault true;
+    graphical.shells.mako.enable = mkDefault true;
 
     wayland.windowManager.pinnacle = {
       enable = true;
@@ -24,10 +24,7 @@ in {
       # not sure how it works yet
       # config.execCmd = "/path/to/config?";
 
-      systemd = {
-        enable = true;
-        useService = !config.graphical.desktops.uwsm.enable;
-      };
+      systemd.enable = true;
     };
   };
 }

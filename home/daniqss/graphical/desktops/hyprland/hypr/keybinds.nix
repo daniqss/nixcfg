@@ -1,25 +1,11 @@
 {
-  inputs,
-  system,
   pkgs,
   lib,
   config,
   ...
 }: let
   mainMod = "SUPER";
-  shellCommands = config.graphical.shells.commands;
   emulator = config.graphical.emulators.emulator;
-  prefix =
-    if config.graphical.desktops.uwsm.enable
-    then "uwsm app --"
-    else "";
-
-  switcher = ws:
-    if ((config.graphical.desktops.desktop == "hyprland") && (config.graphical.shells.shell == "quickshell"))
-    then "${mainMod}, ${toString ws}, exec, qs ipc -c mandra call workspaces moveToWorkspaceSilent ${toString ws}"
-    else if config.graphical.desktops.hyprland.hyprqtile.enable
-    then "${mainMod}, ${toString ws}, exec, hyprqtile -w ${toString ws}"
-    else "${mainMod}, ${toString ws}, workspace, ${toString ws}";
 
   defaultApp = pkgs.writeShellScriptBin "defaultApp" ''
     current_workspace="$(hyprctl -j activeworkspace | jq -r '.id')"
@@ -37,7 +23,7 @@
       [9]="google-chrome-stable"
     )
 
-    hyprctl dispatch exec -- [workspace ''${current_workspace} silent] ${prefix} ''${apps[''$wanted_app]}
+    hyprctl dispatch exec -- [workspace ''${current_workspace} silent] ''${apps[''$wanted_app]}
   '';
 
   changeLang = pkgs.writeShellScriptBin "changeLang" ''
@@ -55,7 +41,6 @@ in {
   config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     home.packages = [
       defaultApp
-      inputs.hyprqtile.packages.${system}.default
       pkgs.hyprshot
       pkgs.jq
     ];
@@ -88,13 +73,12 @@ in {
           "${mainMod}, S, togglespecialworkspace"
           "${mainMod} ALT, S, movetoworkspacesilent, special"
 
-          "${mainMod}, TAB, exec, ${lib.getExe shellCommands.applauncher}"
-          "${mainMod} CTRL, W, exec, ${lib.getExe shellCommands.wallpaper}"
-          "${mainMod} CTRL, B, exec, ${prefix} ${lib.getExe shellCommands.bluetooth}"
-          "${mainMod} CTRL, S, exec, ${lib.getExe shellCommands.sound}"
-          "${mainMod} CTRL, E, exec, ${lib.getExe shellCommands.emoji}"
-          "${mainMod} CTRL, C, exec, ${lib.getExe shellCommands.clipboard}"
-          "${mainMod} CTRL, P, exec, ${lib.getExe shellCommands.powermenu}"
+          "${mainMod}, TAB, exec, vicinae}"
+          # "${mainMod} CTRL, B, exec, ${lib.getExe shellCommands.bluetooth}"
+          # "${mainMod} CTRL, S, exec, ${lib.getExe shellCommands.sound}"
+          # "${mainMod} CTRL, E, exec, ${lib.getExe shellCommands.emoji}"
+          # "${mainMod} CTRL, C, exec, ${lib.getExe shellCommands.clipboard}"
+          # "${mainMod} CTRL, P, exec, ${lib.getExe shellCommands.powermenu}"
 
           "${mainMod}, 0, exec, ${lib.getExe defaultApp}"
 
@@ -106,7 +90,7 @@ in {
               i: let
                 ws = i + 1;
               in [
-                (switcher ws)
+                "${mainMod}, ${toString ws}, workspace, ${toString ws}"
                 "${mainMod} ALT, ${toString ws}, movetoworkspacesilent, ${toString ws}"
               ]
             )

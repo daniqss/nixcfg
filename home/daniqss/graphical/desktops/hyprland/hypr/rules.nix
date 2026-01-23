@@ -61,7 +61,7 @@
       "fullscreen, class:^(steam_app_3241660)$"
     ];
 
-    layerrule = lib.mkIf (config.graphical.shells.shell == "quickshell") [
+    layerrule = lib.mkIf config.graphical.shells.quickshell.enable [
       "blur, quickshell"
       "ignorezero, quickshell"
     ];

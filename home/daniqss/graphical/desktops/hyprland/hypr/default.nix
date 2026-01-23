@@ -33,7 +33,7 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      systemd.enable = !cfg.uwsm.enable;
+      systemd.enable = true;
 
       package = null;
       portalPackage = null;
