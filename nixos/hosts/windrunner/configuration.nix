@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  username,
+  pkgs,
+  ...
+}: {
   config = {
     common.tailscale = {
       enable = true;
@@ -22,6 +26,13 @@
       layout = "es";
       variant = "";
     };
+
+    virtualisation.virtualbox = {
+      host.enable = true;
+      guest.enable = true;
+      guest.dragAndDrop = true;
+    };
+    users.extraGroups.vboxusers.members = ["${username}"];
 
     system.stateVersion = "25.05";
   };

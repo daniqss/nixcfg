@@ -1,5 +1,7 @@
 {
+  inputs,
   username,
+  system,
   config,
   pkgs,
   lib,
@@ -10,6 +12,8 @@ in {
   config = lib.mkIf (cfg.graphical.desktops.desktop == "hyprland") {
     programs.hyprland = {
       enable = true;
+      # package = inputs.hyprnix.packages.${system}.hyprland;
+      # portalPackage = inputs.hyprnix.packages.${system}.xdg-desktop-portal-hyprland;
     };
 
     # to get gnome desktop portal working alongside hyprland's I needed to use nixcfg/home/daniqss/graphical/desktops/hyprland/hypr/portals.nix
@@ -21,7 +25,6 @@ in {
       };
       extraPortals = with pkgs; [
         xdg-desktop-portal-gnome
-        xdg-desktop-portal-hyprland
       ];
     };
   };

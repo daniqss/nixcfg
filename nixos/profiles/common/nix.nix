@@ -7,16 +7,21 @@
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
     settings = {
-      download-buffer-size = 524288000; # 500 MiB
+      download-buffer-size = 524288000;
       experimental-features = ["nix-command" "flakes"];
 
-      substituters = ["https://nixos-raspberrypi.cachix.org"];
+      substituters = [
+        "https://nixos-raspberrypi.cachix.org"
+        "https://hyprland.cachix.org"
+      ];
       trusted-substituters = [
         "https://nixos-raspberrypi.cachix.org"
+        "https://hyprland.cachix.org"
         "https://vicinae.cachix.org"
       ];
       trusted-public-keys = [
         "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
       ];
 
