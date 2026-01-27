@@ -45,8 +45,8 @@
 
       "immediate, class:^(Stardew Valley)$"
       "fullscreen, class:^(Stardew Valley)$"
-      "immediate, class:^(Hollow_Knight.exe)$"
-      "fullscreen, class:^(Hollow_Knight.exe)$"
+      "immediate, class:^(steam_app_367520)$"
+      "fullscreen, class:^(steam_app_367520)$"
       "immediate, class:^(Hollow Knight Silksong)$"
       "fullscreen, class:^(Hollow Knight Silksong)$"
       "immediate, class:^(Minecraft* 1.21.8)$"
@@ -61,7 +61,7 @@
       "fullscreen, class:^(steam_app_3241660)$"
     ];
 
-    layerrule = lib.mkIf (config.graphical.shells.shell == "quickshell") [
+    layerrule = lib.mkIf config.graphical.shells.quickshell.enable [
       "blur, quickshell"
       "ignorezero, quickshell"
     ];

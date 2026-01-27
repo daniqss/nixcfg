@@ -69,6 +69,4 @@ in {
       });
     };
   };
-
-  options.graphical.desktops.uwsm.enable = lib.mkEnableOption "enable uwsm as session manager";
 }

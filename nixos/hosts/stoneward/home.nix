@@ -39,10 +39,6 @@ in {
     desktops = {
       desktop = "hyprland";
       monitors = monitors;
-      hyprland.hyprqtile.enable =
-        if (builtins.length monitors > 1)
-        then true
-        else false;
     };
   };
   dev.enable = true;
