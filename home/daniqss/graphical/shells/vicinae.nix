@@ -17,15 +17,31 @@
       systemd.enable = true;
 
       settings = {
+        close_on_focus_loss = true;
+
         providers = {
-          #   "@Gelei/bluetooth-0".preferences.connectionToggleable = true;
-          "@sovereign/store.vicinae.awww-switcher".preferences = {
-            colorGenTool = "matugen";
-            postCommand = "cp $''{wallpaper} ~/.cache/lock_background";
-            transitionDuration = "2";
-            transitionStep = "90";
-            transitionType = "outer";
-            wallpaperPath = "~/nixcfg/assets/wallpapers";
+          # "@sovereign/awww-switcher-0" = {
+          #   favorite = true;
+          #   preferences = {
+          #     wallpaperPath = "/home/daniqss/nixcfg/assets/wallpapers/current";
+          #     colorGenTool = "matugen";
+
+          #     gridRows = "4"; # 3|4|5|6
+          #     showImageDetails = true;
+          #     transitionType = "none"; # none|simple|fade|left|right|top|bottom|wipe|wave|grow|center|any|outer|random
+          #     transitionDuration = "1"; # seconds
+          #     transitionStep = "90"; # color steps: 1|45|90|120|200|255
+          #     transitionFPS = "60";
+          #     toggleVicinaeSetting = false;
+          #     postProduction = "no"; # no|grayscale|grayscaleblur|lightblur|heavyblur|negate
+          #   };
+          # };
+
+          "@rastsislaux/pulseaudio-0" = {
+            favorite = true;
+            preferences = {
+              show_volume = true;
+            };
           };
         };
       };
@@ -34,7 +50,7 @@
         bluetooth
         nix
         wifi-commander
-        awww-switcher
+        # awww-switcher
         pulseaudio
       ];
     };
