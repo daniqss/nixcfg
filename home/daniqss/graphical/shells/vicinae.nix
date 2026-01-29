@@ -17,30 +17,17 @@
       systemd.enable = true;
 
       settings = {
-        close_on_focus_loss = true;
-        theme = {
-          light = {
-            name = "vicinae-light";
-            icon_theme = "default";
+        providers = {
+          #   "@Gelei/bluetooth-0".preferences.connectionToggleable = true;
+          "@sovereign/store.vicinae.awww-switcher".preferences = {
+            colorGenTool = "matugen";
+            postCommand = "cp $''{wallpaper} ~/.cache/lock_background";
+            transitionDuration = "2";
+            transitionStep = "90";
+            transitionType = "outer";
+            wallpaperPath = "~/nixcfg/assets/wallpapers";
           };
-          dark = {
-            name = "vicinae-dark";
-            icon_theme = "default";
-          };
         };
-        window = {
-          csd = false;
-          opacity = 0.8;
-          rounding = 5;
-        };
-
-        launcher_window = {
-          opacity = 0.8;
-        };
-
-        # providers = {
-        #   "@Gelei/bluetooth-0".preferences.connectionToggleable = true;
-        # };
       };
 
       extensions = with inputs.vicinae-extensions.packages.${system}; [
