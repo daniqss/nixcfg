@@ -10,7 +10,10 @@
       download-buffer-size = 524288000; # 500 MiB
       experimental-features = ["nix-command" "flakes"];
 
-      substituters = ["https://nixos-raspberrypi.cachix.org"];
+      substituters = [
+        "https://nixos-raspberrypi.cachix.org"
+        "https://vicinae.cachix.org"
+      ];
       trusted-substituters = [
         "https://nixos-raspberrypi.cachix.org"
         "https://vicinae.cachix.org"

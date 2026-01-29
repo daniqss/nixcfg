@@ -73,11 +73,11 @@ in {
           "${mainMod}, S, togglespecialworkspace"
           "${mainMod} ALT, S, movetoworkspacesilent, special"
 
-          "${mainMod}, TAB, exec, vicinae}"
+          "${mainMod}, TAB, exec, vicinae toggle"
+          "${mainMod}, C, exec, vicinae vicinae://extensions/vicinae/clipboard/history"
+          "${mainMod}, E, exec, vicinae vicinae://extensions/vicinae/core/search-emojis"
           # "${mainMod} CTRL, B, exec, ${lib.getExe shellCommands.bluetooth}"
           # "${mainMod} CTRL, S, exec, ${lib.getExe shellCommands.sound}"
-          # "${mainMod} CTRL, E, exec, ${lib.getExe shellCommands.emoji}"
-          # "${mainMod} CTRL, C, exec, ${lib.getExe shellCommands.clipboard}"
           # "${mainMod} CTRL, P, exec, ${lib.getExe shellCommands.powermenu}"
 
           "${mainMod}, 0, exec, ${lib.getExe defaultApp}"
