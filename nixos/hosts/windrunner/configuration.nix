@@ -27,13 +27,6 @@
       variant = "";
     };
 
-    virtualisation.virtualbox = {
-      host.enable = true;
-      guest.enable = true;
-      guest.dragAndDrop = true;
-    };
-    users.extraGroups.vboxusers.members = ["${username}"];
-
     system.stateVersion = "25.05";
   };
 }
