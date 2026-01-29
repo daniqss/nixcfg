@@ -24,7 +24,6 @@ in {
       monitors;
 
     graphical.shells.quickshell.enable = mkDefault true;
-    graphical.shells.vicinae.enable = mkDefault false;
-    # graphical.shells.mako.enable = mkDefault true;
+    graphical.shells.vicinae.enable = mkDefault true;
   };
 }

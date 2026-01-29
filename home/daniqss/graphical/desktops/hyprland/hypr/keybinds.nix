@@ -73,13 +73,6 @@ in {
           "${mainMod}, S, togglespecialworkspace"
           "${mainMod} ALT, S, movetoworkspacesilent, special"
 
-          "${mainMod}, TAB, exec, vicinae}"
-          # "${mainMod} CTRL, B, exec, ${lib.getExe shellCommands.bluetooth}"
-          # "${mainMod} CTRL, S, exec, ${lib.getExe shellCommands.sound}"
-          # "${mainMod} CTRL, E, exec, ${lib.getExe shellCommands.emoji}"
-          # "${mainMod} CTRL, C, exec, ${lib.getExe shellCommands.clipboard}"
-          # "${mainMod} CTRL, P, exec, ${lib.getExe shellCommands.powermenu}"
-
           "${mainMod}, 0, exec, ${lib.getExe defaultApp}"
 
           "${mainMod}, mouse_down, workspace, e-1"
@@ -95,7 +88,16 @@ in {
               ]
             )
             9)
-        );
+        )
+        ++ lib.optionals config.graphical.shells.vicinae.enable [
+          "${mainMod}, TAB, exec, vicinae vicinae://extensions/vicinae/system/browse-apps"
+          "${mainMod}, C, exec, vicinae vicinae://extensions/vicinae/clipboard/history"
+          "${mainMod}, E, exec, vicinae vicinae://extensions/vicinae/core/search-emojis"
+          "${mainMod} CTRL, W, exec, vicinae vicinae://extensions/sovereign/awww-switcher/wpgrid"
+          "${mainMod} CTRL, B, exec, vicinae vicinae://extensions/Gelei/bluetooth/devices"
+          "${mainMod} CTRL, S, exec, vicinae vicinae://extensions/rastsislaux/pulseaudio/pulseaudio"
+          "${mainMod} CTRL, P, exec, vicinae vicinae://extensions/vicinae/power"
+        ];
 
       # Volume control binds
       bindle = [

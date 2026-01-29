@@ -13,6 +13,7 @@
       substituters = [
         "https://nixos-raspberrypi.cachix.org"
         "https://hyprland.cachix.org"
+        "https://vicinae.cachix.org"
       ];
       trusted-substituters = [
         "https://nixos-raspberrypi.cachix.org"

@@ -61,9 +61,15 @@
       "fullscreen, class:^(steam_app_3241660)$"
     ];
 
-    layerrule = lib.mkIf config.graphical.shells.quickshell.enable [
-      "blur, quickshell"
-      "ignorezero, quickshell"
+    layerrule = lib.mkMerge [
+      (lib.mkIf config.graphical.shells.vicinae.enable [
+        "blur on, match:namespace vicinae"
+        "ignore_alpha 0, match:namespace vicinae"
+      ])
+      (lib.mkIf config.graphical.shells.quickshell.enable [
+        "blur, quickshell"
+        "ignorezero, quickshell"
+      ])
     ];
 
     workspace = [];

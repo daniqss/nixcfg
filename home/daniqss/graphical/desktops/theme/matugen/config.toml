@@ -1,10 +1,16 @@
 [config.wallpaper]
 command = "swww"
-arguments = ["img"] 
+arguments = ["img", "--transition-type", "center"]
+set = true
 
 [templates.hyprland]
 input_path = "~/.config/matugen/templates/hyprland-colors.conf"
 output_path = "~/.config/hypr/colors.conf"
+
+[templates.vicinae]
+input_path = '~/.config/matugen/templates/vicinae.toml'
+output_path = '~/.local/share/vicinae/themes/matugen.toml'
+post_hook = 'vicinae theme set matugen'
 
 [templates.gtk3]
 input_path = "~/.config/matugen/templates/gtk-colors.css"
