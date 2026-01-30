@@ -20,6 +20,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprnix.url = "github:hyprwm/hyprnix";
+
     matugen = {
       url = "github:/InioX/matugen";
       inputs.nixpkgs.follows = "nixpkgs";

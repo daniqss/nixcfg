@@ -20,6 +20,9 @@
 
       # hollow knight mod manager
       scarab
+
+      # tetris clon
+      apotris
     ];
 
     # roblox

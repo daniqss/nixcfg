@@ -25,31 +25,7 @@ in {
     # change temperature in sunrise and sunset
     services.hyprsunset = {
       enable = true;
-      extraArgs = ["--identity"];
-
-      transitions = {
-        sunrise = {
-          calendar = "*-*-* 0${sunriseTime}:00";
-          requests = [["identity"]];
-        };
-
-        sunset = {
-          calendar = "*-*-* ${sunsetTime}:00";
-          requests = [["temperature ${sunsetTemp}"]];
-        };
-      };
-    };
-
-    # check time and temp in start
-    systemd.user.services.checkSunsetOnStart = {
-      Unit = {
-        Description = "check if its required to change the temperatura on start";
-        After = ["hyprsunset.service"];
-        Requires = ["hyprsunset.service"];
-      };
-
-      # Install.WantedBy = ["default.target"];
-      Service.ExecStart = lib.getExe checkSunsetOnStart;
+      package = pkgs.unstable.hyprsunset;
     };
   };
 }

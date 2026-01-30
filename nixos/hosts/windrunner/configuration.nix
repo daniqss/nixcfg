@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  username,
+  pkgs,
+  ...
+}: {
   config = {
     common.tailscale = {
       enable = true;
