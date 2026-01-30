@@ -46,31 +46,22 @@
       "center on, match:class ^(kitty)$"
       "center on, match:class ^(steam)$, match:title ^(Lista de amigos)$"
 
-      # Suppress maximize everywhere
       "suppress_event maximize, match:class .*"
 
-      # Games (immediate + fullscreen)
       "immediate on, match:class ^(Stardew Valley)$"
       "fullscreen on, match:class ^(Stardew Valley)$"
-
       "immediate on, match:class ^(steam_app_367520)$"
       "fullscreen on, match:class ^(steam_app_367520)$"
-
       "immediate on, match:class ^(Hollow Knight Silksong)$"
       "fullscreen on, match:class ^(Hollow Knight Silksong)$"
-
-      "immediate on, match:class ^(Minecraft.* 1.21.8)$"
-      "fullscreen on, match:class ^(Minecraft.* 1.21.8)$"
+      "windowrule = immediate on, fullscreen on, match:title ^Minecraft [0-9]+(\.[0-9]+)*$"
 
       "immediate on, match:class ^(cs2)$"
       "fullscreen on, match:class ^(cs2)$"
-
       "immediate on, match:class ^(steam_app_22380)$"
       "fullscreen on, match:class ^(steam_app_22380)$"
-
       "immediate on, match:class ^(steam_app_1145360)$"
       "fullscreen on, match:class ^(steam_app_1145360)$"
-
       "immediate on, match:class ^(steam_app_3241660)$"
       "fullscreen on, match:class ^(steam_app_3241660)$"
     ];
