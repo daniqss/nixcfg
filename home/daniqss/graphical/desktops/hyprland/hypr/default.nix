@@ -20,12 +20,13 @@
   '';
 in {
   imports = [
-    ./keybinds.nix
-    ./rules.nix
     ./hypridle.nix
     ./hyprlock.nix
-    # ./hyprsunset.nix
+    ./hyprsunset.nix
     ./hyprpolkitagent.nix
+
+    ./keybinds.nix
+    ./rules.nix
   ];
 
   config = lib.mkIf (cfg.desktop == "hyprland") {

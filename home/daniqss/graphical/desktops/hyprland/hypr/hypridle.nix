@@ -6,6 +6,7 @@
 }: {
   services.hypridle = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     enable = true;
+    package = pkgs.unstable.hypridle;
 
     settings = {
       general = {
