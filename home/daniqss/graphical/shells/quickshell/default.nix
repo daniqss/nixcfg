@@ -37,6 +37,7 @@
       pwvucontrol
       bottom
       networkmanager #nmtui and nmcli
+      libnotify
     ];
 
     home.sessionVariables = {

@@ -18,6 +18,10 @@ Singleton {
     return workspace?.monitor?.id == 1;
   }
 
+  function moveToWorkspaceSilent(wsIndex: int) {
+    Hyprland.dispatch("workspace " + wsIndex);
+  }
+
   function defaultWorkspaceApp(wsIndex: int) {
     defaultWorkspaceAppProcess.wsIndex = wsIndex;
     defaultWorkspaceAppProcess.running = true;
