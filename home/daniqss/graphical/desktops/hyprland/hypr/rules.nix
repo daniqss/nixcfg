@@ -33,6 +33,7 @@
       "immediate on, fullscreen on, match:class ^(steam_app_1145360)$"
       "immediate on, fullscreen on, match:class ^(steam_app_3241660)$"
       "immediate on, fullscreen on, match:class ^(steam_app_3241660)$"
+      "immediate on, fullscreen on, match:class ^(steam_app_553420)$"
     ];
 
     layerrule = lib.mkMerge [
