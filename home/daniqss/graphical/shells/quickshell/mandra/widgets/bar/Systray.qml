@@ -24,8 +24,10 @@ RowLayout {
       visible: !trayItem.item.icon.includes("spotify-linux-32")
 
       onClicked: event => {
-        if (item.hasMenu) {
+        if (event.button === Qt.LeftButton && item.hasMenu) {
           menu.open();
+        } else if (event.button === Qt.RightButton) {
+          item.activate();
         }
 
         event.accepted = true;
@@ -34,9 +36,6 @@ RowLayout {
       // TODO: Create a bespoke menu design instead of using QsMenu.
       QsMenuAnchor {
         id: menu
-
-        anchor.edges: Edges.Bottom
-        anchor.rect.height: trayItem.height
 
         // Yes I know, this is a confusing way to get the position for the menu, but that's
         // just how Qt is.
