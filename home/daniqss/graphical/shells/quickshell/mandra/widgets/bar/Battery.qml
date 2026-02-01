@@ -15,10 +15,47 @@ RowLayout {
   property bool fullyCharged: batteryDevice.state === UPowerDeviceState.FullyCharged
   property bool charging: batteryDevice.state === UPowerDeviceState.Charging
 
+  property int lastPercentage: percentage
+  property int lastNotifiedLevel: 100
+
   visible: batteryDevice.isLaptopBattery
 
+  function notify(title, body, icon) {
+    batteryNotifier.command = ["notify-send", "-u", "critical", "-i", icon, title, body];
+    batteryNotifier.running = true;
+  }
+
+  onPercentageChanged: {
+    if (charging) {
+      lastNotifiedLevel = 100;
+      lastPercentage = percentage;
+      return;
+    }
+
+    if (percentage >= lastPercentage) {
+      lastPercentage = percentage;
+      return;
+    }
+
+    if (percentage === 20 && lastNotifiedLevel > 20) {
+      notify("Battery Low", "Battery level is at 20%", "battery-alert");
+      lastNotifiedLevel = 20;
+    } else if (percentage === 15 && lastNotifiedLevel > 15) {
+      notify("Battery Very Low", "Battery level is at 15%", "battery-alert");
+      lastNotifiedLevel = 15;
+    } else if (percentage <= 12 && percentage < lastNotifiedLevel) {
+      notify("Battery Critical", "Battery level is at " + percentage + "%", "battery-alert");
+      lastNotifiedLevel = percentage;
+    }
+
+    lastPercentage = percentage;
+  }
+
   function batteryIcon() {
-    if (fullyCharged | percentage >= 90)
+    if (!batteryDevice.isLaptopBattery)
+      return;
+
+    if (fullyCharged || percentage >= 90)
       return "battery_full";
     else if (percentage >= 80)
       return !charging ? "battery_6_bar" : "battery_charging_90";
@@ -32,18 +69,14 @@ RowLayout {
       return !charging ? "battery_2_bar" : "battery_charging_30";
     else if (percentage >= 30)
       return !charging ? "battery_1_bar" : "battery_charging_20";
-    else if (percentage >= 20) {
-      batteryNotifier.running = true;
+    else if (percentage >= 20)
       return !charging ? "battery_0_bar" : "battery_charging_full";
-    } else {
-      batteryNotifier.running = true;
+    else
       return !charging ? "battery_alert" : "battery_charging_full";
-    }
   }
 
   Process {
     id: batteryNotifier
-    command: ["notify-send", "-u", "critical", "-i", "battery-alert", "Battery Low", "Battery level is at " + battery.percentage + "%"]
   }
 
   Process {
@@ -53,12 +86,13 @@ RowLayout {
 
   MaterialSymbol {
     color: (battery.percentage < 20 && !battery.charging) ? Colors.on_error : Colors.on_background
+
     font.pixelSize: 20
     icon: battery.batteryIcon()
 
     MouseArea {
       anchors.fill: parent
-      onClicked: event => {
+      onClicked: {
         if (!batteryProcess.running)
           batteryProcess.running = true;
       }
