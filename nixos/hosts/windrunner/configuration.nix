@@ -1,14 +1,14 @@
-{
-  username,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   config = {
     common.tailscale = {
       enable = true;
       role = "client";
     };
-    desktop.enable = true;
+    desktop = {
+      enable = true;
+
+      virtualbox.enable = true;
+    };
     server.enable = false;
 
     hardware.graphics = {

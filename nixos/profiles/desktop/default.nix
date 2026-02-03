@@ -9,6 +9,7 @@
     ./hyprland.nix
     ./pinnacle.nix
     ./gaming.nix
+    ./virtualbox.nix
   ];
 
   options.desktop.enable = lib.mkEnableOption "enable default desktop profile";
