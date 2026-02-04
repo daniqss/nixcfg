@@ -17,6 +17,7 @@
       guest = {
         enable = true;
         dragAndDrop = true;
+        clipboard = true;
       };
     };
     users.extraGroups.vboxusers.members = ["${username}"];
