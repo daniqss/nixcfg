@@ -9,8 +9,6 @@
       enable = true;
       package = pkgs.unstable.hyprsunset;
 
-      extraArgs = ["--identity"];
-
       settings = {
         profile = [
           {
