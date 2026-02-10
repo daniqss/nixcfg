@@ -19,7 +19,7 @@ Singleton {
   }
 
   function moveToWorkspaceSilent(wsIndex: int) {
-    Hyprland.dispatch("workspace " + wsIndex);
+    Hyprland.dispatch("focusworkspaceoncurrentmonitor " + wsIndex);
   }
 
   function defaultWorkspaceApp(wsIndex: int) {

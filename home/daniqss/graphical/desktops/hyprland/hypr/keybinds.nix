@@ -75,15 +75,15 @@ in {
 
           "${mainMod}, 0, exec, ${lib.getExe defaultApp}"
 
-          "${mainMod}, mouse_down, workspace, e-1"
-          "${mainMod}, mouse_up, workspace, e+1"
+          "${mainMod}, mouse_down, focusworkspaceoncurrentmonitor, e-1"
+          "${mainMod}, mouse_up, focusworkspaceoncurrentmonitor, e+1"
         ]
         ++ (
           builtins.concatLists (builtins.genList (
               i: let
                 ws = i + 1;
               in [
-                "${mainMod}, ${toString ws}, workspace, ${toString ws}"
+                "${mainMod}, ${toString ws}, focusworkspaceoncurrentmonitor, ${toString ws}"
                 "${mainMod} ALT, ${toString ws}, movetoworkspacesilent, ${toString ws}"
               ]
             )
