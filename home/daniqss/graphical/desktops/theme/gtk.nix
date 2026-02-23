@@ -57,13 +57,9 @@ in {
       };
 
       gtk4 = {
-        theme = {
-          name = "Adwaita-dark";
-          package = pkgs.gnome-themes-extra;
-        };
-        extraConfig = {
-          gtk-decoration-layout = "menu:";
-        };
+        theme.name = "Adwaita-dark";
+        extraConfig.gtk-decoration-layout = "menu:";
+
         extraCss = "@import 'colors.css';";
       };
     };
