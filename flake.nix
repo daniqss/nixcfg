@@ -11,8 +11,8 @@
     };
 
     nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nvmd/nixos-raspberrypi/develop";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {

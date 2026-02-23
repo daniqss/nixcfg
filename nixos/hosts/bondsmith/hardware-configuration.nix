@@ -1,9 +1,11 @@
 {config, ...}: {
-  boot.loader.raspberryPi.enable = true;
-  boot.loader.raspberryPi.bootloader = "kernel";
+  boot.loader.raspberry-pi = {
+	enable = true;
+  	bootloader = "kernel";
+  };
 
   system.nixos.tags = let
-    cfg = config.boot.loader.raspberryPi;
+    cfg = config.boot.loader.raspberry-pi;
   in [
     "raspberry-pi-${cfg.variant}"
     cfg.bootloader
