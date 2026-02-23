@@ -7,9 +7,7 @@
 }: {
   imports = [inputs.vicinae.homeManagerModules.default];
 
-  options.graphical.shells.vicinae = {
-    enable = lib.mkEnableOption "enable vicinae shell";
-  };
+  options.graphical.shells.vicinae.enable = lib.mkEnableOption "enable vicinae shell";
 
   config = lib.mkIf config.graphical.shells.vicinae.enable {
     services.vicinae = {

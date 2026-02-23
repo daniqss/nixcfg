@@ -30,6 +30,8 @@
     vicinae.url = "github:vicinaehq/vicinae";
     vicinae-extensions.url = "github:vicinaehq/extensions";
 
+    zlaunch.url = "github:zortax/zlaunch/0.5.0";
+
     pinnacle = {
       url = "github:pinnacle-comp/pinnacle";
       inputs.nixpkgs.follows = "nixpkgs";

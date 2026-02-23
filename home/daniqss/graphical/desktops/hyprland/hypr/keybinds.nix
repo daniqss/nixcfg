@@ -70,8 +70,8 @@ in {
           "${mainMod}, K, movefocus, u"
           "${mainMod}, L, movefocus, r"
 
-          "${mainMod}, S, togglespecialworkspace"
-          "${mainMod} ALT, S, movetoworkspacesilent, special"
+          "${mainMod}, A, togglespecialworkspace"
+          "${mainMod} ALT, A, movetoworkspacesilent, special"
 
           "${mainMod}, 0, exec, ${lib.getExe defaultApp}"
 
@@ -94,9 +94,19 @@ in {
           "${mainMod}, C, exec, vicinae vicinae://extensions/vicinae/clipboard/history"
           "${mainMod}, E, exec, vicinae vicinae://extensions/vicinae/core/search-emojis"
           "${mainMod} CTRL, W, exec, vicinae vicinae://extensions/sovereign/awww-switcher/wpgrid"
-          "${mainMod} CTRL, B, exec, vicinae vicinae://extensions/Gelei/bluetooth/devices"
-          "${mainMod} CTRL, S, exec, vicinae vicinae://extensions/rastsislaux/pulseaudio/pulseaudio"
-          "${mainMod} CTRL, P, exec, vicinae vicinae://extensions/vicinae/power"
+          "${mainMod}, B, exec, vicinae vicinae://extensions/Gelei/bluetooth/devices"
+          "${mainMod}, S, exec, vicinae vicinae://extensions/rastsislaux/pulseaudio/pulseaudio"
+          "${mainMod}, P, exec, vicinae vicinae://extensions/vicinae/power"
+        ]
+        ++ lib.optionals config.services.zlaunch.enable [
+          "${mainMod}, TAB, exec, zlaunch toggle --modes applications"
+          "${mainMod}, ESC, exec, zlaunch toggle --modes windows"
+          "${mainMod}, C, exec, zlaunch toggle --modes clipboard"
+          "${mainMod}, E, exec, zlaunch toggle --modes emojis"
+          "${mainMod} CTRL, W, exec, zlaunch toggle --modes wallpapers" # doesn't exist
+          "${mainMod}, B, exec, zlaunch toggle --modes bluetooth" # doesn't exist
+          "${mainMod}, S, exec, zlaunch toggle --modes pulseaudio" # doesn't exist
+          "${mainMod}, P, exec, zlaunch toggle --modes actions"
         ];
 
       # Volume control binds

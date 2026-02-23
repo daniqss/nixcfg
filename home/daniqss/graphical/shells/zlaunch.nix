@@ -1,7 +1,94 @@
-{inputs, ...}: {
-  imports = [
-    inputs.zlaunch.homeManagerModules.default
-  ];
+{
+  inputs,
+  pkgs,
+  lib,
+  system,
+  config,
+  ...
+}: let
+  cfg = config.services.zlaunch;
+  pkg = inputs.zlaunch.packages.${system}.default;
+  tomlFormat = pkgs.formats.toml {};
+in {
+  options.services.zlaunch = {
+    enable = lib.mkEnableOption "Enable zlaunch daemon";
 
-  services.zlaunch.enable = true;
+    settings = lib.mkOption {
+      type = tomlFormat.type;
+      default = {};
+      description = ''
+        Configuration written to "~/.config/zlaunch/config.toml".
+        See <https://github.com/zortax/zlaunch> for options, defined via TOML.
+        All settings are optional with sensible defaults.
+      '';
+      example = lib.literalExpression ''
+        {
+          theme = "one-dark";
+          launcher_size = [ 800.0 500.0 ];
+          enable_backdrop = true;
+          enable_transparency = true;
+          hyprland_auto_blur = true;
+
+          default_modes = ["combined" "emojis" "clipboard"];
+          combined_modules = ["calculator" "windows" "applications" "actions"];
+
+          fuzzy_match = {
+            show_best_match = true;
+          };
+
+          search_providers = {
+            name = "GitHub";
+            trigger = "!gh";
+            url = "https://github.com/search?q={query}";
+          };
+        }
+      '';
+    };
+
+    systemd = {
+      enable = lib.mkEnableOption "Enable a zlaunch systemd service";
+
+      autoStart = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Whether to automatically start the zlaunch service or not";
+      };
+
+      target = lib.mkOption {
+        type = lib.types.str;
+        default = "graphical-session.target";
+        example = "hyprland-session.target";
+        description = "Which systemd target will start the zlaunch service";
+      };
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkg
+    ];
+
+    xdg.configFile."zlaunch/config.toml" = lib.mkIf (cfg.settings != {}) {
+      source = tomlFormat.generate "zlaunch-config" cfg.settings;
+    };
+
+    systemd.user.services.zlaunch = lib.mkIf cfg.systemd.enable {
+      Unit = {
+        Description = "zlaunch application launcher service";
+        Documentation = ["https://github.com/zortax/zlaunch"];
+        After = [cfg.systemd.target];
+        PartOf = [cfg.systemd.target];
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${lib.getExe' pkg "zlaunch"}";
+        Restart = "always";
+        RestartSec = 5;
+        KillMode = "process";
+      };
+      Install = lib.mkIf cfg.systemd.autoStart {
+        WantedBy = [cfg.systemd.target];
+      };
+    };
+  };
 }
