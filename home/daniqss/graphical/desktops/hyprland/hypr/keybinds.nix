@@ -100,10 +100,10 @@ in {
         ]
         ++ lib.optionals config.services.zlaunch.enable [
           "${mainMod}, TAB, exec, zlaunch toggle --modes applications"
-          "${mainMod}, ESC, exec, zlaunch toggle --modes windows"
+          "${mainMod} ALT, TAB, exec, zlaunch toggle --modes windows"
           "${mainMod}, C, exec, zlaunch toggle --modes clipboard"
           "${mainMod}, E, exec, zlaunch toggle --modes emojis"
-          "${mainMod} CTRL, W, exec, zlaunch toggle --modes wallpapers" # doesn't exist
+          "${mainMod} ALT, W, exec, zlaunch toggle --modes wallpapers" # doesn't exist
           "${mainMod}, B, exec, zlaunch toggle --modes bluetooth" # doesn't exist
           "${mainMod}, S, exec, zlaunch toggle --modes pulseaudio" # doesn't exist
           "${mainMod}, P, exec, zlaunch toggle --modes actions"

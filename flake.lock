@@ -1501,16 +1501,16 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1771274977,
-        "narHash": "sha256-3t2ZpqDmih0sSF/3QkSY52FAXLyVtlIVfQUWJwxoJTA=",
-        "owner": "zortax",
+        "lastModified": 1771976241,
+        "narHash": "sha256-DFxezhgnYoOzSEJoYoellVQ7A42lMh3RrI0fQ+IiwpY=",
+        "owner": "daniqss",
         "repo": "zlaunch",
-        "rev": "fdbefb7086b5ef55cf4106c544ff44ce440e8be2",
+        "rev": "160106ee8daa4be52227e13364057c55ad5121de",
         "type": "github"
       },
       "original": {
-        "owner": "zortax",
-        "ref": "0.5.0",
+        "owner": "daniqss",
+        "ref": "feat/add-hm-module",
         "repo": "zlaunch",
         "type": "github"
       }

@@ -25,31 +25,6 @@ in {
 
     graphical.shells.quickshell.enable = mkDefault true;
     graphical.shells.vicinae.enable = mkDefault false;
-
-    services.zlaunch = {
-      enable = mkDefault true;
-      systemd.enable = mkDefault true;
-
-      settings = {
-        theme = "one-dark";
-        launcher_size = [1000.0 600.0];
-        enable_backdrop = true;
-        enable_transparency = false;
-        hyprland_auto_blur = false;
-
-        default_modes = ["combined" "emojis" "clipboard"];
-        combined_modules = ["calculator" "windows" "applications" "actions"];
-
-        fuzzy_match = {
-          show_best_match = true;
-        };
-
-        search_providers = {
-          name = "GitHub";
-          trigger = "!gh";
-          url = "https://github.com/search?q={query}";
-        };
-      };
-    };
+    graphical.shells.zlaunch.enable = mkDefault true;
   };
 }

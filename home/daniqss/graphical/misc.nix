@@ -34,8 +34,8 @@ in {
       alsa-utils
       playerctl
       brightnessctl
-      cliphist
-      wl-clipboard
+      # cliphist
+      # wl-clipboard
 
       dirlock
     ];
