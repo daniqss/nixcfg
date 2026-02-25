@@ -223,7 +223,7 @@
         "type": "github"
       }
     },
-    "flake-utils_3": {
+    "flake-utils_2": {
       "inputs": {
         "systems": "systems_7"
       },
@@ -1447,7 +1447,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_6": {
       "locked": {
         "lastModified": 1771008912,
         "narHash": "sha256-gf2AmWVTs8lEq7z/3ZAsgnZDhWIckkb+ZnAo5RzSxJg=",
@@ -1756,15 +1756,15 @@
     },
     "zlaunch": {
       "inputs": {
-        "flake-utils": "flake-utils_3",
-        "nixpkgs": "nixpkgs_5"
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1771976241,
-        "narHash": "sha256-DFxezhgnYoOzSEJoYoellVQ7A42lMh3RrI0fQ+IiwpY=",
+        "lastModified": 1772013397,
+        "narHash": "sha256-OtZVUwCHUTCCk6mI3Cna6VAvQ3vBQ3YzArxczmvFiuM=",
         "owner": "daniqss",
         "repo": "zlaunch",
-        "rev": "160106ee8daa4be52227e13364057c55ad5121de",
+        "rev": "72384a8d63d1b4046e3108cfa4b869395d047acc",
         "type": "github"
       },
       "original": {
