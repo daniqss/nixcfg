@@ -86,14 +86,14 @@ in {
       username = "daniqss";
       system = "aarch64-linux";
 
-      createSystem = inputs.nixos-raspberrypi.lib.nixosSystemFull;
+      createSystem = inputs.nixos-raspberrypi.lib.nixosSystem;
       useDisko = true;
       specialArgs = {inherit nixos-raspberrypi;};
       modules = [
         {
           imports = [
             nixos-raspberrypi.nixosModules.raspberry-pi-5.base
-            nixos-raspberrypi.nixosModules.raspberry-pi-5.page-size-16k
+            # nixos-raspberrypi.nixosModules.raspberry-pi-5.page-size-16k
             nixos-raspberrypi.nixosModules.raspberry-pi-5.display-vc4
             nixos-raspberrypi.nixosModules.raspberry-pi-5.bluetooth
             inputs.disko.nixosModules.disko
