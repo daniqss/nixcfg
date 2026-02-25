@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -20,5 +21,10 @@
       inherit (config.common.tailscale) enable;
       useRoutingFeatures = config.common.tailscale.role;
     };
+
+    environment.systemPackages = with pkgs;
+      lib.mkIf config.desktop.enable [
+        tailscale-systray
+      ];
   };
 }

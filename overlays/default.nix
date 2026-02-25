@@ -20,5 +20,4 @@
 
   pinnacle = inputs.pinnacle.overlays.default;
   nix-minecraft = inputs.nix-minecraft.overlays.default;
-  ffmpeg_7_rpi = import ./ffmpeg_7-rpi.nix;
 }
