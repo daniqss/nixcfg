@@ -64,10 +64,11 @@
       LC_TIME = "es_ES.UTF-8";
     };
 
+    boot.kernelParams = ["console=tty1"];
     services.greetd = {
       enable = true;
       settings = {
-        terminal.vt = 1;
+        terminal.vt = lib.mkDefault 2;
         default_session = let
           tuigreet = lib.getExe pkgs.tuigreet;
           options = let
