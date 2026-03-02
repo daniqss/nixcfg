@@ -77,6 +77,16 @@ in {
     modules = [];
   };
 
+  # i5 slimbook laptop
+  windrunner2 = mkSystem {
+    hostname = "windrunner2";
+    username = "daniqss";
+    system = "x86_64-linux";
+
+    useDisko = true;
+    modules = [];
+  };
+
   # rpi5 home server
   bondsmith = let
     nixos-raspberrypi = inputs.nixos-raspberrypi;
