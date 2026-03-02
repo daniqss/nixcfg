@@ -15,7 +15,6 @@
     systemd.enable = true;
 
     settings = {
-      launcher_size = [600.0 500.0];
       enable_backdrop = true;
       enable_transparency = false;
       hyprland_auto_blur = false;
