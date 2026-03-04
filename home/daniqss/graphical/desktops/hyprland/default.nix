@@ -23,6 +23,9 @@ in {
       )
       monitors;
 
+    graphical.desktops.layoutsToDesktopConfig = layouts:
+      builtins.concatStringsSep ", " layouts;
+
     graphical.shells.quickshell.enable = mkDefault true;
     graphical.shells.vicinae.enable = mkDefault false;
     graphical.shells.zlaunch.enable = mkDefault true;

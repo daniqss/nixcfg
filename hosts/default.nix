@@ -31,12 +31,11 @@
           }
         ]
         (lib.flatten [
-          (lib.singleton ./profiles/common)
-          (lib.singleton ./profiles/desktop)
-          (lib.singleton ./profiles/server)
-          (lib.singleton ./hosts/${hostname}/configuration.nix)
-          (lib.singleton ./hosts/${hostname}/hardware-configuration.nix)
-          (lib.optional useDisko [./hosts/${hostname}/disko.nix])
+          (lib.singleton ./${hostname}/configuration.nix)
+          (lib.singleton ./${hostname}/hardware-configuration.nix)
+          (lib.singleton ../nixos/profiles/common)
+          (lib.singleton ../nixos/profiles/desktop)
+          (lib.singleton ../nixos/profiles/server)
           (args.modules or [])
         ])
         [
@@ -49,13 +48,13 @@
             } (args.specialArgs or {});
             home-manager.sharedModules = [inputs.pinnacle.hmModules.default];
             home-manager.users.${username}.imports = [
-              ./hosts/${hostname}/home.nix
+              ./${hostname}/home.nix
               ../home/${username}
             ];
           }
         ]
         (lib.flatten [
-          (lib.optional useDisko [./hosts/${hostname}/disko.nix])
+          (lib.optional useDisko [./${hostname}/disko.nix])
           (lib.singleton inputs.disko.nixosModules.disko)
         ])
       ];
@@ -82,8 +81,8 @@ in {
   };
 
   # i5 slimbook laptop
-  windrunner2 = mkSystem {
-    hostname = "windrunner2";
+  skybreaker = mkSystem {
+    hostname = "skybreaker";
     username = "daniqss";
     system = "x86_64-linux";
 
