@@ -5,7 +5,7 @@
   pkg-config,
   pam,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "dirlock";
   version = "0.0.1";
 

@@ -79,14 +79,14 @@ in {
         };
 
         general = {
-          gaps_in = 4;
+          gaps_in = 3;
           gaps_out = 8;
 
-          border_size = 3;
+          border_size = 2;
           "col.active_border" = "$primary $secondary $tertiary 10deg";
           "col.inactive_border" = "$surface_bright";
 
-          layout = "dwindle";
+          layout = "scrolling";
           allow_tearing = true;
 
           snap = {
@@ -114,9 +114,9 @@ in {
 
           shadow = {
             enabled = true;
-            range = 4;
-            render_power = 3;
-            color = "$shadow";
+            # range = 4;
+            # render_power = 3;
+            # color = "$shadow";
           };
         };
 
@@ -130,9 +130,7 @@ in {
             "border, 1, 10, default"
             "fade, 1, 7, default"
 
-            "workspaces, 0"
-            "workspacesIn, 0"
-            "workspacesOut, 0"
+            "workspaces, 0, slidevert"
             "specialWorkspace, 1, 6, overshot, slidevert"
           ];
         };
@@ -148,6 +146,16 @@ in {
 
         master = {
           special_scale_factor = 0.8;
+        };
+
+        scrolling = {
+          fullscreen_on_one_column = true;
+          column_width = 0.7;
+          focus_fit_method = 1;
+          follow_focus = true;
+          follow_min_visible = 0.4;
+          explicit_column_widths = "0.333, 0.5, 0.667, 1.0";
+          direction = "right";
         };
 
         misc = {

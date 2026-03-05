@@ -77,6 +77,15 @@ in {
 
           "${mainMod}, mouse_down, focusworkspaceoncurrentmonitor, e-1"
           "${mainMod}, mouse_up, focusworkspaceoncurrentmonitor, e+1"
+
+          "${mainMod}, period, layoutmsg, move +col" # Mover foco a columna siguiente
+          "${mainMod}, comma, layoutmsg, move -col" # Mover foco a columna anterior
+          "${mainMod} ALT, period, layoutmsg, swapcol r" # Intercambiar columna derecha
+          "${mainMod} ALT, comma, layoutmsg, swapcol l" # Intercambiar columna izquierda
+          "${mainMod} ALT, period, layoutmsg, colresize r" # Intercambiar columna derecha
+          "${mainMod} ALT, comma, layoutmsg, colresize l" # Intercambiar columna izquierda
+          "${mainMod}, V, layoutmsg, togglefit" # Alternar modo fit/center
+          "${mainMod}, P, layoutmsg, promote" # Promover ventana a nueva columna
         ]
         ++ (
           builtins.concatLists (builtins.genList (
@@ -150,7 +159,9 @@ in {
       ];
 
       gesture = [
-        "3, horizontal, workspace"
+        "3, vertical, workspace"
+        "3, left, dispatcher, layoutmsg, move +col"
+        "3, right, dispatcher, layoutmsg, move -col"
       ];
     };
   };

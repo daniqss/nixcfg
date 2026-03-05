@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   graphical = {
     enable = true;
     gaming.enable = true;
@@ -6,6 +6,8 @@
       emulator = "ghostty";
       fontsize = 13;
     };
+
+    browsers.dev = pkgs.unstable.chromium;
 
     desktops = {
       desktop = "hyprland";

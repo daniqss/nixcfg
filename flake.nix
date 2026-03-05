@@ -27,7 +27,7 @@
     vicinae.url = "github:vicinaehq/vicinae";
     vicinae-extensions.url = "github:vicinaehq/extensions";
 
-    zlaunch.url = "github:daniqss/zlaunch/?ref=feat/add-hm-module";
+    zlaunch.url = "github:zortax/zlaunch";
 
     pinnacle = {
       url = "github:pinnacle-comp/pinnacle";
