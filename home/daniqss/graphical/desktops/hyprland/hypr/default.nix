@@ -122,7 +122,9 @@ in {
 
         animations = {
           enabled = true;
-          bezier = "overshot, 0.13, 0.99, 0.29, 1.0";
+          bezier = [
+            "overshot, 0.13, 0.99, 0.29, 1.0"
+          ];
 
           animation = [
             "windows, 1, 4, overshot, slide"
@@ -130,7 +132,7 @@ in {
             "border, 1, 10, default"
             "fade, 1, 7, default"
 
-            "workspaces, 0, slidevert"
+            "workspaces, 1, 1.5, overshot, slidevert"
             "specialWorkspace, 1, 6, overshot, slidevert"
           ];
         };
