@@ -79,10 +79,10 @@ in {
         };
 
         general = {
-          gaps_in = 4;
+          gaps_in = 3;
           gaps_out = 8;
 
-          border_size = 3;
+          border_size = 2;
           "col.active_border" = "$primary $secondary $tertiary 10deg";
           "col.inactive_border" = "$surface_bright";
 
