@@ -31,6 +31,11 @@
     };
     programs.zsh.enable = true;
 
+    hardware.graphics = {
+      enable = true;
+      extraPackages = with pkgs; [ mesa ];
+    };
+
     networking.networkmanager.enable = true;
     system.stateVersion = "25.05";
   };

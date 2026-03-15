@@ -11,6 +11,6 @@ in {
 
   home.packages = lib.mkIf (config.dev.enable && config.graphical.enable) [
     pkgs.opencode
-    pkgs.gemini-cli
+    pkgs.unstable.gemini-cli
   ];
 }
