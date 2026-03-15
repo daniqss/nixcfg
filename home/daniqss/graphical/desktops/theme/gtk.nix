@@ -29,8 +29,8 @@ in {
       enable = true;
 
       iconTheme = {
-        name = "Adwaita";
-        package = pkgs.adwaita-icon-theme;
+        name = "WhiteSur-dark";
+        package = pkgs.whitesur-gtk-theme;
       };
 
       gtk2.extraConfig = ''

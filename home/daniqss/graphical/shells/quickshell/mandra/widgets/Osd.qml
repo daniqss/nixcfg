@@ -62,7 +62,7 @@ Scope {
       Rectangle {
         anchors.fill: parent
         radius: 10
-        color: Colors.surface_container_high
+        color: Colors.background
         anchors {
           leftMargin: 20
           topMargin: 20

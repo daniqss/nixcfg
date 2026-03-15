@@ -6,9 +6,10 @@ import qs.config
 import qs.widgets.common
 import qs.data
 
-RowLayout {
+ColumnLayout {
   id: sound
   spacing: 1
+  Layout.alignment: Qt.AlignHCenter
 
   Process {
     id: soundProcess
@@ -17,7 +18,7 @@ RowLayout {
 
   MaterialSymbol {
     color: Colors.on_background
-    font.pixelSize: 20
+    font.pixelSize: 24
     font.weight: 600
     icon: Audio.soundIcon
 
@@ -36,7 +37,7 @@ RowLayout {
 
   MaterialSymbol {
     color: Colors.on_background
-    font.pixelSize: 20
+    font.pixelSize: 24
     font.weight: 600
     icon: Audio.sourceIcon
 

@@ -15,10 +15,10 @@ Item {
   property int wsIndex: index + 1
   property int animActive: WsData.isActive(ws) ? 1 : 0
 
-  Layout.fillHeight: true
-  Layout.leftMargin: WsData.isActive(ws) ? 4 : 0
-  Layout.rightMargin: WsData.isActive(ws) ? 4 : 0
-  width: 20
+  Layout.fillWidth: true
+  Layout.topMargin: WsData.isActive(ws) ? 3 : 0
+  Layout.bottomMargin: WsData.isActive(ws) ? 3 : 0
+  height: 20
 
   Behavior on animActive {
     NumberAnimation {
@@ -39,11 +39,11 @@ Item {
 
       return Config.Colors.primary;
     }
-    height: WsData.isActive(ws) ? (parent.width / 1.3) : (wsButton.ws ? 12 : 10)
+    height: WsData.isActive(ws) ? (parent.width / 1.6) : (wsButton.ws ? 12 : 10)
     opacity: wsButton.ws ? 1 : 0.5
     radius: 10
     scale: 1 + animActive * 0.1
-    width: WsData.isActive(ws) ? 22 : (wsButton.ws ? 12 : 10)
+    width: WsData.isActive(ws) ? 16 : (wsButton.ws ? 11 : 10)
 
     Connections {
       function onWorkspaceAdded(workspace: HyprlandWorkspace) {

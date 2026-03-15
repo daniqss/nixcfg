@@ -5,11 +5,13 @@ import Quickshell.Hyprland
 import qs.config
 import qs.widgets.common
 
-Item {
+ColumnLayout {
   id: root
 
   required property var bar
   required property int wsCount
+
+  spacing: 0
 
   signal workspaceAdded(workspace: HyprlandWorkspace)
 
@@ -19,17 +21,10 @@ Item {
     }
   }
 
-  RowLayout {
-    id: row
+  Repeater {
+    model: root.wsCount
 
-    anchors.fill: parent
-    spacing: 0
-
-    Repeater {
-      model: root.wsCount
-
-      WorkspaceButton {}
-    }
+    WorkspaceButton {}
   }
 
   Connections {

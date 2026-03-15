@@ -6,9 +6,10 @@ import qs.data
 import qs.widgets.common
 import qs.config
 
-RowLayout {
+ColumnLayout {
   id: network
   spacing: 0
+  Layout.alignment: Qt.AlignHCenter
 
   visible: Networking.active !== null
 
@@ -19,7 +20,7 @@ RowLayout {
 
   MaterialSymbol {
     color: Colors.on_background
-    font.pixelSize: 20
+    font.pixelSize: 22
     icon: Networking.active ? Networking.active.icon : "signal_wifi_statusbar_not_connected"
 
     MouseArea {

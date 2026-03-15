@@ -6,9 +6,10 @@ import Quickshell.Services.UPower
 import qs.config
 import qs.widgets.common
 
-RowLayout {
+ColumnLayout {
   id: battery
   spacing: 0
+  Layout.alignment: Qt.AlignHCenter
 
   readonly property var batteryDevice: UPower.displayDevice
   readonly property int percentage: Math.round(batteryDevice.percentage * 100)
@@ -87,7 +88,7 @@ RowLayout {
   MaterialSymbol {
     color: (battery.percentage < 20 && !battery.charging) ? Colors.on_error : Colors.on_background
 
-    font.pixelSize: 20
+    font.pixelSize: 22
     icon: battery.batteryIcon()
 
     MouseArea {

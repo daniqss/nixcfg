@@ -5,9 +5,10 @@ import QtQuick.Layouts
 import Quickshell.Services.SystemTray
 import QtQuick.Effects
 
-RowLayout {
+ColumnLayout {
   id: sysTrayRow
   spacing: 10
+  Layout.alignment: Qt.AlignHCenter
 
   Repeater {
     id: sysTray
@@ -19,8 +20,9 @@ RowLayout {
 
       property SystemTrayItem item: modelData
 
-      implicitHeight: 16
-      implicitWidth: 16
+      Layout.alignment: Qt.AlignHCenter
+      implicitHeight: 19
+      implicitWidth: 19
       visible: !trayItem.item.icon.includes("spotify-linux-32")
 
       onClicked: event => {
@@ -37,10 +39,9 @@ RowLayout {
       QsMenuAnchor {
         id: menu
 
-        // Yes I know, this is a confusing way to get the position for the menu, but that's
-        // just how Qt is.
-        anchor.rect.x: bar.width - (sysTrayRow.width - trayItem.x)
-        anchor.rect.y: bar.height - 10
+        // Position the menu to the right of the bar at the item's vertical position
+        anchor.rect.x: bar.width
+        anchor.rect.y: trayItem.y
         anchor.window: bar
         menu: trayItem.item.menu
       }

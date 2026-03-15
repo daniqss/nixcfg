@@ -6,8 +6,9 @@ import QtQuick.Layouts
 
 import qs.config
 
-RowLayout {
+ColumnLayout {
   id: taskbar
+  Layout.alignment: Qt.AlignHCenter
 
   property string topLevelClass: ToplevelManager.activeToplevel?.activated && ToplevelManager.activeToplevel?.appId || ""
   property string topLevelTitle: ToplevelManager.activeToplevel?.activated && ToplevelManager.activeToplevel?.title || ""

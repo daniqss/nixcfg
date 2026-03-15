@@ -18,68 +18,73 @@ Scope {
       property var modelData
 
       color: "transparent"
-      implicitHeight: 34
+      implicitWidth: 36
       screen: modelData
 
-      WlrLayershell.layer: WlrLayer.Bottom
+      WlrLayershell.layer: WlrLayer.Top
 
       anchors {
-        bottom: true
         left: true
-        right: true
+        top: true
+        bottom: true
       }
 
       Rectangle {
         anchors.fill: parent
         color: Config.Colors.background
 
-        RowLayout {
-          anchors.bottom: parent.bottom
-          anchors.left: parent.left
+        ColumnLayout {
           anchors.top: parent.top
+          anchors.left: parent.left
+          anchors.right: parent.right
 
-          anchors.leftMargin: height / 3
-          anchors.rightMargin: height / 3
-          spacing: height / 3
+          anchors.topMargin: width / 3
+          anchors.bottomMargin: width / 3
+          spacing: width / 3
 
-          OsIcon {}
+          OsIcon {
+            Layout.alignment: Qt.AlignHCenter
+          }
           Workspaces {
             bar: bar
             wsCount: 9
+            Layout.alignment: Qt.AlignHCenter
           }
         }
 
-        RowLayout {
-          anchors.bottom: parent.bottom
-          anchors.horizontalCenter: parent.horizontalCenter
-          anchors.top: parent.top
+        ColumnLayout {
+          anchors.left: parent.left
+          anchors.right: parent.right
+          anchors.verticalCenter: parent.verticalCenter
 
-          anchors.leftMargin: height / 3
-          anchors.rightMargin: height / 3
-          spacing: height / 3
+          anchors.topMargin: width / 3
+          anchors.bottomMargin: width / 3
+          spacing: width / 3
 
-          Taskbar {}
+          Clock {
+            Layout.alignment: Qt.AlignHCenter
+          }
         }
 
-        RowLayout {
+        ColumnLayout {
           anchors.bottom: parent.bottom
+          anchors.left: parent.left
           anchors.right: parent.right
-          anchors.top: parent.top
 
-          anchors.leftMargin: height / 3
-          anchors.rightMargin: height / 3
-          spacing: height / 3
+          anchors.topMargin: width / 3
+          anchors.bottomMargin: width / 3
+          spacing: 15
 
           Systray {}
-          RowLayout {
-            Layout.alignment: Qt.AlignRight
-            spacing: 2
+
+          ColumnLayout {
+            Layout.alignment: Qt.AlignHCenter
+            spacing: 5
 
             Sound {}
             Network {}
             Battery {}
           }
-          Clock {}
         }
       }
     }
