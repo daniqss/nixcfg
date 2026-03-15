@@ -29,13 +29,14 @@ in {
       nerd-fonts.droid-sans-mono
       nerd-fonts.jetbrains-mono
       noto-fonts-color-emoji
+      whatsapp-emoji-font
       noto-fonts-cjk-serif
 
       alsa-utils
       playerctl
       brightnessctl
-      # cliphist
-      # wl-clipboard
+      cliphist
+      wl-clipboard
 
       dirlock
     ];

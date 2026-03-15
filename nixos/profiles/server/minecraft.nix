@@ -57,6 +57,7 @@
           # find /srv/minecraft/mc-gf/world -type d -exec chmod 770 {} \;
           # find /srv/minecraft/mc-gf/world -type f -exec chmod 660 {} \;
           # ```
+          # if the systemd service fails check if there's .bak files in the server directory that could be causing issues
         };
       };
     };
