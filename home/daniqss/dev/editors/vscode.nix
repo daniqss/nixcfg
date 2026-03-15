@@ -33,7 +33,8 @@
           github.vscode-github-actions
           gleam.gleam
           golang.go
-	  daohong-emilio.yash
+          daohong-emilio.yash
+          vadimcn.vscode-lldb
           ms-toolsai.jupyter
           ms-toolsai.vscode-jupyter-cell-tags
           ms-toolsai.jupyter-renderers
