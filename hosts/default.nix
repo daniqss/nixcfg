@@ -31,12 +31,11 @@
           }
         ]
         (lib.flatten [
-          (lib.singleton ./profiles/common)
-          (lib.singleton ./profiles/desktop)
-          (lib.singleton ./profiles/server)
-          (lib.singleton ./hosts/${hostname}/configuration.nix)
-          (lib.singleton ./hosts/${hostname}/hardware-configuration.nix)
-          (lib.optional useDisko [./hosts/${hostname}/disko.nix])
+          (lib.singleton ./${hostname}/configuration.nix)
+          (lib.singleton ./${hostname}/hardware-configuration.nix)
+          (lib.singleton ../nixos/profiles/common)
+          (lib.singleton ../nixos/profiles/desktop)
+          (lib.singleton ../nixos/profiles/server)
           (args.modules or [])
         ])
         [
@@ -49,11 +48,15 @@
             } (args.specialArgs or {});
             home-manager.sharedModules = [inputs.pinnacle.hmModules.default];
             home-manager.users.${username}.imports = [
-              ./hosts/${hostname}/home.nix
+              ./${hostname}/home.nix
               ../home/${username}
             ];
           }
         ]
+        (lib.flatten [
+          (lib.optional useDisko [./${hostname}/disko.nix])
+          (lib.singleton inputs.disko.nixosModules.disko)
+        ])
       ];
     };
 in {
@@ -77,6 +80,16 @@ in {
     modules = [];
   };
 
+  # i5 slimbook laptop
+  skybreaker = mkSystem {
+    hostname = "skybreaker";
+    username = "daniqss";
+    system = "x86_64-linux";
+
+    useDisko = true;
+    modules = [];
+  };
+
   # rpi5 home server
   bondsmith = let
     nixos-raspberrypi = inputs.nixos-raspberrypi;
@@ -96,7 +109,6 @@ in {
             # nixos-raspberrypi.nixosModules.raspberry-pi-5.page-size-16k
             nixos-raspberrypi.nixosModules.raspberry-pi-5.display-vc4
             nixos-raspberrypi.nixosModules.raspberry-pi-5.bluetooth
-            inputs.disko.nixosModules.disko
           ];
         }
       ];

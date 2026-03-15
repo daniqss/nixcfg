@@ -9,6 +9,9 @@
 
     desktops = {
       desktop = "hyprland";
+
+      layouts = ["es" "us"];
+
       monitors = [
         {
           name = "eDP-1";

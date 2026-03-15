@@ -27,6 +27,17 @@ in {
       description = "which desktop to use";
     };
 
+    layouts = lib.mkOption {
+      type = lib.types.listOf (lib.types.enum ["us" "es"]);
+      default = ["us" "es"];
+      description = "keyboard layouts";
+    };
+
+    layoutsToDesktopConfig = lib.mkOption {
+      type = lib.types.unspecified;
+      description = "generate layout config from options";
+    };
+
     monitorToDesktopConfig = lib.mkOption {
       type = lib.types.unspecified;
       description = "generate the config for the desktop from the monitors option";

@@ -65,13 +65,7 @@ in {
 
         # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
         input = {
-          kb_layout =
-            if hostname == "stoneward"
-            then "us, es"
-            else if hostname == "windrunner"
-            then "es, us"
-            else null;
-
+          kb_layout = cfg.layoutsToDesktopConfig cfg.layouts;
           follow_mouse = 1;
           focus_on_close = 1;
 
@@ -167,10 +161,16 @@ in {
           vfr = 1;
         };
 
-        device = lib.mkIf (hostname == "windrunner") {
-          name = "elan071a:00-04f3:30fd-touchpad";
-          sensitivity = 0.1;
-        };
+        device = lib.mkMerge [
+          (lib.mkIf (hostname == "windrunner") {
+            name = "elan071a:00-04f3:30fd-touchpad";
+            sensitivity = 0.1;
+          })
+          (lib.mkIf (hostname == "skybreaker") {
+            name = "elan0412:01-04f3:3240-touchpad";
+            sensitivity = 0.1;
+          })
+        ];
       };
     };
   };
