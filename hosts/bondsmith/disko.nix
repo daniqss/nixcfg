@@ -64,7 +64,7 @@ in {
 
           swap = {
             label = "SWAP";
-            size = "16G";
+            size = "32G";
             content = {
               type = "swap";
               resumeDevice = true;
@@ -81,7 +81,7 @@ in {
               mountOptions = [
                 "noatime"
               ];
-              # extraArgs = ["-O" "encrypt"];
+              extraArgs = ["-O" "encrypt"];
             };
           };
         };
