@@ -7,7 +7,10 @@
     desktop = {
       enable = true;
 
-      virtualbox.enable = true;
+      virtualbox = {
+        enable = true;
+        guest.enable = true;
+      };
     };
     server.enable = false;
 
