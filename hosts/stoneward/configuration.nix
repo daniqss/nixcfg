@@ -32,6 +32,8 @@
     boot.loader.systemd-boot.consoleMode = "max";
     boot.loader.efi.canTouchEfiVariables = true;
 
+    boot.binfmt.emulatedSystems = ["armv6l-linux"];
+
     i18n.defaultLocale = "en_US.UTF-8";
 
     services.xserver.xkb = {

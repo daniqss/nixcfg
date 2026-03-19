@@ -37,13 +37,14 @@
     users.users.${username} = {
       isNormalUser = true;
       description = "${username}";
-      extraGroups = ["networkmanager" "wheel" "kvm" "adbusers"];
+      extraGroups = ["networkmanager" "wheel" "kvm" "adbusers" "podman" "input"];
       shell = pkgs.zsh;
     };
     environment.pathsToLink = ["/share/zsh"];
     environment.systemPackages = with pkgs; [
       pulseaudio
       distrobox
+      winboat
     ];
     services.flatpak.enable = true;
 
