@@ -138,4 +138,5 @@
   "zig.zls.enabled": "on",
   "workbench.secondarySideBar.defaultVisibility": "hidden",
   "explorer.confirmPasteNative": false,
+  "github.copilot.nextEditSuggestions.enabled": true,
 }

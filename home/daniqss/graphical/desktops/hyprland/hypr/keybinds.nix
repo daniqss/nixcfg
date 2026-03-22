@@ -63,7 +63,7 @@ in {
           "${mainMod}, Q, togglefloating,"
           "${mainMod}, F, fullscreen,"
           "${mainMod}, O, pseudo,"
-          "${mainMod}, I, togglesplit,"
+          "${mainMod}, I, layoutmsg, togglesplit"
 
           "${mainMod}, H, movefocus, l"
           "${mainMod}, J, movefocus, d"

@@ -20,7 +20,7 @@
 
     boot.kernelPackages = pkgs.linuxPackages_6_18;
     boot.loader.systemd-boot.enable = true;
-    boot.loader.systemd-boot.consoleMode = "max";
+    boot.loader.systemd-boot.consoleMode = "auto";
     boot.loader.efi.canTouchEfiVariables = true;
 
     i18n.defaultLocale = "en_US.UTF-8";
