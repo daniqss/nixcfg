@@ -44,10 +44,6 @@
     environment.systemPackages = with pkgs; [
       pulseaudio
       distrobox
-
-      wine
-      winetricks
-      samba
     ];
     services.flatpak.enable = true;
 
