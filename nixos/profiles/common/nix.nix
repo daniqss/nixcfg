@@ -3,6 +3,8 @@
   username,
   ...
 }: {
+  programs.nix-ld.enable = true;
+
   nix = {
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
