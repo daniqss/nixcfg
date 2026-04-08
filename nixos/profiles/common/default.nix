@@ -3,5 +3,6 @@
     ./network.nix
     ./nix.nix
     ./tailscale.nix
+    ./qemu.nix
   ];
 }
