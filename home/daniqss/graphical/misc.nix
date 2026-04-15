@@ -29,7 +29,6 @@ in {
       nerd-fonts.droid-sans-mono
       nerd-fonts.jetbrains-mono
       noto-fonts-color-emoji
-      whatsapp-emoji-font
       noto-fonts-cjk-serif
 
       alsa-utils

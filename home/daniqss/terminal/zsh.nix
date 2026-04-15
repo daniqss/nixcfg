@@ -38,7 +38,7 @@ in {
 
         ${lib.optionalString config.graphical.enable ''
           code() {
-            ${pkgs.vscode}/bin/code "$@" > /dev/null 2>&1
+            codium "$@" > /dev/null 2>&1
           }
         ''}
 
