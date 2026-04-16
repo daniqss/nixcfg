@@ -37,10 +37,15 @@ hosts are named thematically after the stormlight archive radiant orders accordi
 | **stoneward**  | Intel + NVIDIA desktop, for programming and gaming  | x86_64-linux  |
 | **windrunner** | AMD uni laptop                                      | x86_64-linux  |
 | **bondsmith**  | Raspberry Pi 5 home server                          | aarch64-linux |
+| **skybreaker** | Slimbook with core 5 120U                           | x86_64-linux  |
 
 ### rice
 I'm currently using the [hyprland](https://hypr.land) wayland compositor using my own bar made with [quickshell](https://quickshell.org/) that I want to upgrade until it satisfies all my desktop shell necesities.
 I use [matugen](https://github.com/InioX/matugen) to generate from the current selected wallpaper the colors schemes used in most of the software I use (not the terminal nor vscode)
+
+## Todo
+- [ ] dendrite pattern
+- [ ] build + commit scripts with just or nu
 
 ## special thanks to
 Thanks to these people from whom I learned ~~and sometimes stole~~ nix and quickshell, and I got inspiration for desktop shell designs

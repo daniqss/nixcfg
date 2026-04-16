@@ -11,7 +11,7 @@
     && config.graphical.enable) {
     programs.vscode = {
       enable = true;
-      # package = pkgs.vscodium;
+      package = pkgs.unstable.vscode;
 
       profiles.default.extensions = with pkgs.vscode-extensions;
         [
@@ -87,6 +87,6 @@
           }
         ];
     };
-    xdg.configFile."VSCodium/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/dev/editors/settings.json";
+    xdg.configFile."Code/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/dev/editors/settings.json";
   };
 }
