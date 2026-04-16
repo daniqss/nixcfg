@@ -5,10 +5,13 @@
   config,
   ...
 }: {
-  config = lib.mkIf (config.dev.enable
+  options.dev.editors.vscode.enable = lib.mkEnableOption "enable vscode editor";
+
+  config = lib.mkIf (config.dev.editors.vscode.enable
     && config.graphical.enable) {
     programs.vscode = {
       enable = true;
+      package = pkgs.unstable.vscode;
 
       profiles.default.extensions = with pkgs.vscode-extensions;
         [
@@ -48,7 +51,8 @@
 
           mechatroner.rainbow-csv
           bradlc.vscode-tailwindcss
-          rust-lang.rust-analyzer
+
+          # rust-lang.rust-analyzer
           tauri-apps.tauri-vscode
 
           bradlc.vscode-tailwindcss

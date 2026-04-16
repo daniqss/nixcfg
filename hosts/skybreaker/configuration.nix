@@ -8,7 +8,7 @@
       enable = true;
 
       virtualbox = {
-        enable = true;
+        enable = false;
         guest.enable = false;
       };
     };
