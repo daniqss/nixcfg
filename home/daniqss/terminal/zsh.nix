@@ -27,7 +27,6 @@ in {
         grep = "grep --color=auto";
         cat = "${pkgs.bat}/bin/bat --paging=never --plain";
         catp = "${pkgs.bat}/bin/bat --paging=never";
-        icat = "kitten icat";
         cls = "clear";
 
         gitgraph = "git log --graph --decorate --all --pretty=format:'%C(auto)%h%d %C(#888888)(%an; %ar)%Creset %s'";

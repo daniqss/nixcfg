@@ -9,7 +9,7 @@
     ./git.nix
   ];
 
-  options.terminal.enable = lib.mkEnableOption "Enable some terminal";
+  options.terminal.enable = lib.mkEnableOption "Enable some terminal stuff";
 
   config = lib.mkIf config.terminal.enable {
     home.packages = with pkgs; [
@@ -23,6 +23,11 @@
 
       micro
       neovim
+
+      zip
+      unzip
+
+      timg
     ];
   };
 }
