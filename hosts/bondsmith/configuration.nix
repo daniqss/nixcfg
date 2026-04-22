@@ -13,7 +13,7 @@
     };
     server = {
       enable = true;
-      immich.enable = false;
+      immich.enable = true;
       minecraft.enable = true;
     };
     desktop.enable = false;

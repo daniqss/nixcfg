@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  options.server.immich.enable = lib.mkEnableOption "enable Immich server, doesn't work yet";
+  options.server.immich.enable = lib.mkEnableOption "enable Immich server";
 
   config = lib.mkIf config.server.immich.enable {
     services.immich = {
@@ -14,6 +14,11 @@
 
       host = "0.0.0.0";
       openFirewall = true;
+
+      database = {
+        enableVectors = false;
+        enableVectorChord = true;
+      };
     };
 
     services.nginx.virtualHosts."immich.example.com" = {
