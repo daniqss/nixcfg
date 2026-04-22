@@ -1,8 +1,14 @@
 {pkgs, ...}: {
   config = {
-    common.tailscale = {
-      enable = true;
-      role = "client";
+    common = {
+      tailscale = {
+        enable = true;
+        role = "client";
+      };
+      qemu = {
+        enable = true;
+        emulatedSystems = ["armv6l-linux"];
+      };
     };
     desktop = {
       enable = true;

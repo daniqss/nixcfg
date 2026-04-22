@@ -3,8 +3,6 @@
   username,
   ...
 }: {
-  programs.nix-ld.enable = true;
-
   nix = {
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
@@ -28,6 +26,8 @@
       trusted-users = ["root" "@wheel" username];
     };
   };
+
+  programs.nix-ld.enable = true;
 
   programs.nh = {
     enable = true;

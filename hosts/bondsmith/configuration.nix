@@ -4,9 +4,12 @@
   ...
 }: {
   config = {
-    common.tailscale = {
-      enable = true;
-      role = "both";
+    common = {
+      tailscale = {
+        enable = true;
+        role = "both";
+      };
+      qemu.enable = false;
     };
     server = {
       enable = true;
@@ -33,7 +36,7 @@
 
     hardware.graphics = {
       enable = true;
-      extraPackages = with pkgs; [ mesa ];
+      extraPackages = with pkgs; [mesa];
     };
 
     networking.networkmanager.enable = true;
