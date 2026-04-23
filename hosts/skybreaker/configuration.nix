@@ -9,6 +9,7 @@
         enable = true;
         emulatedSystems = ["armv6l-linux"];
       };
+      gpg.enable = true;
     };
     desktop = {
       enable = true;

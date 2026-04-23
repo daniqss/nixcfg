@@ -4,6 +4,6 @@
     ./nix.nix
     ./tailscale.nix
     ./qemu.nix
-    ./keys.nix
+    ./gpg.nix
   ];
 }

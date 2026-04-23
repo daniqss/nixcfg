@@ -11,13 +11,14 @@
     system,
     createSystem ? lib.nixosSystem,
     useDisko ? false,
+    isLaptop ? false,
     ...
   } @ args:
     createSystem {
       inherit system;
 
       specialArgs = lib.recursiveUpdate {
-        inherit inputs outputs hostname username;
+        inherit inputs outputs hostname username system isLaptop;
       } (args.specialArgs or {});
 
       modules = lib.concatLists [
@@ -44,7 +45,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.backupFileExtension = "bak";
             home-manager.extraSpecialArgs = lib.recursiveUpdate {
-              inherit inputs outputs hostname username system;
+              inherit inputs outputs hostname username system isLaptop;
             } (args.specialArgs or {});
             home-manager.sharedModules = [inputs.pinnacle.hmModules.default];
             home-manager.users.${username}.imports = [
@@ -76,6 +77,7 @@ in {
     hostname = "windrunner";
     username = "daniqss";
     system = "x86_64-linux";
+    isLaptop = true;
 
     modules = [];
   };
@@ -85,6 +87,7 @@ in {
     hostname = "skybreaker";
     username = "daniqss";
     system = "x86_64-linux";
+    isLaptop = true;
 
     useDisko = true;
     modules = [];
