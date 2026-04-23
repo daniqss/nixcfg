@@ -23,6 +23,8 @@
         enableVectors = false;
         enableVectorChord = true;
       };
+
+      accelerationDevices = null;
     };
 
     services.nginx.virtualHosts."immich.example.com" = {
