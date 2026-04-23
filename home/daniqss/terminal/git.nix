@@ -24,7 +24,7 @@ in {
 
         "bondsmith-lan" = {
           user = "daniqss";
-          hostname = "192.168.0.170";
+          hostname = "192.168.1.170";
         };
 
         "bondsmith" = {
@@ -36,6 +36,11 @@ in {
 
     programs.git = {
       enable = true;
+      signing = {
+        key = "33B0B872CC87EB05C27E7251B0B76101F06F56D7";
+        signByDefault = true;
+      };
+
       settings = {
         user = {
           name = username;
@@ -43,7 +48,7 @@ in {
         };
 
         init.defaultBranch = "main";
-        core.editor = "nvim";
+        core.editor = "hx";
         push.default = "current";
         push.autoSetupRemote = true;
       };

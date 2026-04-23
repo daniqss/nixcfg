@@ -7,6 +7,7 @@
     ./minecraft.nix
     ./immich.nix
     ./terminfo.nix
+    # ./forgejo.nix
   ];
 
   options.server.enable = lib.mkEnableOption "enable server profile";
