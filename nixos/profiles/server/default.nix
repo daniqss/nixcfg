@@ -7,6 +7,7 @@
     ./minecraft.nix
     ./immich.nix
     ./terminfo.nix
+    ./caddy.nix
     # ./forgejo.nix
   ];
 
@@ -16,5 +17,6 @@
     server.immich.enable = lib.mkDefault true;
     server.minecraft.enable = lib.mkDefault true;
     server.terminfo.enable = lib.mkDefault true;
+    server.caddy.enable = lib.mkDefault true;
   };
 }

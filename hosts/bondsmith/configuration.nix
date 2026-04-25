@@ -9,7 +9,7 @@
         enable = true;
         role = "both";
       };
-      syncthing.enable = true;
+      syncthing.enable = false;
       qemu.enable = false;
     };
     server = {

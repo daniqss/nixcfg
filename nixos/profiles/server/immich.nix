@@ -27,15 +27,6 @@
       accelerationDevices = null;
     };
 
-    services.caddy = {
-      enable = true;
-      virtualHosts."immich.example.com".extraConfig = ''
-        reverse_proxy http://[::1]:${toString config.services.immich.port}
-      '';
-    };
-
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
-
     users.users.immich.extraGroups = ["video" "render"];
   };
 }

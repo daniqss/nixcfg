@@ -9,7 +9,7 @@
         enable = true;
         emulatedSystems = ["armv6l-linux"];
       };
-      syncthing.enable = true;
+      syncthing.enable = false;
     };
     desktop = {
       enable = true;
