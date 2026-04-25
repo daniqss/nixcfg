@@ -5,5 +5,6 @@
     ./tailscale.nix
     ./qemu.nix
     ./gpg.nix
+    ./syncthing.nix
   ];
 }
