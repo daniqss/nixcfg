@@ -3,8 +3,7 @@
   config,
   lib,
   ...
-}: let
-in {
+}: {
   imports = [
     ./vscode.nix
     ./helix.nix

@@ -17,8 +17,11 @@
   config = lib.mkIf config.common.tailscale.enable {
     services.resolved.enable = true;
 
+    # to allow caddy to read the certs
+    users.groups.tailscale-certs = {};
+
     services.tailscale = {
-      inherit (config.common.tailscale) enable;
+      enable = true;
       useRoutingFeatures = config.common.tailscale.role;
     };
 
@@ -27,14 +30,23 @@
         tailscale-systray
       ];
 
-    systemd.services.tailscale-cert = lib.mkIf (config.common.tailscale.role == "server" || config.common.tailscale.role == "both") {
-      description = "Generate Tailscale certs";
-      after = ["tailscaled.service"];
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.tailscale}/bin/tailscale cert --cert-file /var/lib/tailscale/certs/${config.networking.hostName}.tailb76493.ts.net.crt --key-file /var/lib/tailscale/certs/${config.networking.hostName}.tailb76493.ts.net.key ${config.networking.hostName}.tailb76493.ts.net";
+    systemd.services.tailscale-cert = let
+      domain = "${config.networking.hostName}.tailb76493.ts.net";
+      certPath = "/var/lib/tailscale/certs/${domain}.crt";
+      keyPath = "/var/lib/tailscale/certs/${domain}.key";
+    in
+      lib.mkIf (config.common.tailscale.role == "server" || config.common.tailscale.role == "both") {
+        description = "Generate Tailscale certs";
+        after = ["tailscaled.service"];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = [
+            "${pkgs.tailscale}/bin/tailscale cert --cert-file ${certPath} --key-file ${keyPath} ${domain}"
+            "${pkgs.coreutils}/bin/chgrp tailscale-certs ${certPath} ${keyPath}"
+            "${pkgs.coreutils}/bin/chmod 640 ${certPath} ${keyPath}"
+          ];
+        };
+        wantedBy = ["multi-user.target"];
       };
-      wantedBy = ["multi-user.target"];
-    };
   };
 }

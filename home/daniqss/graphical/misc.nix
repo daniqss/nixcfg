@@ -3,8 +3,7 @@
   lib,
   config,
   ...
-}: let
-in {
+}: {
   config = lib.mkIf config.graphical.enable {
     home.packages = with pkgs; [
       gnome-calculator

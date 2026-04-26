@@ -27,7 +27,7 @@
     vicinae.url = "github:vicinaehq/vicinae";
     vicinae-extensions.url = "github:vicinaehq/extensions";
 
-    zlaunch.url = "github:daniqss/zlaunch/?ref=feat/add-hm-module";
+    zlaunch.url = "github:zortax/zlaunch";
 
     pinnacle = {
       url = "github:pinnacle-comp/pinnacle";
@@ -40,6 +40,8 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
   outputs = inputs @ {
@@ -48,16 +50,19 @@
     ...
   }: let
     inherit (self) outputs;
-    systems = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
 
-    forAllSystems = nixpkgs.lib.genAttrs systems;
+    eachSystem = f:
+      nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-linux"]
+      (system: f system (import nixpkgs {inherit system;}));
+
+    treefmtEval = eachSystem (_system: pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
   in {
-    packages = forAllSystems (system: import ./pkgs {pkgs = import nixpkgs {inherit system;};});
-    formatter = forAllSystems (system: (import nixpkgs {inherit system;}).alejandra);
-    devShells = forAllSystems (system: import ./devshells {pkgs = import nixpkgs {inherit system;};});
+    packages = eachSystem (_system: pkgs: import ./pkgs {inherit pkgs;});
+    devShells = eachSystem (_system: pkgs: import ./devshells {inherit pkgs;});
+
+    formatter = eachSystem (system: _pkgs: treefmtEval.${system}.config.build.wrapper);
+    checks = eachSystem (system: _pkgs: {formatting = treefmtEval.${system}.config.build.check self;});
+
     overlays = import ./overlays {inherit inputs outputs;};
     templates = import ./templates {inherit inputs outputs;};
     nixosConfigurations = import ./hosts {inherit inputs outputs;};

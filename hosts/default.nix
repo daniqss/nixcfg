@@ -2,7 +2,7 @@
   inputs,
   outputs,
 }: let
-  lib = inputs.nixpkgs.lib;
+  inherit (inputs.nixpkgs) lib;
   homeModules = inputs.home-manager.nixosModules.home-manager;
 
   mkSystem = {
@@ -95,7 +95,7 @@ in {
 
   # rpi5 home server
   bondsmith = let
-    nixos-raspberrypi = inputs.nixos-raspberrypi;
+    inherit (inputs) nixos-raspberrypi;
   in
     mkSystem {
       hostname = "bondsmith";

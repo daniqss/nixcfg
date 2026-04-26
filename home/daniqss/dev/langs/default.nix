@@ -1,5 +1,4 @@
-{...}: let
-in {
+_: {
   imports = [
     ./nix.nix
     ./rust.nix

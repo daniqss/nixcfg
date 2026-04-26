@@ -3,8 +3,7 @@
   lib,
   config,
   ...
-}: let
-in {
+}: {
   config = lib.mkIf config.terminal.enable {
     programs.ssh = {
       enable = true;

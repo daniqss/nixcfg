@@ -8,7 +8,7 @@
   keyPath = "/var/lib/tailscale/certs/${domain}.key";
 in {
   options.server.caddy = {
-    enable = lib.mkEnableOption "enable Caddy with Tailscale certs";
+    enable = lib.mkEnableOption "enable Caddy";
   };
 
   config = lib.mkIf config.server.caddy.enable {
@@ -17,17 +17,20 @@ in {
       virtualHosts."${domain}" = {
         extraConfig = ''
           tls ${certPath} ${keyPath}
-          
+
           ${lib.optionalString config.server.immich.enable ''
             handle /immich* {
               reverse_proxy http://[::1]:${toString config.services.immich.port}
             }
-            # Catch all for immich at root
+
+            # root to immich
             reverse_proxy http://[::1]:${toString config.services.immich.port}
           ''}
         '';
       };
     };
+
+    users.users.caddy.extraGroups = ["tailscale-certs"];
 
     networking.firewall.allowedTCPPorts = [80 443];
   };

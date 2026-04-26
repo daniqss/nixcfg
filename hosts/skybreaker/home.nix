@@ -1,4 +1,4 @@
-{...}: {
+_: {
   graphical = {
     enable = true;
     gaming.enable = true;

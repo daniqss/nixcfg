@@ -1,10 +1,15 @@
 *
 !README.md
+!.editorconfig
+!.envrc
+!justfile
 !.gitignore
 !LICENSE
 !*/
 !*.nix
 !**/*.nix
+!*.toml
+!**/*.toml
 !*.json
 !**/*.json
 !*.py
