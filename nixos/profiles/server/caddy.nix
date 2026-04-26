@@ -1,9 +1,10 @@
 {
+  hostname,
   config,
   lib,
   ...
 }: let
-  domain = "${config.networking.hostName}.tailb76493.ts.net";
+  domain = "${hostname}.tailb76493.ts.net";
 in {
   options.server.caddy = {
     enable = lib.mkEnableOption "enable Caddy";
@@ -26,12 +27,7 @@ in {
       };
     };
 
-    systemd.services.caddy = {
-      serviceConfig = {
-        Group = "caddy";
-      };
-    };
-
-    networking.firewall.allowedTCPPorts = [80 443];
+    systemd.services.caddy .serviceConfig.Group = "caddy";
+    networking.firewall.allowedTCPPorts = [443];
   };
 }

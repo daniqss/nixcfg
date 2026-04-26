@@ -5,7 +5,7 @@
 !justfile
 !.gitignore
 !LICENSE
-!*/
+!.direnv/
 !*.nix
 !**/*.nix
 !*.toml

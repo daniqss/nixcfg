@@ -20,11 +20,11 @@
     services.tailscale = {
       enable = true;
       useRoutingFeatures = config.common.tailscale.role;
+      permitCertUid = "caddy";
     };
 
-    environment.systemPackages = with pkgs;
-      lib.mkIf config.desktop.enable [
-        tailscale-systray
-      ];
+    environment.systemPackages = lib.mkIf config.desktop.enable [
+      pkgs.tailscale-systray
+    ];
   };
 }
