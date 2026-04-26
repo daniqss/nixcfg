@@ -30,6 +30,11 @@ in {
       };
     };
 
+    systemd.services.caddy = {
+      wants = ["tailscale-cert.service"];
+      after = ["tailscale-cert.service"];
+    };
+
     users.users.caddy.extraGroups = ["tailscale-certs"];
 
     networking.firewall.allowedTCPPorts = [80 443];

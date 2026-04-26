@@ -20,6 +20,11 @@
     # to allow caddy to read the certs
     users.groups.tailscale-certs = {};
 
+    systemd.tmpfiles.rules = [
+      "z /var/lib/tailscale 0751 root root -"
+      "d /var/lib/tailscale/certs 0750 root tailscale-certs -"
+    ];
+
     services.tailscale = {
       enable = true;
       useRoutingFeatures = config.common.tailscale.role;
@@ -41,6 +46,7 @@
         serviceConfig = {
           Type = "oneshot";
           ExecStart = [
+            "${pkgs.coreutils}/bin/mkdir -p /var/lib/tailscale/certs"
             "${pkgs.tailscale}/bin/tailscale cert --cert-file ${certPath} --key-file ${keyPath} ${domain}"
             "${pkgs.coreutils}/bin/chgrp tailscale-certs ${certPath} ${keyPath}"
             "${pkgs.coreutils}/bin/chmod 640 ${certPath} ${keyPath}"
