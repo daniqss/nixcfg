@@ -33,6 +33,15 @@ in {
     systemd.services.caddy = {
       wants = ["tailscale-cert.service"];
       after = ["tailscale-cert.service"];
+      serviceConfig = {
+        Group = "caddy";
+        SupplementaryGroups = ["tailscale-certs"];
+        ReadOnlyPaths = [
+          "/var/lib/tailscale/certs"
+          certPath
+          keyPath
+        ];
+      };
     };
 
     users.users.caddy.extraGroups = ["tailscale-certs"];

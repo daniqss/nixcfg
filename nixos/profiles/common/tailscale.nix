@@ -20,10 +20,18 @@
     # to allow caddy to read the certs
     users.groups.tailscale-certs = {};
 
-    systemd.tmpfiles.rules = [
-      "z /var/lib/tailscale 0751 root root -"
-      "d /var/lib/tailscale/certs 0750 root tailscale-certs -"
-    ];
+    systemd.tmpfiles.settings."10-tailscale-certs" = {
+      "/var/lib/tailscale"."z" = {
+        mode = "0751";
+        user = "root";
+        group = "root";
+      };
+      "/var/lib/tailscale/certs"."d" = {
+        mode = "0750";
+        user = "root";
+        group = "tailscale-certs";
+      };
+    };
 
     services.tailscale = {
       enable = true;
