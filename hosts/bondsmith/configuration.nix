@@ -11,6 +11,7 @@
       };
       syncthing.enable = false;
       qemu.enable = false;
+      gpg.enable = false;
     };
     server = {
       enable = true;

@@ -19,10 +19,7 @@ in {
             get_certificate tailscale
           }
 
-          redir /immich /immich/
-          handle_path /immich/* {
-            reverse_proxy http://[::1]:${toString config.services.immich.port}
-          }
+          reverse_proxy http://[::1]:${toString config.services.immich.port}
         '';
       };
     };
