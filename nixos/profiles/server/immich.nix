@@ -15,9 +15,7 @@
       enable = true;
       package = pkgs.unstable.immich;
       port = 2283;
-
-      host = "0.0.0.0";
-      openFirewall = true;
+      openFirewall = false;
 
       database = {
         enableVectors = false;
@@ -26,15 +24,6 @@
 
       accelerationDevices = null;
     };
-
-    services.caddy = {
-      enable = true;
-      virtualHosts."immich.example.com".extraConfig = ''
-        reverse_proxy http://[::1]:${toString config.services.immich.port}
-      '';
-    };
-
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
 
     users.users.immich.extraGroups = ["video" "render"];
   };

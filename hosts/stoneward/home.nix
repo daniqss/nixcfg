@@ -1,4 +1,4 @@
-{...}: let
+_: let
   monitors = [
     {
       name = "DP-1";
@@ -38,7 +38,7 @@ in {
 
     desktops = {
       desktop = "hyprland";
-      monitors = monitors;
+      inherit monitors;
     };
   };
   dev.enable = true;

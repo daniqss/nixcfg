@@ -5,7 +5,7 @@
   ...
 }: let
   mainMod = "SUPER";
-  emulator = config.graphical.emulators.emulator;
+  inherit (config.graphical.emulators) emulator;
 
   defaultApp = pkgs.writeShellScriptBin "defaultApp" ''
     current_workspace="$(hyprctl -j activeworkspace | jq -r '.id')"

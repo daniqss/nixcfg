@@ -1,10 +1,10 @@
 {
   username,
   lib,
+  nixosConfig,
   config,
   ...
-}: let
-in {
+}: {
   config = lib.mkIf config.terminal.enable {
     programs.ssh = {
       enable = true;
@@ -36,7 +36,7 @@ in {
 
     programs.git = {
       enable = true;
-      signing = {
+      signing = lib.mkIf nixosConfig.common.gpg.enable {
         key = "33B0B872CC87EB05C27E7251B0B76101F06F56D7";
         signByDefault = true;
       };

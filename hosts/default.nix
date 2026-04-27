@@ -2,7 +2,7 @@
   inputs,
   outputs,
 }: let
-  lib = inputs.nixpkgs.lib;
+  inherit (inputs.nixpkgs) lib;
   homeModules = inputs.home-manager.nixosModules.home-manager;
 
   mkSystem = {
@@ -41,18 +41,19 @@
         ])
         [
           homeModules
-          {
+          ({config, ...}: {
             home-manager.useGlobalPkgs = true;
             home-manager.backupFileExtension = "bak";
             home-manager.extraSpecialArgs = lib.recursiveUpdate {
               inherit inputs outputs hostname username system isLaptop;
+              nixosConfig = config;
             } (args.specialArgs or {});
             home-manager.sharedModules = [inputs.pinnacle.hmModules.default];
             home-manager.users.${username}.imports = [
               ./${hostname}/home.nix
               ../home/${username}
             ];
-          }
+          })
         ]
         (lib.flatten [
           (lib.optional useDisko [./${hostname}/disko.nix])
@@ -95,7 +96,7 @@ in {
 
   # rpi5 home server
   bondsmith = let
-    nixos-raspberrypi = inputs.nixos-raspberrypi;
+    inherit (inputs) nixos-raspberrypi;
   in
     mkSystem {
       hostname = "bondsmith";

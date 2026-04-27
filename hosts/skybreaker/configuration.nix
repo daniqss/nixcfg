@@ -10,7 +10,7 @@
         emulatedSystems = ["armv6l-linux"];
       };
       gpg.enable = true;
-      syncthing.enable = true;
+      syncthing.enable = false;
     };
     desktop = {
       enable = true;

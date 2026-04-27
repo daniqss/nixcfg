@@ -106,8 +106,19 @@
       "formatting": {
         "command": ["alejandra"],
       },
-    },
+      "options": {
+        "nixos": {
+          "expr": "import (builtins.getFlake \"/home/daniqss/nixcfg\").inputs.nixpkgs { }"
+        }
+      },
+      "diagnostic": {
+        "suppress": [
+          "variable-not-used"
+        ]
+      }
+    }
   },
+  "nix.formatterPath": "alejandra",
   "qt-qml.doNotAskForQmllsDownload": true,
   "qt-qml.qmlls.customExePath": "/home/daniqss/.nix-profile/bin/qmlls",
   "qt-qml.qmlls.useQmlImportPathEnvVar": true,

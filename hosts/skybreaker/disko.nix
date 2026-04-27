@@ -1,4 +1,4 @@
-{...}: {
+_: {
   disko.devices = {
     disk.nvme0 = {
       type = "disk";
