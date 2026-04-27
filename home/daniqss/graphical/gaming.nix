@@ -19,7 +19,7 @@
       prismlauncher
 
       # hollow knight mod manager
-      scarab
+      pkgs.unstable.scarab
 
       # tetris clon
       apotris
