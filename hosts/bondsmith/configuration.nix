@@ -20,6 +20,23 @@
     };
     desktop.enable = false;
 
+    systemd.services.periodic-reboot = {
+      description = "Reboot every 3 days";
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "/run/current-system/sw/bin/zsh -c 'sync && reboot'";
+      };
+    };
+
+    systemd.timers.periodic-reboot = {
+      wantedBy = ["timers.target"];
+      timerConfig = {
+        OnCalendar = "*-*-* 04:00:00";
+        OnUnitActiveSec = "3d";
+        Persistent = true;
+      };
+    };
+
     services.openssh = {
       enable = true;
       settings = {
