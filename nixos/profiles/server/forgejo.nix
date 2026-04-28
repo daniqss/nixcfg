@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: let
+{config, ...}: let
   cfg = config.services.forgejo;
   srv = cfg.settings.server;
 in {
