@@ -2,7 +2,7 @@
   config = {
     common = {
       tailscale = {
-        enable = true;
+        enable = false;
         role = "client";
       };
       qemu = {

@@ -36,6 +36,8 @@
       cliphist
       wl-clipboard
 
+      wireguard-tools
+
       dirlock
     ];
 

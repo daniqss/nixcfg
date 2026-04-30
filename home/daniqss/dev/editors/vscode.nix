@@ -55,6 +55,9 @@
           # rust-lang.rust-analyzer
           tauri-apps.tauri-vscode
 
+          # latex
+          james-yu.latex-workshop
+
           bradlc.vscode-tailwindcss
 
           # envs
