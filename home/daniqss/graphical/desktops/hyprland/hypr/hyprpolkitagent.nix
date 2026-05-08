@@ -7,7 +7,7 @@
   config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     services.hyprpolkitagent = {
       enable = true;
-      package = pkgs.unstable.hyprpolkitagent;
+      package = pkgs.hyprpolkitagent;
     };
   };
 }

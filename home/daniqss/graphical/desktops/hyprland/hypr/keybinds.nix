@@ -89,24 +89,14 @@ in {
             )
             9)
         )
-        ++ lib.optionals config.graphical.shells.vicinae.enable [
-          "${mainMod}, TAB, exec, vicinae vicinae://extensions/vicinae/system/browse-apps"
-          "${mainMod}, C, exec, vicinae vicinae://extensions/vicinae/clipboard/history"
-          "${mainMod}, E, exec, vicinae vicinae://extensions/vicinae/core/search-emojis"
-          "${mainMod} CTRL, W, exec, vicinae vicinae://extensions/sovereign/awww-switcher/wpgrid"
-          "${mainMod}, B, exec, vicinae vicinae://extensions/Gelei/bluetooth/devices"
-          "${mainMod}, S, exec, vicinae vicinae://extensions/rastsislaux/pulseaudio/pulseaudio"
-          "${mainMod}, P, exec, vicinae vicinae://extensions/vicinae/power"
-        ]
-        ++ lib.optionals config.services.zlaunch.enable [
-          "${mainMod}, TAB, exec, zlaunch toggle --modes applications"
-          "${mainMod} ALT, TAB, exec, zlaunch toggle --modes windows"
-          "${mainMod}, C, exec, zlaunch toggle --modes clipboard"
-          "${mainMod}, E, exec, zlaunch toggle --modes emojis"
-          "${mainMod} ALT, W, exec, zlaunch toggle --modes wallpapers" # doesn't exist
-          "${mainMod}, B, exec, zlaunch toggle --modes bluetooth" # doesn't exist
-          "${mainMod}, S, exec, zlaunch toggle --modes pulseaudio" # doesn't exist
-          "${mainMod}, P, exec, zlaunch toggle --modes actions"
+        ++ lib.optionals config.graphical.shells.walker.enable [
+          "${mainMod}, TAB, exec, walker"
+          "${mainMod} ALT, TAB, exec, walker -m windows"
+          "${mainMod}, C, exec, walker -m clipboard"
+          "${mainMod}, E, exec, walker -m emojis"
+          "${mainMod}, B, exec, walker-bluetooth"
+          "${mainMod}, S, exec, walker-audio"
+          "${mainMod}, N, exec, walker-wifi"
         ];
 
       # Volume control binds

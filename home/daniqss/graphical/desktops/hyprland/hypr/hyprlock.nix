@@ -7,7 +7,7 @@
   config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     programs.hyprlock = {
       enable = true;
-      package = pkgs.unstable.hyprlock;
+      package = pkgs.hyprlock;
 
       settings = {
         background = {

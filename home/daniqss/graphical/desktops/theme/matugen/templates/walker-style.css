@@ -1,0 +1,80 @@
+<* for name, value in colors *>
+@define-color {{name}} {{value.default.hex}};
+<* endfor *>
+
+#window {
+    background: transparent;
+}
+
+#box {
+    background-color: @surface;
+    border: 2px solid @primary;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+entry#input {
+    background-color: @surface_container;
+    color: @on_surface;
+    border: 1px solid @outline_variant;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 16px;
+    caret-color: @primary;
+    min-height: 32px;
+}
+
+entry#input:focus {
+    border-color: @primary;
+}
+
+#spinner {
+    color: @primary;
+}
+
+#typeahead {
+    color: alpha(@on_surface, 0.5);
+    background: transparent;
+}
+
+list {
+    background: transparent;
+    margin-top: 4px;
+}
+
+row {
+    padding: 6px 8px;
+    border-radius: 8px;
+    color: @on_surface;
+}
+
+row:selected {
+    background-color: @primary;
+    color: @on_primary;
+}
+
+row:hover:not(:selected) {
+    background-color: alpha(@on_surface, 0.08);
+}
+
+.icon {
+    margin-right: 8px;
+}
+
+.label {
+    font-weight: 500;
+}
+
+.sub {
+    color: alpha(@on_surface, 0.6);
+    font-size: smaller;
+}
+
+.activationlabel {
+    color: @secondary;
+    font-weight: bold;
+    font-size: smaller;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: alpha(@secondary, 0.12);
+}

@@ -2,7 +2,6 @@
   imports = [
     ./quickshell
     ./mako.nix
-    ./vicinae.nix
-    ./zlaunch.nix
+    ./walker.nix
   ];
 }

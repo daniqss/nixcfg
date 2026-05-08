@@ -7,7 +7,7 @@
   config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
     services.hyprsunset = {
       enable = true;
-      package = pkgs.unstable.hyprsunset;
+      package = pkgs.hyprsunset;
 
       settings = {
         profile = [

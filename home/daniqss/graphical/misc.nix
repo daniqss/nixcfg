@@ -9,7 +9,7 @@
       gnome-calculator
       gnome-disk-utility
 
-      blueberry
+      blueman
       pwvucontrol
 
       nautilus

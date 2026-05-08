@@ -7,7 +7,6 @@
 }: {
   imports = [
     ./hyprland.nix
-    ./pinnacle.nix
     ./gaming.nix
     ./virtualbox.nix
   ];
@@ -47,7 +46,6 @@
     ];
     services.flatpak.enable = true;
 
-    programs.adb.enable = true;
     programs.zsh.enable = true;
 
     time.timeZone = "Europe/Madrid";

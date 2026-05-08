@@ -48,7 +48,6 @@
               inherit inputs outputs hostname username system isLaptop;
               nixosConfig = config;
             } (args.specialArgs or {});
-            home-manager.sharedModules = [inputs.pinnacle.hmModules.default];
             home-manager.users.${username}.imports = [
               ./${hostname}/home.nix
               ../home/${username}

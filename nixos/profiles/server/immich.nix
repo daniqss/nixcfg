@@ -13,7 +13,7 @@
 
     services.immich = {
       enable = true;
-      package = pkgs.unstable.immich;
+      package = pkgs.immich;
       port = 2283;
       openFirewall = false;
 

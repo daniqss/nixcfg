@@ -11,13 +11,12 @@
     });
   };
 
-  unstable-packages = final: _prev: {
-    unstable = import inputs.nixpkgs-unstable {
+  stable-packages = final: _prev: {
+    stable = import inputs.nixpkgs-stable {
       inherit (final.stdenv.hostPlatform) system;
       config.allowUnfree = true;
     };
   };
 
-  pinnacle = inputs.pinnacle.overlays.default;
   nix-minecraft = inputs.nix-minecraft.overlays.default;
 }

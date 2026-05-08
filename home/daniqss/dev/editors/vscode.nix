@@ -11,7 +11,7 @@
     && config.graphical.enable) {
     programs.vscode = {
       enable = true;
-      package = pkgs.unstable.vscode;
+      package = pkgs.vscode;
 
       profiles.default.extensions = with pkgs.vscode-extensions;
         [
