@@ -31,7 +31,8 @@
       qt6.qt5compat
       qt6.qtmultimedia
       qt6.qtdeclarative
-      material-symbols
+      stable.material-symbols
+      stable.material-icons
 
       # programs used in quickshell
       pwvucontrol

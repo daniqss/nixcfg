@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   config = {
     common = {
       tailscale = {
@@ -37,6 +41,6 @@
       variant = "";
     };
 
-    system.stateVersion = "25.05";
+    system.stateVersion = config.system.nixos.release;
   };
 }

@@ -1,6 +1,6 @@
 {
-  pkgs,
   config,
+  pkgs,
   ...
 }: {
   config = {
@@ -46,6 +46,6 @@
       variant = "";
     };
 
-    system.stateVersion = "25.05";
+    system.stateVersion = config.system.nixos.release;
   };
 }

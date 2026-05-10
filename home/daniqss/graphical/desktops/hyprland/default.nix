@@ -27,6 +27,6 @@ in {
       builtins.concatStringsSep ", " layouts;
 
     graphical.shells.quickshell.enable = mkDefault true;
-    graphical.shells.walker.enable = mkDefault true;
+    graphical.shells.vicinae.enable = mkDefault true;
   };
 }

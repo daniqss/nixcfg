@@ -89,14 +89,13 @@ in {
             )
             9)
         )
-        ++ lib.optionals config.graphical.shells.walker.enable [
-          "${mainMod}, TAB, exec, walker"
-          "${mainMod} ALT, TAB, exec, walker -m windows"
-          "${mainMod}, C, exec, walker -m clipboard"
-          "${mainMod}, E, exec, walker -m emojis"
-          "${mainMod}, B, exec, walker-bluetooth"
-          "${mainMod}, S, exec, walker-audio"
-          "${mainMod}, N, exec, walker-wifi"
+        ++ lib.optionals config.graphical.shells.vicinae.enable [
+          "${mainMod}, TAB, exec, vicinae 'vicinae://launch/applications?toggle=true'"
+          "${mainMod}, C, exec, vicinae 'vicinae://launch/clipboard/history?toggle=true'"
+          "${mainMod}, E, exec, vicinae 'vicinae://launch/core/search-emojis?toggle=true'"
+          "${mainMod}, B, exec, vicinae 'vicinae://launch/@Gelei/vicinae-extension-bluetooth-0'"
+          "${mainMod}, S, exec, vicinae 'vicinae://launch/@rastsislaux/vicinae-extension-pulseaudio-0'"
+          "${mainMod}, P, exec, vicinae 'vicinae://launch/power'"
         ];
 
       # Volume control binds

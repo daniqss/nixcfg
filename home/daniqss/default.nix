@@ -1,4 +1,5 @@
 {
+  nixosConfig,
   username,
   lib,
   pkgs,
@@ -7,7 +8,7 @@
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
-    stateVersion = "25.05";
+    stateVersion = nixosConfig.system.nixos.release;
 
     # some parts of the configuration are symlinked to the nixcfg repo
     # so to achieve actual reproducibility we need to make sure it's cloned before any of those parts are evaluated

@@ -17,6 +17,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    vicinae.url = "github:vicinaehq/vicinae";
+    vicinae-extensions.url = "github:vicinaehq/extensions";
+
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     nix-minecraft = {

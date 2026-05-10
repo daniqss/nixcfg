@@ -1,8 +1,3 @@
-[config.wallpaper]
-command = "swww"
-arguments = ["img", "--transition-type", "center"]
-set = true
-
 [templates.hyprland]
 input_path = "~/.config/matugen/templates/hyprland-colors.conf"
 output_path = "~/.config/hypr/colors.conf"
@@ -27,6 +22,7 @@ output_path = '~/.config/qt6ct/matugen.conf'
 input_path = "~/.config/matugen/templates/quickshell-colors.qml"
 output_path = "~/.config/quickshell/mandra/config/Colors.qml"
 
-[templates.walker]
-input_path = "~/.config/matugen/templates/walker-style.css"
-output_path = "~/.config/walker/style.css"
+[templates.vicinae]
+input_path = '~/.config/matugen/templates/vicinae.toml'
+output_path = '~/.local/share/vicinae/themes/matugen.toml'
+post_hook = 'vicinae theme set matugen'

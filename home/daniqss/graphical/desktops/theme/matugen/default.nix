@@ -17,7 +17,7 @@ in {
       createMatugen
     ];
 
-    services.swww.enable = true;
+    services.awww.enable = true;
 
     home.file."${config.xdg.configHome}/matugen/templates".source = ./templates;
     home.file."${config.xdg.configHome}/matugen/config.toml".source = ./config.toml;
