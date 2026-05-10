@@ -52,7 +52,7 @@
           mechatroner.rainbow-csv
           bradlc.vscode-tailwindcss
 
-          # rust-lang.rust-analyzer
+          rust-lang.rust-analyzer
           tauri-apps.tauri-vscode
 
           # latex
