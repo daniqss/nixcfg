@@ -93,8 +93,8 @@ in {
           "${mainMod}, TAB, exec, vicinae 'vicinae://launch/applications?toggle=true'"
           "${mainMod}, C, exec, vicinae 'vicinae://launch/clipboard/history?toggle=true'"
           "${mainMod}, E, exec, vicinae 'vicinae://launch/core/search-emojis?toggle=true'"
-          "${mainMod}, B, exec, vicinae 'vicinae://launch/@Gelei/vicinae-extension-bluetooth-0'"
-          "${mainMod}, S, exec, vicinae 'vicinae://launch/@rastsislaux/vicinae-extension-pulseaudio-0'"
+          "${mainMod}, B, exec, vicinae 'vicinae://launch/@Gelei/vicinae-extension-bluetooth-0/devices'"
+          "${mainMod}, S, exec, vicinae 'vicinae://launch/@rastsislaux/vicinae-extension-pulseaudio-0/outputDevices'"
           "${mainMod}, P, exec, vicinae 'vicinae://launch/power'"
         ];
 
