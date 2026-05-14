@@ -17,11 +17,6 @@
       port = 2283;
       openFirewall = false;
 
-      database = {
-        enableVectors = false;
-        enableVectorChord = true;
-      };
-
       accelerationDevices = null;
     };
 

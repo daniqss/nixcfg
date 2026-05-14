@@ -7,6 +7,7 @@
   imports = [
     ./zsh.nix
     ./git.nix
+    ./multiplexer.nix
   ];
 
   options.terminal.enable = lib.mkEnableOption "Enable some terminal stuff";
