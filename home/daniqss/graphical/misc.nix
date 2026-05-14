@@ -27,6 +27,7 @@
       nerd-fonts.fira-code
       nerd-fonts.droid-sans-mono
       nerd-fonts.jetbrains-mono
+      nerd-fonts.hack
       noto-fonts-color-emoji
       noto-fonts-cjk-serif
 
@@ -42,7 +43,6 @@
     ];
 
     fonts.fontconfig.enable = true;
-    home.sessionVariables.NIXOS_OZONE_WL = "1";
 
     services.flatpak.packages = [
       {
