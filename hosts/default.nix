@@ -102,10 +102,12 @@ in {
       username = "daniqss";
       system = "aarch64-linux";
 
-      createSystem = inputs.nixos-raspberrypi.lib.nixosSystem;
+      # createSystem = inputs.nixos-raspberrypi.lib.nixosSystem;
       useDisko = true;
       specialArgs = {inherit nixos-raspberrypi;};
       modules = [
+        nixos-raspberrypi.lib.inject-overlays
+        nixos-raspberrypi.nixosModules.trusted-nix-caches
         {
           imports = [
             nixos-raspberrypi.nixosModules.raspberry-pi-5.base

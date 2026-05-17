@@ -32,6 +32,7 @@
     boot.kernelParams = [
       "nvme.max_host_mem_size_mb=128"
       "nvme_core.default_ps_max_latency_us=0"
+      "pcie_aspm=off"
     ];
 
     users.users.${username} = {
