@@ -9,6 +9,7 @@
   config = lib.mkIf config.server.immich.enable {
     environment.systemPackages = with pkgs; [
       immich-cli
+      immich # for immich-admin
     ];
 
     services.immich = {
