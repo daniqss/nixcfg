@@ -15,6 +15,7 @@
     services.immich = {
       enable = true;
       package = pkgs.immich;
+      host = "127.0.0.1";
       port = 2283;
       openFirewall = false;
 

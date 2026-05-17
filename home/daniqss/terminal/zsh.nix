@@ -12,6 +12,13 @@
       syntaxHighlighting.enable = true;
       autosuggestion.enable = true;
 
+      # outside for now
+      # ${lib.optionalString config.terminal.multiplexer.zellij.enable ''
+      #   if [[ -n "$SSH_TTY" && -z "$ZELLIJ" && -z "$NO_ZELLIJ" ]]; then
+      #     exec zellij attach --create main
+      #   fi
+      # ''}
+
       shellAliases = {
         ls = "${pkgs.eza}/bin/eza --icons";
         la = "${pkgs.eza}/bin/eza --icons -a";
@@ -46,12 +53,6 @@
         bindkey "\033[4~" end-of-line
         bindkey "^H" backward-kill-word
         bindkey "\e\r" forward-char
-
-        ${lib.optionalString config.terminal.multiplexer.zellij.enable ''
-          if [[ -n "$SSH_TTY" && -z "$ZELLIJ" && -z "$NO_ZELLIJ" ]]; then
-            exec zellij attach --create main
-          fi
-        ''}
       '';
     };
 

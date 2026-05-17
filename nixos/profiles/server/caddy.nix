@@ -19,7 +19,7 @@ in {
             get_certificate tailscale
           }
 
-          reverse_proxy http://[::1]:${toString config.services.immich.port}
+          reverse_proxy http://127.0.0.1:${toString config.services.immich.port}
         '';
       };
     };
