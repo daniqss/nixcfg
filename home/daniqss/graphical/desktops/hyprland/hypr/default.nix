@@ -39,6 +39,8 @@ in {
       package = null;
       portalPackage = null;
 
+      configType = "hyprlang";
+
       settings = {
         env = [
           "HYPRCURSOR_THEME, ${cursor}"
@@ -142,7 +144,6 @@ in {
           special_scale_factor = 0.8;
           split_width_multiplier = 1.0;
           use_active_for_splits = true;
-          pseudotile = true;
           preserve_split = true;
         };
 
@@ -158,7 +159,6 @@ in {
           animate_manual_resizes = false;
           enable_swallow = true;
           focus_on_activate = true;
-          vfr = 1;
         };
 
         device = lib.mkMerge [
