@@ -10,26 +10,26 @@
       enable = true;
       enableDefaultConfig = false;
 
-      matchBlocks = {
+      settings = {
         "*" = {
-          compression = true;
+          Compression = true;
         };
 
         "github.com" = {
-          user = "git";
-          hostname = "github.com";
-          identityFile = "~/.ssh/github_ed25519";
-          identitiesOnly = true;
+          User = "git";
+          HostName = "github.com";
+          IdentityFile = "~/.ssh/github_ed25519";
+          IdentitiesOnly = true;
         };
 
         "bondsmith-lan" = {
-          user = "daniqss";
-          hostname = "192.168.1.170";
+          User = "daniqss";
+          HostName = "192.168.1.170";
         };
 
         "bondsmith" = {
-          user = "daniqss";
-          hostname = "bondsmith.tailb76493.ts.net";
+          User = "daniqss";
+          HostName = "bondsmith.tailb76493.ts.net";
         };
       };
     };

@@ -19,6 +19,8 @@ _: {
   settings.formatter = {
     shfmt.options = ["-i" "2" "-s" "-bn"];
     shellcheck.excludes = [".envrc" "**/.envrc"];
+
+    stylua.excludes = ["**/matugen/templates/*.lua"];
   };
 
   settings.global.excludes = [
