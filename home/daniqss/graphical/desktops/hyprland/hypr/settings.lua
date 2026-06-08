@@ -101,10 +101,8 @@ hl.config({
 })
 
 if touchpad_name ~= "" then
-  hl.config({
-    device = {
+  hl.device({
       name = touchpad_name,
       sensitivity = touchpad_sensitivity,
-    },
   })
 end
