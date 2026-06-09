@@ -50,7 +50,9 @@ end
 
 hl.bind(mod .. " + 0", function()
   local d = default_app()
-  if d then hl.dispatch(d) end
+  if d then
+    hl.dispatch(d)
+  end
 end)
 -- window resizing (repeating)
 hl.bind(mod .. " + CTRL + L", hl.dsp.window.resize({ x = 30, y = 0, relative = true }), { repeating = true })
