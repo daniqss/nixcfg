@@ -25,7 +25,7 @@
       name = "elan0412:01-04f3:3240-touchpad";
       sensitivity = "0.1";
     }
-    else null;
+    else "";
 
   gnomePortal = "${pkgs.xdg-desktop-portal-gnome}/libexec/xdg-desktop-portal-gnome";
 
@@ -43,13 +43,16 @@
 
     vicinae_enabled = ${lib.boolToString config.graphical.shells.vicinae.enable}
 
-    ${
-      if touchpad != null
-      then ''
-        touchpad_name = "${touchpad.name}"
-        touchpad_sensitivity = ${touchpad.sensitivity}
-      ''
+
+    touchpad_name = "${
+      if touchpad != ""
+      then touchpad.name
       else ""
+    }"
+    touchpad_sensitivity = ${
+      if touchpad != ""
+      then touchpad.sensitivity
+      else "0"
     }
 
     -- fallback colors, overridden by the matugen-generated colors.lua
