@@ -84,14 +84,52 @@ RowLayout {
     command: ["ghostty", "-e", "btm"]
   }
 
-  MaterialSymbol {
-    color: (battery.percentage < 20 && !battery.charging) ? Colors.on_error : Colors.on_background
+  Item {
+    implicitWidth: batteryRow.implicitWidth
+    implicitHeight: batteryRow.implicitHeight
+    Layout.fillHeight: true
 
-    font.pixelSize: 20
-    icon: battery.batteryIcon()
+    RowLayout {
+      id: batteryRow
+      anchors.fill: parent
+      spacing: 0
+
+      MaterialSymbol {
+        color: (battery.percentage < 20 && !battery.charging) ? Colors.on_error : Colors.on_background
+
+        font.pixelSize: 20
+        icon: battery.batteryIcon()
+      }
+
+      Text {
+        clip: true
+        color: (battery.percentage < 20 && !battery.charging) ? Colors.on_error : Colors.on_background
+        font.family: "CaskaydiaCove Nerd Font"
+        font.pointSize: 11
+        text: battery.percentage + "%"
+
+        opacity: batteryMouse.containsMouse ? 1 : 0
+        Layout.preferredWidth: batteryMouse.containsMouse ? implicitWidth : 0
+
+        Behavior on opacity {
+          NumberAnimation {
+            duration: 150
+            easing.type: Easing.OutCubic
+          }
+        }
+        Behavior on Layout.preferredWidth {
+          NumberAnimation {
+            duration: 150
+            easing.type: Easing.OutCubic
+          }
+        }
+      }
+    }
 
     MouseArea {
+      id: batteryMouse
       anchors.fill: parent
+      hoverEnabled: true
       onClicked: {
         if (!batteryProcess.running)
           batteryProcess.running = true;

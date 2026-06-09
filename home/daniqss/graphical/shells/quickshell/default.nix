@@ -27,6 +27,9 @@
         paths = with pkgs; [
           quickshell
 
+          kdePackages.qtimageformats
+          kdePackages.kirigami.unwrapped
+
           adwaita-icon-theme
           material-symbols
           material-icons

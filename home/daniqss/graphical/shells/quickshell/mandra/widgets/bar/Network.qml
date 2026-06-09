@@ -10,7 +10,7 @@ RowLayout {
   id: network
   spacing: 0
 
-  visible: Networking.active !== null
+  visible: Networking.active !== null || Networking.ethernet
 
   Process {
     id: networkProcess
@@ -20,7 +20,13 @@ RowLayout {
   MaterialSymbol {
     color: Colors.on_background
     font.pixelSize: 20
-    icon: Networking.active ? Networking.active.icon : "signal_wifi_statusbar_not_connected"
+    icon: {
+      if (Networking.ethernet)
+        return "lan";
+      if (Networking.active)
+        return Networking.active.icon;
+      return "signal_wifi_statusbar_not_connected";
+    }
 
     MouseArea {
       anchors.fill: parent

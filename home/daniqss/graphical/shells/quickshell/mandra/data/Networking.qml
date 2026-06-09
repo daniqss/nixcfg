@@ -13,6 +13,7 @@ Singleton {
   readonly property list<AccessPoint> networks: []
   readonly property AccessPoint active: networks.find(n => n.active) ?? null
   property bool wifiEnabled: true
+  property bool ethernet: false
   readonly property bool scanning: rescanProc.running
 
   function enableWifi(enabled: bool): void {
@@ -48,7 +49,29 @@ Singleton {
     running: true
     command: ["nmcli", "m"]
     stdout: SplitParser {
-      onRead: getNetworks.running = true
+      onRead: {
+        getNetworks.running = true;
+        getEthernet.running = true;
+      }
+    }
+  }
+
+  Process {
+    id: getEthernet
+
+    running: true
+    command: ["nmcli", "-g", "TYPE,STATE", "device"]
+    environment: ({
+        LANG: "C.UTF-8",
+        LC_ALL: "C.UTF-8"
+      })
+    stdout: StdioCollector {
+      onStreamFinished: {
+        root.ethernet = text.trim().split("\n").some(line => {
+          const parts = line.split(":");
+          return parts[0] === "ethernet" && parts[1] === "connected";
+        });
+      }
     }
   }
 
