@@ -44,7 +44,7 @@ function default_app(workspace)
   local cmd = apps[workspace]
 
   if cmd then
-    return hl.dsp.exec_cmd(cmd)
+    return hl.dsp.exec_cmd(cmd, { workspace = (tostring(workspace) .. " silent") })
   end
 end
 
@@ -54,6 +54,7 @@ hl.bind(mod .. " + 0", function()
     hl.dispatch(d)
   end
 end)
+
 -- window resizing (repeating)
 hl.bind(mod .. " + CTRL + L", hl.dsp.window.resize({ x = 30, y = 0, relative = true }), { repeating = true })
 hl.bind(mod .. " + CTRL + H", hl.dsp.window.resize({ x = -30, y = 0, relative = true }), { repeating = true })

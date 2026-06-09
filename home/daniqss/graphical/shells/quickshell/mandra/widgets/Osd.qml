@@ -63,6 +63,8 @@ Scope {
         anchors.fill: parent
         radius: 10
         color: Colors.surface_container_high
+        border.width: 1
+        border.color: Colors.outline_variant
         anchors {
           leftMargin: 20
           topMargin: 20
