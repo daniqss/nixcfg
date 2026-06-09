@@ -19,18 +19,10 @@ Singleton {
   }
 
   function moveToWorkspaceSilent(wsIndex: int) {
-    Hyprland.dispatch("focusworkspaceoncurrentmonitor " + wsIndex);
+    Hyprland.dispatch(`hl.dsp.focus({workspace = '${wsIndex}'})`);
   }
 
   function defaultWorkspaceApp(wsIndex: int) {
-    defaultWorkspaceAppProcess.wsIndex = wsIndex;
-    defaultWorkspaceAppProcess.running = true;
-  }
-
-  Process {
-    id: defaultWorkspaceAppProcess
-    property int wsIndex
-
-    command: ["defaultApp", wsIndex]
+    Hyprland.dispatch(`default_app(${wsIndex})`);
   }
 }

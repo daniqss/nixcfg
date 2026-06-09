@@ -27,7 +27,7 @@ for i = 1, 9 do
 end
 
 -- default app per workspace
-function default_app()
+function default_app(workspace)
   local apps = {
     [1] = "code",
     [2] = "chromium",
@@ -40,15 +40,18 @@ function default_app()
     [9] = "google-chrome-stable",
   }
 
-  local currentWorkspace = hl.get_active_workspace()
-  local cmd = apps[currentWorkspace.id]
+  local workspace = workspace or hl.get_active_workspace().id
+  local cmd = apps[workspace]
+
   if cmd then
-    hl.exec_cmd(cmd)
+    return hl.dsp.exec_cmd(cmd)
   end
 end
 
-hl.bind(mod .. " + 0", default_app)
-
+hl.bind(mod .. " + 0", function()
+  local d = default_app()
+  if d then hl.dispatch(d) end
+end)
 -- window resizing (repeating)
 hl.bind(mod .. " + CTRL + L", hl.dsp.window.resize({ x = 30, y = 0, relative = true }), { repeating = true })
 hl.bind(mod .. " + CTRL + H", hl.dsp.window.resize({ x = -30, y = 0, relative = true }), { repeating = true })
