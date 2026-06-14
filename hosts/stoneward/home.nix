@@ -41,7 +41,7 @@ in {
       inherit monitors;
     };
 
-    # shells.quickshell.configSource = "symlink";
+    shells.quickshell.configSource = "symlink";
   };
   dev.enable = true;
   terminal.enable = true;

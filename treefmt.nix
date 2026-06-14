@@ -1,4 +1,4 @@
-_: {
+{pkgs, ...}: {
   projectRootFile = "flake.nix";
 
   programs = {
@@ -21,6 +21,12 @@ _: {
     shellcheck.excludes = [".envrc" "**/.envrc"];
 
     stylua.excludes = ["**/matugen/templates/*.lua"];
+
+    qmlformat = {
+      command = "${pkgs.kdePackages.qtdeclarative}/bin/qmlformat";
+      options = ["-i"];
+      includes = ["*.qml"];
+    };
   };
 
   settings.global.excludes = [
