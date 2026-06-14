@@ -10,4 +10,5 @@ import qs.widgets
 ShellRoot {
   Bar {}
   Osd {}
+  Notifications {}
 }

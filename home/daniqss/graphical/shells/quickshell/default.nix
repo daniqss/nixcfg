@@ -24,8 +24,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    graphical.shells.mako.enable = lib.mkDefault true;
-
     # programs used in quickshell
     home.packages = with pkgs; [
       pwvucontrol
