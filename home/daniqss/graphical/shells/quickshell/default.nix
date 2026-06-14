@@ -4,10 +4,26 @@
   lib,
   config,
   ...
-}: {
-  options.graphical.shells.quickshell.enable = lib.mkEnableOption "enable quickshell as shell bar";
+}: let
+  cfg = config.graphical.shells.quickshell;
+  storeDir = ./. + "/${cfg.configName}";
+  liveDir = "/home/${username}/nixcfg/home/daniqss/graphical/shells/quickshell/${cfg.configName}";
+in {
+  options.graphical.shells.quickshell = {
+    enable = lib.mkEnableOption "enable quickshell as shell bar";
 
-  config = lib.mkIf config.graphical.shells.quickshell.enable {
+    configSource = lib.mkOption {
+      type = lib.types.enum ["store" "symlink"];
+      default = "store";
+    };
+
+    configName = lib.mkOption {
+      type = lib.types.str;
+      default = "mandra";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
     graphical.shells.mako.enable = lib.mkDefault true;
 
     # programs used in quickshell
@@ -16,6 +32,7 @@
       bottom
       networkmanager
       libnotify
+      kdePackages.qtdeclarative
     ];
 
     programs.quickshell = {
@@ -37,16 +54,18 @@
         meta.mainProgram = pkgs.quickshell.meta.mainProgram;
       };
 
-      activeConfig = "mandra";
+      activeConfig = cfg.configName;
+
+      configs.${cfg.configName} =
+        if cfg.configSource == "store"
+        then storeDir
+        else config.lib.file.mkOutOfStoreSymlink liveDir;
     };
 
     home.sessionVariables = {
-      HOME = "/home/${username}/";
       QMLLS_BUILD_DIRS = "${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml/:${pkgs.quickshell}/lib/qt-6/qml/";
-      QML_IMPORT_PATH = "/home/${username}/nixcfg/home/daniqss/graphical/shells/quickshell/mandra";
+      QML_IMPORT_PATH = liveDir;
       QML2_IMPORT_PATH = "$QML2_IMPORT_PATH:${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml/:${pkgs.quickshell}/lib/qt-6/qml/";
     };
-
-    xdg.configFile."quickshell".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/graphical/shells/quickshell";
   };
 }

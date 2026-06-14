@@ -21,8 +21,8 @@ input_path = "~/.config/matugen/templates/qtct-colors.conf"
 output_path = '~/.config/qt6ct/matugen.conf'
 
 [templates.quickshell]
-input_path = "~/.config/matugen/templates/quickshell-colors.qml"
-output_path = "~/.config/quickshell/mandra/config/Colors.qml"
+input_path = "~/.config/matugen/templates/quickshell-colors.json"
+output_path = "~/.local/share/quickshell/mandra/colors.json"
 
 [templates.vicinae]
 input_path = '~/.config/matugen/templates/vicinae.toml'

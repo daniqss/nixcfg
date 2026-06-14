@@ -1,5 +1,6 @@
 //@ pragma UseQApplication
 //@ pragma IconTheme Adwaita
+//@ pragma DataDir $BASE/quickshell/mandra
 
 import Quickshell
 import QtQuick
