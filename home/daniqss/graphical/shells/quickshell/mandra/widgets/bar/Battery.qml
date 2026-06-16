@@ -108,8 +108,10 @@ RowLayout {
         font.pointSize: 11
         text: battery.percentage + "%"
 
-        opacity: batteryMouse.containsMouse ? 1 : 0
-        Layout.preferredWidth: batteryMouse.containsMouse ? implicitWidth : 0
+        readonly property bool show: batteryMouse.containsMouse || (battery.percentage < 20 && !battery.charging)
+
+        opacity: show ? 1 : 0
+        Layout.preferredWidth: show ? implicitWidth : 0
 
         Behavior on opacity {
           NumberAnimation {
