@@ -171,7 +171,7 @@ PanelWindow {
         implicitHeight: layout.implicitHeight + 24
 
         radius: 10
-        color: Colors.surface_container_high
+        color: Colors.background
         border.width: 1
         border.color: Colors.outline_variant
 
@@ -256,8 +256,6 @@ PanelWindow {
               font.pointSize: 10
               textFormat: Text.PlainText
               wrapMode: Text.WordWrap
-              maximumLineCount: 3
-              elide: Text.ElideRight
             }
           }
         }

@@ -62,7 +62,7 @@ Scope {
       Rectangle {
         anchors.fill: parent
         radius: 10
-        color: Colors.surface_container_high
+        color: Colors.background
         border.width: 1
         border.color: Colors.outline_variant
         anchors {

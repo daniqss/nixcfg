@@ -33,11 +33,21 @@ Scope {
         anchors.fill: parent
         color: Config.Colors.background
 
+        Rectangle {
+          anchors.top: parent.top
+          anchors.left: parent.left
+          anchors.right: parent.right
+          height: 1
+          color: Config.Colors.outline_variant
+          z: 1
+        }
+
         RowLayout {
           anchors.bottom: parent.bottom
           anchors.left: parent.left
           anchors.top: parent.top
 
+          anchors.topMargin: 3
           anchors.leftMargin: height / 3
           anchors.rightMargin: height / 3
           spacing: height / 3
@@ -54,6 +64,7 @@ Scope {
           anchors.horizontalCenter: parent.horizontalCenter
           anchors.top: parent.top
 
+          anchors.topMargin: 3
           anchors.leftMargin: height / 3
           anchors.rightMargin: height / 3
           spacing: height / 3
@@ -66,6 +77,7 @@ Scope {
           anchors.right: parent.right
           anchors.top: parent.top
 
+          anchors.topMargin: 3
           anchors.leftMargin: height / 3
           anchors.rightMargin: height / 3
           spacing: height / 3

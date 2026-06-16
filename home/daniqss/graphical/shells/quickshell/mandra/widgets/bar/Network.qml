@@ -56,6 +56,7 @@ RowLayout {
 
         opacity: networkMouse.containsMouse ? 1 : 0
         Layout.preferredWidth: networkMouse.containsMouse ? implicitWidth : 0
+        Layout.leftMargin: networkMouse.containsMouse ? 6 : 0
 
         Behavior on opacity {
           NumberAnimation {
@@ -64,6 +65,12 @@ RowLayout {
           }
         }
         Behavior on Layout.preferredWidth {
+          NumberAnimation {
+            duration: 150
+            easing.type: Easing.OutCubic
+          }
+        }
+        Behavior on Layout.leftMargin {
           NumberAnimation {
             duration: 150
             easing.type: Easing.OutCubic
