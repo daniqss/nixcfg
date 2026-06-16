@@ -53,7 +53,7 @@ RowLayout {
 
   function batteryIcon() {
     if (!batteryDevice.isLaptopBattery)
-      return;
+      return "";
 
     if (fullyCharged || percentage >= 90)
       return "battery_full";

@@ -31,28 +31,11 @@ PanelWindow {
     item: column
   }
 
-  visible: NotificationService.model.values.length > 0 || (root.showMedia && Player.available)
-
-  // "now playing" popup, rebuilt from spotify's MPRIS metadata
-  property bool showMedia: false
-
-  Connections {
-    target: Player
-    function onTrackChanged() {
-      root.showMedia = true;
-      mediaTimer.restart();
-    }
-  }
-
-  Timer {
-    id: mediaTimer
-    interval: 10000
-    running: root.showMedia && !mediaMouse.containsMouse
-    onTriggered: root.showMedia = false
-  }
+  visible: NotificationService.model.values.length > 0
 
   ColumnLayout {
     id: column
+
     anchors {
       top: parent.top
       right: parent.right
@@ -60,105 +43,6 @@ PanelWindow {
       rightMargin: 20
     }
     spacing: 10
-
-    Rectangle {
-      id: mediaCard
-      visible: root.showMedia && Player.available
-
-      Layout.preferredWidth: 360
-      implicitHeight: mediaLayout.implicitHeight + 16
-
-      radius: 10
-      color: Colors.background
-      border.width: 1
-      border.color: Colors.outline_variant
-
-      MouseArea {
-        id: mediaMouse
-        anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
-        onClicked: root.showMedia = false
-      }
-
-      RowLayout {
-        id: mediaLayout
-        anchors {
-          fill: parent
-          margins: 8
-        }
-        spacing: 14
-
-        Item {
-          id: mediaArt
-          readonly property string icon: Player.artUrl !== "" ? Player.artUrl : Quickshell.iconPath("spotify", true)
-
-          visible: icon !== ""
-          Layout.preferredWidth: 48
-          Layout.preferredHeight: 48
-          Layout.alignment: Qt.AlignVCenter
-
-          Rectangle {
-            id: mediaArtMask
-            anchors.fill: parent
-            radius: 8
-            visible: false
-            layer.enabled: true
-          }
-
-          Image {
-            anchors.fill: parent
-            source: parent.icon
-            fillMode: Image.PreserveAspectCrop
-            layer.enabled: true
-            layer.effect: MultiEffect {
-              maskEnabled: true
-              maskSource: mediaArtMask
-            }
-          }
-        }
-
-        // song info, tight hierarchy: song -> group -> disco
-        ColumnLayout {
-          Layout.fillWidth: true
-          Layout.alignment: Qt.AlignVCenter
-          spacing: 0
-
-          Text {
-            Layout.fillWidth: true
-            text: Player.title
-            color: Colors.on_surface
-            font.family: "CaskaydiaCove Nerd Font"
-            font.pointSize: 12
-            font.weight: 700
-            elide: Text.ElideRight
-          }
-
-          Text {
-            Layout.fillWidth: true
-            visible: text !== ""
-            text: Player.artist
-            color: Colors.on_surface_variant
-            font.family: "CaskaydiaCove Nerd Font"
-            font.pointSize: 11
-            font.weight: 600
-            textFormat: Text.PlainText
-            elide: Text.ElideRight
-          }
-
-          Text {
-            Layout.fillWidth: true
-            visible: text !== ""
-            text: Player.album
-            color: Colors.outline
-            font.family: "CaskaydiaCove Nerd Font"
-            font.pointSize: 10
-            textFormat: Text.PlainText
-            elide: Text.ElideRight
-          }
-        }
-      }
-    }
 
     Repeater {
       model: NotificationService.model
@@ -175,8 +59,7 @@ PanelWindow {
         border.width: 1
         border.color: Colors.outline_variant
 
-        // auto dismiss, honouring the notification's own timeout when given.
-        // paused while hovered so it can be read
+        // auto dismiss, honouring the notification's own timeout when given, paused while hovered so it can be read
         Timer {
           running: !cardMouse.containsMouse
           interval: card.modelData.expireTimeout > 0 ? card.modelData.expireTimeout : 5000

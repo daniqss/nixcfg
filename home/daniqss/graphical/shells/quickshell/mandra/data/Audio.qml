@@ -13,9 +13,11 @@ Singleton {
   readonly property PwNode sink: Pipewire.defaultAudioSink
   readonly property var sinkMuted: sink?.audio.muted
   readonly property var sinkVolume: sink?.audio.volume
+  readonly property string sinkName: sink?.description ?? sink?.name ?? "Audio Output Device"
   readonly property PwNode source: Pipewire.defaultAudioSource
   readonly property var sourceMuted: source?.audio.muted
   readonly property var sourceVolume: source?.audio.volume
+  readonly property string sourceName: source?.description ?? source?.name ?? "Audio Input Device"
   readonly property var volume: sink?.audio.volume
   property real soundLevel: Math.round(Audio.sinkVolume * 100)
 
@@ -48,10 +50,11 @@ Singleton {
       node.audio.volume += 0.06;
     }
 
+    // clamp to [0, 1] so the volume (and its slider) never goes past 100%
     if (node.audio.volume > 1) {
       node.audio.volume = 1;
     }
-    if (root.sink.audio.volume < 0) {
+    if (node.audio.volume < 0) {
       node.audio.volume = 0.0;
     }
   }
