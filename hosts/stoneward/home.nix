@@ -38,8 +38,6 @@ _: {
         # }
       ];
     };
-
-    shells.quickshell.configSource = "symlink";
   };
   dev.enable = true;
   terminal.enable = true;
