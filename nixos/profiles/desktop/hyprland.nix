@@ -7,7 +7,8 @@
 }: let
   cfg = config.home-manager.users.${username};
 in {
-  config = lib.mkIf (cfg.graphical.desktops.desktop == "hyprland") {
+  # fallback to `none` to avoid problems with users without that home manager option defined
+  config = lib.mkIf ((cfg.graphical.desktops.desktop or "none") == "hyprland") {
     environment.variables.NIXOS_OZONE_WL = "1";
 
     programs.hyprland = {

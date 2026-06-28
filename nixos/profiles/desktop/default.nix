@@ -7,6 +7,7 @@
 }: {
   imports = [
     ./hyprland.nix
+    ./kde.nix
     ./gaming.nix
     ./virtualbox.nix
   ];

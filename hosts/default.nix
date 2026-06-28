@@ -73,9 +73,9 @@ in {
   };
 
   # amd laptop
-  windrunner = mkSystem {
-    hostname = "windrunner";
-    username = "daniqss";
+  motherofmachines = mkSystem {
+    hostname = "motherofmachines";
+    username = "romina";
     system = "x86_64-linux";
     isLaptop = true;
 
