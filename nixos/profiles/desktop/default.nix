@@ -43,6 +43,7 @@
     environment.systemPackages = with pkgs; [
       pulseaudio
       distrobox
+      stable.rpi-imager
     ];
     services.flatpak.enable = true;
 

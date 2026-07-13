@@ -45,7 +45,7 @@
       };
 
       extensions = with inputs.vicinae-extensions.packages.${system}; [
-        bluetooth
+        # bluetooth
         nix
         wifi-commander
         # awww-switcher

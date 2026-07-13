@@ -57,6 +57,7 @@
 
           # latex
           james-yu.latex-workshop
+          myriad-dreamin.tinymist
 
           bradlc.vscode-tailwindcss
 

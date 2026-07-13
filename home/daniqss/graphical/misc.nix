@@ -40,6 +40,8 @@
       wireguard-tools
 
       dirlock
+
+      aseprite
     ];
 
     fonts.fontconfig.enable = true;
