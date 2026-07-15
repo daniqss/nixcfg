@@ -8,7 +8,6 @@
   imports = [
     ./hyprland.nix
     ./kde.nix
-    ./connect.nix
     ./gaming.nix
     ./virtualbox.nix
   ];
@@ -21,6 +20,7 @@
     services.gvfs.enable = true;
     services.upower.enable = true;
     programs.dconf.enable = true;
+    programs.kdeconnect.enable = true;
     security.polkit.enable = true;
 
     virtualisation.podman = {
