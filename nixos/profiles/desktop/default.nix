@@ -8,6 +8,7 @@
   imports = [
     ./hyprland.nix
     ./kde.nix
+    ./connect.nix
     ./gaming.nix
     ./virtualbox.nix
   ];
