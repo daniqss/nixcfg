@@ -3,20 +3,22 @@
   config,
   lib,
   ...
-}: {
+}: let
+  cfg = config.desktop.switch;
+in {
   options.desktop.switch.enable = lib.mkEnableOption "enable switch homebrew tooling";
   options.desktop.switch.nsusbloader.enable = lib.mkEnableOption "enable ns-usbloader for switch homebrew tooling";
 
   config = lib.mkMerge [
-    (lib.mkIf config.desktop.switch.enable {
-      config.desktop.switch.nsusbloader.enable = lib.mkDefault true;
+    (lib.mkIf cfg.enable {
+      desktop.switch.nsusbloader.enable = lib.mkDefault true;
 
       environment.systemPackages = with pkgs; [
         fusee-nano
       ];
     })
 
-    (lib.mkIf config.desktop.switch.nsusbloader.enable {
+    (lib.mkIf cfg.nsusbloader.enable {
       environment.systemPackages = with pkgs; [
         ns-usbloader
       ];
