@@ -23,6 +23,8 @@
         enable = false;
         guest.enable = false;
       };
+
+      switch.enable = true;
     };
     server.enable = false;
 
@@ -41,6 +43,11 @@
       layout = "es";
       variant = "";
     };
+
+    # allows the build in keyboard to wake from suspend
+    # services.udev.extraRules = ''
+    # ACTION=="add|change", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="enabled"
+    # '';
 
     system.stateVersion = config.system.nixos.release;
   };

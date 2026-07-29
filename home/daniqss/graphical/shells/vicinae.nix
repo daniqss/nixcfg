@@ -10,7 +10,7 @@
   options.graphical.shells.vicinae.enable = lib.mkEnableOption "enable vicinae shell";
 
   config = lib.mkIf config.graphical.shells.vicinae.enable {
-    services.vicinae = {
+    programs.vicinae = {
       enable = true;
       systemd.enable = true;
 
