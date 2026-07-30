@@ -68,7 +68,7 @@ in {
     system = "x86_64-linux";
 
     modules = [
-      # inputs.lanzaboote.nixosModules.lanzaboote
+      inputs.lanzaboote.nixosModules.lanzaboote
     ];
   };
 

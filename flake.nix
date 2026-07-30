@@ -15,6 +15,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.1.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
