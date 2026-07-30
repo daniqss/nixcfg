@@ -41,7 +41,7 @@
 
       dirlock
 
-      aseprite
+      stable.aseprite
     ];
 
     fonts.fontconfig.enable = true;
