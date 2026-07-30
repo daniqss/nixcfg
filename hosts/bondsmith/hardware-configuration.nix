@@ -1,8 +1,28 @@
-{config, ...}: {
+{
+  config,
+  nixos-raspberrypi,
+  system,
+  ...
+}: {
   boot.loader.raspberry-pi = {
     enable = true;
     bootloader = "kernel";
   };
+
+  # TODO: drop once nixos-raspberrypi main moves to nixpkgs 26.05
+  # in favor of inputs.nixos-raspberrypi.lib.nixosSystem
+  boot.kernelPackages =
+    nixos-raspberrypi.packages.${system}.linuxPackages_rpi5.extend
+    (_self: super: {
+      kernel = super.kernel.overrideAttrs (old: {
+        passthru =
+          old.passthru
+          // {
+            buildDTBs = true;
+            target = "Image";
+          };
+      });
+    });
 
   system.nixos.tags = let
     cfg = config.boot.loader.raspberry-pi;
