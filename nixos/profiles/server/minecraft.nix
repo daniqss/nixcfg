@@ -10,7 +10,7 @@
   options.server.minecraft.enable = lib.mkEnableOption "enable minecraft server profile";
 
   config = lib.mkIf config.server.minecraft.enable {
-    # to access mc console with with `sudo tmux -S /run/minecraft/mc-gf.sock`
+    # to access mc console with with `sudo tmux -S /run/minecraft/mc-gf.sock attach`
     environment.systemPackages = with pkgs; [
       tmux
     ];

@@ -203,15 +203,15 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1785380030,
-        "narHash": "sha256-p4CNiFOumG+7/BY/F+neB356s3yVsD1U3gSTstlh4Cc=",
-        "owner": "Infinidoge",
+        "lastModified": 1785455182,
+        "narHash": "sha256-vfgqHzr5to6xVhOsEvDHG8pdzBwokiemPCbtpTS6WFE=",
+        "owner": "daniqss",
         "repo": "nix-minecraft",
-        "rev": "6e3fb26a6462aca2252ed36919f7bbe7cdae19cf",
+        "rev": "25b1417ba8d2263ca372170ce5766960394e0386",
         "type": "github"
       },
       "original": {
-        "owner": "Infinidoge",
+        "owner": "daniqss",
         "repo": "nix-minecraft",
         "type": "github"
       }
