@@ -20,6 +20,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixcraft = {
+      url = "github:NikoPit/nixcraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";

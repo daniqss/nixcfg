@@ -8,6 +8,7 @@
 }: {
   imports = [
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
+    ./minecraft.nix
   ];
 
   options.graphical.gaming.enable = lib.mkEnableOption "enable gaming packages session";
@@ -19,7 +20,7 @@
       prismlauncher
 
       # hollow knight mod manager
-      # pkgs.scarab
+      pkgs.scarab
 
       # tetris clon
       apotris
