@@ -7,7 +7,7 @@ boot *ARGS:
     nh os boot {{ ARGS }}
 
 clean:
-    nh clean --all
+    nh clean all
 
 update:
     nix flake update

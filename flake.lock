@@ -114,6 +114,27 @@
         "type": "github"
       }
     },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "nixcraft",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765835352,
+        "narHash": "sha256-XswHlK/Qtjasvhd1nOa1e8MgZ8GS//jBoTqWtrS1Giw=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "a34fae9c08a15ad73f295041fec82323541400a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -213,6 +234,28 @@
       "original": {
         "owner": "daniqss",
         "repo": "nix-minecraft",
+        "type": "github"
+      }
+    },
+    "nixcraft": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785766529,
+        "narHash": "sha256-UWE0K765YhJ8N9Vb8R0AKgjG++Zir+ctyubcguKndJ4=",
+        "owner": "daniqss",
+        "repo": "nixcraft",
+        "rev": "c8aca5daf7e761157246bf98a7c78ad41b19840b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "daniqss",
+        "ref": "fix/aria2c-fails-some-downloads",
+        "repo": "nixcraft",
         "type": "github"
       }
     },
@@ -438,6 +481,7 @@
         "lanzaboote": "lanzaboote",
         "nix-flatpak": "nix-flatpak",
         "nix-minecraft": "nix-minecraft",
+        "nixcraft": "nixcraft",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-stable": "nixpkgs-stable",

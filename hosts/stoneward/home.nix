@@ -1,7 +1,10 @@
 _: {
   graphical = {
     enable = true;
-    gaming.enable = true;
+    gaming = {
+      enable = true;
+      minecraft.mcgf.enable = true;
+    };
     emulators = {
       emulator = "ghostty";
       fontsize = 12;
