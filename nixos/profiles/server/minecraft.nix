@@ -33,6 +33,8 @@
         };
 
         symlinks = {
+          "server-icon.png" = "${inputs.self}/assets/icons/mcgf.png";
+
           mods = pkgs.linkFarmFromDrvs "mods" (
             builtins.attrValues {
               Fabric-API = pkgs.fetchurl {
@@ -45,20 +47,6 @@
               };
             }
           );
-
-          # to add world and server icon:
-          # ```sh
-          # mv /srv/minecraft/mc-gf/world /srv/minecraft/mc-gf/world.bak
-          # cp -r /home/daniqss/minecraft/mc-gf/world /srv/minecraft/mc-gf/
-          # cp /home/daniqss/minecraft/mc-gf/server-icon.png /srv/minecraft/mc-gf/
-          # chown -R minecraft:minecraft /srv/minecraft/mc-gf/world
-          # chown -R minecraft:minecraft /srv/minecraft/mc-gf/server-icon.png
-          # chown -R minecraft:minecraft /run/minecraft/mc-gf.sock
-          # rm /srv/minecraft/mc-gf/world/session.lock
-          # find /srv/minecraft/mc-gf/world -type d -exec chmod 770 {} \;
-          # find /srv/minecraft/mc-gf/world -type f -exec chmod 660 {} \;
-          # ```
-          # if the systemd service fails check if there's .bak files in the server directory that could be causing issues
         };
       };
     };

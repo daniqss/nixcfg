@@ -21,7 +21,7 @@
     };
 
     nixcraft = {
-      url = "github:NikoPit/nixcraft";
+      url = "github:daniqss/nixcraft/fix/aria2c-fails-some-downloads";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

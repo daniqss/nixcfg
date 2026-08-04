@@ -245,15 +245,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1784128190,
-        "narHash": "sha256-QwSlmxHw3fotL1AXeu3h5TePlafaZcdvjbcyi09eDDc=",
-        "owner": "NikoPit",
+        "lastModified": 1785766529,
+        "narHash": "sha256-UWE0K765YhJ8N9Vb8R0AKgjG++Zir+ctyubcguKndJ4=",
+        "owner": "daniqss",
         "repo": "nixcraft",
-        "rev": "ef561df0c6907e5a9d33b4bc79b816c5263043bd",
+        "rev": "c8aca5daf7e761157246bf98a7c78ad41b19840b",
         "type": "github"
       },
       "original": {
-        "owner": "NikoPit",
+        "owner": "daniqss",
+        "ref": "fix/aria2c-fails-some-downloads",
         "repo": "nixcraft",
         "type": "github"
       }

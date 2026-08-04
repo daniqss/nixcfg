@@ -4,52 +4,7 @@
   pkgs,
   lib,
   ...
-}: let
-  # TODO: fetchAria2c.nix doesn't use `--enable-http-keep-alive=false`
-  # so some downloads fail with 421 error (Misdirected Request)
-  mkAssetsDir = {
-    versionData,
-    hash,
-  }: let
-    inherit (inputs.nixcraft.lib) aria2c manifest;
-
-    assetType = versionData.assets;
-    assetIndexFile = pkgs.fetchurl {inherit (versionData.assetIndex) url sha1;};
-    inherit ((builtins.fromJSON (builtins.readFile assetIndexFile))) objects;
-
-    entries =
-      [
-        {
-          urls = [versionData.assetIndex.url];
-          out = "${assetType}.json";
-          dir = "./indexes";
-        }
-      ]
-      ++ lib.mapAttrsToList (_: asset: let
-        path = manifest.mkAssetHashPath asset.hash;
-      in {
-        urls = ["https://resources.download.minecraft.net/${path}"];
-        out = baseNameOf path;
-        dir = "./objects/${dirOf path}";
-      })
-      objects;
-
-    inputFile = builtins.toFile "minecraft-asset-dir-inputfile" (aria2c.mkInputEntries entries);
-  in
-    pkgs.runCommand "minecraft-asset-dir-aria" {
-      nativeBuildInputs = [pkgs.aria2];
-      outputHashMode = "recursive";
-      outputHash = hash;
-    } ''
-      mkdir -p $out
-      cd $out
-      aria2c \
-        --input-file ${inputFile} \
-        --max-concurrent-downloads=5 \
-        --enable-http-keep-alive=false \
-        --human-readable=true
-    '';
-in {
+}: {
   imports = [inputs.nixcraft.homeModules.default];
 
   options.graphical.gaming.minecraft.mcgf.enable = lib.mkEnableOption "enable declarative minecraft client for mc-gf";
@@ -73,8 +28,9 @@ in {
           };
 
           gameOptions = {
-            fullscreen = true;
+            fullscreen = false;
             guiScale = 2;
+            pov = 100;
 
             # Modern Minecraft uses graphicsMode: 0 = Fast, 1 = Fancy, 2 = Fabulous.
             graphicsMode = 1;
@@ -106,7 +62,7 @@ in {
           };
 
           # the file must be writable, nixcraft rotates the token on every launch.
-          # to get a refresh token, run:
+          # to get a refresh token, run:3
           # ```sh
           # nix run github:NikoPit/nixcraft#auth
           # mkdir -p ~/.local/share/nixcraft
@@ -120,12 +76,9 @@ in {
             (library: !(lib.hasPrefix "org.ow2.asm:" library.name))
             config.nixcraft.client.instances.mcgf.meta.versionData.libraries);
 
-          # the hash covers the whole asset dir, so it has to be recomputed
-          # whenever `version` changes
-          _classSettings.assetsDir = lib.mkForce (mkAssetsDir {
-            versionData = config.nixcraft.client.instances.mcgf.meta.versionData;
-            hash = "sha256-J6K1zjWchxoQK1dmHAtxVpM88/8AH6QrEw9wjMA9iuQ=";
-          });
+          # avoid derivation per asset
+          enableFastAssetDownload = true;
+          assetHash = "sha256-J6K1zjWchxoQK1dmHAtxVpM88/8AH6QrEw9wjMA9iuQ=";
 
           java.memory = 4096;
 
@@ -137,6 +90,11 @@ in {
           desktopEntry = {
             enable = true;
             name = "Minecraft mc-gf";
+
+            extraConfig = {
+              # terminal = true;
+              icon = inputs.self + "/assets/icons/mcgf.png";
+            };
           };
         };
       };
