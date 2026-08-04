@@ -6,6 +6,7 @@
   imports = [
     ./minecraft.nix
     ./immich.nix
+    ./postgresql.nix
     ./terminfo.nix
     ./caddy.nix
     # ./forgejo.nix
