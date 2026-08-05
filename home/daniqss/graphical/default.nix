@@ -11,6 +11,7 @@
     ./emulators
     ./misc.nix
     ./gaming.nix
+    ./flatpak.nix
   ];
 
   options.graphical.enable = lib.mkEnableOption "Enable graphical session";

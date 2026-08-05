@@ -1,13 +1,10 @@
 {
-  inputs,
-  hostname,
   pkgs,
   lib,
   config,
   ...
 }: {
   imports = [
-    inputs.nix-flatpak.homeManagerModules.nix-flatpak
     ./minecraft.nix
   ];
 
@@ -16,22 +13,11 @@
   config = lib.mkIf (config.graphical.enable
     && config.graphical.gaming.enable) {
     home.packages = with pkgs; [
-      # minecraft launcher
-      prismlauncher
-
       # hollow knight mod manager
       pkgs.scarab
 
       # tetris clon
       apotris
-    ];
-
-    # roblox
-    services.flatpak.packages = lib.mkIf (hostname == "stoneward") [
-      {
-        appId = "org.vinegarhq.Sober";
-        origin = "flathub";
-      }
     ];
   };
 }
