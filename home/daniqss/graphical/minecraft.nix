@@ -7,11 +7,11 @@
 }: {
   imports = [inputs.nixcraft.homeModules.default];
 
-  options.graphical.gaming.minecraft.mcgf.enable = lib.mkEnableOption "enable declarative minecraft client for mc-gf";
+  options.graphical.gaming.minecraft.enable = lib.mkEnableOption "enable declarative minecraft client";
 
   config = lib.mkIf (config.graphical.enable
     && config.graphical.gaming.enable
-    && config.graphical.gaming.minecraft.mcgf.enable) {
+    && config.graphical.gaming.minecraft.enable) {
     nixcraft = {
       enable = true;
 
@@ -37,32 +37,45 @@
           };
         };
 
-        instances.mcgf = {
+        instances.ferreiros = {
           enable = true;
 
-          version = "1.21.10";
+          version = "26.2";
           fabricLoader = {
             enable = true;
-            version = "0.18.1";
+            version = "0.19.3";
           };
 
           mods = {
             fabric-api = pkgs.fetchurl {
-              url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/tV4Gc0Zo/fabric-api-0.138.4%2B1.21.10.jar";
-              hash = "sha512-XmTFM5Hf0cBZd31nHFK+F6TieinZvXNA6p4/Vc56dws42woV4JZumB7owbk3L7iVQ6J4UhYkaJJorOu4W9XG6Q==";
+              url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/3gT0I5vt/fabric-api-0.156.0%2B26.2.jar";
+              hash = "sha256-jeGNn2qKKlshIO+ei/+3nMm3WYnAwCLDnJ38G8Oimpk=";
             };
             sodium = pkgs.fetchurl {
-              url = "https://cdn.modrinth.com/data/AANobbMI/versions/sFfidWgd/sodium-fabric-0.7.3%2Bmc1.21.10.jar";
-              hash = "sha512-HMzcddly9cF2pIjcyEzOcyC2CKLRBUEvKEckWv+/WqIrGZXto5ITJFP6bhqRVKyZqHrK+NeYm58aI6wQWak9rw==";
+              url = "https://cdn.modrinth.com/data/AANobbMI/versions/StFfQ110/sodium-fabric-0.9.2-alpha.3%2Bmc26.2.jar";
+              hash = "sha256-TewKWdXJjBYLPAWUpi9wQU5LOAcC9XsDU9o3uckmXFM=";
             };
             lithium = pkgs.fetchurl {
-              url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/NsswKiwi/lithium-fabric-0.20.1%2Bmc1.21.10.jar";
-              hash = "sha512-ebKJLRI/O7EmSZJ92PzMJclV/zihnzq6fNAYDEz1UGwqdtSUGLEwUPkLunu1nzYjrwboonXiroxjgICEBDkCuw==";
+              url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/f7vZ0VWU/lithium-fabric-0.25.3%2Bmc26.2.jar";
+              hash = "sha256-/d6S4jjoB1+JrX9wHyo9WFSviLqaZ2VxhKRAexBKxWM=";
+            };
+            # incompatible with current sodium version
+            # iris = pkgs.fetchurl {
+            #   url = "https://cdn.modrinth.com/data/YL57xq9U/versions/oaD6KQls/iris-fabric-1.11.2%2Bmc26.2.jar";
+            #   hash = "sha256-3w4szdrqF7GR7aMrIcl54TG8nU70+DERO1C0YfxKOAQ=";
+            # };
+            modmenu = pkgs.fetchurl {
+              url = "https://cdn.modrinth.com/data/mOgUt4GM/versions/njXb639R/modmenu-20.0.1.jar";
+              hash = "sha256-gb+8oGASxXx0lJBy8v+q0GNgut7k0A3Fm/rqyA3SS9g=";
+            };
+            shulkerboxtooltip = pkgs.fetchurl {
+              url = "https://cdn.modrinth.com/data/2M01OLQq/versions/IHUNStdu/shulkerboxtooltip-fabric-5.4.0%2B26.2.jar";
+              hash = "sha256-9cHlcOIlEaQKdi72hkLJrlfsioX8+eownwViKQTto20=";
             };
           };
 
           # the file must be writable, nixcraft rotates the token on every launch.
-          # to get a refresh token, run:3
+          # to get a refresh token, run
           # ```sh
           # nix run github:NikoPit/nixcraft#auth
           # mkdir -p ~/.local/share/nixcraft
@@ -72,28 +85,29 @@
 
           # TODO: fix in nixcraft must be done to drop the vanilla asm and keep the loader's one
           # without the workaround, the client crashes
-          libraries = lib.mkForce (lib.filter
-            (library: !(lib.hasPrefix "org.ow2.asm:" library.name))
-            config.nixcraft.client.instances.mcgf.meta.versionData.libraries);
+          # with the newer configuration it doesn't matter because minecraft dont crash
+          # libraries = lib.mkForce (lib.filter
+          #   (library: !(lib.hasPrefix "org.ow2.asm:" library.name))
+          #   config.nixcraft.client.instances.ferreiros.meta.versionData.libraries);
 
           # avoid derivation per asset
           enableFastAssetDownload = true;
-          assetHash = "sha256-J6K1zjWchxoQK1dmHAtxVpM88/8AH6QrEw9wjMA9iuQ=";
+          assetHash = "sha256-zfSSmGuvMcKxVnSwMOseqNGC7o52vG9jiDw/8GwELbA=";
 
-          java.memory = 4096;
+          java.memory = 8192;
 
           binEntry = {
             enable = true;
-            name = "mcgf";
+            name = "ferreiros";
           };
 
           desktopEntry = {
             enable = true;
-            name = "Minecraft mc-gf";
+            name = "Ferreiros, Minecraft 26.2";
 
             extraConfig = {
-              # terminal = true;
-              icon = inputs.self + "/assets/icons/mcgf.png";
+              terminal = false;
+              icon = inputs.self + "/assets/icons/ferreiros.png";
             };
           };
         };

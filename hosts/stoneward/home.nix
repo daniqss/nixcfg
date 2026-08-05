@@ -3,7 +3,7 @@ _: {
     enable = true;
     gaming = {
       enable = true;
-      minecraft.mcgf.enable = true;
+      minecraft.enable = true;
     };
     emulators = {
       emulator = "ghostty";
