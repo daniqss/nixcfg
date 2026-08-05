@@ -11,12 +11,13 @@
 
     # for immich-admin
     environment.systemPackages = [
-      pkgs.stable.immich-cli
+      pkgs.immich-cli
+      pkgs.immich
     ];
 
     services.immich = {
       enable = true;
-      package = pkgs.stable.immich;
+      package = pkgs.immich;
       host = "127.0.0.1";
       port = 2283;
       openFirewall = false;
