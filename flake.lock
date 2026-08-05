@@ -254,7 +254,6 @@
       },
       "original": {
         "owner": "daniqss",
-        "ref": "fix/aria2c-fails-some-downloads",
         "repo": "nixcraft",
         "type": "github"
       }
