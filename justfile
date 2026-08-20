@@ -13,7 +13,7 @@ clean:
     nh clean all
 
 update:
-    nix flake update
+    nix flake update --flake {{ flake }}
 
 fmt:
-    nix fmt
+    nix fmt {{ flake }}
