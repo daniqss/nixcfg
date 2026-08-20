@@ -37,6 +37,7 @@
     cursorSize = "${toString cursorSize}"
 
     kb_layout = "${cfg.layoutsToDesktopConfig cfg.layouts}"
+    kb_variant = "${cfg.variantsToDesktopConfig cfg.layouts}"
     emulator = "${emulator}"
     screenshotDir = "/home/${username}/Pictures/screenshots"
     gnomePortal = "${gnomePortal}"

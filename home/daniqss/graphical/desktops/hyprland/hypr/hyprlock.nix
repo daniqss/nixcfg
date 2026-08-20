@@ -1,4 +1,5 @@
 {
+  flakeDir,
   pkgs,
   lib,
   config,
@@ -12,7 +13,7 @@
       settings = {
         background = {
           monitor = "";
-          path = "$HOME/nixcfg/assets/wallpapers/image8.png";
+          path = "${flakeDir}/assets/wallpapers/image8.png";
           blur_passes = 1;
           contrast = 0.8916;
           brightness = 0.8172;

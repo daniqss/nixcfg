@@ -12,13 +12,14 @@
     createSystem ? lib.nixosSystem,
     useDisko ? false,
     isLaptop ? false,
+    flakeDir ? "/home/${username}/nixcfg",
     ...
   } @ args:
     createSystem {
       inherit system;
 
       specialArgs = lib.recursiveUpdate {
-        inherit inputs outputs hostname username system isLaptop;
+        inherit inputs outputs hostname username system isLaptop flakeDir;
       } (args.specialArgs or {});
 
       modules = lib.concatLists [
@@ -45,7 +46,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.backupFileExtension = "bak";
             home-manager.extraSpecialArgs = lib.recursiveUpdate {
-              inherit inputs outputs hostname username system isLaptop;
+              inherit inputs outputs hostname username system isLaptop flakeDir;
               nixosConfig = config;
             } (args.specialArgs or {});
             home-manager.users.${username}.imports = [
@@ -62,15 +63,19 @@
     };
 in {
   # desktop intel+nvidia pc
-  stoneward = mkSystem {
-    hostname = "stoneward";
+  stoneward = let
     username = "daniqss";
-    system = "x86_64-linux";
+  in
+    mkSystem {
+      hostname = "stoneward";
+      inherit username;
+      system = "x86_64-linux";
+      flakeDir = "/home/${username}/nixcfg-helix-accents";
 
-    modules = [
-      inputs.lanzaboote.nixosModules.lanzaboote
-    ];
-  };
+      modules = [
+        inputs.lanzaboote.nixosModules.lanzaboote
+      ];
+    };
 
   # amd laptop
   windrunner = mkSystem {

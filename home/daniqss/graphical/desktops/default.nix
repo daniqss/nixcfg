@@ -32,9 +32,25 @@ in {
       description = "keyboard layouts";
     };
 
+    variants = lib.mkOption {
+      type = lib.types.attrsOf lib.types.str;
+      default = {
+        # altgr-intl deja el teclado americano intacto y pone los acentos en
+        # AltGr: AltGr+n = ñ, AltGr+' y vocal = á, AltGr+" y vocal = ü
+        us = "altgr-intl";
+        es = "";
+      };
+      description = "xkb variant to use for each keyboard layout";
+    };
+
     layoutsToDesktopConfig = lib.mkOption {
       type = lib.types.unspecified;
       description = "generate layout config from options";
+    };
+
+    variantsToDesktopConfig = lib.mkOption {
+      type = lib.types.unspecified;
+      description = "generate variant config from options";
     };
 
     monitorToDesktopConfig = lib.mkOption {

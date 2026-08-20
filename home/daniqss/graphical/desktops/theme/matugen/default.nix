@@ -1,11 +1,11 @@
 {
-  username,
+  flakeDir,
   pkgs,
   lib,
   config,
   ...
 }: let
-  wallpaper = "/home/${username}/nixcfg/assets/wallpapers/current";
+  wallpaper = "${flakeDir}/assets/wallpapers/current";
   createMatugen = pkgs.writeShellScriptBin "createMatugen" ''
     echo "creating matugen theme..."
     ${lib.getExe pkgs.matugen} image ${wallpaper}

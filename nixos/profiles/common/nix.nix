@@ -1,6 +1,7 @@
 {
   inputs,
   username,
+  flakeDir,
   ...
 }: {
   nix = {
@@ -29,7 +30,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 25d --keep 10";
-    flake = "/home/${username}/nixcfg/";
+    flake = flakeDir;
   };
 
   programs.direnv = {

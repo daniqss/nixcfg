@@ -64,6 +64,7 @@ hl.config({
 
   input = {
     kb_layout = kb_layout,
+    kb_variant = kb_variant,
     follow_mouse = 1,
     focus_on_close = 1,
 

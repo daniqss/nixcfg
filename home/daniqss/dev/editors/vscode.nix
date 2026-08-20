@@ -1,5 +1,6 @@
 {
   username,
+  flakeDir,
   pkgs,
   lib,
   config,
@@ -91,6 +92,6 @@
           }
         ];
     };
-    xdg.configFile."Code/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "/home/${username}/nixcfg/home/daniqss/dev/editors/settings.json";
+    xdg.configFile."Code/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakeDir}/home/${username}/dev/editors/settings.json";
   };
 }

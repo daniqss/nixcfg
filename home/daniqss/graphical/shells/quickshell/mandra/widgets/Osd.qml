@@ -161,17 +161,14 @@ Scope {
         border.width: 1
         border.color: Colors.outline_variant
 
-        // hovering pauses the auto hide so the controls stay reachable
+        // hovering pauses the auto hide so the controls stay reachable;
+        // leaving after a hover dismisses the OSD right away
         MouseArea {
           id: cardMouse
           anchors.fill: parent
           hoverEnabled: true
-          onContainsMouseChanged: {
-            if (containsMouse)
-              hideTimer.stop();
-            else
-              hideTimer.restart();
-          }
+          onEntered: hideTimer.stop()
+          onExited: root.shouldShowOsd = false
         }
 
         ColumnLayout {

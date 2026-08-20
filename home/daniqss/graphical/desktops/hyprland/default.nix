@@ -33,6 +33,10 @@ in {
     graphical.desktops.layoutsToDesktopConfig = layouts:
       builtins.concatStringsSep ", " layouts;
 
+    # kb_variant is positional: one entry per layout, empty means default
+    graphical.desktops.variantsToDesktopConfig = layouts:
+      builtins.concatStringsSep "," (map (layout: config.graphical.desktops.variants.${layout} or "") layouts);
+
     graphical.shells.quickshell.enable = mkDefault true;
     graphical.shells.vicinae.enable = mkDefault true;
   };

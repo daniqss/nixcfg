@@ -117,10 +117,11 @@ hl.bind(mod .. " + M", hl.dsp.exec_cmd("hyprshot -m region"), { locked = true })
 
 -- toggle keyboard layout (swaps which of es/us is active)
 hl.bind(mod .. " + SPACE", function()
+  -- kb_variant is positional, so it has to be swapped along with kb_layout
   if hl.get_config("input.kb_layout"):find("^es") then
-    hl.config({ input = { kb_layout = "us,es" } })
+    hl.config({ input = { kb_layout = "us,es", kb_variant = "altgr-intl," } })
   else
-    hl.config({ input = { kb_layout = "es,us" } })
+    hl.config({ input = { kb_layout = "es,us", kb_variant = ",altgr-intl" } })
   end
 end)
 
