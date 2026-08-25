@@ -98,6 +98,14 @@
     "org.mockito.ArgumentMatchers.*",
     "org.mockito.Answers.*",
   ],
+  "latex-workshop.latex.autoBuild.run": "never",
+  "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false,
+  "[latex]": {
+    "editor.formatOnSave": false,
+  },
+  "[tex]": {
+    "editor.formatOnSave": false,
+  },
   "makefile.configureOnOpen": true,
   "nix.enableLanguageServer": true,
   "nix.serverPath": "nixd",
