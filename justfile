@@ -1,6 +1,5 @@
 default: switch
 
-
 flake := justfile_directory()
 
 switch *ARGS:

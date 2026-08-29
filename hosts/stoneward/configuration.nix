@@ -12,7 +12,7 @@
       };
       qemu = {
         enable = true;
-        emulatedSystems = ["armv6l-linux"];
+        emulatedSystems = ["armv6l-linux" "aarch64-linux"];
       };
       syncthing.enable = false;
     };

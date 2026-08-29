@@ -70,7 +70,6 @@ in {
       hostname = "stoneward";
       inherit username;
       system = "x86_64-linux";
-      flakeDir = "/home/${username}/nixcfg-helix-accents";
 
       modules = [
         inputs.lanzaboote.nixosModules.lanzaboote

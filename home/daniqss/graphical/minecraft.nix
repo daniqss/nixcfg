@@ -29,7 +29,7 @@
             # the file must be writable, nixcraft rotates the token on every launch.
             # to get a refresh token, run
             # ```sh
-            # nix run github:NikoPit/nixcraft#auth
+            # nix run github:daniqss/nixcraft#auth
             # mkdir -p ~/.local/share/nixcraft
             # printf '%s\n' '<refreshToken>' > ~/.local/share/nixcraft/microsoft-refresh-token
             # ```
@@ -45,6 +45,21 @@
             gamma = 1.0;
 
             graphicsMode = 1;
+
+            "key_key.hotbar.1" = "key.mouse.5";
+            "key_key.hotbar.2" = "key.mouse.4";
+            "key_key.hotbar.3" = "key.keyboard.3";
+            "key_key.hotbar.4" = "key.keyboard.4";
+            "key_key.hotbar.5" = "key.keyboard.r";
+            "key_key.hotbar.6" = "key.keyboard.f";
+            "key_key.hotbar.7" = "key.keyboard.c";
+            "key_key.hotbar.8" = "key.keyboard.x";
+            "key_key.hotbar.9" = "key.keyboard.z";
+
+            "key_key.togglePerspective" = "key.keyboard.tab";
+            "key_key.swapOffhand" = "key.keyboard.g";
+
+            "key_key.playerlist" = "key.keyboard.f5";
           };
         };
 
@@ -91,6 +106,12 @@
                 hash = "sha256-9cHlcOIlEaQKdi72hkLJrlfsioX8+eownwViKQTto20=";
               };
             };
+
+            # data version of the instance's minecraft version, taken from
+            # `version.json` inside the client jar. without it the game assumes
+            # options.txt comes from a pre-1.13 client and runs the lwjgl2
+            # keybind datafixer over it, which fails and discards every option
+            gameOptions.version = 4903;
 
             java.memory = 8192;
 
