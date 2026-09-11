@@ -13,7 +13,7 @@
     lib.mkIf (config.dev.enable && config.graphical.enable)
     (with pkgs; [
       opencode
-      gemini-cli
+      # gemini-cli
       claude-code
     ]);
 }

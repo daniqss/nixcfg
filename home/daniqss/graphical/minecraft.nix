@@ -39,6 +39,7 @@
           gameOptions = {
             fullscreen = false;
             guiScale = 2;
+            narrator = null;
 
             # pov of 100 degrees, calculated to fov with `degrees = 40 * value + 70`
             fov = 0.75;

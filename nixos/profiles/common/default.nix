@@ -1,6 +1,5 @@
 {...}: {
   imports = [
-    ./console.nix
     ./network.nix
     ./nix.nix
     ./tailscale.nix

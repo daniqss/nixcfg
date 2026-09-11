@@ -35,6 +35,13 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
+    # broken motherboard (or wifi card, I guess is the motherboard), generates a AER error storm that consume cpu and fill the journal
+    # these rules use setpci to disable ASPM on the wifi card and the pcie bridge that connects it, fixing the issue
+    services.udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="pci", KERNEL=="0000:00:1c.4", RUN+="${pkgs.pciutils}/bin/setpci -s 00:1c.4 CAP_EXP+10.b=0:3"
+      ACTION=="add", SUBSYSTEM=="pci", KERNEL=="0000:05:00.0", RUN+="${pkgs.pciutils}/bin/setpci -s 05:00.0 CAP_EXP+10.b=0:3"
+    '';
+
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
     # lanzaboote needs to force false, nevertheless it use systemd-boot under the hood

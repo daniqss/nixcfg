@@ -66,6 +66,7 @@
 
     boot.kernelParams = ["console=tty1"];
     boot.kernel.sysctl."perf_event_paranoid" = -1;
+
     services.greetd = {
       enable = true;
       settings = {
