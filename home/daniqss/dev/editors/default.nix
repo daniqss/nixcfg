@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./vscode.nix
+    ./emacs.nix
     ./helix.nix
   ];
 
