@@ -61,8 +61,11 @@
     formatter = eachSystem (system: _pkgs: treefmtEval.${system}.config.build.wrapper);
     checks = eachSystem (system: _pkgs: {formatting = treefmtEval.${system}.config.build.check self;});
 
+    lib = import ./lib {inherit inputs outputs;};
+
     overlays = import ./overlays {inherit inputs outputs;};
     templates = import ./templates {inherit inputs outputs;};
     nixosConfigurations = import ./hosts {inherit inputs outputs;};
+    homeConfigurations = import ./home {inherit outputs;};
   };
 }

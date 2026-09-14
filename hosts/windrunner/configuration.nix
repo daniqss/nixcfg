@@ -18,9 +18,14 @@
     desktop = {
       enable = true;
 
-      virtualbox = {
-        enable = true;
-        guest.enable = true;
+      vm = {
+        podman.enable = true;
+        libvirt.enable = true;
+
+        virtualbox = {
+          enable = true;
+          guest.enable = true;
+        };
       };
     };
     server.enable = false;

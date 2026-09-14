@@ -6,9 +6,9 @@
   ...
 }: {
   imports = [
+    ./vm
     ./hyprland.nix
     ./gaming.nix
-    ./virtualbox.nix
     ./switch.nix
   ];
 
@@ -22,11 +22,6 @@
     programs.dconf.enable = true;
     security.polkit.enable = true;
 
-    virtualisation.podman = {
-      enable = true;
-      dockerCompat = true;
-    };
-
     services.pipewire = {
       enable = true;
       pulse.enable = true;
@@ -37,7 +32,7 @@
     users.users.${username} = {
       isNormalUser = true;
       description = "${username}";
-      extraGroups = ["networkmanager" "wheel" "kvm" "adbusers" "podman" "input"];
+      extraGroups = ["networkmanager" "wheel" "adbusers" "input"];
       shell = pkgs.zsh;
     };
     environment.pathsToLink = ["/share/zsh"];

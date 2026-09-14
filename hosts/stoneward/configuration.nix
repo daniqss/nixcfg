@@ -10,13 +10,29 @@
         enable = true;
         role = "client";
       };
+
       qemu = {
         enable = true;
         emulatedSystems = ["armv6l-linux" "aarch64-linux"];
       };
+
       syncthing.enable = false;
     };
-    desktop.enable = true;
+
+    desktop = {
+      enable = true;
+
+      vm = {
+        podman.enable = true;
+        libvirt.enable = true;
+
+        virtualbox = {
+          enable = false;
+          guest.enable = false;
+        };
+      };
+    };
+
     server.enable = false;
 
     hardware.graphics = {

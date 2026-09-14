@@ -1,5 +1,6 @@
 {
   isLaptop,
+  username,
   lib,
   config,
   ...
@@ -12,6 +13,8 @@ in {
   options.common.gpg.enable = lib.mkEnableOption "enable gpg agent with ssh support";
 
   config = lib.mkIf config.common.gpg.enable {
+    home-manager.users.${username}.terminal.git.signing.enable = true;
+
     programs.gnupg = {
       agent = {
         enable = true;
