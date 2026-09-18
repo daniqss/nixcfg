@@ -7,7 +7,10 @@ _: {
     ssh.homelab.enable = false;
   };
 
-  dev.enable = true;
+  dev = {
+    enable = true;
+    editors.emacs.enable = false;
+  }; 
 
   # for now, until more testing
   graphical = {

@@ -16,5 +16,6 @@
       opencode
       # gemini-cli
       claude-code
+
     ]);
 }

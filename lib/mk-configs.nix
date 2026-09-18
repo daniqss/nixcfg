@@ -82,6 +82,7 @@
     hostname,
     username,
     system,
+    hmDir ? username,
     isLaptop ? false,
     flakeDir ? defaultFlakeDir username,
     ...
@@ -103,7 +104,7 @@
       modules = lib.concatLists [
         [
           ../hosts/${hostname}/home.nix
-          ../home/${username}
+          ../home/${hmDir}
         ]
         (args.modules or [])
       ];
