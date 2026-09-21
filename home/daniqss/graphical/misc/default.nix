@@ -7,6 +7,10 @@
   inherit (lib) mkIf mkEnableOption mkMerge;
   cfg = config.graphical.misc;
 in {
+  imports = [
+    ./fonts.nix
+  ];
+
   options.graphical.misc.enable = mkEnableOption "enable misc packages";
   options.graphical.misc.personal.enable = mkEnableOption "enable misc packages";
   options.graphical.misc.work.enable = mkEnableOption "enable misc packages";

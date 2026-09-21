@@ -21,7 +21,10 @@
 
     browsers.enable = false;
     desktops.desktop = lib.mkForce "none";
-    misc.work = lib.mkForce true;
+    misc = {
+      personal.enable = lib.mkForce false;
+      work.enable = lib.mkForce true;
+    };
 
     shells = {
       vicinae.enable = false;
@@ -29,6 +32,5 @@
     };
 
     gaming.enable = false;
-    # personal.enable = false;
   };
 }
