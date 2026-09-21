@@ -21,6 +21,7 @@
 
     browsers.enable = false;
     desktops.desktop = lib.mkForce "none";
+    misc.work = lib.mkForce true;
 
     shells = {
       vicinae.enable = false;

@@ -12,18 +12,6 @@
     home.packages = with pkgs; [
       chromium
       firefox
-      spotify
-
-      iio-oscilloscope
-      tio
-
-      nerd-fonts.caskaydia-cove
-      nerd-fonts.fira-code
-      nerd-fonts.droid-sans-mono
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.hack
-      noto-fonts-color-emoji
-      noto-fonts-cjk-serif
     ];
 
     programs.vscodium = {

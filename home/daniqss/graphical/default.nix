@@ -11,8 +11,8 @@ in {
     ./shells
     ./browsers
     ./emulators
-    # ./misc.nix
-    ./gaming.nix
+    ./misc
+    ./gaming
     ./flatpak.nix
   ];
 
@@ -23,9 +23,16 @@ in {
     graphical.browsers = {
       enable = mkDefault true;
     };
+
     graphical.emulators = mkDefault {
       emulator = "ghostty";
       fontsize = 13;
+    };
+
+    graphical.misc = {
+      enable = mkDefault true;
+      personal.enable = mkDefault true;
+      work.enable = mkDefault false;
     };
 
     home.sessionVariables = {
