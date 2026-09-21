@@ -9,12 +9,6 @@ in {
   options.dev.editors.helix.enable = lib.mkEnableOption "enable helix editor";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      chromium
-      firefox
-      spotify
-    ];
-
     programs.helix = {
       enable = true;
       defaultEditor = true;

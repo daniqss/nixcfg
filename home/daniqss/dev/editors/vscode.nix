@@ -1,6 +1,7 @@
 {
   username,
   flakeDir,
+  hmDir,
   pkgs,
   lib,
   config,
@@ -8,11 +9,26 @@
 }: {
   options.dev.editors.vscode.enable = lib.mkEnableOption "enable vscode editor";
 
-  config = lib.mkIf (config.dev.editors.vscode.enable
-    && config.graphical.enable) {
-    programs.vscode = {
+  config = lib.mkIf config.dev.editors.vscode.enable {
+    home.packages = with pkgs; [
+      chromium
+      firefox
+      spotify
+
+      iio-oscilloscope
+
+      nerd-fonts.caskaydia-cove
+      nerd-fonts.fira-code
+      nerd-fonts.droid-sans-mono
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.hack
+      noto-fonts-color-emoji
+      noto-fonts-cjk-serif
+    ];
+
+    programs.vscodium = {
       enable = true;
-      package = pkgs.vscode;
+      package = pkgs.vscodium;
 
       profiles.default.extensions = with pkgs.vscode-extensions;
         [
@@ -92,6 +108,6 @@
           }
         ];
     };
-    xdg.configFile."Code/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakeDir}/home/${username}/dev/editors/settings.json";
+    xdg.configFile."VSCodium/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakeDir}/home/${hmDir}/dev/editors/settings.json";
   };
 }

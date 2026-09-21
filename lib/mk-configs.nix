@@ -11,10 +11,11 @@
     isLaptop,
     flakeDir,
     isNixOS,
+    hmDir,
     extra ? {},
   }:
     lib.recursiveUpdate {
-      inherit inputs outputs hostname username system isLaptop flakeDir isNixOS;
+      inherit inputs outputs hostname username system isLaptop flakeDir isNixOS hmDir;
     }
     extra;
 
@@ -96,7 +97,7 @@
       };
 
       extraSpecialArgs = mkSpecialArgs {
-        inherit hostname username system isLaptop flakeDir;
+        inherit hostname username system isLaptop flakeDir hmDir;
         isNixOS = false;
         extra = args.specialArgs or {};
       };

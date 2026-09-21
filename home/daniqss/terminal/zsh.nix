@@ -43,9 +43,9 @@
       initContent = ''
         compdef eza=ls
 
-        ${lib.optionalString config.graphical.enable ''
+        ${lib.optionalString true ''
           code() {
-            ${lib.getExe' pkgs.vscode "code"} "$@" > /dev/null 2>&1
+            ${lib.getExe' pkgs.vscodium "codium"} "$@" > /dev/null 2>&1
           }
         ''}
 
