@@ -10,7 +10,7 @@
 
   options.graphical.flatpak.enable = lib.mkOption {
     type = lib.types.bool;
-    # nixos turns flatpak on system-wide, other distro may not have it installed
+    # nixos turns flatpak on system config, other distro may not have it installed
     default = config.platform.isNixOS;
     description = "manage flatpak packages from home-manager";
   };

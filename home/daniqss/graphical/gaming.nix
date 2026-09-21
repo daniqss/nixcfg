@@ -14,7 +14,7 @@
     && config.graphical.gaming.enable) {
     home.packages = with pkgs; [
       # hollow knight mod manager
-      pkgs.scarab
+      scarab
 
       # tetris clon
       apotris

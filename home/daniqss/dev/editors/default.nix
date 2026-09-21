@@ -1,20 +1,15 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}: {
+_: {
   imports = [
     ./vscode.nix
     ./emacs.nix
     ./helix.nix
   ];
 
-  home.packages =
-    lib.mkIf (config.dev.enable && config.graphical.enable)
-    (with pkgs; [
-      opencode
-      # gemini-cli
-      claude-code
-    ]);
+#   home.packages =
+#     lib.mkIf (config.dev.enable && config.graphical.enable)
+#     (with pkgs; [
+#       # opencode
+#       # gemini-cli
+#       # claude-code
+#     ]);
 }

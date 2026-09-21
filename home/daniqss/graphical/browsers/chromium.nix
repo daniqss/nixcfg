@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  programs.chromium = lib.mkIf config.graphical.enable {
+  programs.chromium = lib.mkIf config.graphical.browsers.enable {
     enable = true;
     package = config.graphical.browsers.dev;
     commandLineArgs = [

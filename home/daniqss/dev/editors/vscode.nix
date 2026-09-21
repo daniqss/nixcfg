@@ -1,5 +1,4 @@
 {
-  username,
   flakeDir,
   hmDir,
   pkgs,
@@ -16,6 +15,7 @@
       spotify
 
       iio-oscilloscope
+      tio
 
       nerd-fonts.caskaydia-cove
       nerd-fonts.fira-code

@@ -1,6 +1,9 @@
-_: {
+{lib, ...}: {
   terminal = {
     enable = true;
+
+    # better to use zsh from ubuntu packages
+    shell.zsh.package = null;
 
     git.identity.email = "daniel.queijo@alen.space";
 
@@ -14,9 +17,17 @@ _: {
 
   # for now, until more testing
   graphical = {
-    enable = false;
+    enable = true;
+
+    browsers.enable = false;
+    desktops.desktop = lib.mkForce "none";
+
+    shells = {
+      vicinae.enable = false;
+      quickshell.enable = false;
+    };
 
     gaming.enable = false;
-    personal.enable = false;
+    # personal.enable = false;
   };
 }
