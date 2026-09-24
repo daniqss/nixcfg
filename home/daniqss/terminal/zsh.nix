@@ -3,10 +3,24 @@
   lib,
   config,
   ...
-}: {
-  config = lib.mkIf config.terminal.enable {
+}: let
+  cfg = config.terminal.shell.zsh;
+in {
+  options.terminal.shell.zsh = {
+    enable = lib.mkEnableOption "Enable zsh as shell";
+    package = lib.mkPackageOption pkgs "zsh" {
+      nullable = true;
+      extraDescription = ''
+        Use `null` to use distro zsh in standalone home manager
+      '';
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
     programs.zsh = {
       enable = true;
+      package = cfg.package;
+
       autocd = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
@@ -43,9 +57,9 @@
       initContent = ''
         compdef eza=ls
 
-        ${lib.optionalString config.graphical.enable ''
+        ${lib.optionalString true ''
           code() {
-            ${lib.getExe' pkgs.vscode "code"} "$@" > /dev/null 2>&1
+            ${lib.getExe' pkgs.vscodium "codium"} "$@" > /dev/null 2>&1
           }
         ''}
 

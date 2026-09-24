@@ -3,25 +3,36 @@
   lib,
   config,
   ...
-}: {
+}: let
+  inherit (lib) mkDefault mkIf mkEnableOption;
+in {
   imports = [
     ./desktops
     ./shells
     ./browsers
     ./emulators
-    ./misc.nix
-    ./gaming.nix
+    ./misc
+    ./gaming
     ./flatpak.nix
   ];
 
-  options.graphical.enable = lib.mkEnableOption "Enable graphical session";
+  options.graphical.enable = mkEnableOption "Enable graphical session";
 
-  config = lib.mkIf config.graphical.enable {
+  config = mkIf config.graphical.enable {
     graphical.desktops.desktop = "hyprland";
-    graphical.browsers = {};
-    graphical.emulators = lib.mkDefault {
+    graphical.browsers = {
+      enable = mkDefault true;
+    };
+
+    graphical.emulators = mkDefault {
       emulator = "ghostty";
       fontsize = 13;
+    };
+
+    graphical.misc = {
+      enable = mkDefault true;
+      personal.enable = mkDefault true;
+      work.enable = mkDefault false;
     };
 
     home.sessionVariables = {

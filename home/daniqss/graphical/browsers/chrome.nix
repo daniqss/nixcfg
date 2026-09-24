@@ -6,7 +6,7 @@
 }: let
   chrome = pkgs.google-chrome;
 in {
-  home.packages = lib.mkIf (config.graphical.enable && config.graphical.browsers.media == chrome) [
+  home.packages = lib.mkIf (config.graphical.browsers.enable && config.graphical.browsers.media == chrome) [
     (chrome.override {
       commandLineArgs = [
         "--no-default-browser-check"

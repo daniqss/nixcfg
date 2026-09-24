@@ -15,6 +15,8 @@ in {
   options.graphical.browsers = lib.mkOption {
     type = lib.types.submodule {
       options = {
+        enable = lib.mkEnableOption "use browsers from home manager";
+
         dev = lib.mkOption {
           type = lib.types.enum availableBrowsers;
           default = chromium;

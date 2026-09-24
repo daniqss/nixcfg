@@ -36,6 +36,7 @@ in {
         ];
       };
     };
+
     settings = {
       theme = "kinda-onedark";
       background-opacity = 0.9;
