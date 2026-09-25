@@ -4,6 +4,7 @@
   config,
   ...
 }: let
+  inherit (lib) mkIf mkEnableOption;
   # actually doom emacs but idk
   cfg = config.dev.editors.emacs;
 in {
@@ -11,9 +12,9 @@ in {
     inputs.nix-doom-emacs-unstraightened.homeModule
   ];
 
-  options.dev.editors.emacs.enable = lib.mkEnableOption "enable doom emacs";
+  options.dev.editors.emacs.enable = mkEnableOption "enable doom emacs";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.doom-emacs = {
       enable = true;
     };

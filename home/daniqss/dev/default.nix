@@ -14,6 +14,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     dev.editors.vscode.enable = lib.mkDefault config.graphical.enable;
+    dev.editors.nvim.enable = lib.mkDefault true;
     dev.editors.emacs.enable = lib.mkDefault true;
     dev.editors.helix.enable = lib.mkDefault true;
   };

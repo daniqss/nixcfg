@@ -18,8 +18,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     programs.zsh = {
-      enable = true;
-      package = cfg.package;
+      inherit (cfg) enable package;
 
       autocd = true;
       enableCompletion = true;

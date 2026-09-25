@@ -30,7 +30,6 @@ in {
       cava
 
       micro
-      neovim
 
       zip
       unzip

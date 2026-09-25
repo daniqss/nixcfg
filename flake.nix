@@ -25,6 +25,8 @@
       inputs.nixpkgs.follows = "";
     };
 
+    nvf.url = "github:NotAShelf/nvf";
+
     nixcraft = {
       url = "github:daniqss/nixcraft";
       inputs.nixpkgs.follows = "nixpkgs";

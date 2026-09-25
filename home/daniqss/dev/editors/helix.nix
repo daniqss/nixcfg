@@ -4,11 +4,12 @@
   config,
   ...
 }: let
+  inherit (lib) mkIf mkEnableOption;
   cfg = config.dev.editors.helix;
 in {
-  options.dev.editors.helix.enable = lib.mkEnableOption "enable helix editor";
+  options.dev.editors.helix.enable = mkEnableOption "enable helix editor";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.helix = {
       enable = true;
       defaultEditor = true;

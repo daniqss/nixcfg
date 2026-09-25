@@ -51,6 +51,8 @@ in {
       (mkIf cfg.work.enable (with pkgs; [
         iio-oscilloscope
         tio
+        slack
+        clickup
       ]))
     ];
   };
