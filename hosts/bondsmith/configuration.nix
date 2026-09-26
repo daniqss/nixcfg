@@ -11,7 +11,7 @@
         role = "both";
       };
       syncthing.enable = false;
-      qemu.enable = false;
+      binfmt.enable = false;
       gpg.enable = false;
     };
     server = {

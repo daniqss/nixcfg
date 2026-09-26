@@ -11,7 +11,7 @@
         role = "client";
       };
 
-      qemu = {
+      binfmt = {
         enable = true;
         emulatedSystems = ["armv6l-linux" "aarch64-linux"];
       };

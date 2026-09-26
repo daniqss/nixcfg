@@ -3,7 +3,7 @@
     ./network.nix
     ./nix.nix
     ./tailscale.nix
-    ./qemu.nix
+    ./binfmt.nix
     ./gpg.nix
     ./syncthing.nix
   ];
