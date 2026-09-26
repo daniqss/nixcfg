@@ -21,6 +21,8 @@
 
     desktop = {
       enable = true;
+      gaming.enable = true;
+      lavd.enable = config.desktop.gaming.enable;
 
       vm = {
         podman.enable = true;
@@ -51,10 +53,10 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
-    # broken motherboard (or wifi card, I guess is the motherboard), generates a AER error storm that consume cpu and fill the journal
-    # disabling ASPM on the bus (setpci via udev) is not enough because the driver reenables it on probe
-    # setting  the rtl8188ee driver own aspm parameter stops it
-    boot.extraModprobeConfig = "options rtl8188ee aspm=0";
+    # # broken motherboard (or wifi card, I guess is the motherboard), generates a AER error storm that consume cpu and fill the journal
+    # # disabling ASPM on the bus (setpci via udev) is not enough because the driver reenables it on probe
+    # # setting  the rtl8188ee driver own aspm parameter stops it
+    # boot.extraModprobeConfig = "options rtl8188ee aspm=0";
 
     boot.kernelPackages = pkgs.linuxPackages_latest;
 

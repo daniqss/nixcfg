@@ -10,6 +10,7 @@
     ./hyprland.nix
     ./gaming.nix
     ./switch.nix
+    ./scheduler.nix
   ];
 
   options.desktop.enable = lib.mkEnableOption "enable default desktop profile";
@@ -33,17 +34,13 @@
       isNormalUser = true;
       description = "${username}";
       extraGroups = ["networkmanager" "wheel" "adbusers" "input"];
-      shell = pkgs.zsh;
     };
-    environment.pathsToLink = ["/share/zsh"];
     environment.systemPackages = with pkgs; [
       pulseaudio
       distrobox
       stable.rpi-imager
     ];
     services.flatpak.enable = true;
-
-    programs.zsh.enable = true;
 
     time.timeZone = "Europe/Madrid";
 

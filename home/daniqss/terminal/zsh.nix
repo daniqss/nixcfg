@@ -6,19 +6,16 @@
 }: let
   cfg = config.terminal.shell.zsh;
 in {
-  options.terminal.shell.zsh = {
-    enable = lib.mkEnableOption "Enable zsh as shell";
-    package = lib.mkPackageOption pkgs "zsh" {
-      nullable = true;
-      extraDescription = ''
-        Use `null` to use distro zsh in standalone home manager
-      '';
-    };
-  };
+  options.terminal.shell.zsh.enable = lib.mkEnableOption "Enable zsh as shell";
 
   config = lib.mkIf cfg.enable {
     programs.zsh = {
-      inherit (cfg) enable package;
+      inherit (cfg) enable;
+      # on a foreign distro the shell comes from the distro packages
+      package =
+        if config.platform.isNixOS
+        then pkgs.zsh
+        else null;
 
       autocd = true;
       enableCompletion = true;

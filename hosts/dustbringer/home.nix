@@ -2,9 +2,6 @@
   terminal = {
     enable = true;
 
-    # better to use zsh from ubuntu packages
-    shell.zsh.package = null;
-
     git.identity.email = "daniel.queijo@alen.space";
 
     ssh.homelab.enable = false;
