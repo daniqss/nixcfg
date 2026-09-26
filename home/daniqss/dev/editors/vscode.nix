@@ -9,11 +9,6 @@
   options.dev.editors.vscode.enable = lib.mkEnableOption "enable vscode editor";
 
   config = lib.mkIf config.dev.editors.vscode.enable {
-    home.packages = with pkgs; [
-      chromium
-      firefox
-    ];
-
     programs.vscodium = {
       enable = true;
       package = pkgs.vscodium;

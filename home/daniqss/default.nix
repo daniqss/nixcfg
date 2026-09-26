@@ -29,7 +29,6 @@
       inherit username;
       homeDirectory = "/home/${username}";
 
-      # keep this pinned: it must not follow the nixpkgs release
       stateVersion = "26.11";
 
       # some parts of the configuration are symlinked to the nixcfg repo
