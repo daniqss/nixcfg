@@ -21,8 +21,7 @@ in {
       type = lib.types.enum ["zsh" "nushell"];
       default = "zsh";
       description = ''
-        Which shell config to enable by default. Each shell can still be
-        enabled on its own through `terminal.shell.<name>.enable`.
+        Which shell to use. The package will be installed in NixOS config from this selection
       '';
     };
   };

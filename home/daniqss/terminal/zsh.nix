@@ -11,6 +11,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.zsh = {
       inherit (cfg) enable;
+
       # on a foreign distro the shell comes from the distro packages
       package =
         if config.platform.isNixOS
@@ -21,13 +22,6 @@ in {
       enableCompletion = true;
       syntaxHighlighting.enable = true;
       autosuggestion.enable = true;
-
-      # outside for now
-      # ${lib.optionalString config.terminal.multiplexer.zellij.enable ''
-      #   if [[ -n "$SSH_TTY" && -z "$ZELLIJ" && -z "$NO_ZELLIJ" ]]; then
-      #     exec zellij attach --create main
-      #   fi
-      # ''}
 
       shellAliases = let
         eza = "${pkgs.eza}/bin/eza --icons auto";

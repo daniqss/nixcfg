@@ -4,13 +4,15 @@
   config,
   ...
 }: let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.terminal.shell.nushell;
 in {
-  options.terminal.shell.nushell.enable = lib.mkEnableOption "Enable nushell as shell";
+  options.terminal.shell.nushell.enable = mkEnableOption "enable nushell as shell";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.nushell = {
       inherit (cfg) enable;
+
       # on a foreign distro the shell comes from the distro packages
       package =
         if config.platform.isNixOS
@@ -39,7 +41,7 @@ in {
         gitgraph = "^git log --graph --decorate --all --pretty=format:'%C(auto)%h%d %C(#888888)(%an; %ar)%Creset %s'";
       };
 
-      # nushell splits the prompt (env) from the shell settings (config)
+      # prompt config
       extraEnv = let
         git = lib.getExe pkgs.git;
       in ''
@@ -67,6 +69,7 @@ in {
         $env.PROMPT_MULTILINE_INDICATOR = $"(ansi grey)::: (ansi reset)"
       '';
 
+      # shell config
       extraConfig = ''
         $env.config.show_banner = false
         $env.config.edit_mode = "emacs"
