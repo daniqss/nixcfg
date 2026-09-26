@@ -89,6 +89,12 @@
             version = "2025.43.12620731";
             sha256 = "sha256-XgBzwebFnhWZfZ914w1ppEtO4qZeOy+qRSCbmEQOP7k=";
           }
+          {
+            name = "vscode-nushell-lang";
+            publisher = "TheNuProjectContributors";
+            version = "2.0.6";
+            sha256 = "sha256-4nsGJnyLuo7IH7BBkl64fA9kMXBzneni/1MmunFkXWQ=";
+          }
         ];
     };
     xdg.configFile."VSCodium/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakeDir}/home/${hmDir}/dev/editors/settings.json";

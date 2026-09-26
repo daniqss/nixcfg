@@ -35,8 +35,8 @@
         symlinks = {
           "server-icon.png" = "${inputs.self}/assets/icons/mcgf.png";
 
-          mods = pkgs.linkFarmFromDrvs "mods" (
-            builtins.attrValues {
+          mods =
+            {
               Fabric-API = pkgs.fetchurl {
                 url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/dQ3p80zK/fabric-api-0.138.3%2B1.21.10.jar";
                 sha512 = "sha512-3HOjZTwplHbR9wy2ksTjWsP2lLOwhz49C3KelS6ZK4eNGo4LHRBJpEKg1IPTBoBzGU8Vr1LqmThURhbiBDPMOA==";
@@ -46,7 +46,8 @@
                 sha512 = "sha512-36uTeE/KpzsghUhXBjAl02ovfCc5fMZLFB/iyFAkmTqHk2AWrII8LJRfJzFLmTiqV+BrVWdqHDScEhtEXs/iEw==";
               };
             }
-          );
+            |> builtins.attrValues
+            |> pkgs.linkFarmFromDrvs "mods";
         };
       };
     };

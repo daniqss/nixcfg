@@ -42,41 +42,43 @@
     createSystem {
       inherit system specialArgs;
 
-      modules = lib.concatLists [
+      modules =
         [
-          {
-            networking.hostName = hostname;
-            nixpkgs.hostPlatform = system;
-            nixpkgs.config.allowUnfree = true;
+          [
+            {
+              networking.hostName = hostname;
+              nixpkgs.hostPlatform = system;
+              nixpkgs.config.allowUnfree = true;
 
-            nixpkgs.overlays = builtins.attrValues outputs.overlays;
-          }
+              nixpkgs.overlays = outputs.overlays |> builtins.attrValues;
+            }
+          ]
+          (lib.flatten [
+            (lib.singleton ../hosts/${hostname}/configuration.nix)
+            (lib.singleton ../hosts/${hostname}/hardware-configuration.nix)
+            (lib.singleton ../nixos/profiles/common)
+            (lib.singleton ../nixos/profiles/desktop)
+            (lib.singleton ../nixos/profiles/server)
+            (args.modules or [])
+          ])
+          [
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.backupFileExtension = "bak";
+              home-manager.extraSpecialArgs = specialArgs;
+              home-manager.users.${username}.imports = [
+                ../hosts/${hostname}/home.nix
+                ../home/${hmDir}
+              ];
+            }
+          ]
+          (lib.flatten [
+            (lib.optional useDisko [../hosts/${hostname}/disko.nix])
+            (lib.singleton inputs.disko.nixosModules.disko)
+          ])
         ]
-        (lib.flatten [
-          (lib.singleton ../hosts/${hostname}/configuration.nix)
-          (lib.singleton ../hosts/${hostname}/hardware-configuration.nix)
-          (lib.singleton ../nixos/profiles/common)
-          (lib.singleton ../nixos/profiles/desktop)
-          (lib.singleton ../nixos/profiles/server)
-          (args.modules or [])
-        ])
-        [
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.backupFileExtension = "bak";
-            home-manager.extraSpecialArgs = specialArgs;
-            home-manager.users.${username}.imports = [
-              ../hosts/${hostname}/home.nix
-              ../home/${hmDir}
-            ];
-          }
-        ]
-        (lib.flatten [
-          (lib.optional useDisko [../hosts/${hostname}/disko.nix])
-          (lib.singleton inputs.disko.nixosModules.disko)
-        ])
-      ];
+        |> lib.concatLists;
     };
 
   # generates a standalone home manager configuration for home/default.nix
@@ -94,7 +96,7 @@
       pkgs = import inputs.nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = builtins.attrValues outputs.overlays;
+        overlays = outputs.overlays |> builtins.attrValues;
       };
 
       extraSpecialArgs = mkSpecialArgs {
@@ -103,13 +105,15 @@
         extra = args.specialArgs or {};
       };
 
-      modules = lib.concatLists [
+      modules =
         [
-          ../hosts/${hostname}/home.nix
-          ../home/${hmDir}
+          [
+            ../hosts/${hostname}/home.nix
+            ../home/${hmDir}
+          ]
+          (args.modules or [])
         ]
-        (args.modules or [])
-      ];
+        |> lib.concatLists;
     };
 in {
   inherit mkNixos mkHome;

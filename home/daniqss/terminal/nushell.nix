@@ -6,6 +6,12 @@
 }: let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.terminal.shell.nushell;
+
+  # direnv is home-manager managed on a foreign distro, and system wide on NixOS
+  direnv =
+    if config.programs.direnv.enable
+    then lib.getExe config.programs.direnv.package
+    else "direnv";
 in {
   options.terminal.shell.nushell.enable = mkEnableOption "enable nushell as shell";
 
@@ -23,14 +29,14 @@ in {
         eza = "${pkgs.eza}/bin/eza --icons auto";
         bat = "${pkgs.bat}/bin/bat";
       in {
-        ls = "${eza}";
-        la = "${eza} -a";
-        ll = "${eza} --header --git -t=mod --time-style=long-iso -l";
-        lla = "${eza} --header --git -t=mod --time-style=long-iso -la";
-        ts = "${eza} --tree --level=2";
-        tsa = "${eza} --tree --level=2 -a";
-        tl = "${eza} --tree --level=2 --header -t=mod --time-style=long-iso -l";
-        tla = "${eza} --tree --level=2 --header -t=mod --time-style=long-iso -la";
+        # ls = "${eza}";
+        # la = "${eza} -a";
+        # ll = "${eza} --header --git -t=mod --time-style=long-iso -l";
+        # lla = "${eza} --header --git -t=mod --time-style=long-iso -la";
+        # ts = "${eza} --tree --level=2";
+        # tsa = "${eza} --tree --level=2 -a";
+        # tl = "${eza} --tree --level=2 --header -t=mod --time-style=long-iso -l";
+        # tla = "${eza} --tree --level=2 --header -t=mod --time-style=long-iso -la";
         treee = "${eza} --tree";
 
         grep = "^grep --color=auto";
@@ -41,65 +47,28 @@ in {
         gitgraph = "^git log --graph --decorate --all --pretty=format:'%C(auto)%h%d %C(#888888)(%an; %ar)%Creset %s'";
       };
 
-      # prompt config
-      extraEnv = let
-        git = lib.getExe pkgs.git;
-      in ''
-        $env.PROMPT_COMMAND = {||
-          let dir = ($env.PWD | str replace $nu.home-dir "~")
-          let branch = (
-            do --ignore-errors { ^${git} rev-parse --abbrev-ref HEAD e> /dev/null }
-            | default ""
-            | str trim
-          )
-          let git = if ($branch | is-empty) { "" } else { $" (ansi purple_bold)($branch)(ansi reset)" }
+      # prompt lives in ./nushell/prompt.nu, as a real nu file so editors can
+      # highlight it; nix only injects the store paths it needs
+      extraEnv = ''
+        $env.NU_GIT_BIN = "${lib.getExe pkgs.git}"
 
-          $"(ansi blue_bold)($dir)(ansi reset)($git)"
-        }
-        $env.PROMPT_COMMAND_RIGHT = ""
-
-        # same three chevrons starship used to draw
-        $env.PROMPT_INDICATOR = {||
-          if ($env.LAST_EXIT_CODE? | default 0) == 0 {
-            $"\n(ansi red_bold)❯(ansi yellow_bold)❯(ansi green_bold)❯(ansi reset) "
-          } else {
-            $"\n(ansi red_bold)❯❯❯(ansi reset) "
-          }
-        }
-        $env.PROMPT_MULTILINE_INDICATOR = $"(ansi grey)::: (ansi reset)"
+        ${builtins.readFile ./nushell/prompt.nu}
       '';
 
-      # shell config
+      # shell config, same split as above
       extraConfig = ''
-        $env.config.show_banner = false
-        $env.config.edit_mode = "emacs"
-        $env.config.completions.algorithm = "fuzzy"
-        $env.config.completions.case_sensitive = false
-        $env.config.filesize.unit = "metric"
+        $env.NU_CODIUM_BIN = "${lib.getExe' pkgs.vscodium "codium"}"
+        $env.NU_DIRENV_BIN = "${direnv}"
 
-        ${lib.optionalString true ''
-          def --wrapped code [...args] {
-            ${lib.getExe' pkgs.vscodium "codium"} ...$args out+err> /dev/null
-          }
-        ''}
+        ${builtins.readFile ./nushell/config.nu}
 
-        $env.config.keybindings ++= [
-          {
-            name: backward_kill_word
-            modifier: control
-            keycode: char_h
-            mode: [emacs vi_insert]
-            event: { edit: cutwordleft }
-          }
-          {
-            name: accept_autosuggestion
-            modifier: alt
-            keycode: enter
-            mode: [emacs vi_insert]
-            event: { send: historyhintcomplete }
-          }
-        ]
+        # ${builtins.readFile ./nushell/direnv.nu}
       '';
     };
+
+    programs.direnv.enableNushellIntegration = true;
+    programs.eza.enableNushellIntegration = true;
+    programs.lazygit.enableNushellIntegration = true;
+    programs.carapace.enableNushellIntegration = true;
   };
 }

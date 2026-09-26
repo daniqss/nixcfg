@@ -5,9 +5,10 @@
   lib,
   ...
 }: let
-  cfg = config.home-manager.users.${username};
+  inherit (lib) mkIf;
+  cfg' = config.home-manager.users.${username};
 in {
-  config = lib.mkIf (cfg.graphical.desktops.desktop == "hyprland") {
+  config = mkIf (cfg'.graphical.desktops.desktop == "hyprland") {
     environment.variables.NIXOS_OZONE_WL = "1";
 
     programs.hyprland = {

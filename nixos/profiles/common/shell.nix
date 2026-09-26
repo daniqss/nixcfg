@@ -5,16 +5,16 @@
   lib,
   ...
 }: let
-  cfg = config.home-manager.users.${username}.terminal;
-
-  shell = {inherit (pkgs) zsh nushell;}.${cfg.shell.default};
+  inherit (lib) mkIf;
+  cfg' = config.home-manager.users.${username};
+  shell = {inherit (pkgs) zsh nushell;}.${cfg'.terminal.shell.default};
 in {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg'.terminal.enable {
     users.users.${username}.shell = shell;
     environment.shells = [shell];
 
-    # zsh needs its nixos module for the system wide completions
-    programs.zsh.enable = cfg.shell.zsh.enable;
-    environment.pathsToLink = lib.mkIf cfg.shell.zsh.enable ["/share/zsh"];
+    programs.zsh.enable = cfg'.terminal.shell.zsh.enable;
+    environment.pathsToLink = mkIf cfg'.terminal.shell.zsh.enable ["/share/zsh"];
+    programs.direnv.enableZshIntegration = cfg'.terminal.shell.zsh.enable;
   };
 }
