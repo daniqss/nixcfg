@@ -29,11 +29,12 @@
     createSystem ? lib.nixosSystem,
     useDisko ? false,
     isLaptop ? false,
+    hmDir ? username,
     flakeDir ? defaultFlakeDir username,
     ...
   } @ args: let
     specialArgs = mkSpecialArgs {
-      inherit hostname username system isLaptop flakeDir;
+      inherit hostname username system isLaptop flakeDir hmDir;
       isNixOS = true;
       extra = args.specialArgs or {};
     };
@@ -67,7 +68,7 @@
             home-manager.extraSpecialArgs = specialArgs;
             home-manager.users.${username}.imports = [
               ../hosts/${hostname}/home.nix
-              ../home/${username}
+              ../home/${hmDir}
             ];
           }
         ]

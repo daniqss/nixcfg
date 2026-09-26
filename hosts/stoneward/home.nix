@@ -14,7 +14,7 @@ _: {
       desktop = "hyprland";
       monitors = [
         {
-          name = "DP-1";
+          name = "DP-2";
           resolution = {
             x = 1920;
             y = 1080;
