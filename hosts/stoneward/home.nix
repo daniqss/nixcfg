@@ -43,5 +43,8 @@ _: {
     };
   };
   dev.enable = true;
-  terminal.enable = true;
+  terminal = {
+    enable = true;
+    shell.default = "nushell";
+  };
 }
