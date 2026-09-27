@@ -15,7 +15,7 @@ def --env direnv-sync []: nothing -> nothing {
   $exported
   | reject --optional ...$unset
   | update cells --columns [PATH] {
-    do (env-conversions).path.from_string $in
+    $in | split row (char esep)
   }
   | load-env
 }

@@ -62,11 +62,10 @@ in {
 
         ${builtins.readFile ./nushell/config.nu}
 
-        # ${builtins.readFile ./nushell/direnv.nu}
+        ${builtins.readFile ./nushell/direnv.nu}
       '';
     };
 
-    programs.direnv.enableNushellIntegration = true;
     programs.eza.enableNushellIntegration = true;
     programs.lazygit.enableNushellIntegration = true;
     programs.carapace.enableNushellIntegration = true;

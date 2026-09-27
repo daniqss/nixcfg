@@ -50,7 +50,7 @@
       powerManagement.enable = true;
       powerManagement.finegrained = false;
 
-      open = true;
+      open = false;
       nvidiaSettings = false;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
