@@ -1,6 +1,7 @@
 {lib, ...}: {
   terminal = {
     enable = true;
+    shell.default = "nushell";
 
     git.identity.email = "daniel.queijo@alen.space";
 
@@ -16,8 +17,8 @@
   graphical = {
     enable = true;
 
-    browsers.enable = false;
-    desktops.desktop = lib.mkForce "none";
+    browsers.enable = true;
+    desktops.desktop = lib.mkForce "hyprland";
     misc = {
       personal.enable = lib.mkForce false;
       work.enable = lib.mkForce true;
