@@ -33,6 +33,7 @@
           attilabuti.brainfuck-syntax
           ms-vscode.cpptools
           ms-vscode.cpptools-extension-pack
+          ms-vscode.cmake-tools
           llvm-vs-code-extensions.vscode-clangd
           ms-vscode.makefile-tools
           ms-azuretools.vscode-docker
