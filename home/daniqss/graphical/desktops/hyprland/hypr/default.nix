@@ -80,11 +80,11 @@ in {
       diagnostics.globals = ["hl"];
     };
 
-    home.packages = [
-      pkgs.hyprshot
-      pkgs.wireplumber
-      pkgs.playerctl
-      pkgs.brightnessctl
+    home.packages = with pkgs; [
+      hyprshot
+      wireplumber
+      playerctl
+      brightnessctl
     ];
 
     home.sessionVariables.HYPRSHOT_DIR = "$XDG_SCREENSHOTS_DIR";
@@ -93,8 +93,14 @@ in {
       enable = true;
       systemd.enable = true;
 
-      package = null;
-      portalPackage = null;
+      package =
+        if config.platform.isNixOS
+        then null
+        else pkgs.hyprland;
+      portalPackage =
+        if config.platform.isNixOS
+        then null
+        else pkgs.xdg-desktop-portal-hyprland;
 
       configType = "lua";
 
