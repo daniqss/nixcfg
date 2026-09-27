@@ -11,7 +11,7 @@
         role = "both";
       };
       syncthing.enable = false;
-      qemu.enable = false;
+      binfmt.enable = false;
       gpg.enable = false;
     };
     server = {
@@ -39,9 +39,7 @@
       isNormalUser = true;
       description = "${username}";
       extraGroups = ["networkmanager" "wheel"];
-      shell = pkgs.zsh;
     };
-    programs.zsh.enable = true;
 
     hardware.graphics = {
       enable = true;

@@ -9,11 +9,6 @@
   options.dev.editors.vscode.enable = lib.mkEnableOption "enable vscode editor";
 
   config = lib.mkIf config.dev.editors.vscode.enable {
-    home.packages = with pkgs; [
-      chromium
-      firefox
-    ];
-
     programs.vscodium = {
       enable = true;
       package = pkgs.vscodium;
@@ -94,6 +89,12 @@
             publisher = "astral-sh";
             version = "2025.43.12620731";
             sha256 = "sha256-XgBzwebFnhWZfZ914w1ppEtO4qZeOy+qRSCbmEQOP7k=";
+          }
+          {
+            name = "vscode-nushell-lang";
+            publisher = "TheNuProjectContributors";
+            version = "2.0.6";
+            sha256 = "sha256-4nsGJnyLuo7IH7BBkl64fA9kMXBzneni/1MmunFkXWQ=";
           }
         ];
     };

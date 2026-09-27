@@ -5,19 +5,31 @@
   ...
 }: let
   inherit (lib) mkDefault mkIf;
+  cfg = config.terminal;
 in {
   imports = [
     ./zsh.nix
+    ./nushell.nix
     ./git.nix
     ./multiplexer.nix
   ];
 
-  options.terminal.enable = lib.mkEnableOption "Enable some terminal stuff";
+  options.terminal = {
+    enable = lib.mkEnableOption "Enable some terminal stuff";
 
-  config = mkIf config.terminal.enable {
-    terminal.shell.zsh = {
-      enable = mkDefault true;
-      package = mkDefault pkgs.zsh;
+    shell.default = lib.mkOption {
+      type = lib.types.enum ["zsh" "nushell"];
+      default = "zsh";
+      description = ''
+        Which shell to use. The package will be installed in NixOS config from this selection
+      '';
+    };
+  };
+
+  config = mkIf cfg.enable {
+    terminal.shell = {
+      zsh.enable = mkDefault (cfg.shell.default == "zsh");
+      nushell.enable = mkDefault (cfg.shell.default == "nushell");
     };
 
     home.packages = with pkgs; [

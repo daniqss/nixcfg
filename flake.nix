@@ -1,6 +1,11 @@
 {
   description = "one configuration to rule them all";
 
+  # shared with the built system: nixos/profiles/common/nix.nix reads this same
+  # attribute back. It has to stay a literal attrset, nix refuses a thunk here,
+  # so it cannot be moved out into its own file
+  nixConfig.extra-experimental-features = ["nix-command" "flakes" "pipe-operators"];
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
