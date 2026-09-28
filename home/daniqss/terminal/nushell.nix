@@ -19,24 +19,20 @@ in {
     programs.nushell = {
       inherit (cfg) enable;
 
-      # on a foreign distro the shell comes from the distro packages
-      package =
-        if config.platform.isNixOS
-        then pkgs.nushell
-        else null;
+      package = pkgs.nushell;
 
       shellAliases = let
         eza = "${pkgs.eza}/bin/eza --icons auto";
         bat = "${pkgs.bat}/bin/bat";
       in {
-        # ls = "${eza}";
-        # la = "${eza} -a";
-        # ll = "${eza} --header --git -t=mod --time-style=long-iso -l";
-        # lla = "${eza} --header --git -t=mod --time-style=long-iso -la";
-        # ts = "${eza} --tree --level=2";
-        # tsa = "${eza} --tree --level=2 -a";
-        # tl = "${eza} --tree --level=2 --header -t=mod --time-style=long-iso -l";
-        # tla = "${eza} --tree --level=2 --header -t=mod --time-style=long-iso -la";
+        ls = "${eza}";
+        la = "${eza} -a";
+        ll = "${eza} --header --git -t=mod --time-style=long-iso -l";
+        lla = "${eza} --header --git -t=mod --time-style=long-iso -la";
+        ts = "${eza} --tree --level=2";
+        tsa = "${eza} --tree --level=2 -a";
+        tl = "${eza} --tree --level=2 --header -t=mod --time-style=long-iso -l";
+        tla = "${eza} --tree --level=2 --header -t=mod --time-style=long-iso -la";
         treee = "${eza} --tree";
 
         grep = "^grep --color=auto";
@@ -47,10 +43,28 @@ in {
         gitgraph = "^git log --graph --decorate --all --pretty=format:'%C(auto)%h%d %C(#888888)(%an; %ar)%Creset %s'";
       };
 
-      # prompt lives in ./nushell/prompt.nu, as a real nu file so editors can
-      # highlight it; nix only injects the store paths it needs
       extraEnv = ''
         $env.NU_GIT_BIN = "${lib.getExe pkgs.git}"
+
+        # provide the PATH for nix packages in non nixos distros
+        ${lib.optionalString (!config.platform.isNixOS) ''
+          $env.PATH = (
+            $env.PATH
+            | prepend [
+                "${config.home.profileDirectory}/bin"
+                "/nix/var/nix/profiles/default/bin"
+              ]
+            | append [
+                "/usr/local/sbin"
+                "/usr/local/bin"
+                "/usr/sbin"
+                "/usr/bin"
+                "/sbin"
+                "/bin"
+              ]
+            | uniq
+          )
+        ''}
 
         ${builtins.readFile ./nushell/prompt.nu}
       '';
@@ -61,7 +75,6 @@ in {
         $env.NU_DIRENV_BIN = "${direnv}"
 
         ${builtins.readFile ./nushell/config.nu}
-
         ${builtins.readFile ./nushell/direnv.nu}
       '';
     };

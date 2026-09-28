@@ -18,7 +18,7 @@
     enable = true;
 
     browsers.enable = true;
-    desktops.desktop = lib.mkForce "hyprland";
+    desktops.desktop = lib.mkForce "none";
     misc = {
       personal.enable = lib.mkForce false;
       work.enable = lib.mkForce true;

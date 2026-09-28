@@ -1,10 +1,12 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }: let
   inherit (pkgs) chromium google-chrome;
-
+  inherit (lib) mkOption mkIf;
+  cfg = config.graphical.browsers;
   availableBrowsers = [chromium google-chrome];
 in {
   imports = [
@@ -32,5 +34,11 @@ in {
     };
 
     description = "used browsers";
+  };
+
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      firefox
+    ];
   };
 }

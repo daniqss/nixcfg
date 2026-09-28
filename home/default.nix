@@ -13,5 +13,6 @@ in {
     # I cannot change username, so username keeps as IT left it,
     # and I specify the hm dir (nixcfg/home/daniqss)
     hmDir = "daniqss";
+    flakeDir = "/home/${username}/personal/nixcfg/"
   };
 }
