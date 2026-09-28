@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (pkgs) chromium google-chrome;
-  inherit (lib) mkOption mkIf;
+  inherit (lib) mkIf;
   cfg = config.graphical.browsers;
   availableBrowsers = [chromium google-chrome];
 in {

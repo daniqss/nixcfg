@@ -3,7 +3,10 @@
     enable = true;
     shell.default = "nushell";
 
-    git.identity.email = "daniel.queijo@alen.space";
+    git = {
+      email = "daniel.queijo@alen.space";
+      personal.enable = true;
+    };
 
     ssh.homelab.enable = false;
   };
