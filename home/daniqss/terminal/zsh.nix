@@ -117,7 +117,6 @@ in {
           symbol = "λ nix";
           style = "bold cyan";
           format = " [|](bright-black) [$symbol]($style)";
-          heuristic = true;
         };
 
         cmd_duration = {

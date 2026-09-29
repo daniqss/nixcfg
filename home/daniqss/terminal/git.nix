@@ -52,7 +52,7 @@
           inherit name email;
         }
         // optionalAttrs signingEnable {
-          signingKey = signingKey;
+          inherit signingKey;
         };
     }
     // optionalAttrs signingEnable {
