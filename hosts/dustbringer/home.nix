@@ -1,7 +1,7 @@
 {lib, ...}: {
   terminal = {
     enable = true;
-    shell.default = "nushell";
+    shell.default = "zsh";
 
     git = {
       email = "daniel.queijo@alen.space";
@@ -25,11 +25,6 @@
     misc = {
       personal.enable = lib.mkForce false;
       work.enable = lib.mkForce true;
-    };
-
-    shells = {
-      vicinae.enable = false;
-      quickshell.enable = false;
     };
 
     gaming.enable = false;

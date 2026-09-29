@@ -66,15 +66,76 @@ in {
       enable = true;
 
       settings = {
-        format = builtins.concatStringsSep "" [
-          "$all"
-        ];
+        add_newline = false;
+
+        format = ''
+
+          $username$hostname[:](bright-black)$directory$git_branch$git_status$nix_shell
+          $cmd_duration$status$character'';
+
+        username = {
+          style_user = "bold green";
+          style_root = "bold green";
+          format = "[$user]($style)";
+          show_always = true;
+        };
+
+        hostname = {
+          ssh_only = false;
+          style = "bold green";
+          format = "[@$hostname]($style)";
+        };
+
+        directory = {
+          style = "bold blue";
+          format = "[$path]($style)";
+          truncation_length = 0;
+          truncate_to_repo = false;
+        };
+
+        git_branch = {
+          symbol = " ";
+          style = "bold red";
+          format = " [|](bright-black) [$symbol$branch]($style)";
+        };
+
+        git_status = {
+          style = "red";
+          format = "([ $ahead_behind]($style))([ $conflicted$staged$renamed$modified$deleted$untracked]($style))";
+          ahead = "⇡\${count}";
+          behind = "⇣\${count}";
+          diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
+          conflicted = "=\${count}";
+          staged = "+\${count}";
+          renamed = "»\${count}";
+          modified = "!\${count}";
+          deleted = "✘\${count}";
+          untracked = "?\${count}";
+        };
+
+        nix_shell = {
+          symbol = "λ nix";
+          style = "bold cyan";
+          format = " [|](bright-black) [$symbol]($style)";
+          heuristic = true;
+        };
+
+        cmd_duration = {
+          min_time = 8000;
+          style = "yellow";
+          format = "[took $duration ]($style)";
+        };
+
+        status = {
+          disabled = false;
+          style = "bold red";
+          format = "[\\[$status\\] ]($style)";
+        };
 
         character = {
+          success_symbol = "[\\$](bold yellow)";
+          error_symbol = "[\\$](bold yellow)";
           format = "$symbol ";
-          success_symbol = "[❯](bold red)[❯](bold yellow)[❯](bold green)";
-          error_symbol = "[❯](bold red)[❯](bold red)[❯](bold red)";
-          disabled = false;
         };
       };
     };

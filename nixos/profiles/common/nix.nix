@@ -4,8 +4,6 @@
   flakeDir,
   ...
 }: let
-  # caches and extra features come straight from the flake's own nixConfig, so
-  # the nix cli and the built system cannot drift apart
   inherit (import ../../../flake.nix) nixConfig;
 in {
   nix = {
