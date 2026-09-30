@@ -45,6 +45,7 @@
           ms-toolsai.jupyter-keymap
           ms-toolsai.vscode-jupyter-slideshow
           yzane.markdown-pdf
+          ziglang.vscode-zig
 
           charliermarsh.ruff
 
@@ -95,6 +96,12 @@
             publisher = "TheNuProjectContributors";
             version = "2.0.6";
             sha256 = "sha256-4nsGJnyLuo7IH7BBkl64fA9kMXBzneni/1MmunFkXWQ=";
+          }
+          {
+            name = "better-git-line-blame";
+            publisher = "mk12";
+            version = "0.2.15";
+            sha256 = "sha256-KpCvOayx9vp0U9pL5OCQj9wEDC4anE3mx64Q2o6DBlg=";
           }
         ];
     };
