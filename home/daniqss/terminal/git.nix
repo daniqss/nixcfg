@@ -58,6 +58,66 @@
     // optionalAttrs signingEnable {
       commit.gpgSign = true;
     };
+
+  forgeModule = {
+    options = {
+      host = mkOption {
+        type = types.str;
+        example = "gitlab.udc.es";
+        description = "hostname of the forge accessed via ssh";
+      };
+
+      user = mkOption {
+        type = types.str;
+        default = "git";
+        description = "ssh user used to authenticate against the forge";
+      };
+
+      port = mkOption {
+        type = types.nullOr types.port;
+        default = null;
+        description = "ssh port of the forge, null to use the default one";
+      };
+
+      identityFile = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        example = "~/.ssh/gitlab_ed25519";
+        description = "ssh key used for this forge, null to let ssh pick it";
+      };
+
+      rewriteHttps = mkOption {
+        type = types.bool;
+        default = true;
+        description = "rewrite https urls of this forge to ssh";
+      };
+    };
+  };
+
+  mkForgeSsh = forge: {
+    ${forge.host} =
+      {
+        User = forge.user;
+        HostName = forge.host;
+      }
+      // optionalAttrs (forge.port != null) {
+        Port = forge.port;
+      }
+      // optionalAttrs (forge.identityFile != null) {
+        IdentityFile = forge.identityFile;
+        IdentitiesOnly = true;
+      };
+  };
+
+  forgeSshSettings = lib.mergeAttrsList (map mkForgeSsh cfg.forges);
+
+  forgeGitUrls = lib.listToAttrs (
+    map (forge:
+      lib.nameValuePair "${forge.user}@${forge.host}:" {
+        insteadOf = "https://${forge.host}/";
+      })
+    (lib.filter (forge: forge.rewriteHttps) cfg.forges)
+  );
 in {
   options.terminal = {
     git =
@@ -80,6 +140,22 @@ in {
             name = defaultPersonalName;
             email = defaultEmail;
           };
+
+        forges = mkOption {
+          type = types.listOf (types.submodule forgeModule);
+          default = [];
+          example = [
+            {
+              host = "gitlab.freedesktop.org";
+              identityFile = "~/.ssh/gitlab_ed25519";
+            }
+            {
+              host = "git.example.org";
+              port = 2222;
+            }
+          ];
+          description = "git forges accessed via ssh, each one gets an ssh host entry and an https to ssh url rewrite";
+        };
       };
 
     ssh.homelab.enable = mkOption {
@@ -107,6 +183,7 @@ in {
             IdentitiesOnly = true;
           };
         }
+        // forgeSshSettings
         // optionalAttrs config.terminal.ssh.homelab.enable {
           "bondsmith-lan" = {
             User = "daniqss";
@@ -129,6 +206,7 @@ in {
           core.editor = "hx";
           push.default = "current";
           push.autoSetupRemote = true;
+          url = forgeGitUrls;
         }
         // mkGitIdentity {
           inherit (cfg) name email;

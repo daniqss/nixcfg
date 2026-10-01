@@ -6,6 +6,13 @@
     git = {
       email = "daniel.queijo@alen.space";
       personal.enable = true;
+      forges = [
+        {
+          host = "gitlab.alen.space";
+          user = "git";
+          identityFile = "~/.ssh/gitlab_ed25519";
+        }
+      ];
     };
 
     ssh.homelab.enable = false;
