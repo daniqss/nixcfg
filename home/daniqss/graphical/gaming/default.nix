@@ -16,6 +16,8 @@
       # hollow knight mod manager
       lumafly
 
+      hitcountermanager
+
       # tetris clon
       apotris
     ];
