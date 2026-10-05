@@ -29,6 +29,16 @@
 
   gnomePortal = "${pkgs.xdg-desktop-portal-gnome}/libexec/xdg-desktop-portal-gnome";
 
+  hyprlandHomeManagerStandaloneWrapper = pkgs.writeShellScriptBin "hyprland-session" ''
+    . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+
+    export XDG_CURRENT_DESKTOP="Hyprland"
+    export XDG_SESSION_DESKTOP="Hyprland"
+    export XDG_SESSION_TYPE="wayland"
+
+    exec "${config.wayland.windowManager.hyprland.finalPackage}/bin/start-hyprland" "$@"
+  '';
+
   # values resolved by nix and exposed as lua globals
   variables = ''
     mod = "SUPER"
@@ -80,12 +90,14 @@ in {
       diagnostics.globals = ["hl"];
     };
 
-    home.packages = with pkgs; [
-      hyprshot
-      wireplumber
-      playerctl
-      brightnessctl
-    ];
+    home.packages =
+      (with pkgs; [
+        hyprshot
+        wireplumber
+        playerctl
+        brightnessctl
+      ])
+      ++ lib.optional (!config.platform.isNixOS) hyprlandHomeManagerStandaloneWrapper;
 
     home.sessionVariables.HYPRSHOT_DIR = "$XDG_SCREENSHOTS_DIR";
 

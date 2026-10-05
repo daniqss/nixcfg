@@ -18,5 +18,14 @@
     ];
   };
 
+  pythonShell = pkgs.mkShell {
+    buildInputs = with pkgs; [
+      python314
+      uv
+      ruff
+      ty
+    ];
+  };
+
   eduroam = import ./eduroam.nix {inherit pkgs;};
 }

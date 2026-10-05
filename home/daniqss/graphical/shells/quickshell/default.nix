@@ -1,5 +1,5 @@
 {
-  username,
+  hmDir,
   flakeDir,
   pkgs,
   lib,
@@ -8,7 +8,7 @@
 }: let
   cfg = config.graphical.shells.quickshell;
   storeDir = ./. + "/${cfg.configName}";
-  liveDir = "${flakeDir}/home/${username}/graphical/shells/quickshell/${cfg.configName}";
+  liveDir = "${flakeDir}/home/${hmDir}/graphical/shells/quickshell/${cfg.configName}";
 in {
   options.graphical.shells.quickshell = {
     enable = lib.mkEnableOption "enable quickshell as shell bar";

@@ -1,4 +1,6 @@
 {
+  inputs,
+  outputs,
   flakeDir,
   pkgs,
   lib,
@@ -10,6 +12,12 @@
     programs.home-manager.enable = true;
 
     targets.genericLinux.enable = true;
+
+    nix = {
+      package = pkgs.nix;
+      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+      settings = outputs.lib.nixSettings;
+    };
 
     programs.direnv = {
       enable = true;
