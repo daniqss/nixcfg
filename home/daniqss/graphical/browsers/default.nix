@@ -36,9 +36,7 @@ in {
     description = "used browsers";
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      firefox
-    ];
+  config = mkIf (cfg.enable && !config.platform.isNixOS) {
+    home.packages = [pkgs.firefox];
   };
 }
