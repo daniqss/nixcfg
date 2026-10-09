@@ -20,6 +20,16 @@ in {
           insert = "bar";
           select = "underline";
         };
+        keys = {
+          normal = {
+            "{" = "goto_prev_paragraph";
+            "}" = "goto_next_paragraph";
+          };
+          select = {
+            "{" = "goto_prev_paragraph";
+            "}" = "goto_next_paragraph";
+          };
+        };
       };
       themes = {
         autumn_night_transparent = {

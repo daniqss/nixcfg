@@ -58,6 +58,14 @@ in {
       description = "generate the config for the desktop from the monitors option";
     };
 
+    touchpadSensitivity = lib.mkOption {
+      type = lib.types.numbers.between (-1.0) 1.0;
+      default = 0.1;
+      description = ''
+        libinput accel speed applied to every touchpad, -1.0 to 1.0
+      '';
+    };
+
     monitors = lib.mkOption {
       type = lib.types.listOf (lib.types.submodule {
         options = {
