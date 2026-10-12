@@ -33,6 +33,7 @@
           ms-vscode.makefile-tools
           ms-azuretools.vscode-docker
           dbaeumer.vscode-eslint
+          biomejs.biome
           tamasfe.even-better-toml
           github.vscode-github-actions
           gleam.gleam
