@@ -14,7 +14,11 @@ in
     assetsHash ? lib.fakeHash,
     server ? {},
     client ? {},
-  }: {
+  }: let
+    escapedVersion = lib.replaceStrings ["."] ["_"] version;
+
+    serverJre = pkgs."jdk${lib.versions.major pkgs.vanillaServers."vanilla-${escapedVersion}".passthru.java.version}_headless";
+  in {
     inherit name slug version dataVersion loaderVersion port mods clientMods;
 
     server =
@@ -26,9 +30,10 @@ in
           server-port = port;
         };
 
-        package =
-          pkgs.fabricServers."fabric-${lib.replaceStrings ["."] ["_"] version}".override
-          {inherit loaderVersion;};
+        package = pkgs.fabricServers."fabric-${escapedVersion}".override {
+          inherit loaderVersion;
+          jre_headless = serverJre;
+        };
 
         symlinks =
           {
