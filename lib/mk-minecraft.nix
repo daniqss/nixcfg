@@ -14,7 +14,6 @@ in
     client ? {},
   }: {
     inherit name slug version loaderVersion port mods clientMods;
-
     server =
       lib.recursiveUpdate {
         enable = true;
