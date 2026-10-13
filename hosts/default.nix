@@ -32,7 +32,6 @@ in {
     hostname = "skybreaker";
     system = "x86_64-linux";
     isLaptop = true;
-    flakeDir = "/home/${username}/refactor-just-nixcraft-nixcfg/";
 
     useDisko = true;
     modules = [];
