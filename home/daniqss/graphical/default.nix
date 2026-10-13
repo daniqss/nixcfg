@@ -19,20 +19,24 @@ in {
   options.graphical.enable = mkEnableOption "Enable graphical session";
 
   config = mkIf config.graphical.enable {
-    graphical.desktops.desktop = "hyprland";
-    graphical.browsers = {
-      enable = mkDefault true;
-    };
+    graphical = {
+      desktops.desktop = "hyprland";
+      browsers = {
+        enable = mkDefault true;
+      };
 
-    graphical.emulators = mkDefault {
-      emulator = "ghostty";
-      fontsize = 13;
-    };
+      emulators = mkDefault {
+        emulator = "ghostty";
+        fontsize = 13;
+      };
 
-    graphical.misc = {
-      enable = mkDefault true;
-      personal.enable = mkDefault true;
-      work.enable = mkDefault false;
+      misc = {
+        enable = mkDefault true;
+        personal.enable = mkDefault true;
+        work.enable = mkDefault false;
+      };
+
+      gaming.enable = mkDefault true;
     };
 
     home.sessionVariables = {

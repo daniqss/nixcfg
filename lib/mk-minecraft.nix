@@ -5,41 +5,49 @@ in
     name,
     slug ? lib.toLower (lib.replaceStrings [" "] ["-"] name),
     version,
-    dataVersion,
     loaderVersion,
     port ? 25565,
     icon ? null,
     mods ? {},
     clientMods ? {},
-    assetsHash ? lib.fakeHash,
     server ? {},
     client ? {},
   }: {
-    inherit name slug version dataVersion loaderVersion port mods clientMods;
+    inherit name slug version loaderVersion port mods clientMods;
 
     server =
       lib.recursiveUpdate {
         enable = true;
+
+        inherit version;
+
+        agreeToEula = true;
+
+        fabricLoader = {
+          enable = true;
+          version = loaderVersion;
+        };
+
+        # nixcraft names each jar after its store path,
+        # the attribute names are only ours to read
+        mods = lib.attrValues mods;
 
         serverProperties = {
           motd = name;
           server-port = port;
         };
 
-        package =
-          pkgs.fabricServers."fabric-${lib.replaceStrings ["."] ["_"] version}".override
-          {inherit loaderVersion;};
+        # the nixos module runs this wrapper as the unit's ExecStart
+        binEntry.name = "${slug}-server";
 
-        symlinks =
-          {
-            mods =
-              mods
-              |> builtins.attrValues
-              |> pkgs.linkFarmFromDrvs "mods";
-          }
-          // lib.optionalAttrs (icon != null) {
-            "server-icon.png" = icon;
-          };
+        service = {
+          enable = true;
+          autoStart = true;
+        };
+
+        files = lib.optionalAttrs (icon != null) {
+          "server-icon.png".source = icon;
+        };
       }
       server;
 
@@ -49,20 +57,12 @@ in
 
         inherit version;
 
-        # avoid a derivation per asset
-        fastAssetDownload = {
-          enable = true;
-          hash = assetsHash;
-        };
-
         fabricLoader = {
           enable = true;
           version = loaderVersion;
         };
 
-        mods = mods // clientMods;
-
-        gameOptions.version = dataVersion;
+        mods = lib.attrValues (mods // clientMods);
 
         binEntry = {
           enable = true;

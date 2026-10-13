@@ -43,7 +43,6 @@ in {
         (discord.override {withVencord = true;})
         dirlock
         qbittorrent
-        stable.aseprite
         obsidian
         loupe
       ]))

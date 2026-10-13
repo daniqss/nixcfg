@@ -5,14 +5,14 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  inherit (lib) mkIf mkEnableOption;
+in {
   imports = [inputs.nixcraft.homeModules.default];
 
-  options.graphical.gaming.minecraft.enable = lib.mkEnableOption "enable declarative minecraft client";
+  options.graphical.gaming.minecraft.enable = mkEnableOption "enable declarative minecraft client";
 
-  config = lib.mkIf (config.graphical.enable
-    && config.graphical.gaming.enable
-    && config.graphical.gaming.minecraft.enable) {
+  config = mkIf config.graphical.gaming.minecraft.enable {
     nixcraft = {
       enable = true;
 
@@ -20,24 +20,17 @@
         shared = {
           files."screenshots".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Pictures/screenshots";
 
-          # username and uuid are only used by offline instances, online ones
-          # take them from the microsoft profile fetched at launch
+          # username is verified against the authenticated profile,
+          # uuid picks which cached account to use.
+          # the first launch prints a device code for microsoft.com/link and caches the tokens under ~/.local/share/nixcraft/client/auth,
+          # `nixcraft-client-auth login` does the same by hand
           account = {
             username = "ranicocs";
             uuid = "adce2a00-a1de-4904-a8d6-4474668a0a15";
             offline = false;
-
-            # the file must be writable, nixcraft rotates the token on every launch.
-            # to get a refresh token, run
-            # ```sh
-            # nix run github:daniqss/nixcraft#auth
-            # mkdir -p ~/.local/share/nixcraft
-            # printf '%s\n' '<refreshToken>' > ~/.local/share/nixcraft/microsoft-refresh-token
-            # ```
-            refreshTokenPath = "${config.home.homeDirectory}/.local/share/nixcraft/microsoft-refresh-token";
           };
 
-          gameOptions = {
+          optionsTxt = {
             fullscreen = false;
             guiScale = 2;
             narrator = null;
