@@ -17,6 +17,4 @@
       config.allowUnfree = true;
     };
   };
-
-  nix-minecraft = inputs.nix-minecraft.overlays.default;
 }

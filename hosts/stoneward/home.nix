@@ -3,7 +3,7 @@ _: {
     enable = true;
     gaming = {
       enable = true;
-      minecraft.enable = true;
+      hollowknight.enable = true;
     };
     emulators = {
       emulator = "ghostty";

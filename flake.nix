@@ -28,7 +28,7 @@
     nvf.url = "github:NotAShelf/nvf";
 
     nixcraft = {
-      url = "github:daniqss/nixcraft";
+      url = "github:loystonpais/nixcraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -36,12 +36,15 @@
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
-    vicinae.url = "github:vicinaehq/vicinae";
-    vicinae-extensions.url = "github:vicinaehq/extensions";
-
+    vicinae = {
+      url = "github:vicinaehq/vicinae";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
+    vicinae-extensions = {
+      url = "github:vicinaehq/extensions";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-
-    nix-minecraft.url = "github:daniqss/nix-minecraft";
   };
 
   outputs = inputs @ {
