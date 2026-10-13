@@ -54,6 +54,10 @@ in {
       };
     };
 
+    whitelist = {
+      ranicocs = "adce2a00-a1de-4904-a8d6-4474668a0a15";
+    };
+
     server.serverProperties.allow-cheats = true;
 
     server.java.memory = 2048;

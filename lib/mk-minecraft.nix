@@ -7,6 +7,7 @@ in
     version,
     loaderVersion,
     port ? 25565,
+    whitelist ? null,
     icon ? null,
     mods ? {},
     clientMods ? {},
@@ -31,10 +32,15 @@ in
         # the attribute names are only ours to read
         mods = lib.attrValues mods;
 
-        serverProperties = {
-          motd = name;
-          server-port = port;
-        };
+        serverProperties =
+          {
+            motd = name;
+            server-port = port;
+          }
+          // lib.optionalAttrs (whitelist != null) {
+            white-list = true;
+            enforce-whitelist = true;
+          };
 
         # the nixos module runs this wrapper as the unit's ExecStart
         binEntry.name = "${slug}-server";
@@ -44,9 +50,17 @@ in
           autoStart = true;
         };
 
-        files = lib.optionalAttrs (icon != null) {
-          "server-icon.png".source = icon;
-        };
+        files =
+          lib.optionalAttrs (icon != null) {
+            "server-icon.png".source = icon;
+          }
+          // lib.optionalAttrs (whitelist != null) {
+            # copied, not symlinked, so `/whitelist add` still works until the next restart
+            "whitelist.json" = {
+              method = "copy";
+              text = builtins.toJSON (lib.mapAttrsToList (name: uuid: {inherit name uuid;}) whitelist);
+            };
+          };
       }
       server;
 
