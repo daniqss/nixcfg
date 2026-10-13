@@ -1,5 +1,9 @@
 {pkgs}: let
   mkMinecraft = import ./mk-minecraft.nix {inherit pkgs;};
+
+  players = {
+    ranicocs = "adce2a00-a1de-4904-a8d6-4474668a0a15";
+  };
 in {
   # TODO: this must be refactor
   # maybe flake parts and dendritic pattern could help
@@ -54,11 +58,8 @@ in {
       };
     };
 
-    whitelist = {
-      ranicocs = "adce2a00-a1de-4904-a8d6-4474668a0a15";
-    };
-
-    server.serverProperties.allow-cheats = true;
+    whitelist = players;
+    ops = players;
 
     server.java.memory = 2048;
     client.java.memory = 8192;

@@ -8,6 +8,7 @@ in
     loaderVersion,
     port ? 25565,
     whitelist ? null,
+    ops ? null,
     icon ? null,
     mods ? {},
     clientMods ? {},
@@ -59,6 +60,18 @@ in
             "whitelist.json" = {
               method = "copy";
               text = builtins.toJSON (lib.mapAttrsToList (name: uuid: {inherit name uuid;}) whitelist);
+            };
+          }
+          // lib.optionalAttrs (ops != null) {
+            # java has no allow-cheats, commands come from op level 4
+            "ops.json" = {
+              method = "copy";
+              text = builtins.toJSON (lib.mapAttrsToList (name: uuid: {
+                  inherit name uuid;
+                  level = 4;
+                  bypassesPlayerLimit = false;
+                })
+                ops);
             };
           };
       }
