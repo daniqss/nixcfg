@@ -44,6 +44,7 @@ in {
       keybind = [
         "alt+t=new_tab"
         "alt+w=close_tab"
+        "ctrl+enter=unbind"
       ];
 
       font-family = "CaskaydiaCove Nerd Font Mono";
