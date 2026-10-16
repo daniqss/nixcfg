@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.dev;
@@ -9,18 +8,17 @@ in {
   imports = [
     ./langs
     ./editors
+    ./agents
   ];
 
   options.dev.enable = lib.mkEnableOption "enable editors and langs";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      claude-code
-    ];
-
     dev.editors.vscode.enable = lib.mkDefault config.graphical.enable;
     dev.editors.nvim.enable = lib.mkDefault true;
     dev.editors.emacs.enable = lib.mkDefault true;
     dev.editors.helix.enable = lib.mkDefault true;
+
+    dev.agents.claude.enable = lib.mkDefault true;
   };
 }
