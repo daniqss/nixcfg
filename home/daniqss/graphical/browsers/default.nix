@@ -12,6 +12,7 @@ in {
   imports = [
     ./chromium.nix
     ./chrome.nix
+    ./homelab.nix
   ];
 
   options.graphical.browsers = lib.mkOption {

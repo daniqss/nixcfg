@@ -8,4 +8,6 @@
   minecraft = import ./minecraft.nix;
 
   nixSettings = import ./nix-settings.nix;
+
+  homelab = import ./homelab.nix {inherit inputs outputs;};
 }

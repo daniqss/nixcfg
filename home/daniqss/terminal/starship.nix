@@ -5,10 +5,11 @@
 }: let
   cfg = config.terminal.shell;
 in {
-  # shared prompt for the posix-ish shells, nushell has its own handmade one
-  config = lib.mkIf (cfg.zsh.enable || cfg.bash.enable) {
+  # zsh prompt, bash and nushell have their own handmade one
+  config = lib.mkIf cfg.zsh.enable {
     programs.starship = {
       enable = true;
+      enableBashIntegration = false;
       enableNushellIntegration = false;
 
       settings = {

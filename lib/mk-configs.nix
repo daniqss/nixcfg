@@ -66,6 +66,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.backupFileExtension = "bak";
+              home-manager.overwriteBackup = true;
               home-manager.extraSpecialArgs = specialArgs;
               home-manager.users.${username}.imports = [
                 ../hosts/${hostname}/home.nix
