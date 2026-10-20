@@ -1,7 +1,7 @@
 {lib, ...}: {
   terminal = {
     enable = true;
-    shell.default = "bash";
+    shell.default = "zsh";
 
     git = {
       email = "daniel.queijo@alen.space";

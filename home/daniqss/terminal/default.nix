@@ -8,10 +8,8 @@
   cfg = config.terminal;
 in {
   imports = [
-    ./bash.nix
     ./zsh.nix
     ./nushell.nix
-    ./starship.nix
     ./git.nix
     ./multiplexer.nix
   ];
@@ -20,8 +18,8 @@ in {
     enable = lib.mkEnableOption "Enable some terminal stuff";
 
     shell.default = lib.mkOption {
-      type = lib.types.enum ["bash" "zsh" "nushell"];
-      default = "bash";
+      type = lib.types.enum ["zsh" "nushell"];
+      default = "zsh";
       description = ''
         Which shell to use. The package will be installed in NixOS config from this selection
       '';
@@ -30,7 +28,6 @@ in {
 
   config = mkIf cfg.enable {
     terminal.shell = {
-      bash.enable = mkDefault (cfg.shell.default == "bash");
       zsh.enable = mkDefault (cfg.shell.default == "zsh");
       nushell.enable = mkDefault (cfg.shell.default == "nushell");
     };

@@ -9,7 +9,6 @@
   cfg' = config.home-manager.users.${username};
   shells = {
     inherit (pkgs) zsh nushell;
-    bash = pkgs.bashInteractive;
   };
   shell = shells.${cfg'.terminal.shell.default};
 in {

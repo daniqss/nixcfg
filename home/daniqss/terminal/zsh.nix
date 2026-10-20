@@ -66,6 +66,9 @@ in {
         bindkey "\033[4~" end-of-line
         bindkey "^H" backward-kill-word
         bindkey "\e\r" forward-char
+
+        __PROMPT_GIT_BIN="${lib.getExe pkgs.git}"
+        ${builtins.readFile ./zsh/prompt.zsh}
       '';
     };
   };
