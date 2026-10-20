@@ -40,7 +40,6 @@ in {
     };
 
     home.sessionVariables = {
-      HOME = "/home/${username}/";
       XDG_DESKTOP_DIR = "$HOME";
       XDG_DOCUMENTS_DIR = "$HOME/Documents";
       XDG_DOWNLOAD_DIR = "$HOME/Downloads";
