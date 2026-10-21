@@ -7,7 +7,6 @@
   ...
 }: let
   cfg = config.graphical.desktops;
-  inherit (config.graphical.emulators) emulator;
 
   cursor = "Bibata-Modern-Classic-Hyprcursor";
   cursorSize = 24;
@@ -48,7 +47,7 @@
 
     kb_layout = "${cfg.layoutsToDesktopConfig cfg.layouts}"
     kb_variant = "${cfg.variantsToDesktopConfig cfg.layouts}"
-    emulator = "${emulator}"
+    emulator = "${lib.getExe config.graphical.emulators.default}"
     screenshotDir = "/home/${username}/Pictures/screenshots"
     gnomePortal = "${gnomePortal}"
 
@@ -82,7 +81,7 @@ in {
     ./hyprpolkitagent.nix
   ];
 
-  config = lib.mkIf (cfg.desktop == "hyprland") {
+  config = lib.mkIf cfg.hyprland.enable {
     xdg.dataFile."icons/${cursor}".source = "${cursorPackage}/share/icons/${cursor}";
 
     xdg.configFile."hypr/.luarc.json".text = builtins.toJSON {

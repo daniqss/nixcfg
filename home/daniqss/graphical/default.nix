@@ -19,15 +19,12 @@ in {
 
   config = mkIf config.graphical.enable {
     graphical = {
-      desktops.desktop = "hyprland";
+      desktops.enable = mkDefault true;
       browsers = {
         enable = mkDefault true;
       };
 
-      emulators = mkDefault {
-        emulator = "ghostty";
-        fontsize = 13;
-      };
+      emulators.enable = mkDefault true;
 
       misc = {
         enable = mkDefault true;

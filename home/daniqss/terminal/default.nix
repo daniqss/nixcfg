@@ -1,4 +1,5 @@
 {
+  outputs,
   pkgs,
   lib,
   config,
@@ -17,20 +18,17 @@ in {
   options.terminal = {
     enable = lib.mkEnableOption "Enable some terminal stuff";
 
-    shell.default = lib.mkOption {
-      type = lib.types.enum ["zsh" "nushell"];
-      default = "zsh";
+    shell = outputs.lib.mkProgramGroupOptions {
       description = ''
         Which shell to use. The package will be installed in NixOS config from this selection
       '';
+      packages = with pkgs; [zsh nushell];
+      default = pkgs.zsh;
     };
   };
 
   config = mkIf cfg.enable {
-    terminal.shell = {
-      zsh.enable = mkDefault (cfg.shell.default == "zsh");
-      nushell.enable = mkDefault (cfg.shell.default == "nushell");
-    };
+    terminal.shell.enable = mkDefault true;
 
     home.packages = with pkgs; [
       bat

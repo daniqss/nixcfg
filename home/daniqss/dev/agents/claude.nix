@@ -14,7 +14,7 @@ in {
 
       # global ~/.claude/CLAUDE.md, loaded before each project's CLAUDE.md or AGENTS.md
       context = ''
-        - The user's interactive shell is ${config.terminal.shell.default}.
+        - The user's interactive shell is ${lib.getName config.terminal.shell.default}.
       '';
     };
   };

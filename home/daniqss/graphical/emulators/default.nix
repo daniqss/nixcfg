@@ -1,22 +1,25 @@
-{lib, ...}: {
+{
+  outputs,
+  pkgs,
+  ...
+}: let
+  inherit (outputs.lib) mkProgramGroupOptions mkFontOptions;
+in {
   imports = [
     ./ghostty.nix
     ./alacritty.nix
   ];
 
-  options.graphical.emulators = {
-    emulator = lib.mkOption {
-      type = lib.types.enum ["ghostty" "alacritty" "none"];
-      default = "none";
+  options.graphical.emulators =
+    mkProgramGroupOptions {
       description = "available terminal emulators";
+      packages = with pkgs; [ghostty alacritty];
+      default = pkgs.ghostty;
+    }
+    // {
+      font = mkFontOptions {
+        family = "CaskaydiaCove Nerd Font Mono";
+        size = 13;
+      };
     };
-
-    fontsize = lib.mkOption {
-      type = lib.types.ints.positive;
-      default = 14;
-      description = "wanted fontsize in the selected terminal emulator";
-    };
-
-    description = "terminal emulator config";
-  };
 }

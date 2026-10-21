@@ -2,14 +2,8 @@ _: {
   graphical = {
     enable = true;
     gaming.enable = true;
-    emulators = {
-      emulator = "ghostty";
-      fontsize = 13;
-    };
 
     desktops = {
-      desktop = "hyprland";
-
       layouts = ["es" "us"];
 
       monitors = [

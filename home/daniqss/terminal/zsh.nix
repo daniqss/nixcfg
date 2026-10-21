@@ -1,4 +1,5 @@
 {
+  outputs,
   pkgs,
   lib,
   config,
@@ -6,7 +7,7 @@
 }: let
   cfg = config.terminal.shell.zsh;
 in {
-  options.terminal.shell.zsh.enable = lib.mkEnableOption "Enable zsh as shell";
+  options.terminal.shell.zsh.enable = outputs.lib.mkProgramEnableOption config.terminal.shell "zsh";
 
   config = lib.mkIf cfg.enable {
     programs.zsh = {

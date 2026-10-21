@@ -8,7 +8,7 @@
   inherit (lib) mkIf;
   cfg' = config.home-manager.users.${username};
 in {
-  config = mkIf (cfg'.graphical.desktops.desktop == "hyprland") {
+  config = mkIf cfg'.graphical.desktops.hyprland.enable {
     environment.variables.NIXOS_OZONE_WL = "1";
 
     programs.hyprland = {

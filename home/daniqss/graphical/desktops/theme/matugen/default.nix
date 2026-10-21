@@ -11,7 +11,7 @@
     ${lib.getExe pkgs.matugen} image ${wallpaper}
   '';
 in {
-  config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
+  config = lib.mkIf config.graphical.desktops.hyprland.enable {
     home.packages = [
       pkgs.matugen
       createMatugen

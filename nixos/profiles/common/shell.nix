@@ -1,18 +1,14 @@
 {
   username,
   config,
-  pkgs,
   lib,
   ...
 }: let
   inherit (lib) mkIf;
   cfg' = config.home-manager.users.${username};
-  shells = {
-    inherit (pkgs) zsh nushell;
-  };
-  shell = shells.${cfg'.terminal.shell.default};
+  shell = cfg'.terminal.shell.default;
 in {
-  config = mkIf cfg'.terminal.enable {
+  config = mkIf cfg'.terminal.shell.enable {
     users.users.${username}.shell = shell;
     environment.shells = [shell];
 

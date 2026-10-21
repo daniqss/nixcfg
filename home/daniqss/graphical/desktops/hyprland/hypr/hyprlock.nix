@@ -5,7 +5,7 @@
   config,
   ...
 }: {
-  config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
+  config = lib.mkIf config.graphical.desktops.hyprland.enable {
     programs.hyprlock = {
       enable = true;
       package = pkgs.hyprlock;
