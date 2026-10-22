@@ -157,4 +157,5 @@
   "explorer.confirmPasteNative": false,
   "github.copilot.nextEditSuggestions.enabled": true,
   "ty.inlayHints.variableTypes": false,
+  "editor.unicodeHighlight.invisibleCharacters": false,
 }

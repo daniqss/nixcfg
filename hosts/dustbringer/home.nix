@@ -14,7 +14,15 @@
       ];
     };
 
-    ssh.homelab.enable = false;
+    ssh = {
+      homelab.enable = true;
+
+      hosts.minipc-totem = {
+        hostname = "10.1.0.158";
+        user = "alen";
+        identityFile = "~/.ssh/minipc_totem_ed25519";
+      };
+    };
   };
 
   dev = {

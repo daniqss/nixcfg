@@ -11,6 +11,7 @@ in {
     ./zsh.nix
     ./nushell.nix
     ./git.nix
+    ./ssh.nix
     ./multiplexer.nix
   ];
 

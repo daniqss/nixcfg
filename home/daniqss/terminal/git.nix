@@ -157,45 +157,10 @@ in {
           description = "git forges accessed via ssh, each one gets an ssh host entry and an https to ssh url rewrite";
         };
       };
-
-    ssh.homelab.enable = mkOption {
-      type = types.bool;
-      default = true;
-      description = "add the homelab hosts to the ssh config";
-    };
   };
 
   config = mkIf config.terminal.enable {
-    programs.ssh = {
-      enable = true;
-      enableDefaultConfig = false;
-
-      settings =
-        {
-          "*" = {
-            Compression = true;
-          };
-
-          "github.com" = {
-            User = "git";
-            HostName = "github.com";
-            IdentityFile = "~/.ssh/github_ed25519";
-            IdentitiesOnly = true;
-          };
-        }
-        // forgeSshSettings
-        // optionalAttrs config.terminal.ssh.homelab.enable {
-          "bondsmith-lan" = {
-            User = "daniqss";
-            HostName = "192.168.1.170";
-          };
-
-          "bondsmith" = {
-            User = "daniqss";
-            HostName = "bondsmith.tailb76493.ts.net";
-          };
-        };
-    };
+    programs.ssh.settings = forgeSshSettings;
 
     programs.git = {
       enable = true;
