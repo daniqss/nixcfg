@@ -101,9 +101,27 @@ hl.config({
   },
 })
 
-if touchpad_name ~= "" then
-  hl.device({
-    name = touchpad_name,
-    sensitivity = touchpad_sensitivity,
-  })
+-- hyprland has no sensitivity setting under input.touchpad, and device rules
+-- need an exact device name, so every touchpad is read from the kernel and
+-- named the way hyprland does it internally: deviceNameToInternalString
+-- lowercases and turns spaces, commas and newlines into dashes
+local function to_internal_name(name)
+  return (name:lower():gsub("[ ,\n]", "-"))
+end
+
+local devices = io.open("/proc/bus/input/devices")
+
+if devices then
+  for line in devices:lines() do
+    local name = line:match('^N: Name="(.*)"$')
+
+    if name and name:lower():find("touchpad", 1, true) then
+      hl.device({
+        name = to_internal_name(name),
+        sensitivity = touchpad_sensitivity,
+      })
+    end
+  end
+
+  devices:close()
 end

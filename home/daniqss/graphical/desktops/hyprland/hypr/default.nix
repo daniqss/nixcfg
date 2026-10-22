@@ -1,5 +1,4 @@
 {
-  hostname,
   username,
   pkgs,
   lib,
@@ -11,20 +10,6 @@
   cursor = "Bibata-Modern-Classic-Hyprcursor";
   cursorSize = 24;
   cursorPackage = pkgs.bibata-hyprcursor;
-
-  # touchpad tweaks
-  touchpad =
-    if hostname == "windrunner"
-    then {
-      name = "elan071a:00-04f3:30fd-touchpad";
-      sensitivity = "0.1";
-    }
-    else if hostname == "skybreaker"
-    then {
-      name = "elan0412:01-04f3:3240-touchpad";
-      sensitivity = "0.1";
-    }
-    else "";
 
   gnomePortal = "${pkgs.xdg-desktop-portal-gnome}/libexec/xdg-desktop-portal-gnome";
 
@@ -54,16 +39,7 @@
     vicinae_enabled = ${lib.boolToString config.graphical.shells.vicinae.enable}
 
 
-    touchpad_name = "${
-      if touchpad != ""
-      then touchpad.name
-      else ""
-    }"
-    touchpad_sensitivity = ${
-      if touchpad != ""
-      then touchpad.sensitivity
-      else "0"
-    }
+    touchpad_sensitivity = ${toString cfg.touchpadSensitivity}
 
     -- fallback colors, overridden by the matugen-generated colors.lua
     primary = "rgba(8888ffff)"
@@ -91,8 +67,8 @@ in {
 
     home.packages =
       (with pkgs; [
-        hyprshot
-        wireplumber
+        # hyprshot
+        # wireplumber
         playerctl
         brightnessctl
         wlrctl
