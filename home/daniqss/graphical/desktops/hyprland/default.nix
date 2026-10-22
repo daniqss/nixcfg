@@ -1,15 +1,19 @@
 {
+  outputs,
   lib,
   config,
   ...
 }: let
   inherit (lib) mkIf mkDefault;
+  cfg = config.graphical.desktops;
 in {
   imports = [
     ./hypr
   ];
 
-  config = mkIf (config.graphical.desktops.desktop == "hyprland") {
+  options.graphical.desktops.hyprland.enable = outputs.lib.mkProgramEnableOption cfg "hyprland";
+
+  config = mkIf cfg.hyprland.enable {
     graphical.desktops.monitorToDesktopConfig = monitors:
       monitors
       |> map (

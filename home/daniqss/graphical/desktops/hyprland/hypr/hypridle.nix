@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  services.hypridle = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
+  services.hypridle = lib.mkIf config.graphical.desktops.hyprland.enable {
     enable = true;
     package = pkgs.hypridle;
 

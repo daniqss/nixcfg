@@ -1,11 +1,14 @@
 {
+  outputs,
   lib,
   config,
   ...
 }: let
   cfg = config.graphical.emulators;
 in {
-  programs.ghostty = lib.mkIf (cfg.emulator == "ghostty") {
+  options.graphical.emulators.ghostty.enable = outputs.lib.mkProgramEnableOption cfg "ghostty";
+
+  config.programs.ghostty = lib.mkIf cfg.ghostty.enable {
     enable = true;
     enableZshIntegration = true;
 
@@ -44,10 +47,11 @@ in {
       keybind = [
         "alt+t=new_tab"
         "alt+w=close_tab"
+        "ctrl+enter=unbind"
       ];
 
-      font-family = "CaskaydiaCove Nerd Font Mono";
-      font-size = cfg.fontsize;
+      font-family = cfg.font.family;
+      font-size = cfg.font.size;
       font-thicken = true;
       bold-is-bright = false;
       adjust-box-thickness = 1;

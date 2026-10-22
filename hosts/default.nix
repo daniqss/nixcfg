@@ -3,25 +3,23 @@
   outputs,
 }: let
   inherit (outputs.lib) mkNixos;
+  username = "daniqss";
 in {
   # desktop intel+nvidia pc
-  stoneward = let
-    username = "daniqss";
-  in
-    mkNixos {
-      hostname = "stoneward";
-      inherit username;
-      system = "x86_64-linux";
+  stoneward = mkNixos {
+    inherit username;
+    hostname = "stoneward";
+    system = "x86_64-linux";
 
-      modules = [
-        inputs.lanzaboote.nixosModules.lanzaboote
-      ];
-    };
+    modules = [
+      inputs.lanzaboote.nixosModules.lanzaboote
+    ];
+  };
 
   # amd laptop
   windrunner = mkNixos {
+    inherit username;
     hostname = "windrunner";
-    username = "daniqss";
     system = "x86_64-linux";
     isLaptop = true;
 
@@ -30,8 +28,8 @@ in {
 
   # i5 slimbook laptop
   skybreaker = mkNixos {
+    inherit username;
     hostname = "skybreaker";
-    username = "daniqss";
     system = "x86_64-linux";
     isLaptop = true;
 
@@ -44,8 +42,8 @@ in {
     inherit (inputs) nixos-raspberrypi;
   in
     mkNixos {
+      inherit username;
       hostname = "bondsmith";
-      username = "daniqss";
       system = "aarch64-linux";
 
       # createSystem = inputs.nixos-raspberrypi.lib.nixosSystem;

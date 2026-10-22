@@ -1,17 +1,13 @@
-_: {
+{pkgs, ...}: {
   graphical = {
     enable = true;
     gaming = {
       enable = true;
-      minecraft.enable = true;
+      hollowknight.enable = true;
     };
-    emulators = {
-      emulator = "ghostty";
-      fontsize = 12;
-    };
+    emulators.font.size = 12;
 
     desktops = {
-      desktop = "hyprland";
       monitors = [
         {
           name = "DP-1";
@@ -45,6 +41,6 @@ _: {
   dev.enable = true;
   terminal = {
     enable = true;
-    shell.default = "nushell";
+    shell.default = pkgs.zsh;
   };
 }

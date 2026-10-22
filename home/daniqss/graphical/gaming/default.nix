@@ -3,21 +3,23 @@
   lib,
   config,
   ...
-}: {
+}: let
+  inherit (lib) mkIf mkEnableOption mkDefault;
+in {
   imports = [
     ./minecraft.nix
+    ./hollowknight.nix
   ];
 
-  options.graphical.gaming.enable = lib.mkEnableOption "enable gaming packages session";
+  options.graphical.gaming.enable = mkEnableOption "enable gaming packages session";
 
-  config = lib.mkIf (config.graphical.enable
-    && config.graphical.gaming.enable) {
+  config = mkIf config.graphical.gaming.enable {
+    graphical.gaming = {
+      minecraft.enable = mkDefault true;
+      hollowknight.enable = mkDefault false;
+    };
+
     home.packages = with pkgs; [
-      # hollow knight mod manager
-      lumafly
-
-      hitcountermanager
-
       # tetris clon
       apotris
     ];

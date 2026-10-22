@@ -1,4 +1,5 @@
 {
+  outputs,
   pkgs,
   lib,
   config,
@@ -6,7 +7,7 @@
 }: let
   cfg = config.terminal.shell.zsh;
 in {
-  options.terminal.shell.zsh.enable = lib.mkEnableOption "Enable zsh as shell";
+  options.terminal.shell.zsh.enable = outputs.lib.mkProgramEnableOption config.terminal.shell "zsh";
 
   config = lib.mkIf cfg.enable {
     programs.zsh = {
@@ -20,6 +21,13 @@ in {
 
       autocd = true;
       enableCompletion = true;
+      # skip the slow compaudit unless the dump is older than 5 days
+      completionInit = ''
+        autoload -U compinit
+        _dump=(''${ZDOTDIR:-$HOME}/.zcompdump(N.md+5))
+        if (( $#_dump )); then compinit && touch $_dump; else compinit -C; fi
+        unset _dump
+      '';
       syntaxHighlighting.enable = true;
       autosuggestion.enable = true;
 
@@ -59,84 +67,10 @@ in {
         bindkey "\033[4~" end-of-line
         bindkey "^H" backward-kill-word
         bindkey "\e\r" forward-char
+
+        __PROMPT_GIT_BIN="${lib.getExe pkgs.git}"
+        ${builtins.readFile ./zsh/prompt.zsh}
       '';
-    };
-
-    programs.starship = {
-      enable = true;
-
-      settings = {
-        add_newline = false;
-
-        format = ''
-
-          $username$hostname[:](bright-black)$directory$git_branch$git_status$nix_shell
-          $cmd_duration$status$character'';
-
-        username = {
-          style_user = "bold green";
-          style_root = "bold green";
-          format = "[$user]($style)";
-          show_always = true;
-        };
-
-        hostname = {
-          ssh_only = false;
-          style = "bold green";
-          format = "[@$hostname]($style)";
-        };
-
-        directory = {
-          style = "bold blue";
-          format = "[$path]($style)";
-          truncation_length = 0;
-          truncate_to_repo = false;
-        };
-
-        git_branch = {
-          symbol = " ";
-          style = "bold red";
-          format = " [|](bright-black) [$symbol$branch]($style)";
-        };
-
-        git_status = {
-          style = "red";
-          format = "([ $ahead_behind]($style))([ $conflicted$staged$renamed$modified$deleted$untracked]($style))";
-          ahead = "⇡\${count}";
-          behind = "⇣\${count}";
-          diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
-          conflicted = "=\${count}";
-          staged = "+\${count}";
-          renamed = "»\${count}";
-          modified = "!\${count}";
-          deleted = "✘\${count}";
-          untracked = "?\${count}";
-        };
-
-        nix_shell = {
-          symbol = "λ nix";
-          style = "bold cyan";
-          format = " [|](bright-black) [$symbol]($style)";
-        };
-
-        cmd_duration = {
-          min_time = 8000;
-          style = "yellow";
-          format = "[took $duration ]($style)";
-        };
-
-        status = {
-          disabled = false;
-          style = "bold red";
-          format = "[\\[$status\\] ]($style)";
-        };
-
-        character = {
-          success_symbol = "[\\$](bold yellow)";
-          error_symbol = "[\\$](bold yellow)";
-          format = "$symbol ";
-        };
-      };
     };
   };
 }

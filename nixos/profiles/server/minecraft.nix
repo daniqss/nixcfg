@@ -1,55 +1,30 @@
 {
   inputs,
+  outputs,
   lib,
   config,
   pkgs,
   ...
-}: {
-  imports = [inputs.nix-minecraft.nixosModules.minecraft-servers];
+}: let
+  instances = outputs.lib.minecraft {inherit pkgs;};
+in {
+  imports = [inputs.nixcraft.nixosModules.default];
 
   options.server.minecraft.enable = lib.mkEnableOption "enable minecraft server profile";
 
   config = lib.mkIf config.server.minecraft.enable {
-    # to access mc console with with `sudo tmux -S /run/minecraft/mc-gf.sock attach`
-    environment.systemPackages = with pkgs; [
-      tmux
-    ];
-
-    services.minecraft-servers = {
+    # instance dir is /var/lib/nixcraft/server/instances/<slug>, logs with
+    # `journalctl -u nixcraft-server-<slug>`
+    nixcraft = {
       enable = true;
-      eula = true;
-      openFirewall = true;
 
-      servers.mc-gf = {
-        enable = true;
-
-        serverProperties = {
-          motd = "mc con pauli";
-          allow-cheats = true;
-        };
-
-        package = pkgs.fabricServers.fabric-1_21_10.override {
-          loaderVersion = "0.18.1";
-        };
-
-        symlinks = {
-          "server-icon.png" = "${inputs.self}/assets/icons/mcgf.png";
-
-          mods =
-            {
-              Fabric-API = pkgs.fetchurl {
-                url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/dQ3p80zK/fabric-api-0.138.3%2B1.21.10.jar";
-                sha512 = "sha512-3HOjZTwplHbR9wy2ksTjWsP2lLOwhz49C3KelS6ZK4eNGo4LHRBJpEKg1IPTBoBzGU8Vr1LqmThURhbiBDPMOA==";
-              };
-              Carpet = pkgs.fetchurl {
-                url = "https://cdn.modrinth.com/data/TQTTVgYE/versions/oiUqSOMA/fabric-carpet-1.21.10-1.4.188%2Bv251016.jar";
-                sha512 = "sha512-36uTeE/KpzsghUhXBjAl02ovfCc5fMZLFB/iyFAkmTqHk2AWrII8LJRfJzFLmTiqV+BrVWdqHDScEhtEXs/iEw==";
-              };
-            }
-            |> builtins.attrValues
-            |> pkgs.linkFarmFromDrvs "mods";
-        };
-      };
+      server.instances = lib.mapAttrs (_: minecraft: minecraft.server) instances;
     };
+
+    # nixcraft brings no openFirewall of its own
+    networking.firewall.allowedTCPPorts =
+      instances
+      |> lib.attrValues
+      |> map (minecraft: minecraft.port);
   };
 }

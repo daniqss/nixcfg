@@ -1,17 +1,18 @@
 {
   inputs,
+  outputs,
   config,
   pkgs,
   lib,
   ...
-}: {
+}: let
+  inherit (lib) mkIf mkEnableOption;
+in {
   imports = [inputs.nixcraft.homeModules.default];
 
-  options.graphical.gaming.minecraft.enable = lib.mkEnableOption "enable declarative minecraft client";
+  options.graphical.gaming.minecraft.enable = mkEnableOption "enable declarative minecraft client";
 
-  config = lib.mkIf (config.graphical.enable
-    && config.graphical.gaming.enable
-    && config.graphical.gaming.minecraft.enable) {
+  config = mkIf config.graphical.gaming.minecraft.enable {
     nixcraft = {
       enable = true;
 
@@ -19,24 +20,17 @@
         shared = {
           files."screenshots".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Pictures/screenshots";
 
-          # username and uuid are only used by offline instances, online ones
-          # take them from the microsoft profile fetched at launch
+          # username is verified against the authenticated profile,
+          # uuid picks which cached account to use.
+          # the first launch prints a device code for microsoft.com/link and caches the tokens under ~/.local/share/nixcraft/client/auth,
+          # `nixcraft-client-auth login` does the same by hand
           account = {
             username = "ranicocs";
             uuid = "adce2a00-a1de-4904-a8d6-4474668a0a15";
             offline = false;
-
-            # the file must be writable, nixcraft rotates the token on every launch.
-            # to get a refresh token, run
-            # ```sh
-            # nix run github:daniqss/nixcraft#auth
-            # mkdir -p ~/.local/share/nixcraft
-            # printf '%s\n' '<refreshToken>' > ~/.local/share/nixcraft/microsoft-refresh-token
-            # ```
-            refreshTokenPath = "${config.home.homeDirectory}/.local/share/nixcraft/microsoft-refresh-token";
           };
 
-          gameOptions = {
+          optionsTxt = {
             fullscreen = false;
             guiScale = 2;
             narrator = null;
@@ -64,74 +58,9 @@
           };
         };
 
-        instances = {
-          ferreiros = {
-            enable = true;
-
-            # avoid derivation per asset
-            fastAssetDownload = {
-              enable = true;
-              hash = "sha256-zfSSmGuvMcKxVnSwMOseqNGC7o52vG9jiDw/8GwELbA=";
-            };
-
-            version = "26.2";
-            fabricLoader = {
-              enable = true;
-              version = "0.19.3";
-            };
-
-            mods = {
-              fabric-api = pkgs.fetchurl {
-                url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/3gT0I5vt/fabric-api-0.156.0%2B26.2.jar";
-                hash = "sha256-jeGNn2qKKlshIO+ei/+3nMm3WYnAwCLDnJ38G8Oimpk=";
-              };
-              sodium = pkgs.fetchurl {
-                url = "https://cdn.modrinth.com/data/AANobbMI/versions/StFfQ110/sodium-fabric-0.9.2-alpha.3%2Bmc26.2.jar";
-                hash = "sha256-TewKWdXJjBYLPAWUpi9wQU5LOAcC9XsDU9o3uckmXFM=";
-              };
-              lithium = pkgs.fetchurl {
-                url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/f7vZ0VWU/lithium-fabric-0.25.3%2Bmc26.2.jar";
-                hash = "sha256-/d6S4jjoB1+JrX9wHyo9WFSviLqaZ2VxhKRAexBKxWM=";
-              };
-              # incompatible with current sodium version
-              # iris = pkgs.fetchurl {
-              #   url = "https://cdn.modrinth.com/data/YL57xq9U/versions/oaD6KQls/iris-fabric-1.11.2%2Bmc26.2.jar";
-              #   hash = "sha256-3w4szdrqF7GR7aMrIcl54TG8nU70+DERO1C0YfxKOAQ=";
-              # };
-              modmenu = pkgs.fetchurl {
-                url = "https://cdn.modrinth.com/data/mOgUt4GM/versions/njXb639R/modmenu-20.0.1.jar";
-                hash = "sha256-gb+8oGASxXx0lJBy8v+q0GNgut7k0A3Fm/rqyA3SS9g=";
-              };
-              shulkerboxtooltip = pkgs.fetchurl {
-                url = "https://cdn.modrinth.com/data/2M01OLQq/versions/IHUNStdu/shulkerboxtooltip-fabric-5.4.0%2B26.2.jar";
-                hash = "sha256-9cHlcOIlEaQKdi72hkLJrlfsioX8+eownwViKQTto20=";
-              };
-            };
-
-            # data version of the instance's minecraft version, taken from
-            # `version.json` inside the client jar. without it the game assumes
-            # options.txt comes from a pre-1.13 client and runs the lwjgl2
-            # keybind datafixer over it, which fails and discards every option
-            gameOptions.version = 4903;
-
-            java.memory = 8192;
-
-            binEntry = {
-              enable = true;
-              name = "ferreiros";
-            };
-
-            desktopEntry = {
-              enable = true;
-              name = "Ferreiros, Minecraft 26.2";
-
-              extraConfig = {
-                terminal = false;
-                icon = "${inputs.self}/assets/icons/ferreiros.png";
-              };
-            };
-          };
-        };
+        instances =
+          outputs.lib.minecraft {inherit pkgs;}
+          |> lib.mapAttrs (_: minecraft: minecraft.client);
       };
     };
   };

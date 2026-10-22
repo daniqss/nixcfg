@@ -1,4 +1,4 @@
-_: {
+{
   extra-experimental-features = ["nix-command" "flakes" "pipe-operators"];
 
   extra-substituters = [

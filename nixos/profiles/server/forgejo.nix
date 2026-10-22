@@ -1,58 +1,69 @@
-{config, ...}: let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   cfg = config.services.forgejo;
-  srv = cfg.settings.server;
+  domain = "git.${config.server.caddy.domain}";
 in {
-  services.nginx.virtualHosts.${cfg.settings.server.DOMAIN} = {
-    forceSSL = true;
-    enableACME = true;
-    extraConfig = ''
-      client_max_body_size 512M;
-    '';
-    locations."/".proxyPass = "http://localhost:${toString srv.HTTP_PORT}";
-  };
+  options.server.forgejo.enable = lib.mkEnableOption "enable Forgejo git server";
 
-  services.forgejo = {
-    enable = true;
-    database.type = "postgres";
+  config = lib.mkIf config.server.forgejo.enable {
+    server.postgresql.enable = lib.mkDefault true;
 
-    # Enable support for Git Large File Storage
-    lfs.enable = true;
-    settings = {
-      server = {
-        DOMAIN = "git.example.com";
-        # You need to specify this to remove the port from URLs in the web UI.
-        ROOT_URL = "https://${srv.DOMAIN}/";
-        HTTP_PORT = 3000;
+    server.caddy.proxies.git.upstream = "unix/${cfg.settings.server.HTTP_ADDR}";
+
+    # after the first switch, once caddy is set up (see caddy.nix), create the admin with
+    # forgejo-admin user create --admin --username <user> --email <email> --random-password
+    environment.systemPackages = [
+      (pkgs.writeShellScriptBin "forgejo-admin" ''
+        exec sudo -u ${cfg.user} ${lib.getExe cfg.package} \
+          --work-path ${cfg.stateDir} --config ${cfg.customDir}/conf/app.ini admin "$@"
+      '')
+    ];
+
+    # git over the system openssh, so clone urls are git@${domain}:<owner>/<repo>
+    # the forgejo module only creates its user when it's named forgejo
+    users.users.git = {
+      home = cfg.stateDir;
+      useDefaultShell = true;
+      group = "git";
+      isSystemUser = true;
+    };
+    users.groups.git = {};
+
+    services.forgejo = {
+      enable = true;
+      user = "git";
+      group = "git";
+
+      database = {
+        type = "postgres";
+        # nixos creates the database only if the db user, db name and forgejo user match
+        user = "git";
+        name = "git";
       };
 
-      # You can temporarily allow registration to create an admin user.
-      service.DISABLE_REGISTRATION = true;
+      lfs.enable = true;
 
-      # Add support for actions, based on act: https://github.com/nektos/act
-      actions = {
-        ENABLED = true;
-        DEFAULT_ACTIONS_URL = "github";
-      };
+      settings = {
+        server = {
+          # caddy talks to the socket, so forgejo doesn't listen on any port
+          PROTOCOL = "http+unix";
+          DOMAIN = domain;
+          ROOT_URL = "https://${domain}/";
+          SSH_DOMAIN = domain;
+        };
 
-      # Sending emails is completely optional
-      # You can send a test email from the web UI at:
-      # Profile Picture > Site Administration > Configuration >  Mailer Configuration
-      mailer = {
-        ENABLED = true;
-        SMTP_ADDR = "mail.example.com";
-        FROM = "noreply@${srv.DOMAIN}";
-        USER = "noreply@${srv.DOMAIN}";
+        session.COOKIE_SECURE = true;
+        service.DISABLE_REGISTRATION = true;
+
+        actions = {
+          ENABLED = true;
+          DEFAULT_ACTIONS_URL = "github";
+        };
       };
     };
-
-    secrets = {
-      mailer.PASSWD = config.age.secrets.forgejo-mailer-password.path;
-    };
-  };
-
-  age.secrets.forgejo-mailer-password = {
-    file = ../secrets/forgejo-mailer-password.age;
-    mode = "400";
-    owner = "forgejo";
   };
 }

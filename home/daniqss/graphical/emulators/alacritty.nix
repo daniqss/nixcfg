@@ -1,11 +1,14 @@
 {
+  outputs,
   lib,
   config,
   ...
 }: let
   cfg = config.graphical.emulators;
 in {
-  config = lib.mkIf (cfg.emulator == "alacritty") {
+  options.graphical.emulators.alacritty.enable = outputs.lib.mkProgramEnableOption cfg "alacritty";
+
+  config = lib.mkIf cfg.alacritty.enable {
     programs.alacritty = {
       enable = true;
 
@@ -45,26 +48,29 @@ in {
           unfocused_hollow = true;
         };
 
-        font = {
-          size = 14.0;
+        font = let
+          family = cfg.font.family;
+          size = cfg.font.size * 1.0;
+        in {
+          inherit size;
 
           normal = {
-            family = "CaskaydiaCove Nerd Font";
+            inherit family;
             style = "Regular";
           };
 
           bold = {
-            family = "CaskaydiaCove Nerd Font";
+            inherit family;
             style = "Bold";
           };
 
           italic = {
-            family = "CaskaydiaCove Nerd Font";
+            inherit family;
             style = "Italic";
           };
 
           bold_italic = {
-            family = "CaskaydiaCove Nerd Font";
+            inherit family;
             style = "Bold Italic";
           };
 

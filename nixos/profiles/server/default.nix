@@ -9,13 +9,14 @@
     ./postgresql.nix
     ./terminfo.nix
     ./caddy.nix
-    # ./forgejo.nix
+    ./forgejo.nix
   ];
 
   options.server.enable = lib.mkEnableOption "enable server profile";
 
   config = lib.mkIf config.server.enable {
     server.immich.enable = lib.mkDefault true;
+    server.forgejo.enable = lib.mkDefault true;
     server.minecraft.enable = lib.mkDefault true;
     server.terminfo.enable = lib.mkDefault true;
     server.caddy.enable = lib.mkDefault true;

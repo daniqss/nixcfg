@@ -1,5 +1,4 @@
 {
-  username,
   lib,
   config,
   ...
@@ -19,24 +18,24 @@ in {
   options.graphical.enable = mkEnableOption "Enable graphical session";
 
   config = mkIf config.graphical.enable {
-    graphical.desktops.desktop = "hyprland";
-    graphical.browsers = {
-      enable = mkDefault true;
-    };
+    graphical = {
+      desktops.enable = mkDefault true;
+      browsers = {
+        enable = mkDefault true;
+      };
 
-    graphical.emulators = mkDefault {
-      emulator = "ghostty";
-      fontsize = 13;
-    };
+      emulators.enable = mkDefault true;
 
-    graphical.misc = {
-      enable = mkDefault true;
-      personal.enable = mkDefault true;
-      work.enable = mkDefault false;
+      misc = {
+        enable = mkDefault true;
+        personal.enable = mkDefault true;
+        work.enable = mkDefault false;
+      };
+
+      gaming.enable = mkDefault true;
     };
 
     home.sessionVariables = {
-      HOME = "/home/${username}/";
       XDG_DESKTOP_DIR = "$HOME";
       XDG_DOCUMENTS_DIR = "$HOME/Documents";
       XDG_DOWNLOAD_DIR = "$HOME/Downloads";

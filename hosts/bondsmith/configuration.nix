@@ -17,7 +17,11 @@
     server = {
       enable = true;
       immich.enable = true;
-      minecraft.enable = false;
+      forgejo.enable = true;
+
+      # tailscale ip, the other machines resolve <service>.bondsmith.tailb76493.ts.net to it
+      caddy.address = "100.77.11.37";
+      minecraft.enable = true;
     };
     desktop.enable = false;
 

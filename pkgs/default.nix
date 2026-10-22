@@ -4,4 +4,5 @@
   dirlock = pkgs.callPackage ./dirlock {};
   hitcountermanager = pkgs.callPackage ./hitcountermanager {};
   libsocketcan = pkgs.callPackage ./libsocketcan.nix {};
+  spotifast = pkgs.callPackage ./spotifast {};
 }

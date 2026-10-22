@@ -190,5 +190,25 @@ in {
         }
       ];
     };
+
+    programs.lazygit = {
+      enable = true;
+
+      settings = {
+        os.editPreset = "helix";
+
+        gui = {
+          nerdFontsVersion = "3";
+          showRandomTip = false;
+        };
+
+        git = {
+          autoFetch = true;
+          overrideGpg = true;
+        };
+
+        disableStartupPopups = true;
+      };
+    };
   };
 }

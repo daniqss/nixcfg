@@ -1,7 +1,11 @@
-{lib, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   terminal = {
     enable = true;
-    shell.default = "zsh";
+    shell.default = pkgs.zsh;
 
     git = {
       email = "daniel.queijo@alen.space";
@@ -36,8 +40,6 @@
 
     browsers.enable = true;
     desktops = {
-      desktop = lib.mkForce "hyprland";
-
       # without an explicit scale hyprland's "auto" picks 1.5 on this panel
       monitors = [
         {

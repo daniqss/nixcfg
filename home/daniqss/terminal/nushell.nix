@@ -1,10 +1,11 @@
 {
+  outputs,
   pkgs,
   lib,
   config,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkIf;
   cfg = config.terminal.shell.nushell;
 
   # direnv is home-manager managed on a foreign distro, and system wide on NixOS
@@ -13,7 +14,7 @@
     then lib.getExe config.programs.direnv.package
     else "direnv";
 in {
-  options.terminal.shell.nushell.enable = mkEnableOption "enable nushell as shell";
+  options.terminal.shell.nushell.enable = outputs.lib.mkProgramEnableOption config.terminal.shell "nushell";
 
   config = mkIf cfg.enable {
     programs.nushell = {

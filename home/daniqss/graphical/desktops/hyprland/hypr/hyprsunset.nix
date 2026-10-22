@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  config = lib.mkIf (config.graphical.desktops.desktop == "hyprland") {
+  config = lib.mkIf config.graphical.desktops.hyprland.enable {
     services.hyprsunset = {
       enable = true;
       package = pkgs.hyprsunset;

@@ -1,4 +1,5 @@
 {
+  outputs,
   pkgs,
   lib,
   config,
@@ -16,6 +17,15 @@
 
   config = lib.mkIf config.common.tailscale.enable {
     services.resolved.enable = true;
+
+    # homelab services, see lib/homelab.nix
+    networking.hosts =
+      outputs.lib.homelab
+      |> map (server: {${server.address} = server.domains;})
+      |> lib.zipAttrsWith (_: lib.concatLists);
+    security.pki.certificateFiles =
+      outputs.lib.homelab
+      |> lib.concatMap (server: server.ca);
 
     services.tailscale = {
       enable = true;
