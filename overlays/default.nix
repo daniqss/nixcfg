@@ -9,6 +9,14 @@
     valkey = prev.valkey.overrideAttrs (_old: {
       doCheck = false;
     });
+
+    iio-oscilloscope = prev.iio-oscilloscope.overrideAttrs (old: {
+      env =
+        (old.env or {})
+        // {
+          NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error";
+        };
+    });
   };
 
   stable-packages = final: _prev: {

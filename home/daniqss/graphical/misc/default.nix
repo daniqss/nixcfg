@@ -36,7 +36,8 @@ in {
         cliphist
         wl-clipboard
 
-        spotify
+        # spotify
+        spotifast
       ])
 
       (mkIf cfg.personal.enable (with pkgs; [
@@ -51,7 +52,6 @@ in {
         iio-oscilloscope
         tio
         slack
-        clickup
       ]))
     ];
   };

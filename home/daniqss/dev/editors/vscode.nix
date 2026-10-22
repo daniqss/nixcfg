@@ -45,7 +45,6 @@
           ms-toolsai.jupyter-renderers
           ms-toolsai.jupyter-keymap
           ms-toolsai.vscode-jupyter-slideshow
-          yzane.markdown-pdf
           ziglang.vscode-zig
 
           charliermarsh.ruff

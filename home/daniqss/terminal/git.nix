@@ -195,7 +195,7 @@ in {
       enable = true;
 
       settings = {
-        os.editPreset = "helix";
+        os.editPreset = "helix (hx)";
 
         gui = {
           nerdFontsVersion = "3";

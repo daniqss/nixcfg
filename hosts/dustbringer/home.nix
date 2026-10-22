@@ -32,6 +32,7 @@
   dev = {
     enable = true;
     editors.emacs.enable = false;
+    editors.nvim.enable = false;
   };
 
   # for now, until more testing
