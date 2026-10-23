@@ -24,17 +24,20 @@
   # generates a nixos configuration for hosts/default.nix
   mkNixos = {
     hostname,
-    username,
+    adminUser,
     system,
+    users ? [],
     createSystem ? lib.nixosSystem,
     useDisko ? false,
+    useProfiles ? true,
     isLaptop ? false,
-    hmDir ? username,
-    flakeDir ? defaultFlakeDir username,
+    hmDir ? adminUser,
+    flakeDir ? defaultFlakeDir adminUser,
     ...
   } @ args: let
     specialArgs = mkSpecialArgs {
-      inherit hostname username system isLaptop flakeDir hmDir;
+      inherit hostname system isLaptop flakeDir hmDir;
+      username = adminUser;
       isNixOS = true;
       extra = args.specialArgs or {};
     };
@@ -56,9 +59,11 @@
           (lib.flatten [
             (lib.singleton ../hosts/${hostname}/configuration.nix)
             (lib.singleton ../hosts/${hostname}/hardware-configuration.nix)
-            (lib.singleton ../nixos/profiles/common)
-            (lib.singleton ../nixos/profiles/desktop)
-            (lib.singleton ../nixos/profiles/server)
+            (lib.optionals useProfiles [
+              ../nixos/profiles/common
+              ../nixos/profiles/desktop
+              ../nixos/profiles/server
+            ])
             (args.modules or [])
           ])
           [
@@ -68,10 +73,14 @@
               home-manager.backupFileExtension = "bak";
               home-manager.overwriteBackup = true;
               home-manager.extraSpecialArgs = specialArgs;
-              home-manager.users.${username}.imports = [
-                ../hosts/${hostname}/home.nix
-                ../home/${hmDir}
-              ];
+              home-manager.users =
+                {
+                  ${adminUser}.imports = [
+                    ../hosts/${hostname}/home.nix
+                    ../home/${hmDir}
+                  ];
+                }
+                // lib.genAttrs users (user: {imports = [../home/${user}];});
             }
           ]
           (lib.flatten [

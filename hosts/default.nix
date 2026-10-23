@@ -3,11 +3,11 @@
   outputs,
 }: let
   inherit (outputs.lib) mkNixos;
-  username = "daniqss";
+  adminUser = "daniqss";
 in {
   # desktop intel+nvidia pc
   stoneward = mkNixos {
-    inherit username;
+    inherit adminUser;
     hostname = "stoneward";
     system = "x86_64-linux";
 
@@ -18,7 +18,7 @@ in {
 
   # amd laptop
   windrunner = mkNixos {
-    inherit username;
+    inherit adminUser;
     hostname = "windrunner";
     system = "x86_64-linux";
     isLaptop = true;
@@ -28,7 +28,7 @@ in {
 
   # i5 slimbook laptop
   skybreaker = mkNixos {
-    inherit username;
+    inherit adminUser;
     hostname = "skybreaker";
     system = "x86_64-linux";
     isLaptop = true;
@@ -37,12 +37,25 @@ in {
     modules = [];
   };
 
+  # mother's laptop
+  motherofmachines = mkNixos {
+    inherit adminUser;
+    users = ["romina"];
+    hostname = "motherofmachines";
+    system = "x86_64-linux";
+    isLaptop = true;
+
+    useDisko = true;
+    useProfiles = false;
+    modules = [];
+  };
+
   # rpi5 home server
   bondsmith = let
     inherit (inputs) nixos-raspberrypi;
   in
     mkNixos {
-      inherit username;
+      inherit adminUser;
       hostname = "bondsmith";
       system = "aarch64-linux";
 

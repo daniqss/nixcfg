@@ -12,6 +12,7 @@
   inherit (inputs.nixpkgs) lib;
 in
   outputs.nixosConfigurations
+  |> lib.filterAttrs (_: host: host.config ? server)
   |> lib.filterAttrs (_: host: let
     inherit (host.config) server;
   in
