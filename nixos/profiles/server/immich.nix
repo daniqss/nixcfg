@@ -21,8 +21,8 @@
     in {
       proxies.photos = {inherit upstream;};
 
-      # the phone can't resolve nor trust photos.<domain>, so the immich app
-      # uses the bare domain with the tailscale certificate
+      # the phone can't resolve nor trust photos.<domain>,
+      # so the immich app uses the bare domain with the tailscale certificate
       root = lib.mkDefault upstream;
     };
 

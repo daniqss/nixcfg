@@ -21,6 +21,14 @@ in {
       server.instances = lib.mapAttrs (_: minecraft: minecraft.server) instances;
     };
 
+    # <slug>.<domain> needs the caddy root ca on the other hosts, see caddy.nix
+    server.caddy.proxies =
+      instances
+      |> lib.mapAttrs' (_: minecraft:
+        lib.nameValuePair minecraft.slug {
+          upstream = "http://127.0.0.1:${toString minecraft.port}";
+        });
+
     # nixcraft brings no openFirewall of its own
     networking.firewall.allowedTCPPorts =
       instances
