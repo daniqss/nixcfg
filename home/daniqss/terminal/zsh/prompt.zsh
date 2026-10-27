@@ -9,7 +9,7 @@ autoload -Uz add-zsh-hook add-zle-hook-widget
 unsetopt prompt_subst
 
 typeset -g __PROMPT_GIT_BIN=${__PROMPT_GIT_BIN:-git}
-typeset -g __PROMPT_GIT_ICON=""
+typeset -g __PROMPT_GIT_ICON=$''
 typeset -gi __PROMPT_DURATION_THRESHOLD=8000
 typeset -g __PROMPT_SEPARATOR=" %F{8}|%f "
 
@@ -17,11 +17,11 @@ __prompt_escape() { REPLY=${1//\%/%%}; }
 
 __prompt_git_segment() {
   local out
-  out=$("$__PROMPT_GIT_BIN" --no-optional-locks status --porcelain=v2 --branch 2>/dev/null) || return
+  out=$("$__PROMPT_GIT_BIN" --no-optional-locks status --porcelain=v2 --branch --show-stash 2>/dev/null) || return
 
   local branch=HEAD line
   local -a ab
-  local -i ahead=0 behind=0 staged=0 modified=0 deleted=0 renamed=0 untracked=0 conflicted=0
+  local -i ahead=0 behind=0 stashed=0 staged=0 modified=0 deleted=0 renamed=0 untracked=0 conflicted=0
 
   for line in "${(@f)out}"; do
     case $line in
@@ -31,6 +31,7 @@ __prompt_git_segment() {
         ahead=${ab[1]#+}
         behind=${ab[2]#-}
         ;;
+      ('# stash '*) stashed=${line#'# stash '} ;;
       ('? '*) (( ++untracked )) ;;
       ('u '*) (( ++conflicted )) ;;
       ([12]' '*)
@@ -62,6 +63,7 @@ __prompt_git_segment() {
 
   local state=
   (( conflicted > 0 )) && state+="=${conflicted}"
+  (( stashed > 0 )) && state+="\$${stashed}"
   (( staged > 0 )) && state+="+${staged}"
   (( renamed > 0 )) && state+="»${renamed}"
   (( modified > 0 )) && state+="!${modified}"
@@ -82,7 +84,7 @@ __prompt_nix_segment() {
   if [[ -z $label || $label == nix-shell ]]; then
     label=nix
   else
-    label="nix:$label"
+    label="nix#$label"
   fi
 
   __prompt_escape "$label"
