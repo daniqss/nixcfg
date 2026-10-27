@@ -36,8 +36,8 @@ in {
         cliphist
         wl-clipboard
 
-        # spotify
-        spotifast
+        spotify
+        # spotifast
       ])
 
       (mkIf cfg.personal.enable (with pkgs; [
