@@ -20,15 +20,21 @@ in {
           insert = "bar";
           select = "underline";
         };
-        keys = {
-          normal = {
+        keys = let
+          paragraphs = {
             "{" = "goto_prev_paragraph";
             "}" = "goto_next_paragraph";
           };
-          select = {
-            "{" = "goto_prev_paragraph";
-            "}" = "goto_next_paragraph";
+
+          moveLines = {
+            "A-up" = ["extend_to_line_bounds" "delete_selection" "move_line_up" "paste_before"];
+            "A-down" = ["extend_to_line_bounds" "delete_selection" "paste_after"];
           };
+
+          common = paragraphs // moveLines;
+        in {
+          normal = common;
+          select = common;
         };
       };
       themes = {
