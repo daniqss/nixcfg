@@ -37,6 +37,7 @@
     gnomePortal = "${gnomePortal}"
 
     vicinae_enabled = ${lib.boolToString config.graphical.shells.vicinae.enable}
+    work_enabled = ${lib.boolToString config.graphical.misc.work.enable}
 
 
     touchpad_sensitivity = ${toString cfg.touchpadSensitivity}

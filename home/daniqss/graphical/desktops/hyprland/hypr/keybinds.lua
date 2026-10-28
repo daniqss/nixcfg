@@ -28,7 +28,7 @@ end
 
 -- default app per workspace
 function default_app(workspace)
-  local apps = {
+  local personal_apps = {
     [1] = "code",
     [2] = "chromium",
     [3] = emulator,
@@ -39,6 +39,20 @@ function default_app(workspace)
     [8] = "spotify",
     [9] = "google-chrome-stable",
   }
+
+  local work_apps = {
+    [1] = "code",
+    [2] = "firefox",
+    [3] = emulator,
+    [4] = "chromium",
+    [5] = "nautilus",
+    [6] = "slack",
+    [7] = "calculator",
+    [8] = "spotify",
+    [9] = "google-chrome",
+  }
+
+  local apps = work_enabled and work_apps or personal_apps
 
   local workspace = workspace or hl.get_active_workspace().id
   local cmd = apps[workspace]
