@@ -68,7 +68,7 @@ in {
 
     home.packages =
       (with pkgs; [
-        # hyprshot
+        hyprshot
         # wireplumber
         playerctl
         brightnessctl
