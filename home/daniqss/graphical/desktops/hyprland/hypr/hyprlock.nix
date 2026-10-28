@@ -8,7 +8,12 @@
   config = lib.mkIf config.graphical.desktops.hyprland.enable {
     programs.hyprlock = {
       enable = true;
-      package = pkgs.hyprlock;
+
+      # pam mismatch in foreign distros
+      package =
+        if config.platform.isNixOS
+        then pkgs.hyprlock
+        else null;
 
       settings = {
         background = {
