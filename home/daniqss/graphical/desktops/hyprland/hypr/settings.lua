@@ -90,6 +90,11 @@ hl.config({
     special_scale_factor = 0.8,
   },
 
+  binds = {
+    -- directional focus/swap stays inside the monitor, use mod + period to switch monitors
+    window_direction_monitor_fallback = false,
+  },
+
   misc = {
     disable_splash_rendering = true,
     disable_hyprland_logo = true,

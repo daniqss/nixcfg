@@ -12,6 +12,9 @@ hl.bind(mod .. " + J", hl.dsp.focus({ direction = "d" }))
 hl.bind(mod .. " + K", hl.dsp.focus({ direction = "u" }))
 hl.bind(mod .. " + L", hl.dsp.focus({ direction = "r" }))
 
+-- rotate focus between monitors
+hl.bind(mod .. " + period", hl.dsp.focus({ monitor = "+1" }))
+
 -- special workspace
 hl.bind(mod .. " + A", hl.dsp.workspace.toggle_special())
 hl.bind(mod .. " + ALT + A", hl.dsp.window.move({ workspace = "special", silent = true }))
