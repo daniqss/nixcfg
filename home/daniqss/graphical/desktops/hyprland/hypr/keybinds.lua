@@ -22,7 +22,7 @@ hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e+1" }))
 
 -- workspaces 1-9
 for i = 1, 9 do
-  hl.bind(mod .. " + " .. i, hl.dsp.focus({ workspace = i }))
+  hl.bind(mod .. " + " .. i, hl.dsp.focus({ workspace = i, on_current_monitor = workspaces_on_current_monitor }))
   hl.bind(mod .. " + ALT + " .. i, hl.dsp.window.move({ workspace = i, follow = false }))
 end
 

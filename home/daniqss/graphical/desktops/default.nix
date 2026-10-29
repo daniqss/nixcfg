@@ -63,49 +63,58 @@ in {
         description = "generate the config for the desktop from the monitors option";
       };
 
-    touchpadSensitivity = lib.mkOption {
-      type = lib.types.numbers.between (-1.0) 1.0;
-      default = 0.1;
-      description = ''
-        libinput accel speed applied to every touchpad, -1.0 to 1.0
-      '';
+      workspacesOnCurrentMonitor = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = ''
+          Qtile like workspaces. Bring the requested workspace to the focused monitor,
+            swapping it with the other monitor if it is already visible there
+        '';
+      };
+
+      touchpadSensitivity = lib.mkOption {
+        type = lib.types.numbers.between (-1.0) 1.0;
+        default = 0.1;
+        description = ''
+          libinput accel speed applied to every touchpad, -1.0 to 1.0
+        '';
+      };
+
+      monitors = lib.mkOption {
+        type = lib.types.listOf (lib.types.submodule {
+          options = {
+            name = lib.mkOption {
+              type = lib.types.str;
+              description = "name of the monitor";
+            };
+
+            resolution = lib.mkOption {
+              type = vec2;
+              description = "monitor resolution";
+            };
+
+            refresh = lib.mkOption {
+              type = lib.types.str;
+              description = "refresh rate";
+            };
+
+            position = lib.mkOption {
+              type = vec2;
+              description = "position of the monitor";
+            };
+
+            scale = lib.mkOption {
+              type = lib.types.str;
+              description = "scale of the monitor";
+            };
+
+            mirror = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+              description = "name of the monitor to mirror";
+            };
+          };
+        });
+      };
     };
-
-    monitors = lib.mkOption {
-      type = lib.types.listOf (lib.types.submodule {
-        options = {
-          name = lib.mkOption {
-            type = lib.types.str;
-            description = "name of the monitor";
-          };
-
-          resolution = lib.mkOption {
-            type = vec2;
-            description = "monitor resolution";
-          };
-
-          refresh = lib.mkOption {
-            type = lib.types.str;
-            description = "refresh rate";
-          };
-
-          position = lib.mkOption {
-            type = vec2;
-            description = "position of the monitor";
-          };
-
-          scale = lib.mkOption {
-            type = lib.types.str;
-            description = "scale of the monitor";
-          };
-
-          mirror = lib.mkOption {
-            type = lib.types.str;
-            default = "";
-            description = "name of the monitor to mirror";
-          };
-        };
-      });
-    };
-  };
 }

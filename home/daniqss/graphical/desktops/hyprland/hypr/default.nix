@@ -38,6 +38,7 @@
 
     vicinae_enabled = ${lib.boolToString config.graphical.shells.vicinae.enable}
     work_enabled = ${lib.boolToString config.graphical.misc.work.enable}
+    workspaces_on_current_monitor = ${lib.boolToString cfg.workspacesOnCurrentMonitor}
 
 
     touchpad_sensitivity = ${toString cfg.touchpadSensitivity}

@@ -40,8 +40,12 @@
     enable = true;
 
     browsers.enable = true;
+
+    emulators.font.size = 12;
+
     desktops = {
-      # without an explicit scale hyprland's "auto" picks 1.5 on this panel
+      workspacesOnCurrentMonitor = true;
+
       monitors = [
         {
           name = "eDP-1";
@@ -64,11 +68,10 @@
           };
           refresh = "60.0";
           position = {
-            x = 0;
+            x = 1920;
             y = 0;
           };
           scale = "1.0";
-          mirror = "eDP-1";
         }
       ];
     };
