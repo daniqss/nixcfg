@@ -14,7 +14,7 @@ in {
       enable = true;
       defaultEditor = true;
       settings = {
-        theme = "autumn_night_transparent";
+        theme = "monokai_pro_custom";
         editor.cursor-shape = {
           normal = "block";
           insert = "bar";
@@ -38,6 +38,7 @@ in {
         };
       };
       themes = {
+        monokai_pro_custom = import ./monokai-pro.nix;
         autumn_night_transparent = {
           "inherits" = "autumn_night";
           "ui.background" = {};

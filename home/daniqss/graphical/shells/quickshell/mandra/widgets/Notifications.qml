@@ -65,8 +65,8 @@ PanelWindow {
     anchors {
       top: parent.top
       right: parent.right
-      topMargin: 20
-      rightMargin: 20
+      topMargin: Sizes.popup.margin
+      rightMargin: Sizes.popup.margin
     }
     spacing: 10
 
@@ -77,12 +77,12 @@ PanelWindow {
 
       property real remaining: 1
 
-      Layout.preferredWidth: 320
+      Layout.preferredWidth: Sizes.popup.cardWidth
       implicitHeight: reloadLayout.implicitHeight + 24
 
-      radius: 10
+      radius: Sizes.radius
       color: Colors.background
-      border.width: 1
+      border.width: Sizes.border
       border.color: root.reloadFailed ? Colors.error : Colors.outline_variant
 
       CountdownBar {
@@ -105,14 +105,14 @@ PanelWindow {
         id: reloadLayout
         anchors {
           fill: parent
-          margins: 12
+          margins: Sizes.popup.padding
         }
         spacing: 12
 
         MaterialSymbol {
           Layout.alignment: Qt.AlignVCenter
           color: root.reloadFailed ? Colors.error : Colors.primary
-          font.pixelSize: 26
+          font.pixelSize: Fonts.icon.huge
           font.weight: 600
           icon: root.reloadFailed ? "error" : "check_circle"
         }
@@ -125,8 +125,8 @@ PanelWindow {
             Layout.fillWidth: true
             text: root.reloadFailed ? "Reload failed" : "Reload completed"
             color: Colors.on_surface
-            font.family: "CaskaydiaCove Nerd Font"
-            font.pointSize: 11
+            font.family: Fonts.mono
+            font.pointSize: Fonts.size.medium
             font.weight: 600
             elide: Text.ElideRight
           }
@@ -136,8 +136,8 @@ PanelWindow {
             visible: text !== ""
             text: root.reloadError
             color: Colors.on_surface_variant
-            font.family: "CaskaydiaCove Nerd Font"
-            font.pointSize: 10
+            font.family: Fonts.mono
+            font.pointSize: Fonts.size.small
             textFormat: Text.PlainText
             wrapMode: Text.WordWrap
           }
@@ -166,12 +166,12 @@ PanelWindow {
 
         property real remaining: 1
 
-        Layout.preferredWidth: 320
+        Layout.preferredWidth: Sizes.popup.cardWidth
         implicitHeight: layout.implicitHeight + 24
 
-        radius: 10
+        radius: Sizes.radius
         color: Colors.background
-        border.width: 1
+        border.width: Sizes.border
         border.color: Colors.outline_variant
 
         CountdownBar {
@@ -193,7 +193,7 @@ PanelWindow {
           id: layout
           anchors {
             fill: parent
-            margins: 12
+            margins: Sizes.popup.padding
           }
           spacing: 12
 
@@ -214,7 +214,7 @@ PanelWindow {
             Rectangle {
               id: artMask
               anchors.fill: parent
-              radius: 8
+              radius: Sizes.radiusSmall
               visible: false
               layer.enabled: true
             }
@@ -239,8 +239,8 @@ PanelWindow {
               Layout.fillWidth: true
               text: card.modelData.summary
               color: Colors.on_surface
-              font.family: "CaskaydiaCove Nerd Font"
-              font.pointSize: 11
+              font.family: Fonts.mono
+              font.pointSize: Fonts.size.medium
               font.weight: 600
               elide: Text.ElideRight
             }
@@ -250,8 +250,8 @@ PanelWindow {
               visible: text !== ""
               text: card.modelData.body
               color: Colors.on_surface_variant
-              font.family: "CaskaydiaCove Nerd Font"
-              font.pointSize: 10
+              font.family: Fonts.mono
+              font.pointSize: Fonts.size.small
               textFormat: Text.PlainText
               wrapMode: Text.WordWrap
             }

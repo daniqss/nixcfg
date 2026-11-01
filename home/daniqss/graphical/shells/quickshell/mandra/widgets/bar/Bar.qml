@@ -5,8 +5,7 @@ import QtQuick
 import QtQuick.Layouts
 
 import qs.widgets.bar
-import qs.widgets.common as Common
-import qs.config as Config
+import qs.config
 
 Scope {
   Variants {
@@ -18,80 +17,66 @@ Scope {
       property var modelData
 
       color: "transparent"
-      implicitHeight: 34
+      implicitWidth: Sizes.bar.width
+      implicitHeight: Math.min(content.implicitHeight + 2 * Sizes.bar.padding, modelData.height - 2 * Sizes.bar.margin)
       screen: modelData
 
       WlrLayershell.layer: WlrLayer.Bottom
 
-      anchors {
-        bottom: true
-        left: true
-        right: true
-      }
+      // only the left edge, so the compositor centers it vertically and it is as tall as its content
+      anchors.left: true
+      margins.left: Sizes.bar.margin
 
       Rectangle {
         anchors.fill: parent
-        color: Config.Colors.background
+        color: Colors.background
+        radius: Sizes.bar.radius
+        border.width: Sizes.border
+        border.color: Colors.outline_variant
 
-        Rectangle {
+        ColumnLayout {
+          id: content
+
           anchors.top: parent.top
-          anchors.left: parent.left
-          anchors.right: parent.right
-          height: 1
-          color: Config.Colors.outline_variant
-          z: 1
-        }
-
-        RowLayout {
-          anchors.bottom: parent.bottom
-          anchors.left: parent.left
-          anchors.top: parent.top
-
-          anchors.topMargin: 3
-          anchors.leftMargin: height / 3
-          anchors.rightMargin: height / 3
-          spacing: height / 3
+          anchors.horizontalCenter: parent.horizontalCenter
+          anchors.topMargin: Sizes.bar.padding
+          spacing: Sizes.bar.spacing
 
           OsIcon {}
           Workspaces {
             bar: bar
             wsCount: 9
           }
-        }
 
-        RowLayout {
-          anchors.bottom: parent.bottom
-          anchors.horizontalCenter: parent.horizontalCenter
-          anchors.top: parent.top
+          Item {
+            implicitHeight: Sizes.bar.sectionGap
+          }
 
-          anchors.topMargin: 3
-          anchors.leftMargin: height / 3
-          anchors.rightMargin: height / 3
-          spacing: height / 3
-
-          Taskbar {}
-        }
-
-        RowLayout {
-          anchors.bottom: parent.bottom
-          anchors.right: parent.right
-          anchors.top: parent.top
-
-          anchors.topMargin: 3
-          anchors.leftMargin: height / 3
-          anchors.rightMargin: height / 3
-          spacing: height / 3
-
-          Systray {}
-          RowLayout {
-            Layout.alignment: Qt.AlignRight
-            spacing: 2
+          Systray {
+            id: systray
+          }
+          Separator {
+            visible: systray.visible
+          }
+          ColumnLayout {
+            Layout.alignment: Qt.AlignHCenter
+            spacing: Sizes.bar.groupSpacing
 
             Sound {}
             Network {}
-            Battery {}
+            Bluetooth {}
+            Vpn {}
+          }
+          Separator {}
+          Battery {
+            id: battery
+          }
+          Separator {
+            visible: battery.visible
           }
           Clock {}
+          Separator {}
+          Power {}
         }
       }
     }

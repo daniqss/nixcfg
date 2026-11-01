@@ -15,7 +15,7 @@ RowLayout {
   readonly property MprisPlayer player: Player.player
 
   component Control: MaterialSymbol {
-    font.pixelSize: 24
+    font.pixelSize: Fonts.icon.large
     font.weight: 600
     color: enabled ? Colors.on_surface : Colors.outline_variant
 
@@ -40,7 +40,7 @@ RowLayout {
     Rectangle {
       id: artMask
       anchors.fill: parent
-      radius: 8
+      radius: Sizes.radiusSmall
       visible: false
       layer.enabled: true
     }
@@ -66,8 +66,8 @@ RowLayout {
       Layout.fillWidth: true
       text: Player.title
       color: Colors.on_surface
-      font.family: "CaskaydiaCove Nerd Font"
-      font.pointSize: 11
+      font.family: Fonts.mono
+      font.pointSize: Fonts.size.medium
       font.weight: 700
       elide: Text.ElideRight
     }
@@ -77,8 +77,8 @@ RowLayout {
       visible: text !== ""
       text: Player.album
       color: Colors.on_surface_variant
-      font.family: "CaskaydiaCove Nerd Font"
-      font.pointSize: 10
+      font.family: Fonts.mono
+      font.pointSize: Fonts.size.small
       font.italic: true
       textFormat: Text.PlainText
       elide: Text.ElideRight
@@ -89,8 +89,8 @@ RowLayout {
       visible: text !== ""
       text: Player.artist
       color: Colors.outline
-      font.family: "CaskaydiaCove Nerd Font"
-      font.pointSize: 10
+      font.family: Fonts.mono
+      font.pointSize: Fonts.size.small
       textFormat: Text.PlainText
       elide: Text.ElideRight
     }

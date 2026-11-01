@@ -16,6 +16,7 @@
 
       settings = {
         close_on_focus_loss = true;
+        tray.enabled = false;
 
         providers = {
           # "@sovereign/awww-switcher-0" = {

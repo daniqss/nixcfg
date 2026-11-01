@@ -2,7 +2,6 @@ pragma Singleton
 
 import QtQuick
 import Quickshell
-import Quickshell.Io
 import Quickshell.Hyprland
 
 Singleton {
@@ -18,8 +17,14 @@ Singleton {
     return workspace?.monitor?.id == 1;
   }
 
-  function moveToWorkspaceSilent(wsIndex: int) {
-    Hyprland.dispatch(`hl.dsp.focus({workspace = '${wsIndex}'})`);
+  // shows the workspace on the screen of the clicked bar,
+  // pulling it over when it is already visible on the other monitor
+  function focusWorkspaceOn(wsIndex: int, screen: ShellScreen) {
+    const monitor = Hyprland.monitorFor(screen);
+    if (monitor && !monitor.focused)
+      Hyprland.dispatch(`hl.dsp.focus({monitor = '${monitor.name}'})`);
+
+    Hyprland.dispatch(`hl.dsp.focus({workspace = '${wsIndex}', on_current_monitor = true})`);
   }
 
   function defaultWorkspaceApp(wsIndex: int) {

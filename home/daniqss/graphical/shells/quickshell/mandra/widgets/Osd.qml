@@ -75,7 +75,7 @@ Scope {
 
       MaterialSymbol {
         color: Colors.on_surface
-        font.pixelSize: 22
+        font.pixelSize: Fonts.icon.medium
         font.weight: 600
         icon: dv.icon
       }
@@ -84,8 +84,8 @@ Scope {
         Layout.fillWidth: true
         text: dv.deviceName
         color: Colors.on_surface
-        font.family: "CaskaydiaCove Nerd Font"
-        font.pointSize: 11
+        font.family: Fonts.mono
+        font.pointSize: Fonts.size.medium
         elide: Text.ElideRight
       }
     }
@@ -99,14 +99,14 @@ Scope {
         horizontalAlignment: Text.AlignRight
         text: Math.round(dv.volume * 100)
         color: Colors.on_surface_variant
-        font.family: "CaskaydiaCove Nerd Font"
-        font.pointSize: 11
+        font.family: Fonts.mono
+        font.pointSize: Fonts.size.medium
       }
 
       Rectangle {
         Layout.fillWidth: true
         implicitHeight: 16
-        radius: 10
+        radius: Sizes.radius
         color: Colors.surface_container_high
 
         Rectangle {
@@ -151,14 +151,14 @@ Scope {
         id: card
         anchors {
           fill: parent
-          leftMargin: 20
-          topMargin: 20
+          leftMargin: Sizes.popup.margin
+          topMargin: Sizes.popup.margin
         }
         implicitHeight: contentColumn.implicitHeight + 24
 
-        radius: 10
+        radius: Sizes.radius
         color: Colors.background
-        border.width: 1
+        border.width: Sizes.border
         border.color: Colors.outline_variant
 
         // hovering pauses the auto hide so the controls stay reachable;
@@ -175,7 +175,7 @@ Scope {
           id: contentColumn
           anchors {
             fill: parent
-            margins: 12
+            margins: Sizes.popup.padding
           }
           spacing: 14
 

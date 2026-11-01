@@ -5,17 +5,33 @@ import Quickshell
 import Quickshell.Io
 
 Singleton {
-  // flat accessors so widgets keep using Colors.<name>; values come from
-  // colors.json when present, otherwise the fallbacks in the Color component
-  readonly property color background: jsonAdapter.color.background
+  // neutrals are fixed so the shell always looks the same,
+  // only the accents follow the wallpaper through matugen's colors.json
+  readonly property color background: "#0f1014"
+  readonly property color surface: "#0f1014"
+  readonly property color surface_dim: "#0f1014"
+  readonly property color surface_container_lowest: "#0b0c0f"
+  readonly property color surface_container_low: "#121317"
+  readonly property color surface_container: "#15161b"
+  readonly property color surface_container_high: "#1b1c22"
+  readonly property color surface_container_highest: "#272831"
+  readonly property color surface_bright: "#2e2f39"
+  readonly property color surface_variant: "#272831"
+  readonly property color on_background: "#e7e5e4"
+  readonly property color on_surface: "#e7e5e4"
+  readonly property color on_surface_variant: "#a9a7a6"
+  readonly property color outline: "#5c5d6a"
+  readonly property color outline_variant: "#373842"
+  readonly property color inverse_surface: "#e7e5e4"
+  readonly property color inverse_on_surface: "#15161b"
+  readonly property color shadow: "#000000"
+  readonly property color scrim: "#000000"
+
   readonly property color error: jsonAdapter.color.error
   readonly property color error_container: jsonAdapter.color.error_container
-  readonly property color inverse_on_surface: jsonAdapter.color.inverse_on_surface
-  readonly property color inverse_primary: jsonAdapter.color.inverse_primary
-  readonly property color inverse_surface: jsonAdapter.color.inverse_surface
-  readonly property color on_background: jsonAdapter.color.on_background
   readonly property color on_error: jsonAdapter.color.on_error
   readonly property color on_error_container: jsonAdapter.color.on_error_container
+  readonly property color inverse_primary: jsonAdapter.color.inverse_primary
   readonly property color on_primary: jsonAdapter.color.on_primary
   readonly property color on_primary_container: jsonAdapter.color.on_primary_container
   readonly property color on_primary_fixed: jsonAdapter.color.on_primary_fixed
@@ -24,34 +40,19 @@ Singleton {
   readonly property color on_secondary_container: jsonAdapter.color.on_secondary_container
   readonly property color on_secondary_fixed: jsonAdapter.color.on_secondary_fixed
   readonly property color on_secondary_fixed_variant: jsonAdapter.color.on_secondary_fixed_variant
-  readonly property color on_surface: jsonAdapter.color.on_surface
-  readonly property color on_surface_variant: jsonAdapter.color.on_surface_variant
   readonly property color on_tertiary: jsonAdapter.color.on_tertiary
   readonly property color on_tertiary_container: jsonAdapter.color.on_tertiary_container
   readonly property color on_tertiary_fixed: jsonAdapter.color.on_tertiary_fixed
   readonly property color on_tertiary_fixed_variant: jsonAdapter.color.on_tertiary_fixed_variant
-  readonly property color outline: jsonAdapter.color.outline
-  readonly property color outline_variant: jsonAdapter.color.outline_variant
   readonly property color primary: jsonAdapter.color.primary
   readonly property color primary_container: jsonAdapter.color.primary_container
   readonly property color primary_fixed: jsonAdapter.color.primary_fixed
   readonly property color primary_fixed_dim: jsonAdapter.color.primary_fixed_dim
-  readonly property color scrim: jsonAdapter.color.scrim
   readonly property color secondary: jsonAdapter.color.secondary
   readonly property color secondary_container: jsonAdapter.color.secondary_container
   readonly property color secondary_fixed: jsonAdapter.color.secondary_fixed
   readonly property color secondary_fixed_dim: jsonAdapter.color.secondary_fixed_dim
-  readonly property color shadow: jsonAdapter.color.shadow
-  readonly property color surface: jsonAdapter.color.surface
-  readonly property color surface_bright: jsonAdapter.color.surface_bright
-  readonly property color surface_container: jsonAdapter.color.surface_container
-  readonly property color surface_container_high: jsonAdapter.color.surface_container_high
-  readonly property color surface_container_highest: jsonAdapter.color.surface_container_highest
-  readonly property color surface_container_low: jsonAdapter.color.surface_container_low
-  readonly property color surface_container_lowest: jsonAdapter.color.surface_container_lowest
-  readonly property color surface_dim: jsonAdapter.color.surface_dim
   readonly property color surface_tint: jsonAdapter.color.surface_tint
-  readonly property color surface_variant: jsonAdapter.color.surface_variant
   readonly property color tertiary: jsonAdapter.color.tertiary
   readonly property color tertiary_container: jsonAdapter.color.tertiary_container
   readonly property color tertiary_fixed: jsonAdapter.color.tertiary_fixed
@@ -78,13 +79,9 @@ Singleton {
   }
 
   component Color: JsonObject {
-    property string background: "#121318"
     property string error: "#ffb4ab"
     property string error_container: "#93000a"
-    property string inverse_on_surface: "#2f3036"
     property string inverse_primary: "#465d91"
-    property string inverse_surface: "#e2e2e9"
-    property string on_background: "#e2e2e9"
     property string on_error: "#690005"
     property string on_error_container: "#ffdad6"
     property string on_primary: "#142f60"
@@ -95,34 +92,19 @@ Singleton {
     property string on_secondary_container: "#dbe2f9"
     property string on_secondary_fixed: "#141b2c"
     property string on_secondary_fixed_variant: "#404659"
-    property string on_surface: "#e2e2e9"
-    property string on_surface_variant: "#c5c6d0"
     property string on_tertiary: "#412742"
     property string on_tertiary_container: "#fdd7fb"
     property string on_tertiary_fixed: "#2a132c"
     property string on_tertiary_fixed_variant: "#593e5a"
-    property string outline: "#8f9099"
-    property string outline_variant: "#44464f"
     property string primary: "#afc6ff"
     property string primary_container: "#2d4578"
     property string primary_fixed: "#d9e2ff"
     property string primary_fixed_dim: "#afc6ff"
-    property string scrim: "#000000"
     property string secondary: "#bfc6dc"
     property string secondary_container: "#404659"
     property string secondary_fixed: "#dbe2f9"
     property string secondary_fixed_dim: "#bfc6dc"
-    property string shadow: "#000000"
-    property string surface: "#121318"
-    property string surface_bright: "#38393e"
-    property string surface_container: "#1e1f25"
-    property string surface_container_high: "#282a2f"
-    property string surface_container_highest: "#33353a"
-    property string surface_container_low: "#1a1b20"
-    property string surface_container_lowest: "#0c0e13"
-    property string surface_dim: "#121318"
     property string surface_tint: "#afc6ff"
-    property string surface_variant: "#44464f"
     property string tertiary: "#dfbbde"
     property string tertiary_container: "#593e5a"
     property string tertiary_fixed: "#fdd7fb"

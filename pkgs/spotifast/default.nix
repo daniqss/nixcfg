@@ -16,7 +16,7 @@
   libxi,
   libxrandr,
 }: let
-  version = "0.13.3";
+  version = "0.15.0";
 
   sources = {
     x86_64-linux = {

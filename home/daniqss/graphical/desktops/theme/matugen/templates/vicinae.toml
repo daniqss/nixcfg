@@ -10,23 +10,24 @@ variant = "{{mode}}"
 # Core Colors
 # ============================================================================
 
+# neutrals are fixed to match mandra, only accents come from the wallpaper
 [colors.core]
 accent = "{{colors.primary.default.hex}}"
 accent_foreground = "{{colors.on_primary.default.hex}}"
-background = "{{colors.surface.default.hex}}"
-foreground = "{{colors.on_surface.default.hex}}"
-secondary_background = "{{colors.surface_container.default.hex}}"
-border = "{{colors.outline_variant.default.hex}}"
+background = "#0f1014"
+foreground = "#e7e5e4"
+secondary_background = "#15161b"
+border = "#373842"
 
 # ============================================================================
 # Window Borders
 # ============================================================================
 
 [colors.main_window]
-border = "{{colors.outline_variant.default.hex}}"
+border = "#373842"
 
 [colors.settings_window]
-border = "{{colors.outline.default.hex}}"
+border = "#5c5d6a"
 
 # ============================================================================
 # Accent Palette
@@ -47,11 +48,11 @@ purple = "{{colors.secondary.default.hex}}"
 # ============================================================================
 
 [colors.text]
-default = "{{colors.on_surface.default.hex}}"
-muted = "{{colors.on_surface_variant.default.hex}}"
+default = "#e7e5e4"
+muted = "#a9a7a6"
 danger = "{{colors.error.default.hex}}"
 success = "{{colors.tertiary.default.hex}}"
-placeholder = { name = "{{colors.on_surface_variant.default.hex}}", opacity = 0.6 }
+placeholder = { name = "#a9a7a6", opacity = 0.6 }
 
 [colors.text.selection]
 background = "{{colors.primary.default.hex}}"
@@ -66,7 +67,7 @@ visited = { name = "{{colors.tertiary.default.hex}}", darker = 20 }
 # ============================================================================
 
 [colors.input]
-border = "{{colors.outline.default.hex}}"
+border = "#5c5d6a"
 border_focus = "{{colors.primary.default.hex}}"
 border_error = "{{colors.error.default.hex}}"
 
@@ -75,11 +76,11 @@ border_error = "{{colors.error.default.hex}}"
 # ============================================================================
 
 [colors.button.primary]
-background = "{{colors.surface_container_high.default.hex}}"
-foreground = "{{colors.on_surface.default.hex}}"
+background = "#1b1c22"
+foreground = "#e7e5e4"
 
 [colors.button.primary.hover]
-background = "{{colors.surface_container_highest.default.hex}}"
+background = "#272831"
 
 [colors.button.primary.focus]
 outline = "{{colors.primary.default.hex}}"
@@ -90,7 +91,7 @@ outline = "{{colors.primary.default.hex}}"
 
 [colors.list.item.hover]
 background = { name = "{{colors.primary_container.default.hex}}", opacity = 0.25 }
-foreground = "{{colors.on_surface.default.hex}}"
+foreground = "#e7e5e4"
 
 [colors.list.item.selection]
 background = { name = "{{colors.primary_container.default.hex}}", opacity = 0.50 }
@@ -103,7 +104,7 @@ secondary_foreground = "{{colors.on_primary_container.default.hex}}"
 # ============================================================================
 
 [colors.grid.item]
-background = "{{colors.surface_container.default.hex}}"
+background = "#15161b"
 
 [colors.grid.item.hover]
 outline = { name = "{{colors.secondary.default.hex}}", opacity = 0.8 }

@@ -1,5 +1,7 @@
 import QtQuick
 
+import qs.config
+
 // from rexiecrazy snippet in quickshell discord
 Text {
   id: root
@@ -7,7 +9,7 @@ Text {
   property int grade: 0
   required property string icon
 
-  font.family: "Material Symbols Rounded"
+  font.family: Fonts.icons
   font.hintingPreference: Font.PreferFullHinting
 
   // see https://m3.material.io/styles/typography/editorial-treatments#e9bac36c-e322-415f-a182-264a2f2b70f0

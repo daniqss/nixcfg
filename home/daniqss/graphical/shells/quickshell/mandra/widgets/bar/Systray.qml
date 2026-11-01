@@ -8,9 +8,11 @@ import QtQuick.Effects
 import qs.config
 import qs.widgets.common
 
-RowLayout {
-  id: sysTrayRow
-  spacing: 10
+ColumnLayout {
+  id: sysTrayColumn
+  visible: SystemTray.items.values.some(i => !i.icon.includes("spotify-linux-32"))
+  Layout.alignment: Qt.AlignHCenter
+  spacing: Sizes.bar.traySpacing
 
   Repeater {
     id: sysTray
@@ -22,8 +24,9 @@ RowLayout {
 
       property SystemTrayItem item: modelData
 
-      implicitHeight: 16
-      implicitWidth: 16
+      Layout.alignment: Qt.AlignHCenter
+      implicitHeight: Sizes.bar.trayIcon
+      implicitWidth: Sizes.bar.trayIcon
       visible: !trayItem.item.icon.includes("spotify-linux-32")
 
       acceptedButtons: Qt.LeftButton | Qt.RightButton
@@ -31,8 +34,8 @@ RowLayout {
       function toggleMenu() {
         if (!trayItem.item.hasMenu)
           return;
-        const p = trayItem.mapToItem(null, trayItem.width / 2, 0);
-        menuPopup.anchorX = p.x;
+        const p = trayItem.mapToItem(null, 0, trayItem.height);
+        menuPopup.anchorY = p.y;
         menuPopup.visible = !menuPopup.visible;
       }
 
@@ -91,23 +94,23 @@ RowLayout {
       PopupWindow {
         id: menuPopup
 
-        property real anchorX: 0
+        property real anchorY: 0
         // becomes true once the pointer has entered the menu, so it does not
         // close instantly when it opens before the cursor reaches it
         property bool armed: false
 
         anchor.window: trayItem.QsWindow.window
-        anchor.rect.x: menuPopup.anchorX
-        anchor.rect.y: 0
+        anchor.rect.x: Sizes.bar.width
+        anchor.rect.y: menuPopup.anchorY
         anchor.rect.width: 1
         anchor.rect.height: 1
-        anchor.edges: Edges.Top
-        anchor.gravity: Edges.Top | Edges.Left
+        anchor.edges: Edges.Right
+        anchor.gravity: Edges.Right | Edges.Top
 
         visible: false
         color: "transparent"
 
-        implicitWidth: 220
+        implicitWidth: Sizes.popup.menuWidth
         implicitHeight: menuColumn.implicitHeight + 12
 
         onVisibleChanged: {
@@ -124,8 +127,8 @@ RowLayout {
         Rectangle {
           anchors.fill: parent
           color: Colors.background
-          radius: 10
-          border.width: 1
+          radius: Sizes.radius
+          border.width: Sizes.border
           border.color: Colors.outline_variant
 
           HoverHandler {
@@ -228,8 +231,8 @@ RowLayout {
                       Text {
                         text: entryLoader.modelData.text
                         color: Colors.on_surface
-                        font.family: "CaskaydiaCove Nerd Font"
-                        font.pixelSize: 13
+                        font.family: Fonts.mono
+                        font.pointSize: Fonts.size.small
                         elide: Text.ElideRight
                         Layout.fillWidth: true
                       }
@@ -238,7 +241,7 @@ RowLayout {
                         visible: entryLoader.modelData.hasChildren
                         icon: "chevron_right"
                         color: Colors.on_surface_variant
-                        font.pixelSize: 16
+                        font.pixelSize: Fonts.icon.small
                       }
                     }
 

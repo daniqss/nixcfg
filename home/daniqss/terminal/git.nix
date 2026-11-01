@@ -208,6 +208,7 @@ in {
         };
 
         disableStartupPopups = true;
+        promptToReturnFromSubprocess = false;
       };
     };
   };
