@@ -74,7 +74,9 @@ Item {
     Repeater {
       model: wsButton.toplevels
 
-      IconImage {
+      Item {
+        id: appIcon
+
         required property HyprlandToplevel modelData
         readonly property string appId: modelData.wayland?.appId ?? modelData.lastIpcObject?.class ?? ""
         readonly property DesktopEntry entry: {
@@ -82,10 +84,31 @@ Item {
           DesktopEntries.applications.values;
           return DesktopEntries.heuristicLookup(appId);
         }
+        // empty when neither the entry nor the theme has an icon, the generic theme fallback looks out of place
+        readonly property string iconPath: {
+          const icon = entry?.icon ?? appId;
+          // absolute paths (like nix store icons) aren't theme icons, so the check would reject them
+          return icon.startsWith("/") ? `file://${icon}` : Quickshell.iconPath(icon, true);
+        }
 
         Layout.alignment: Qt.AlignHCenter
-        implicitSize: Sizes.workspace.appIcon
-        source: Quickshell.iconPath(entry?.icon ?? appId, "application-x-executable")
+        implicitWidth: Sizes.workspace.appIcon
+        implicitHeight: Sizes.workspace.appIcon
+
+        IconImage {
+          anchors.fill: parent
+          visible: appIcon.iconPath !== ""
+          source: appIcon.iconPath
+        }
+
+        MaterialSymbol {
+          anchors.centerIn: parent
+          visible: appIcon.iconPath === ""
+          icon: "web_asset"
+          fill: 1
+          font.pixelSize: Sizes.workspace.appIcon
+          color: wsButton.active ? Colors.on_primary : Colors.primary
+        }
       }
     }
   }

@@ -13,13 +13,21 @@ in {
     programs.helix = {
       enable = true;
       defaultEditor = true;
+
       settings = {
-        theme = "monokai_pro_custom";
-        editor.cursor-shape = {
-          normal = "block";
-          insert = "bar";
-          select = "underline";
+        theme = "monokai_pro_spectrum_custom";
+
+        editor = {
+          color-modes = true;
+          bufferline = "multiple";
+
+          cursor-shape = {
+            normal = "block";
+            insert = "bar";
+            select = "underline";
+          };
         };
+
         keys = let
           paragraphs = {
             "{" = "goto_prev_paragraph";
@@ -37,17 +45,36 @@ in {
           select = common;
         };
       };
-      themes = {
-        monokai_pro_custom = import ./monokai-pro.nix;
-        autumn_night_transparent = {
-          "inherits" = "autumn_night";
-          "ui.background" = {};
+
+      themes.monokai_pro_spectrum_custom = {
+        "inherits" = "monokai_pro_spectrum";
+        "ui.background" = {};
+        "ui.statusline.normal" = {
+          fg = "base2";
+          bg = "blue";
+          modifiers = ["bold"];
+        };
+        "ui.statusline.insert" = {
+          fg = "base2";
+          bg = "green";
+          modifiers = ["bold"];
+        };
+        "ui.statusline.select" = {
+          fg = "base2";
+          bg = "purple";
+          modifiers = ["bold"];
+        };
+        palette = {
+          base8 = "#cccccc";
+          base2 = "#2a2428";
         };
       };
+
       languages = {
-        language-server.nixd = {
-          command = "${pkgs.nixd}/bin/nixd";
+        language-server = {
+          nixd.command = "${pkgs.nixd}/bin/nixd";
         };
+
         language = [
           {
             name = "nix";

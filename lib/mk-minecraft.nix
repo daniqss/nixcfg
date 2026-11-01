@@ -107,6 +107,7 @@ in
               comment = "Minecraft ${version} (${slug})";
               settings.Keywords = "${slug};minecraft;";
               categories = ["Game"];
+              settings.StartupWMClass = "com.mojang.minecraft";
             }
             // lib.optionalAttrs (icon != null) {
               icon = "${icon}";
