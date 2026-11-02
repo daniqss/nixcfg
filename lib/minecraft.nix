@@ -58,6 +58,12 @@ in {
       };
     };
 
+    shaderPack = pkgs.fetchurl {
+      name = "complementary-reimagined.zip";
+      url = "https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip";
+      hash = "sha512-RTBLHXhir9shd7fmIm/JxnN5EdF6StRsycUZyk3rk18FByzTN82LGaFbuAYrV7VOzux73uTNVy2UhY4pRtN9hQ==";
+    };
+
     whitelist = players;
     ops = players;
 
