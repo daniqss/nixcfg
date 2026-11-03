@@ -12,11 +12,8 @@ Singleton {
 
   readonly property QtObject bar: QtObject {
     readonly property int width: 44
-    readonly property int radius: 18
-    readonly property int margin: 3
     readonly property int padding: 12
     readonly property int spacing: 14
-    readonly property int sectionGap: 68
     readonly property int groupSpacing: 6
     readonly property int separatorLength: 16
     readonly property int osIcon: 22

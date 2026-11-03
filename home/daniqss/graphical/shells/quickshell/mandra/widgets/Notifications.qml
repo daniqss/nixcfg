@@ -17,13 +17,11 @@ PanelWindow {
   property string reloadError: ""
   property bool reloadShown: false
 
-  anchors {
-    top: true
-    right: true
-  }
+  // only the top edge, so the compositor centers it horizontally
+  anchors.top: true
   exclusiveZone: 0
 
-  implicitWidth: 400
+  implicitWidth: Sizes.popup.cardWidth
   implicitHeight: Math.max(1, column.implicitHeight + 40)
   color: "transparent"
 
@@ -64,9 +62,8 @@ PanelWindow {
 
     anchors {
       top: parent.top
-      right: parent.right
+      horizontalCenter: parent.horizontalCenter
       topMargin: Sizes.popup.margin
-      rightMargin: Sizes.popup.margin
     }
     spacing: 10
 

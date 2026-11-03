@@ -133,14 +133,12 @@ Scope {
     active: root.shouldShowOsd
 
     PanelWindow {
-      anchors {
-        top: true
-        left: true
-      }
+      // only the bottom edge, so the compositor centers it horizontally
+      anchors.bottom: true
       exclusiveZone: 0
 
-      implicitWidth: 380
-      implicitHeight: card.implicitHeight + 20
+      implicitWidth: 360
+      implicitHeight: card.implicitHeight + Sizes.popup.margin
       color: "transparent"
 
       mask: Region {
@@ -151,8 +149,7 @@ Scope {
         id: card
         anchors {
           fill: parent
-          leftMargin: Sizes.popup.margin
-          topMargin: Sizes.popup.margin
+          bottomMargin: Sizes.popup.margin
         }
         implicitHeight: contentColumn.implicitHeight + 24
 

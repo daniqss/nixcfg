@@ -18,28 +18,42 @@ Scope {
 
       color: "transparent"
       implicitWidth: Sizes.bar.width
-      implicitHeight: Math.min(content.implicitHeight + 2 * Sizes.bar.padding, modelData.height - 2 * Sizes.bar.margin)
       screen: modelData
 
       WlrLayershell.layer: WlrLayer.Bottom
 
-      // only the left edge, so the compositor centers it vertically and it is as tall as its content
-      anchors.left: true
-      margins.left: Sizes.bar.margin
+      // flush against the left edge, spanning the whole screen height
+      anchors {
+        left: true
+        top: true
+        bottom: true
+      }
 
       Rectangle {
         anchors.fill: parent
         color: Colors.background
-        radius: Sizes.bar.radius
-        border.width: Sizes.border
-        border.color: Colors.outline_variant
+
+        // only the edge facing the windows gets a border
+        Rectangle {
+          anchors {
+            top: parent.top
+            bottom: parent.bottom
+            right: parent.right
+          }
+          implicitWidth: Sizes.border
+          color: Colors.outline_variant
+        }
 
         ColumnLayout {
           id: content
 
-          anchors.top: parent.top
-          anchors.horizontalCenter: parent.horizontalCenter
-          anchors.topMargin: Sizes.bar.padding
+          anchors {
+            top: parent.top
+            bottom: parent.bottom
+            horizontalCenter: parent.horizontalCenter
+            topMargin: Sizes.bar.padding
+            bottomMargin: Sizes.bar.padding
+          }
           spacing: Sizes.bar.spacing
 
           OsIcon {}
@@ -48,8 +62,9 @@ Scope {
             wsCount: 9
           }
 
+          // pushes the status widgets to the bottom of the bar
           Item {
-            implicitHeight: Sizes.bar.sectionGap
+            Layout.fillHeight: true
           }
 
           Systray {
