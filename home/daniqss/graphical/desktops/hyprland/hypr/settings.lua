@@ -98,10 +98,6 @@ hl.config({
     enable_swallow = true,
     focus_on_activate = true,
   },
-
-  layers = {
-    layers_hog_keyboard_focus = true,
-  },
 })
 
 hl.workspace_rule({ workspace = "s[true]", gaps_out = { top = 108, right = 192, bottom = 108, left = 192 } })
