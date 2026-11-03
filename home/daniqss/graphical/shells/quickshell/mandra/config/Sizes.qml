@@ -35,15 +35,6 @@ Singleton {
     readonly property real hoverOpacity: 0.3
   }
 
-  readonly property QtObject battery: QtObject {
-    readonly property int width: 26
-    readonly property int height: 13
-    readonly property real border: 1.5
-    readonly property int inset: 2
-    readonly property int tipWidth: 2
-    readonly property int tipHeight: 5
-  }
-
   readonly property QtObject popup: QtObject {
     readonly property int margin: 20
     readonly property int padding: 12

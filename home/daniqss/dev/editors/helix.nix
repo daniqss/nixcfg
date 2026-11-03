@@ -10,6 +10,10 @@ in {
   options.dev.editors.helix.enable = mkEnableOption "enable helix editor";
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      marksman
+    ];
+
     programs.helix = {
       enable = true;
       defaultEditor = true;
@@ -87,6 +91,18 @@ in {
           {
             name = "rust";
             auto-format = true;
+          }
+
+          # TODO: check `rumdl`
+          {
+            name = "markdown";
+            auto-format = true;
+            soft-wrap.enable = true;
+            language-servers = ["marksman"];
+            formatter = {
+              command = "${pkgs.mdformat}/bin/mdformat";
+              args = ["-"];
+            };
           }
         ];
       };
