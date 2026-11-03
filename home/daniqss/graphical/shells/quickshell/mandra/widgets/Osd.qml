@@ -138,22 +138,25 @@ Scope {
       exclusiveZone: 0
 
       implicitWidth: 360
-      implicitHeight: card.implicitHeight + Sizes.popup.margin
+      implicitHeight: card.implicitHeight
       color: "transparent"
 
       mask: Region {
         item: card
       }
 
+      // comes out of the bottom edge like the bar does from the left one,
+      // the bottom side is pushed off screen so it stays flush with the edge
       Rectangle {
         id: card
         anchors {
           fill: parent
-          bottomMargin: Sizes.popup.margin
+          bottomMargin: -Sizes.border
         }
         implicitHeight: contentColumn.implicitHeight + 24
 
-        radius: Sizes.radius
+        topLeftRadius: Sizes.window.rounding
+        topRightRadius: Sizes.window.rounding
         color: Colors.background
         border.width: Sizes.border
         border.color: Colors.outline_variant

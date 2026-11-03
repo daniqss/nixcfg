@@ -22,7 +22,7 @@ end)
 hl.config({
   general = {
     gaps_in = 3,
-    gaps_out = 6,
+    gaps_out = 3,
     border_size = 2,
 
     col = {
@@ -105,15 +105,6 @@ hl.config({
 })
 
 hl.workspace_rule({ workspace = "s[true]", gaps_out = { top = 108, right = 192, bottom = 108, left = 192 } })
-
-hl.workspace_rule({ workspace = "w[tv1]s[false]", gaps_out = 0, gaps_in = 0 })
-hl.window_rule({
-  name = "no-gaps-when-only",
-  match = { float = false, workspace = "w[tv1]s[false]" },
-  border_size = 0,
-  rounding = 0,
-})
-
 -- hyprland has no sensitivity setting under input.touchpad, and device rules
 -- need an exact device name, so every touchpad is read from the kernel and
 -- named the way hyprland does it internally: deviceNameToInternalString

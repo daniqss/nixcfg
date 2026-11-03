@@ -29,20 +29,20 @@ Scope {
         bottom: true
       }
 
+      // shaped like a hyprland window: same outer gaps and rounding,
+      // the left side is pushed off screen so it stays flush with the edge
       Rectangle {
-        anchors.fill: parent
-        color: Colors.background
-
-        // only the edge facing the windows gets a border
-        Rectangle {
-          anchors {
-            top: parent.top
-            bottom: parent.bottom
-            right: parent.right
-          }
-          implicitWidth: Sizes.border
-          color: Colors.outline_variant
+        anchors {
+          fill: parent
+          topMargin: Sizes.window.gaps
+          bottomMargin: Sizes.window.gaps
+          leftMargin: -Sizes.border
         }
+        color: Colors.background
+        topRightRadius: Sizes.window.rounding
+        bottomRightRadius: Sizes.window.rounding
+        border.width: Sizes.border
+        border.color: Colors.surface_bright
 
         ColumnLayout {
           id: content

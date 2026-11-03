@@ -10,6 +10,12 @@ Singleton {
   readonly property int border: 1
   readonly property int animDuration: 150
 
+  // mirrors general.gaps_out and decoration.rounding in hyprland's settings.lua
+  readonly property QtObject window: QtObject {
+    readonly property int gaps: 3
+    readonly property int rounding: 10
+  }
+
   readonly property QtObject bar: QtObject {
     readonly property int width: 44
     readonly property int padding: 12
