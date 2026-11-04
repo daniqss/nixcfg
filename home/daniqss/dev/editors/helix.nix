@@ -25,6 +25,8 @@ in {
           color-modes = true;
           bufferline = "multiple";
 
+          file-picker.hidden = false;
+
           cursor-shape = {
             normal = "block";
             insert = "bar";
@@ -77,6 +79,14 @@ in {
       languages = {
         language-server = {
           nixd.command = "${pkgs.nixd}/bin/nixd";
+          ty = {
+            command = "uv";
+            args = ["run" "ty" "server"];
+          };
+          ruff = {
+            command = "uv";
+            args = ["run" "ruff" "server"];
+          };
         };
 
         language = [
@@ -91,6 +101,15 @@ in {
           {
             name = "rust";
             auto-format = true;
+          }
+          {
+            name = "python";
+            auto-format = true;
+            language-servers = ["ty" "ruff"];
+            formatter = {
+              command = "uv";
+              args = ["run" "ruff" "format" "-"];
+            };
           }
 
           # TODO: check `rumdl`
