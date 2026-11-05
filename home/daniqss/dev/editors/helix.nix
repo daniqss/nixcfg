@@ -25,7 +25,8 @@ in {
           color-modes = true;
           bufferline = "multiple";
 
-          file-picker.hidden = false;
+          file-picker.hidden = true;
+          file-picker.git-ignore = false;
 
           cursor-shape = {
             normal = "block";
@@ -79,6 +80,7 @@ in {
       languages = {
         language-server = {
           nixd.command = "${pkgs.nixd}/bin/nixd";
+          clangd.command = "${pkgs.clang-tools}/bin/clangd";
           ty = {
             command = "uv";
             args = ["run" "ty" "server"];
@@ -103,8 +105,45 @@ in {
             auto-format = true;
           }
           {
+            name = "c";
+            auto-format = true;
+            language-servers = ["clangd"];
+            formatter = {
+              command = "${pkgs.clang-tools}/bin/clang-format";
+            };
+          }
+          {
+            name = "cpp";
+            auto-format = true;
+            language-servers = ["clangd"];
+            formatter = {
+              command = "${pkgs.clang-tools}/bin/clang-format";
+            };
+          }
+          {
             name = "python";
             auto-format = true;
+
+            # to use python syntax highlighting with waf, wscript, ...
+            file-types = [
+              "py"
+              "pyi"
+              "py3"
+              "pyw"
+              "ptl"
+              "rpy"
+              "cpy"
+              "ipy"
+              "pyt"
+              {glob = ".python_history";}
+              {glob = ".pythonstartup";}
+              {glob = ".pythonrc";}
+              {glob = "*SConstruct";}
+              {glob = "*SConscript";}
+              {glob = "*sconstruct";}
+              {glob = "wscript";}
+              {glob = "waf";}
+            ];
             language-servers = ["ty" "ruff"];
             formatter = {
               command = "uv";
