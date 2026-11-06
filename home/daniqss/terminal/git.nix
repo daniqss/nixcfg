@@ -197,6 +197,11 @@ in {
       settings = {
         os.editPreset = "helix (hx)";
 
+        keybinding.files = {
+          commitChanges = "C";
+          commitChangesWithEditor = "c";
+        };
+
         gui = {
           nerdFontsVersion = "3";
           showRandomTip = false;

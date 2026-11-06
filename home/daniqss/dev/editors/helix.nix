@@ -26,7 +26,7 @@ in {
           bufferline = "multiple";
 
           file-picker.hidden = true;
-          file-picker.git-ignore = false;
+          file-picker.git-ignore = true;
 
           cursor-shape = {
             normal = "block";
