@@ -25,8 +25,8 @@ in {
           color-modes = true;
           bufferline = "multiple";
 
-          file-picker.hidden = true;
-          file-picker.git-ignore = true;
+          # shows the hidden files that are tracked by git
+          file-picker.hidden = false;
 
           cursor-shape = {
             normal = "block";

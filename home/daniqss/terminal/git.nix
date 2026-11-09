@@ -171,6 +171,7 @@ in {
           core.editor = "hx";
           push.default = "current";
           push.autoSetupRemote = true;
+          diff.submodule = "log";
           url = forgeGitUrls;
         }
         // mkGitIdentity {

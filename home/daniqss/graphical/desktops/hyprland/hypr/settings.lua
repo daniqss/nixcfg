@@ -46,9 +46,9 @@ hl.config({
     rounding_power = 2,
 
     blur = {
-      enabled = false,
-      size = 8,
-      passes = 2,
+      enabled = true,
+      size = 2,
+      passes = 1,
       vibrancy = 0.1696,
       brightness = 0.5,
       special = true,
@@ -86,8 +86,8 @@ hl.config({
   },
 
   binds = {
-    -- directional focus/swap stays inside the monitor, use mod + period to switch monitors
     window_direction_monitor_fallback = false,
+    hide_special_on_workspace_change = true,
   },
 
   misc = {
