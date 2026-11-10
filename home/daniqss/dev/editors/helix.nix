@@ -81,6 +81,7 @@ in {
         language-server = {
           nixd.command = "${pkgs.nixd}/bin/nixd";
           clangd.command = "${pkgs.clang-tools}/bin/clangd";
+          zls.command = "${pkgs.zls}/bin/zls";
           ty = {
             command = "uv";
             args = ["run" "ty" "server"];
@@ -130,6 +131,15 @@ in {
             language-servers = ["clangd"];
             formatter = {
               command = "${pkgs.clang-tools}/bin/clang-format";
+            };
+          }
+          {
+            name = "zig";
+            auto-format = true;
+            language-servers = ["zls"];
+            formatter = {
+              command = "${pkgs.zig}/bin/zig";
+              args = ["fmt" "--stdin"];
             };
           }
           {
