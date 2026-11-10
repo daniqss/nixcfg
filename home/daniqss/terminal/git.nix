@@ -172,6 +172,7 @@ in {
           push.default = "current";
           push.autoSetupRemote = true;
           diff.submodule = "log";
+          diff.wsErrorHighlight = "all";
           url = forgeGitUrls;
         }
         // mkGitIdentity {

@@ -101,7 +101,6 @@ in {
         "20-settings".content = ./settings.lua;
         "30-animations".content = ./animations.lua;
         "40-keybinds".content = ./keybinds.lua;
-        "45-jiggler".content = ./jiggler.lua;
         "50-rules".content = ./rules.lua;
       };
     };
