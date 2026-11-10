@@ -19,6 +19,8 @@
     };
 
     ssh = {
+      homelab.enable = false;
+
       hosts.minipc-totem = {
         hostname = "10.1.0.158";
         user = "alen";
