@@ -15,7 +15,8 @@
       systemd.enable = true;
 
       settings = {
-        close_on_focus_loss = true;
+        close_on_focus_loss = false;
+        tray.enabled = false;
 
         providers = {
           # "@sovereign/awww-switcher-0" = {

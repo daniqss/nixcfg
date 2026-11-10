@@ -41,6 +41,8 @@ in {
 
             graphicsMode = 1;
 
+            advancedItemTooltips = true;
+
             "key_key.hotbar.1" = "key.mouse.5";
             "key_key.hotbar.2" = "key.mouse.4";
             "key_key.hotbar.3" = "key.keyboard.3";

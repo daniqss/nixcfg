@@ -12,6 +12,7 @@ in
     icon ? null,
     mods ? {},
     clientMods ? {},
+    shaderPack ? null,
     server ? {},
     client ? {},
   }: {
@@ -90,6 +91,19 @@ in
 
         mods = lib.attrValues (mods // clientMods);
 
+        files = lib.optionalAttrs (shaderPack != null) {
+          "shaderpacks/${shaderPack.name}".source = shaderPack;
+          # copied, not symlinked, because iris rewrites it on every apply
+          "config/iris.properties" = {
+            method = "copy";
+            type = "properties";
+            value = {
+              enableShaders = true;
+              shaderPack = shaderPack.name;
+            };
+          };
+        };
+
         binEntry = {
           enable = true;
           name = slug;
@@ -102,6 +116,12 @@ in
           extraConfig =
             {
               terminal = false;
+              # the name is the motd, so make the launcher also find it by slug
+              genericName = "Minecraft";
+              comment = "Minecraft ${version} (${slug})";
+              settings.Keywords = "${slug};minecraft;";
+              categories = ["Game"];
+              settings.StartupWMClass = "com.mojang.minecraft";
             }
             // lib.optionalAttrs (icon != null) {
               icon = "${icon}";

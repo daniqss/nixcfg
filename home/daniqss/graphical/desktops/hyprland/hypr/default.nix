@@ -101,9 +101,19 @@ in {
         "20-settings".content = ./settings.lua;
         "30-animations".content = ./animations.lua;
         "40-keybinds".content = ./keybinds.lua;
-        "45-jiggler".content = ./jiggler.lua;
         "50-rules".content = ./rules.lua;
       };
+    };
+
+    # on nixos this lives in nixos/profiles/desktop/hyprland.nix
+    xdg.portal.config.hyprland = lib.mkIf (!config.platform.isNixOS) {
+      default = ["hyprland" "gtk"];
+      "org.freedesktop.impl.portal.FileChooser" = ["gnome"];
+    };
+
+    # the distro's systemd doesn't look into the nix profile, so dbus can't activate xdph without this
+    xdg.configFile."systemd/user/xdg-desktop-portal-hyprland.service" = lib.mkIf (!config.platform.isNixOS) {
+      source = "${config.wayland.windowManager.hyprland.finalPortalPackage}/share/systemd/user/xdg-desktop-portal-hyprland.service";
     };
   };
 }

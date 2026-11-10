@@ -22,7 +22,7 @@ end)
 hl.config({
   general = {
     gaps_in = 3,
-    gaps_out = 6,
+    gaps_out = 3,
     border_size = 2,
 
     col = {
@@ -46,9 +46,9 @@ hl.config({
     rounding_power = 2,
 
     blur = {
-      enabled = false,
-      size = 8,
-      passes = 2,
+      enabled = true,
+      size = 2,
+      passes = 1,
       vibrancy = 0.1696,
       brightness = 0.5,
       special = true,
@@ -80,27 +80,27 @@ hl.config({
 
   dwindle = {
     force_split = 0,
-    special_scale_factor = 0.8,
     split_width_multiplier = 1.0,
     use_active_for_splits = true,
     preserve_split = true,
   },
 
-  master = {
-    special_scale_factor = 0.8,
+  binds = {
+    window_direction_monitor_fallback = false,
+    hide_special_on_workspace_change = true,
   },
 
   misc = {
     disable_splash_rendering = true,
     disable_hyprland_logo = true,
     always_follow_on_dnd = false,
-    layers_hog_keyboard_focus = true,
     animate_manual_resizes = false,
     enable_swallow = true,
     focus_on_activate = true,
   },
 })
 
+hl.workspace_rule({ workspace = "s[true]", gaps_out = { top = 108, right = 192, bottom = 108, left = 192 } })
 -- hyprland has no sensitivity setting under input.touchpad, and device rules
 -- need an exact device name, so every touchpad is read from the kernel and
 -- named the way hyprland does it internally: deviceNameToInternalString

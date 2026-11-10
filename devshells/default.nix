@@ -18,12 +18,19 @@
     ];
   };
 
-  pythonShell = pkgs.mkShell {
+  python = pkgs.mkShell {
     buildInputs = with pkgs; [
       python314
       uv
       ruff
       ty
+    ];
+  };
+
+  c = pkgs.mkShell {
+    buildInputs = with pkgs; [
+      gnumake
+      clang-tools
     ];
   };
 

@@ -12,6 +12,9 @@ hl.bind(mod .. " + J", hl.dsp.focus({ direction = "d" }))
 hl.bind(mod .. " + K", hl.dsp.focus({ direction = "u" }))
 hl.bind(mod .. " + L", hl.dsp.focus({ direction = "r" }))
 
+-- rotate focus between monitors
+hl.bind(mod .. " + period", hl.dsp.focus({ monitor = "+1" }))
+
 -- special workspace
 hl.bind(mod .. " + A", hl.dsp.workspace.toggle_special())
 hl.bind(mod .. " + ALT + A", hl.dsp.window.move({ workspace = "special", silent = true }))
@@ -87,15 +90,17 @@ hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- vicinae launcher
 if vicinae_enabled then
-  hl.bind(mod .. " + TAB", hl.dsp.exec_cmd("vicinae 'vicinae://launch/applications?toggle=true'"))
-  hl.bind(mod .. " + C", hl.dsp.exec_cmd("vicinae 'vicinae://launch/clipboard/history?toggle=true'"))
-  hl.bind(mod .. " + E", hl.dsp.exec_cmd("vicinae 'vicinae://launch/core/search-emojis?toggle=true'"))
-  hl.bind(mod .. " + B", hl.dsp.exec_cmd("vicinae 'vicinae://launch/@Gelei/vicinae-extension-bluetooth-0/devices'"))
-  hl.bind(
-    mod .. " + S",
-    hl.dsp.exec_cmd("vicinae 'vicinae://launch/@rastsislaux/vicinae-extension-pulseaudio-0/outputDevices'")
-  )
-  hl.bind(mod .. " + P", hl.dsp.exec_cmd("vicinae 'vicinae://launch/power'"))
+  local vicinae_binds = {
+    { "TAB", "applications?toggle=true" },
+    { "C", "clipboard/history?toggle=true" },
+    { "E", "core/search-emojis?toggle=true" },
+    { "B", "@Gelei/vicinae-extension-bluetooth-0/devices" },
+    { "S", "@rastsislaux/vicinae-extension-pulseaudio-0/outputDevices" },
+    { "P", "power" },
+  }
+  for _, b in ipairs(vicinae_binds) do
+    hl.bind(mod .. " + " .. b[1], hl.dsp.exec_cmd("vicinae 'vicinae://launch/" .. b[2] .. "'"))
+  end
 end
 
 -- volume (locked + repeating)

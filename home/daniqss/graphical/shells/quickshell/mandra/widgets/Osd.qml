@@ -75,7 +75,7 @@ Scope {
 
       MaterialSymbol {
         color: Colors.on_surface
-        font.pixelSize: 22
+        font.pixelSize: Fonts.icon.medium
         font.weight: 600
         icon: dv.icon
       }
@@ -84,8 +84,8 @@ Scope {
         Layout.fillWidth: true
         text: dv.deviceName
         color: Colors.on_surface
-        font.family: "CaskaydiaCove Nerd Font"
-        font.pointSize: 11
+        font.family: Fonts.mono
+        font.pointSize: Fonts.size.medium
         elide: Text.ElideRight
       }
     }
@@ -99,14 +99,14 @@ Scope {
         horizontalAlignment: Text.AlignRight
         text: Math.round(dv.volume * 100)
         color: Colors.on_surface_variant
-        font.family: "CaskaydiaCove Nerd Font"
-        font.pointSize: 11
+        font.family: Fonts.mono
+        font.pointSize: Fonts.size.medium
       }
 
       Rectangle {
         Layout.fillWidth: true
         implicitHeight: 16
-        radius: 10
+        radius: Sizes.radius
         color: Colors.surface_container_high
 
         Rectangle {
@@ -133,32 +133,35 @@ Scope {
     active: root.shouldShowOsd
 
     PanelWindow {
+      // bottom right corner of the screen
       anchors {
-        top: true
-        left: true
+        bottom: true
+        right: true
       }
       exclusiveZone: 0
 
-      implicitWidth: 380
-      implicitHeight: card.implicitHeight + 20
+      implicitWidth: 360
+      implicitHeight: card.implicitHeight
       color: "transparent"
 
       mask: Region {
         item: card
       }
 
+      // comes out of the bottom right corner like the bar does from the left edge,
+      // the bottom and right sides are pushed off screen so it stays flush
       Rectangle {
         id: card
         anchors {
           fill: parent
-          leftMargin: 20
-          topMargin: 20
+          bottomMargin: -Sizes.border
+          rightMargin: -Sizes.border
         }
         implicitHeight: contentColumn.implicitHeight + 24
 
-        radius: 10
+        topLeftRadius: Sizes.window.rounding
         color: Colors.background
-        border.width: 1
+        border.width: Sizes.border
         border.color: Colors.outline_variant
 
         // hovering pauses the auto hide so the controls stay reachable;
@@ -175,7 +178,7 @@ Scope {
           id: contentColumn
           anchors {
             fill: parent
-            margins: 12
+            margins: Sizes.popup.padding
           }
           spacing: 14
 

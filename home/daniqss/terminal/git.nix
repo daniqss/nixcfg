@@ -171,6 +171,8 @@ in {
           core.editor = "hx";
           push.default = "current";
           push.autoSetupRemote = true;
+          diff.submodule = "log";
+          diff.wsErrorHighlight = "all";
           url = forgeGitUrls;
         }
         // mkGitIdentity {
@@ -197,6 +199,11 @@ in {
       settings = {
         os.editPreset = "helix (hx)";
 
+        keybinding.files = {
+          commitChanges = "C";
+          commitChangesWithEditor = "c";
+        };
+
         gui = {
           nerdFontsVersion = "3";
           showRandomTip = false;
@@ -208,6 +215,7 @@ in {
         };
 
         disableStartupPopups = true;
+        promptToReturnFromSubprocess = false;
       };
     };
   };

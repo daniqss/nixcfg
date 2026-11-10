@@ -1,72 +1,131 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Widgets
 
-import qs.config as Config
-import qs.widgets.common
+import qs.config
 import qs.data
+import qs.widgets.common
 
 Item {
   id: wsButton
 
   property HyprlandWorkspace ws: null
-  property bool focused: true
   required property int index
-  property int wsIndex: index + 1
-  property int animActive: WsData.isActive(ws) ? 1 : 0
+  readonly property int wsIndex: index + 1
+  readonly property var kanji: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"]
+  readonly property bool active: WsData.isActive(ws)
+  readonly property var toplevels: ws?.toplevels.values ?? []
+  readonly property bool hovered: mouseArea.containsMouse
+  // the gap left around the icons by the tile width, reused everywhere so nothing adds its own padding
+  readonly property int gap: (Sizes.workspace.size - Sizes.workspace.appIcon) / 2
 
-  Layout.fillHeight: true
-  Layout.leftMargin: WsData.isActive(ws) ? 4 : 0
-  Layout.rightMargin: WsData.isActive(ws) ? 4 : 0
-  width: 20
+  Layout.alignment: Qt.AlignHCenter
+  implicitWidth: Sizes.workspace.size
+  implicitHeight: toplevels.length > 0 ? content.implicitHeight + 2 * gap : Sizes.workspace.size
 
-  Behavior on animActive {
-    NumberAnimation {
-      duration: 150
+  Connections {
+    function onWorkspaceAdded(workspace: HyprlandWorkspace) {
+      if (workspace.id === wsButton.wsIndex)
+        wsButton.ws = workspace;
     }
+
+    target: root
   }
 
   Rectangle {
-    anchors.centerIn: parent
-    color: {
-      if (wsButton.ws) {
-        if (WsData.isPrimaryMonitor(ws) && WsData.isActive(ws)) {
-          return Config.Colors.primary;
-        } else if (WsData.isSecondMonitor(ws) && WsData.isActive(ws)) {
-          return Config.Colors.tertiary;
-        }
-      }
-
-      return Config.Colors.primary;
-    }
-    height: WsData.isActive(ws) ? (parent.width / 1.3) : (wsButton.ws ? 12 : 10)
-    opacity: wsButton.ws ? 1 : 0.5
-    radius: 10
-    scale: 1 + animActive * 0.1
-    width: WsData.isActive(ws) ? 22 : (wsButton.ws ? 12 : 10)
-
-    Connections {
-      function onWorkspaceAdded(workspace: HyprlandWorkspace) {
-        if (workspace.id === wsButton.wsIndex)
-          wsButton.ws = workspace;
-      }
-
-      target: root
+    anchors.fill: parent
+    radius: Sizes.radiusTile
+    // a faint preview of the active tile on hover, to hint where a click takes you
+    opacity: wsButton.active ? 1 : wsButton.hovered ? Sizes.workspace.hoverOpacity : 0
+    gradient: AccentGradient {
+      inverted: WsData.isSecondMonitor(wsButton.ws)
     }
 
-    MouseArea {
-      // accepted inputs in the button
-      acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
-      anchors.fill: parent
-      cursorShape: Qt.PointingHandCursor
+    Behavior on opacity {
+      NumberAnimation {
+        duration: Sizes.animDuration
+      }
+    }
+  }
 
-      onPressed: event => {
-        if (event.button === Qt.LeftButton) {
-          WsData.moveToWorkspaceSilent(wsButton.wsIndex);
-        } else if (event.button === Qt.RightButton) {
-          WsData.defaultWorkspaceApp(wsButton.wsIndex);
+  ColumnLayout {
+    id: content
+
+    // full button width so the number is centered the same way with or without app icons
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    spacing: wsButton.gap
+
+    GradientText {
+      Layout.fillWidth: true
+      text: wsButton.kanji[wsButton.index] ?? wsButton.wsIndex
+      font.family: Fonts.cjk
+      font.pointSize: Fonts.size.workspace
+      font.weight: Font.Black
+      color: wsButton.active ? Colors.on_primary : Colors.primary
+      opacity: wsButton.active || wsButton.toplevels.length > 0 ? 1 : Sizes.workspace.emptyOpacity
+      gradientEnabled: !wsButton.active && wsButton.toplevels.length > 0
+    }
+
+    Repeater {
+      model: wsButton.toplevels
+
+      Item {
+        id: appIcon
+
+        required property HyprlandToplevel modelData
+        readonly property string appId: modelData.wayland?.appId ?? modelData.lastIpcObject?.class ?? ""
+        readonly property DesktopEntry entry: {
+          // entries are scanned asynchronously, depend on them to look up again once loaded
+          DesktopEntries.applications.values;
+          return DesktopEntries.heuristicLookup(appId);
+        }
+        // empty when neither the entry nor the theme has an icon, the generic theme fallback looks out of place
+        readonly property string iconPath: {
+          const icon = entry?.icon ?? appId;
+          // absolute paths (like nix store icons) aren't theme icons, so the check would reject them
+          return icon.startsWith("/") ? `file://${icon}` : Quickshell.iconPath(icon, true);
+        }
+
+        Layout.alignment: Qt.AlignHCenter
+        implicitWidth: Sizes.workspace.appIcon
+        implicitHeight: Sizes.workspace.appIcon
+
+        IconImage {
+          anchors.fill: parent
+          visible: appIcon.iconPath !== ""
+          source: appIcon.iconPath
+        }
+
+        MaterialSymbol {
+          anchors.centerIn: parent
+          visible: appIcon.iconPath === ""
+          icon: "web_asset"
+          fill: 1
+          font.pixelSize: Sizes.workspace.appIcon
+          color: wsButton.active ? Colors.on_primary : Colors.primary
         }
       }
+    }
+  }
+
+  MouseArea {
+    id: mouseArea
+
+    anchors.fill: parent
+    hoverEnabled: true
+    acceptedButtons: Qt.LeftButton | Qt.RightButton
+    cursorShape: Qt.PointingHandCursor
+
+    onPressed: event => {
+      if (event.button === Qt.LeftButton)
+        WsData.focusWorkspaceOn(wsButton.wsIndex, root.bar.screen);
+      else if (event.button === Qt.RightButton)
+        WsData.defaultWorkspaceApp(wsButton.wsIndex);
     }
   }
 }

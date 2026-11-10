@@ -1,24 +1,50 @@
 import Quickshell.Io
 import QtQuick
-import QtQuick.Layouts
 import Quickshell.Services.UPower
 
 import qs.config
-import qs.widgets.common
 
-RowLayout {
+BarIndicator {
   id: battery
-  spacing: 0
 
   readonly property var batteryDevice: UPower.displayDevice
   readonly property int percentage: Math.round(batteryDevice.percentage * 100)
-  property bool fullyCharged: batteryDevice.state === UPowerDeviceState.FullyCharged
-  property bool charging: batteryDevice.state === UPowerDeviceState.Charging
+  readonly property bool fullyCharged: batteryDevice.state === UPowerDeviceState.FullyCharged
+  readonly property bool charging: batteryDevice.state === UPowerDeviceState.Charging
+  readonly property bool low: percentage < 20 && !charging
 
   property int lastPercentage: percentage
   property int lastNotifiedLevel: 100
 
   visible: batteryDevice.isLaptopBattery
+  color: low ? Colors.error : Colors.on_background
+  label: percentage + "%"
+  showLabel: containsMouse || low
+  icon: {
+    if (fullyCharged || percentage >= 90)
+      return "battery_full";
+    else if (percentage >= 80)
+      return !charging ? "battery_6_bar" : "battery_charging_90";
+    else if (percentage >= 70)
+      return !charging ? "battery_5_bar" : "battery_charging_80";
+    else if (percentage >= 60)
+      return !charging ? "battery_4_bar" : "battery_charging_80";
+    else if (percentage >= 50)
+      return !charging ? "battery_3_bar" : "battery_charging_30";
+    else if (percentage >= 40)
+      return !charging ? "battery_2_bar" : "battery_charging_30";
+    else if (percentage >= 30)
+      return !charging ? "battery_1_bar" : "battery_charging_20";
+    else if (percentage >= 20)
+      return !charging ? "battery_0_bar" : "battery_charging_full";
+    else
+      return !charging ? "battery_alert" : "battery_charging_full";
+  }
+
+  onClicked: {
+    if (!batteryProcess.running)
+      batteryProcess.running = true;
+  }
 
   function notify(title, body, icon) {
     batteryNotifier.command = ["notify-send", "-u", "critical", "-i", icon, title, body];
@@ -51,30 +77,6 @@ RowLayout {
     lastPercentage = percentage;
   }
 
-  function batteryIcon() {
-    if (!batteryDevice.isLaptopBattery)
-      return "";
-
-    if (fullyCharged || percentage >= 90)
-      return "battery_full";
-    else if (percentage >= 80)
-      return !charging ? "battery_6_bar" : "battery_charging_90";
-    else if (percentage >= 70)
-      return !charging ? "battery_5_bar" : "battery_charging_80";
-    else if (percentage >= 60)
-      return !charging ? "battery_4_bar" : "battery_charging_80";
-    else if (percentage >= 50)
-      return !charging ? "battery_3_bar" : "battery_charging_30";
-    else if (percentage >= 40)
-      return !charging ? "battery_2_bar" : "battery_charging_30";
-    else if (percentage >= 30)
-      return !charging ? "battery_1_bar" : "battery_charging_20";
-    else if (percentage >= 20)
-      return !charging ? "battery_0_bar" : "battery_charging_full";
-    else
-      return !charging ? "battery_alert" : "battery_charging_full";
-  }
-
   Process {
     id: batteryNotifier
   }
@@ -82,60 +84,5 @@ RowLayout {
   Process {
     id: batteryProcess
     command: ["ghostty", "-e", "btm"]
-  }
-
-  Item {
-    implicitWidth: batteryRow.implicitWidth
-    implicitHeight: batteryRow.implicitHeight
-    Layout.fillHeight: true
-
-    RowLayout {
-      id: batteryRow
-      anchors.fill: parent
-      spacing: 0
-
-      MaterialSymbol {
-        color: (battery.percentage < 20 && !battery.charging) ? Colors.on_error : Colors.on_background
-
-        font.pixelSize: 20
-        icon: battery.batteryIcon()
-      }
-
-      Text {
-        clip: true
-        color: (battery.percentage < 20 && !battery.charging) ? Colors.on_error : Colors.on_background
-        font.family: "CaskaydiaCove Nerd Font"
-        font.pointSize: 11
-        text: battery.percentage + "%"
-
-        readonly property bool show: batteryMouse.containsMouse || (battery.percentage < 20 && !battery.charging)
-
-        opacity: show ? 1 : 0
-        Layout.preferredWidth: show ? implicitWidth : 0
-
-        Behavior on opacity {
-          NumberAnimation {
-            duration: 150
-            easing.type: Easing.OutCubic
-          }
-        }
-        Behavior on Layout.preferredWidth {
-          NumberAnimation {
-            duration: 150
-            easing.type: Easing.OutCubic
-          }
-        }
-      }
-    }
-
-    MouseArea {
-      id: batteryMouse
-      anchors.fill: parent
-      hoverEnabled: true
-      onClicked: {
-        if (!batteryProcess.running)
-          batteryProcess.running = true;
-      }
-    }
   }
 }

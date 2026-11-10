@@ -5,8 +5,7 @@ import QtQuick
 import QtQuick.Layouts
 
 import qs.widgets.bar
-import qs.widgets.common as Common
-import qs.config as Config
+import qs.config
 
 Scope {
   Variants {
@@ -18,80 +17,81 @@ Scope {
       property var modelData
 
       color: "transparent"
-      implicitHeight: 34
+      implicitWidth: Sizes.bar.width
       screen: modelData
 
       WlrLayershell.layer: WlrLayer.Bottom
 
+      // flush against the left edge, spanning the whole screen height
       anchors {
-        bottom: true
         left: true
-        right: true
+        top: true
+        bottom: true
       }
 
+      // shaped like a hyprland window: same outer gaps and rounding,
+      // the left side is pushed off screen so it stays flush with the edge
       Rectangle {
-        anchors.fill: parent
-        color: Config.Colors.background
-
-        Rectangle {
-          anchors.top: parent.top
-          anchors.left: parent.left
-          anchors.right: parent.right
-          height: 1
-          color: Config.Colors.outline_variant
-          z: 1
+        anchors {
+          fill: parent
+          topMargin: Sizes.window.gaps
+          bottomMargin: Sizes.window.gaps
+          leftMargin: -Sizes.border
         }
+        color: Colors.background
+        topRightRadius: Sizes.window.rounding
+        bottomRightRadius: Sizes.window.rounding
+        border.width: Sizes.border
+        border.color: Colors.surface_bright
 
-        RowLayout {
-          anchors.bottom: parent.bottom
-          anchors.left: parent.left
-          anchors.top: parent.top
+        ColumnLayout {
+          id: content
 
-          anchors.topMargin: 3
-          anchors.leftMargin: height / 3
-          anchors.rightMargin: height / 3
-          spacing: height / 3
+          anchors {
+            top: parent.top
+            bottom: parent.bottom
+            horizontalCenter: parent.horizontalCenter
+            topMargin: Sizes.bar.padding
+            bottomMargin: Sizes.bar.padding
+          }
+          spacing: Sizes.bar.spacing
 
           OsIcon {}
           Workspaces {
             bar: bar
             wsCount: 9
           }
-        }
 
-        RowLayout {
-          anchors.bottom: parent.bottom
-          anchors.horizontalCenter: parent.horizontalCenter
-          anchors.top: parent.top
+          // pushes the status widgets to the bottom of the bar
+          Item {
+            Layout.fillHeight: true
+          }
 
-          anchors.topMargin: 3
-          anchors.leftMargin: height / 3
-          anchors.rightMargin: height / 3
-          spacing: height / 3
-
-          Taskbar {}
-        }
-
-        RowLayout {
-          anchors.bottom: parent.bottom
-          anchors.right: parent.right
-          anchors.top: parent.top
-
-          anchors.topMargin: 3
-          anchors.leftMargin: height / 3
-          anchors.rightMargin: height / 3
-          spacing: height / 3
-
-          Systray {}
-          RowLayout {
-            Layout.alignment: Qt.AlignRight
-            spacing: 2
+          Systray {
+            id: systray
+          }
+          Separator {
+            visible: systray.visible
+          }
+          ColumnLayout {
+            Layout.alignment: Qt.AlignHCenter
+            spacing: Sizes.bar.groupSpacing
 
             Sound {}
             Network {}
-            Battery {}
+            Bluetooth {}
+            Vpn {}
+          }
+          Separator {}
+          Battery {
+            id: battery
+          }
+          Separator {
+            visible: battery.visible
           }
           Clock {}
+          Separator {}
+          Power {}
         }
       }
     }

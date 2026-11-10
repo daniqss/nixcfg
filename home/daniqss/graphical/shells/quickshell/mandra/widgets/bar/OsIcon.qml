@@ -5,35 +5,43 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
 import qs.config
+import qs.widgets.common
 
 Item {
   id: launcher
 
   // distros whose themed logo clashes with the bar get a monochrome glyph
-  // from assets/ tinted with the primary color
+  // from assets/ filled with the accent gradient
   readonly property var monoLogos: ({
+      "nixos": Qt.resolvedUrl("../../assets/nixos-logo.png"),
       "ubuntu": Qt.resolvedUrl("../../assets/ubuntu-logo.png")
     })
   property string distroId: ""
   readonly property bool tinted: monoLogos[distroId] !== undefined
 
-  Layout.alignment: Qt.AlignCenter
-  implicitHeight: 20
-  implicitWidth: 20
+  Layout.alignment: Qt.AlignHCenter
+  implicitHeight: Sizes.bar.osIcon
+  implicitWidth: Sizes.bar.osIcon
 
   IconImage {
     id: icon
 
     anchors.fill: parent
     visible: !launcher.tinted
+    layer.enabled: true
   }
 
-  MultiEffect {
+  Rectangle {
     anchors.fill: parent
-    source: icon
     visible: launcher.tinted
-    colorization: 1.0
-    colorizationColor: Colors.primary
+    gradient: AccentGradient {}
+    layer.enabled: true
+    layer.effect: MultiEffect {
+      maskEnabled: true
+      maskSource: icon
+      maskThresholdMin: 0.5
+      maskSpreadAtMin: 1.0
+    }
   }
 
   Process {
@@ -50,17 +58,15 @@ Item {
   }
 
   Process {
-    id: applauncherProcess
+    id: vicinaeProcess
 
-    // rofi or future quickshell launcher
-    command: ["applauncher"]
+    command: ["vicinae", "vicinae://launch/applications?toggle=true"]
   }
 
   MouseArea {
     anchors.fill: parent
     cursorShape: Qt.PointingHandCursor
-    hoverEnabled: true
 
-    onClicked: applauncherProcess.running = true
+    onClicked: vicinaeProcess.running = true
   }
 }

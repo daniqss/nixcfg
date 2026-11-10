@@ -41,19 +41,27 @@
 
     hardware.graphics = {
       enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        intel-compute-runtime-legacy1
+      ];
     };
 
-    services.xserver.videoDrivers = ["nvidia"];
-    hardware.nvidia = {
-      modesetting.enable = true;
+    services.xserver.videoDrivers = ["modesetting"];
+    boot.initrd.kernelModules = ["i915"];
+    environment.sessionVariables.LIBVA_DRIVER_NAME = "iHD";
 
-      powerManagement.enable = true;
-      powerManagement.finegrained = false;
-
-      open = false;
-      nvidiaSettings = false;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-    };
+    # services.xserver.videoDrivers = ["nvidia"];
+    # hardware.nvidia = {
+    #   modesetting.enable = true;
+    #
+    #   powerManagement.enable = true;
+    #   powerManagement.finegrained = false;
+    #
+    #   open = false;
+    #   nvidiaSettings = false;
+    #   package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # };
 
     boot.kernelPackages = pkgs.linuxPackages_latest;
 

@@ -21,4 +21,5 @@ Singleton {
 
   readonly property string time: hours + ":" + minutes
   readonly property string date: day + "/" + month
+  readonly property string dayMonth: Qt.formatDateTime(clock.date, "d MMM")
 }

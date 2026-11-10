@@ -10,12 +10,12 @@
     desktops = {
       monitors = [
         {
-          name = "DP-1";
+          name = "HDMI-A-1";
           resolution = {
             x = 1920;
             y = 1080;
           };
-          refresh = "143.85";
+          refresh = "120.0";
           position = {
             x = 0;
             y = 0;

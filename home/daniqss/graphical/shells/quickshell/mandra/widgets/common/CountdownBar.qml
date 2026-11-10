@@ -12,7 +12,7 @@ Item {
   property real remaining: 1
   property color barColor: Colors.primary
   // match the host card so the track follows its rounded border
-  property real radius: 10
+  property real radius: Sizes.radius
   property real inset: 1
 
   Item {
