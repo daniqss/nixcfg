@@ -133,8 +133,11 @@ Scope {
     active: root.shouldShowOsd
 
     PanelWindow {
-      // only the bottom edge, so the compositor centers it horizontally
-      anchors.bottom: true
+      // bottom right corner of the screen
+      anchors {
+        bottom: true
+        right: true
+      }
       exclusiveZone: 0
 
       implicitWidth: 360
@@ -145,18 +148,18 @@ Scope {
         item: card
       }
 
-      // comes out of the bottom edge like the bar does from the left one,
-      // the bottom side is pushed off screen so it stays flush with the edge
+      // comes out of the bottom right corner like the bar does from the left edge,
+      // the bottom and right sides are pushed off screen so it stays flush
       Rectangle {
         id: card
         anchors {
           fill: parent
           bottomMargin: -Sizes.border
+          rightMargin: -Sizes.border
         }
         implicitHeight: contentColumn.implicitHeight + 24
 
         topLeftRadius: Sizes.window.rounding
-        topRightRadius: Sizes.window.rounding
         color: Colors.background
         border.width: Sizes.border
         border.color: Colors.outline_variant
