@@ -10,12 +10,14 @@
     desktops = {
       monitors = [
         {
-          name = "HDMI-A-1";
+          name = "DP-2";
           resolution = {
             x = 1920;
             y = 1080;
           };
-          refresh = "120.0";
+          refresh = "143.85";
+          # only in fullscreen, so the desktop doesn't flicker on idle refresh drops
+          vrr = 2;
           position = {
             x = 0;
             y = 0;

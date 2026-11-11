@@ -4,8 +4,10 @@ import QtQuick
 import Quickshell
 
 Singleton {
+  id: root
+
   readonly property int radius: 10
-  readonly property int radiusTile: 7
+  readonly property int radiusTile: 4
   readonly property int radiusSmall: 8
   readonly property int border: 1
   readonly property int animDuration: 150
@@ -17,7 +19,9 @@ Singleton {
   }
 
   readonly property QtObject bar: QtObject {
-    readonly property int width: 44
+    // the widest component (a workspace button) plus sidePadding on each side and the border
+    readonly property int sidePadding: 6
+    readonly property int width: root.workspace.size + 2 * sidePadding + root.border
     readonly property int padding: 12
     readonly property int spacing: 14
     readonly property int groupSpacing: 6
@@ -28,9 +32,12 @@ Singleton {
   }
 
   readonly property QtObject workspace: QtObject {
-    readonly property int size: 30
-    readonly property int spacing: 6
     readonly property int appIcon: 24
+    // space between the app icons and the tile edges
+    readonly property int iconPadding: 2
+    // the tile wraps the icons tightly, the bar width follows from it
+    readonly property int size: appIcon + 2 * iconPadding
+    readonly property int spacing: 6
     readonly property real emptyOpacity: 0.5
     readonly property real hoverOpacity: 0.3
   }

@@ -8,6 +8,7 @@
     [Appearance]
     color_scheme_path=${config.xdg.configHome}/qt${n}ct/matugen.conf
     custom_palette=true
+    icon_theme=MoreWaita
 
     [Fonts]
     fixed="CaskaydiaCove Nerd Font Mono,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,Regular"

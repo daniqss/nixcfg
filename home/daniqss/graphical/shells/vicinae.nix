@@ -18,6 +18,12 @@
         close_on_focus_loss = false;
         tray.enabled = false;
 
+        # pinned instead of relying on auto detection
+        theme = {
+          light.icon_theme = "MoreWaita";
+          dark.icon_theme = "MoreWaita";
+        };
+
         providers = {
           # "@sovereign/awww-switcher-0" = {
           #   favorite = true;

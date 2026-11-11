@@ -113,6 +113,12 @@ in {
               default = "";
               description = "name of the monitor to mirror";
             };
+
+            vrr = lib.mkOption {
+              type = lib.types.nullOr (lib.types.enum [0 1 2 3]);
+              default = null;
+              description = "variable refresh rate, 0 off, 1 always, 2 fullscreen only, 3 fullscreen with game or video content";
+            };
           };
         });
       };

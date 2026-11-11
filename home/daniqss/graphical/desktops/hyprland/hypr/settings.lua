@@ -85,6 +85,11 @@ hl.config({
     preserve_split = true,
   },
 
+  cursor = {
+    -- moving the cursor over a fullscreen game doesn't force a refresh and break vrr
+    no_break_fs_vrr = 1,
+  },
+
   binds = {
     window_direction_monitor_fallback = false,
     hide_special_on_workspace_change = true,

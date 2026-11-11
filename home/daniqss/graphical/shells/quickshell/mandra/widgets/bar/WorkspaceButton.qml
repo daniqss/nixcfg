@@ -19,8 +19,8 @@ Item {
   readonly property bool active: WsData.isActive(ws)
   readonly property var toplevels: ws?.toplevels.values ?? []
   readonly property bool hovered: mouseArea.containsMouse
-  // the gap left around the icons by the tile width, reused everywhere so nothing adds its own padding
-  readonly property int gap: (Sizes.workspace.size - Sizes.workspace.appIcon) / 2
+  // the gap left around the icons, reused everywhere so nothing adds its own padding
+  readonly property int gap: Sizes.workspace.iconPadding
 
   Layout.alignment: Qt.AlignHCenter
   implicitWidth: Sizes.workspace.size
