@@ -39,29 +39,25 @@
 
     server.enable = false;
 
-    hardware.graphics = {
-      enable = true;
-      extraPackages = with pkgs; [
-        intel-media-driver
-        intel-compute-runtime-legacy1
-      ];
+    services.xserver.videoDrivers = ["nvidia"];
+    hardware.nvidia = {
+      powerManagement.enable = true;
+      open = true;
     };
+    boot.initrd.kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
+    environment.sessionVariables = {
+      LIBVA_DRIVER_NAME = "nvidia";
+      NVD_BACKEND = "direct";
+      GBM_BACKEND = "nvidia-drm";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
 
-    services.xserver.videoDrivers = ["modesetting"];
-    boot.initrd.kernelModules = ["i915"];
-    environment.sessionVariables.LIBVA_DRIVER_NAME = "iHD";
-
-    # services.xserver.videoDrivers = ["nvidia"];
-    # hardware.nvidia = {
-    #   modesetting.enable = true;
-    #
-    #   powerManagement.enable = true;
-    #   powerManagement.finegrained = false;
-    #
-    #   open = false;
-    #   nvidiaSettings = false;
-    #   package = config.boot.kernelPackages.nvidiaPackages.stable;
-    # };
+      # gsync/vrr for opengl games (minecraft)
+      __GL_GSYNC_ALLOWED = "1";
+      __GL_VRR_ALLOWED = "1";
+      # cap proton games (dx9-11 and dx12) 3 fps under 144hz, so they stay inside the vrr range
+      DXVK_FRAME_RATE = "141";
+      VKD3D_FRAME_RATE = "141";
+    };
 
     boot.kernelPackages = pkgs.linuxPackages_latest;
 

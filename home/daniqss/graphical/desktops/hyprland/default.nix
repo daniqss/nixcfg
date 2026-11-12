@@ -25,12 +25,13 @@ in {
             then ''"auto"''
             else monitor.scale;
           mirror = lib.optionalString (monitor.mirror != "") "\n\tmirror = \"${monitor.mirror}\",";
+          vrr = lib.optionalString (monitor.vrr != null) "\n\tvrr = ${toString monitor.vrr},";
         in ''
           hl.monitor({
           	output = "${monitor.name}",
           	mode = "${toString r.x}x${toString r.y}@${monitor.refresh}",
           	position = "${toString p.x}x${toString p.y}",
-          	scale = ${scale},${mirror}
+          	scale = ${scale},${mirror}${vrr}
           })''
       )
       |> builtins.concatStringsSep "\n";

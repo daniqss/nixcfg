@@ -6,7 +6,8 @@
 }: {
   config = lib.mkIf config.graphical.enable {
     home.packages = [
-      pkgs.morewaita-icon-theme
+      # morewaita inherits from adwaita, keep it installed as the fallback
+      pkgs.adwaita-icon-theme
       pkgs.adwaita-colors
     ];
 
@@ -30,8 +31,8 @@
       enable = true;
 
       iconTheme = {
-        name = "Adwaita";
-        package = pkgs.adwaita-icon-theme;
+        name = "MoreWaita";
+        package = pkgs.morewaita-icon-theme;
       };
 
       gtk2.extraConfig = ''

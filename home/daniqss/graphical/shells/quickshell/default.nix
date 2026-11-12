@@ -46,6 +46,7 @@ in {
           kdePackages.qtimageformats
           kdePackages.kirigami.unwrapped
 
+          morewaita-icon-theme
           adwaita-icon-theme
           material-symbols
           material-icons

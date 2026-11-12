@@ -34,9 +34,6 @@ hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize" })
 -- allow tearing and fullscreen for games
 local games = {
   "^(Stardew Valley)$",
-  "^(steam_app_367520)$",
-  "^(Hollow Knight Silksong)$",
-  "^(Minecraft [0-9]+(\\.[0-9]+)*$)",
   "^(cs2)$",
   "^(steam_app_22380)$",
   "^(steam_app_1145360)$",
@@ -45,4 +42,15 @@ local games = {
 }
 for _, class in ipairs(games) do
   hl.window_rule({ match = { class = class }, immediate = true, fullscreen = true })
+end
+
+-- fullscreen without tearing for games played with vsync on top of vrr
+local vsyncGames = {
+  "^(steam_app_367520)$", -- hollow knight (proton)
+  "^(Hollow Knight Silksong)$",
+  "^(steam_app_499170)$", -- order of the sinking star (proton)
+  "^(Minecraft [0-9]+(\\.[0-9]+)*$)",
+}
+for _, class in ipairs(vsyncGames) do
+  hl.window_rule({ match = { class = class }, fullscreen = true })
 end

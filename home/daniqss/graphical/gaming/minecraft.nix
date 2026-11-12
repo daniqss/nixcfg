@@ -40,6 +40,7 @@ in {
             gamma = 1.0;
 
             graphicsMode = 1;
+            enableVsync = true;
 
             advancedItemTooltips = true;
 
