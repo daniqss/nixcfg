@@ -25,7 +25,6 @@ Singleton {
     // the tile wraps the icons tightly, the bar width follows from it
     readonly property int size: appIcon + 2 * iconPadding
     readonly property int spacing: 6
-
     readonly property real emptyOpacity: 0.5
     readonly property real hoverOpacity: 0.3
   }
