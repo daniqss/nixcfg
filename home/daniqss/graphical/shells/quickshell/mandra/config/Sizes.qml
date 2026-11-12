@@ -18,6 +18,18 @@ Singleton {
     readonly property int rounding: 10
   }
 
+  readonly property QtObject workspace: QtObject {
+    readonly property int appIcon: 24
+    // space between the app icons and the tile edges
+    readonly property int iconPadding: 2
+    // the tile wraps the icons tightly, the bar width follows from it
+    readonly property int size: appIcon + 2 * iconPadding
+    readonly property int spacing: 6
+
+    readonly property real emptyOpacity: 0.5
+    readonly property real hoverOpacity: 0.3
+  }
+
   readonly property QtObject bar: QtObject {
     // the widest component (a workspace button) plus sidePadding on each side and the border
     readonly property int sidePadding: 6
@@ -30,18 +42,6 @@ Singleton {
     readonly property int osIcon: 22
     readonly property int trayIcon: 16
     readonly property int traySpacing: 10
-  }
-
-  readonly property QtObject workspace: QtObject {
-    readonly property int appIcon: 24
-    // space between the app icons and the tile edges
-    readonly property int iconPadding: 2
-    // the tile wraps the icons tightly, the bar width follows from it
-    readonly property int size: appIcon + 2 * iconPadding
-    readonly property int spacing: 6
-
-    readonly property real emptyOpacity: 0.5
-    readonly property real hoverOpacity: 0.3
   }
 
   readonly property QtObject popup: QtObject {
