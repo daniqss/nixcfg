@@ -40,10 +40,7 @@ in {
             gamma = 1.0;
 
             graphicsMode = 1;
-
-            # vsync on top of vrr, capped just under 144hz so it never hits the vsync wall
             enableVsync = true;
-            maxFps = 140;
 
             advancedItemTooltips = true;
 

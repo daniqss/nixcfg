@@ -68,6 +68,28 @@ in {
     ops = players;
 
     server.java.memory = 2048;
+    server.serverProperties = {
+      view-distance = 16;
+      simulation-distance = 10;
+    };
     client.java.memory = 8192;
+
+    client.files = {
+      "shaderpacks/complementary-reimagined.zip".source = pkgs.fetchurl {
+        name = "complementary-reimagined.zip";
+        url = "https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip";
+        hash = "sha512-RTBLHXhir9shd7fmIm/JxnN5EdF6StRsycUZyk3rk18FByzTN82LGaFbuAYrV7VOzux73uTNVy2UhY4pRtN9hQ==";
+      };
+
+      # merged at launch so the settings iris writes from its menu survive
+      "config/iris.properties" = {
+        method = "merge";
+        type = "properties";
+        value = {
+          enableShaders = true;
+          shaderPack = "complementary-reimagined.zip";
+        };
+      };
+    };
   };
 }

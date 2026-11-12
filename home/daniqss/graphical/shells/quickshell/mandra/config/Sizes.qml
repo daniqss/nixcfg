@@ -22,6 +22,7 @@ Singleton {
     // the widest component (a workspace button) plus sidePadding on each side and the border
     readonly property int sidePadding: 6
     readonly property int width: root.workspace.size + 2 * sidePadding + root.border
+
     readonly property int padding: 12
     readonly property int spacing: 14
     readonly property int groupSpacing: 6
@@ -38,6 +39,7 @@ Singleton {
     // the tile wraps the icons tightly, the bar width follows from it
     readonly property int size: appIcon + 2 * iconPadding
     readonly property int spacing: 6
+
     readonly property real emptyOpacity: 0.5
     readonly property real hoverOpacity: 0.3
   }
