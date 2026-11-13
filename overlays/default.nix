@@ -17,6 +17,24 @@
           NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error";
         };
     });
+
+    # some icons clip with #SVGID_1_ but never define it, browsers ignore it but qtsvg renders them broken
+    # (chromium, google-chrome, flameshot...), removing them falls back to the hicolor icon of the app
+    # TODO: report the broken svgs upstream to morewaita and drop this once fixed
+    morewaita-icon-theme = prev.morewaita-icon-theme.overrideAttrs (old: {
+      postInstall =
+        (old.postInstall or "")
+        + ''
+          broken=()
+          for f in $out/share/icons/MoreWaita/scalable/apps/*.svg; do
+            t=$(readlink -f "$f")
+            if grep -q 'href="#SVGID_1_"' "$t" && ! grep -q 'id="SVGID_1_"' "$t"; then
+              broken+=("$f")
+            fi
+          done
+          rm -f "''${broken[@]}"
+        '';
+    });
   };
 
   stable-packages = final: _prev: {

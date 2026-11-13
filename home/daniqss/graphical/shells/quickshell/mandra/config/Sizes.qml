@@ -27,6 +27,8 @@ Singleton {
     readonly property int spacing: 6
     readonly property real emptyOpacity: 0.5
     readonly property real hoverOpacity: 0.3
+    // how long a drag has to rest on a workspace before switching to it
+    readonly property int dragSwitchDelay: 500
   }
 
   readonly property QtObject bar: QtObject {

@@ -18,7 +18,7 @@ Item {
   readonly property var kanji: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"]
   readonly property bool active: WsData.isActive(ws)
   readonly property var toplevels: ws?.toplevels.values ?? []
-  readonly property bool hovered: mouseArea.containsMouse
+  readonly property bool hovered: mouseArea.containsMouse || dropArea.containsDrag
   // the gap left around the icons, reused everywhere so nothing adds its own padding
   readonly property int gap: Sizes.workspace.iconPadding
 
@@ -127,5 +127,18 @@ Item {
       else if (event.button === Qt.RightButton)
         WsData.defaultWorkspaceApp(wsButton.wsIndex);
     }
+  }
+
+  // resting a drag on the button switches to its workspace, so it can be dropped on a window there
+  DropArea {
+    id: dropArea
+
+    anchors.fill: parent
+  }
+
+  Timer {
+    interval: Sizes.workspace.dragSwitchDelay
+    running: dropArea.containsDrag && !wsButton.active
+    onTriggered: WsData.focusWorkspaceOn(wsButton.wsIndex, root.bar.screen)
   }
 }
