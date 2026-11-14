@@ -88,19 +88,26 @@ hl.bind(mod .. " + SHIFT + K", hl.dsp.window.swap({ direction = "u" }), { repeat
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
--- vicinae launcher
-if vicinae_enabled then
-  local vicinae_binds = {
-    { "TAB", "applications?toggle=true" },
-    { "C", "clipboard/history?toggle=true" },
-    { "E", "core/search-emojis?toggle=true" },
-    { "B", "@Gelei/vicinae-extension-bluetooth-0/devices" },
-    { "S", "@rastsislaux/vicinae-extension-pulseaudio-0/outputDevices" },
+-- quickshell central menu, pressing the bind of the page on screen closes it
+if quickshell_enabled then
+  local menu_binds = {
+    { "TAB", "launcher" },
+    { "C", "clipboard" },
+    { "S", "sound" },
+    { "B", "bluetooth" },
     { "P", "power" },
   }
-  for _, b in ipairs(vicinae_binds) do
-    hl.bind(mod .. " + " .. b[1], hl.dsp.exec_cmd("vicinae 'vicinae://launch/" .. b[2] .. "'"))
+  for _, b in ipairs(menu_binds) do
+    hl.bind(mod .. " + " .. b[1], hl.dsp.exec_cmd("qs -c " .. quickshell_config .. " ipc call menu toggle " .. b[2]))
   end
+
+  -- slide the bar in and out
+  hl.bind(mod .. " + Z", hl.dsp.exec_cmd("qs -c " .. quickshell_config .. " ipc call bar toggle"))
+end
+
+-- vicinae, only for what the menu doesn't cover
+if vicinae_enabled then
+  hl.bind(mod .. " + E", hl.dsp.exec_cmd("vicinae 'vicinae://launch/core/search-emojis?toggle=true'"))
 end
 
 -- volume (locked + repeating)

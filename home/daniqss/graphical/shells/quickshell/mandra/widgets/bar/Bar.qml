@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 import Quickshell
+import Quickshell.Io
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
@@ -7,8 +8,29 @@ import QtQuick.Shapes
 
 import qs.widgets.bar
 import qs.config
+import qs.widgets.common
 
 Scope {
+  // slides the bar in and out of the left edge, `qs ipc call bar toggle`
+  Reveal {
+    id: barReveal
+    shown: true
+  }
+
+  IpcHandler {
+    target: "bar"
+
+    function toggle(): void {
+      barReveal.shown = !barReveal.shown;
+    }
+    function show(): void {
+      barReveal.shown = true;
+    }
+    function hide(): void {
+      barReveal.shown = false;
+    }
+  }
+
   Variants {
     model: Quickshell.screens
 
@@ -20,8 +42,10 @@ Scope {
       color: "transparent"
       // extra room on the right for the inverted corners, which must not reserve space
       implicitWidth: Sizes.bar.width + Sizes.window.rounding
-      exclusiveZone: Sizes.bar.width
+      // follows the slide so the windows reflow along with the bar
+      exclusiveZone: Math.round(Sizes.bar.width * barReveal.progress)
       screen: modelData
+      visible: barReveal.active
 
       WlrLayershell.layer: WlrLayer.Bottom
 
@@ -39,126 +63,132 @@ Scope {
 
       // the bar plus two concave corners joining it to the top and bottom screen edges,
       // the left, top and bottom sides are pushed off screen so only the inner border shows
-      Shape {
+      EdgeSlide {
         anchors.fill: parent
-        preferredRendererType: Shape.CurveRenderer
+        reveal: barReveal
+        edge: Qt.LeftEdge
 
-        ShapePath {
-          id: outline
+        Shape {
+          anchors.fill: parent
+          preferredRendererType: Shape.CurveRenderer
 
-          readonly property real edge: Sizes.bar.width - Sizes.border / 2
-          readonly property real r: Sizes.window.rounding
-          readonly property real out: Sizes.border
-          readonly property real h: bar.height
+          ShapePath {
+            id: outline
 
-          fillColor: Colors.background
-          strokeColor: Colors.surface_bright
-          strokeWidth: Sizes.border
+            readonly property real edge: Sizes.bar.width - Sizes.border / 2
+            readonly property real r: Sizes.window.rounding
+            readonly property real out: Sizes.border
+            readonly property real h: bar.height
 
-          startX: -outline.out
-          startY: -outline.out
+            fillColor: Colors.background
+            strokeColor: Colors.surface_bright
+            strokeWidth: Sizes.border
 
-          PathLine {
-            x: outline.edge + outline.r
-            y: -outline.out
-          }
-          PathLine {
-            x: outline.edge + outline.r
-            y: 0
-          }
-          PathArc {
-            x: outline.edge
-            y: outline.r
-            radiusX: outline.r
-            radiusY: outline.r
-            direction: PathArc.Counterclockwise
-          }
-          PathLine {
-            x: outline.edge
-            y: outline.h - outline.r
-          }
-          PathArc {
-            x: outline.edge + outline.r
-            y: outline.h
-            radiusX: outline.r
-            radiusY: outline.r
-            direction: PathArc.Counterclockwise
-          }
-          PathLine {
-            x: outline.edge + outline.r
-            y: outline.h + outline.out
-          }
-          PathLine {
-            x: -outline.out
-            y: outline.h + outline.out
-          }
-          PathLine {
-            x: -outline.out
-            y: -outline.out
+            startX: -outline.out
+            startY: -outline.out
+
+            PathLine {
+              x: outline.edge + outline.r
+              y: -outline.out
+            }
+            PathLine {
+              x: outline.edge + outline.r
+              y: 0
+            }
+            PathArc {
+              x: outline.edge
+              y: outline.r
+              radiusX: outline.r
+              radiusY: outline.r
+              direction: PathArc.Counterclockwise
+            }
+            PathLine {
+              x: outline.edge
+              y: outline.h - outline.r
+            }
+            PathArc {
+              x: outline.edge + outline.r
+              y: outline.h
+              radiusX: outline.r
+              radiusY: outline.r
+              direction: PathArc.Counterclockwise
+            }
+            PathLine {
+              x: outline.edge + outline.r
+              y: outline.h + outline.out
+            }
+            PathLine {
+              x: -outline.out
+              y: outline.h + outline.out
+            }
+            PathLine {
+              x: -outline.out
+              y: -outline.out
+            }
           }
         }
-      }
 
-      Item {
-        id: barArea
-
-        anchors {
-          left: parent.left
-          top: parent.top
-          bottom: parent.bottom
-        }
-        width: Sizes.bar.width
-
-        ColumnLayout {
-          id: content
+        Item {
+          id: barArea
 
           anchors {
+            left: parent.left
             top: parent.top
             bottom: parent.bottom
-            horizontalCenter: parent.horizontalCenter
-            // keep the content centered in the area left of the border
-            horizontalCenterOffset: -Sizes.border / 2
-            topMargin: Sizes.bar.padding
-            bottomMargin: Sizes.bar.padding
           }
-          spacing: Sizes.bar.spacing
+          width: Sizes.bar.width
 
-          OsIcon {}
-          Workspaces {
-            bar: bar
-            wsCount: 9
-          }
-
-          // pushes the status widgets to the bottom of the bar
-          Item {
-            Layout.fillHeight: true
-          }
-
-          Systray {
-            id: systray
-          }
-          Separator {
-            visible: systray.visible
-          }
           ColumnLayout {
-            Layout.alignment: Qt.AlignHCenter
-            spacing: Sizes.bar.groupSpacing
+            id: content
 
-            Sound {}
-            Network {}
-            Bluetooth {}
-            Vpn {}
+            anchors {
+              top: parent.top
+              bottom: parent.bottom
+              horizontalCenter: parent.horizontalCenter
+              // keep the content centered in the area left of the border
+              horizontalCenterOffset: -Sizes.border / 2
+              topMargin: Sizes.bar.padding
+              bottomMargin: Sizes.bar.padding
+            }
+            spacing: Sizes.bar.spacing
+
+            OsIcon {}
+            Workspaces {
+              bar: bar
+              wsCount: 9
+            }
+
+            // pushes the status widgets to the bottom of the bar
+            Item {
+              Layout.fillHeight: true
+            }
+
+            Systray {
+              id: systray
+            }
+            Separator {
+              visible: systray.visible
+            }
+            ColumnLayout {
+              Layout.alignment: Qt.AlignHCenter
+              spacing: Sizes.bar.groupSpacing
+
+              Sound {}
+              Network {}
+              Bluetooth {}
+              Vpn {}
+            }
+            Separator {}
+            Battery {
+              id: battery
+            }
+            Separator {
+              visible: battery.visible
+            }
+            Clock {}
+            Separator {}
+            Power {}
           }
-          Separator {}
-          Battery {
-            id: battery
-          }
-          Separator {
-            visible: battery.visible
-          }
-          Clock {}
-          Separator {}
-          Power {}
         }
       }
     }

@@ -43,6 +43,19 @@ Singleton {
     readonly property int traySpacing: 10
   }
 
+  readonly property QtObject reveal: QtObject {
+    readonly property int duration: 280
+    // the fade runs this many times faster than the slide
+    readonly property real fadeSpeed: 1.6
+  }
+
+  readonly property QtObject osd: QtObject {
+    readonly property int width: 62
+    readonly property int slider: 140
+    readonly property int cover: 44
+    readonly property int bands: 8
+  }
+
   readonly property QtObject popup: QtObject {
     readonly property int margin: 20
     readonly property int padding: 12

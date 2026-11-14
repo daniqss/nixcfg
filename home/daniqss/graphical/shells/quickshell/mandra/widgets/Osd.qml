@@ -1,19 +1,29 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Effects
 import Quickshell
+import Quickshell.Wayland
+import Quickshell.Services.Pipewire
 
 import qs.config
 import qs.widgets.common
 import qs.data
 
+// slim panel sliding out of the right screen edge: output volume on top, mic at
+// the bottom and, only while spotify is around, its cover and a visualiser in
+// between. volume changes and spotify track changes pop it
 Scope {
   id: root
   property bool ready: false
-  property bool shouldShowOsd: false
+  property bool hovered: false
   // how long the OSD stays up after the last trigger; longer for track changes
-  // so there is time to read the metadata and reach the playback controls
+  // so there is time to see what started playing
   property int showDuration: 1500
+
+  Reveal {
+    id: osdReveal
+  }
 
   // pops the OSD and (re)arms the auto hide. ignored during startup so the
   // initial settling of the pipewire bindings doesn't flash the panel.
@@ -21,8 +31,9 @@ Scope {
     if (!root.ready)
       return;
     root.showDuration = duration;
-    root.shouldShowOsd = true;
-    hideTimer.restart();
+    osdReveal.shown = true;
+    if (!root.hovered)
+      hideTimer.restart();
   }
 
   Timer {
@@ -58,147 +69,179 @@ Scope {
   Timer {
     id: hideTimer
     interval: root.showDuration
-    onTriggered: root.shouldShowOsd = false
+    onTriggered: osdReveal.shown = false
   }
 
-  component DeviceVolume: ColumnLayout {
-    id: dv
-    property string icon
-    property string deviceName
-    property real volume
+  component VerticalVolume: ColumnLayout {
+    id: volume
+    required property PwNode node
+    required property string icon
 
-    spacing: 6
+    readonly property real value: node?.audio?.volume ?? 0
+    readonly property bool muted: node?.audio?.muted ?? false
 
-    RowLayout {
-      Layout.fillWidth: true
-      spacing: 8
+    spacing: 12
 
-      MaterialSymbol {
-        color: Colors.on_surface
-        font.pixelSize: Fonts.icon.medium
-        font.weight: 600
-        icon: dv.icon
-      }
+    MaterialSymbol {
+      Layout.alignment: Qt.AlignHCenter
+      color: volume.muted ? Colors.outline : Colors.on_surface
+      font.pixelSize: Fonts.icon.normal
+      font.weight: 600
+      icon: volume.icon
 
-      Text {
-        Layout.fillWidth: true
-        text: dv.deviceName
-        color: Colors.on_surface
-        font.family: Fonts.mono
-        font.pointSize: Fonts.size.medium
-        elide: Text.ElideRight
+      MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        onClicked: Audio.toggleMute(volume.node)
       }
     }
 
-    RowLayout {
-      Layout.fillWidth: true
-      spacing: 10
-
-      Text {
-        Layout.preferredWidth: 34
-        horizontalAlignment: Text.AlignRight
-        text: Math.round(dv.volume * 100)
-        color: Colors.on_surface_variant
-        font.family: Fonts.mono
-        font.pointSize: Fonts.size.medium
+    VolumeSlider {
+      Layout.alignment: Qt.AlignHCenter
+      Layout.preferredHeight: Sizes.osd.slider
+      implicitWidth: 10
+      vertical: true
+      value: volume.value
+      muted: volume.muted
+      onMoved: v => {
+        if (volume.node?.audio)
+          volume.node.audio.volume = v;
       }
+    }
 
-      Rectangle {
-        Layout.fillWidth: true
-        implicitHeight: 16
-        radius: Sizes.radius
-        color: Colors.surface_container_high
-
-        Rectangle {
-          property real wantedWidth: parent.width * Math.max(0, Math.min(1, dv.volume))
-          anchors {
-            left: parent.left
-            top: parent.top
-            bottom: parent.bottom
-          }
-
-          implicitWidth: {
-            if (wantedWidth === 0 || wantedWidth >= 16)
-              return wantedWidth;
-            return 16;
-          }
-          radius: parent.radius
-          color: Colors.primary
-        }
-      }
+    Text {
+      Layout.alignment: Qt.AlignHCenter
+      text: Math.round(volume.value * 100)
+      color: Colors.on_surface_variant
+      font.family: Fonts.mono
+      font.pointSize: Fonts.size.small
     }
   }
 
   LazyLoader {
-    active: root.shouldShowOsd
+    active: osdReveal.active
 
     PanelWindow {
-      // bottom right corner of the screen
-      anchors {
-        bottom: true
-        right: true
-      }
+      // only anchored to the right, so it sits vertically centered on that edge
+      anchors.right: true
       exclusiveZone: 0
 
-      implicitWidth: 360
-      implicitHeight: card.implicitHeight
+      implicitWidth: Sizes.osd.width
+      implicitHeight: content.implicitHeight + 2 * Sizes.popup.padding + 2 * Sizes.window.rounding + 16
       color: "transparent"
 
+      WlrLayershell.layer: WlrLayer.Overlay
+      WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+
       mask: Region {
-        item: card
+        item: slide.holder
       }
 
-      // comes out of the bottom right corner like the bar does from the left edge,
-      // the bottom and right sides are pushed off screen so it stays flush
-      Rectangle {
-        id: card
-        anchors {
-          fill: parent
-          bottomMargin: -Sizes.border
-          rightMargin: -Sizes.border
-        }
-        implicitHeight: contentColumn.implicitHeight + 24
+      EdgeSlide {
+        id: slide
+        anchors.fill: parent
+        reveal: osdReveal
+        edge: Qt.RightEdge
 
-        topLeftRadius: Sizes.window.rounding
-        color: Colors.background
-        border.width: Sizes.border
-        border.color: Colors.outline_variant
-
-        // hovering pauses the auto hide so the controls stay reachable;
-        // leaving after a hover dismisses the OSD right away
-        MouseArea {
-          id: cardMouse
+        EdgeTab {
           anchors.fill: parent
+          edge: Qt.RightEdge
+        }
+
+        // hovering pauses the auto hide so the sliders stay reachable;
+        // leaving after a hover dismisses the OSD right away.
+        // TODO: grow into the full player (title, artist, album, media controls,
+        // horizontal sliders) when hovered before it hides
+        MouseArea {
+          anchors.fill: parent
+          anchors.topMargin: Sizes.window.rounding
+          anchors.bottomMargin: Sizes.window.rounding
           hoverEnabled: true
-          onEntered: hideTimer.stop()
-          onExited: root.shouldShowOsd = false
+          onEntered: {
+            root.hovered = true;
+            hideTimer.stop();
+          }
+          onExited: {
+            root.hovered = false;
+            osdReveal.shown = false;
+          }
         }
 
         ColumnLayout {
-          id: contentColumn
+          id: content
           anchors {
-            fill: parent
-            margins: Sizes.popup.padding
+            centerIn: parent
+            // centered in the body, left of the border pushed off screen
+            horizontalCenterOffset: -Sizes.border / 2
           }
-          spacing: 14
+          spacing: 26
 
-          PlayerDisplay {
-            Layout.fillWidth: true
-            visible: Player.available
-          }
-
-          DeviceVolume {
-            Layout.fillWidth: true
+          VerticalVolume {
+            Layout.alignment: Qt.AlignHCenter
+            node: Audio.sink
             icon: Audio.soundIcon
-            deviceName: Audio.sinkName
-            volume: Audio.sinkVolume ?? 0
           }
 
-          DeviceVolume {
-            Layout.fillWidth: true
+          ColumnLayout {
+            Layout.alignment: Qt.AlignHCenter
+            visible: Player.available
+            spacing: 18
+
+            Item {
+              Layout.alignment: Qt.AlignHCenter
+              implicitWidth: Sizes.osd.cover
+              implicitHeight: Sizes.osd.cover
+
+              Rectangle {
+                id: coverMask
+                anchors.fill: parent
+                radius: Sizes.radiusTile
+                color: Colors.surface_container_high
+                layer.enabled: true
+              }
+
+              Image {
+                anchors.fill: parent
+                source: Player.artUrl
+                // decoded at the size it is drawn, not the cover's native 600+ px
+                sourceSize.width: Sizes.osd.cover * 2
+                sourceSize.height: Sizes.osd.cover * 2
+                fillMode: Image.PreserveAspectCrop
+                visible: status === Image.Ready
+                layer.enabled: true
+                layer.effect: MultiEffect {
+                  maskEnabled: true
+                  maskSource: coverMask
+                }
+              }
+
+              MaterialSymbol {
+                anchors.centerIn: parent
+                visible: Player.artUrl === ""
+                color: Colors.primary
+                font.pixelSize: Fonts.icon.normal
+                icon: "music_note"
+              }
+
+              MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: Player.player?.togglePlaying()
+              }
+            }
+
+            CavaBars {
+              Layout.alignment: Qt.AlignHCenter
+              vertical: true
+              reach: Sizes.osd.cover
+              running: osdReveal.shown && Player.playing
+            }
+          }
+
+          VerticalVolume {
+            Layout.alignment: Qt.AlignHCenter
+            node: Audio.source
             icon: Audio.sourceIcon
-            deviceName: Audio.sourceName
-            volume: Audio.sourceVolume ?? 0
           }
         }
       }

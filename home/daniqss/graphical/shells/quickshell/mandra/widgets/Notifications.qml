@@ -17,14 +17,11 @@ PanelWindow {
   property string reloadError: ""
   property bool reloadShown: false
 
-  // top right corner of the screen
-  anchors {
-    top: true
-    right: true
-  }
+  // only anchored to the top, so the stack sits centered on the top edge
+  anchors.top: true
   exclusiveZone: 0
 
-  implicitWidth: Sizes.popup.cardWidth + Sizes.popup.margin
+  implicitWidth: Sizes.popup.cardWidth
   implicitHeight: Math.max(1, column.implicitHeight + 40)
   color: "transparent"
 
@@ -65,9 +62,8 @@ PanelWindow {
 
     anchors {
       top: parent.top
-      right: parent.right
+      horizontalCenter: parent.horizontalCenter
       topMargin: Sizes.popup.margin
-      rightMargin: Sizes.popup.margin
     }
     spacing: 10
 

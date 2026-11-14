@@ -27,8 +27,8 @@ in {
   config = lib.mkIf cfg.enable {
     # programs used in quickshell
     home.packages = with pkgs; [
-      pwvucontrol
       bottom
+      cava
       networkmanager
       libnotify
       kdePackages.qtdeclarative
