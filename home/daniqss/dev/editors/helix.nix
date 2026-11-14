@@ -90,18 +90,6 @@ in {
             command = "uv";
             args = ["run" "ruff" "server"];
           };
-
-          # grammar and spelling defaulting to english, overwritable with
-          # <!-- LTeX: language=gl-ES -->
-          ltex = {
-            command = "${pkgs.ltex-ls-plus}/bin/ltex-ls-plus";
-            config.ltex = {
-              language = "en";
-              motherTongue = "en";
-              enabled = ["markdown" "latex" "typst" "plaintext"];
-              additionalRules.enablePickyRules = true;
-            };
-          };
         };
 
         language = [
@@ -183,10 +171,6 @@ in {
               command = "${pkgs.mdformat}/bin/mdformat";
               args = ["-"];
             };
-          }
-          {
-            name = "git-commit";
-            language-servers = ["ltex"];
           }
           {
             name = "latex";
