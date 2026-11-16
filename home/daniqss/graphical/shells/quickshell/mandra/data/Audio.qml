@@ -19,21 +19,21 @@ Singleton {
   readonly property var sourceVolume: source?.audio.volume
   readonly property string sourceName: source?.description ?? source?.name ?? "Audio Input Device"
   readonly property var volume: sink?.audio.volume
-  property real soundLevel: Math.round(Audio.sinkVolume * 100)
+  property real soundLevel: Math.round(root.sinkVolume * 100)
 
   property string soundIcon: {
     if (root.muted)
       return "volume_off";
     else if (root.soundLevel < 30)
       return "volume_mute";
-    else if (soundLevel < 70)
+    else if (root.soundLevel < 70)
       return "volume_down";
     else
       return "volume_up";
   }
 
   readonly property string sourceIcon: {
-    if (Audio.sourceMuted)
+    if (root.sourceMuted)
       return "mic_off";
 
     return "mic";

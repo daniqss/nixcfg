@@ -54,3 +54,6 @@ local vsyncGames = {
 for _, class in ipairs(vsyncGames) do
   hl.window_rule({ match = { class = class }, fullscreen = true })
 end
+
+-- the quickshell menu pops in and out at once, it animates its own page switches
+hl.layer_rule({ match = { namespace = "^(quickshell:menu)$" }, no_anim = true })

@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls as QQC
 import Quickshell
 import Quickshell.Services.UPower
 
@@ -93,12 +94,29 @@ FocusScope {
     return "";
   }
 
-  Keys.onLeftPressed: current = (current + actions.length - 1) % actions.length
-  Keys.onRightPressed: current = (current + 1) % actions.length
+  function move(step: int): void {
+    current = (current + step + actions.length) % actions.length;
+  }
+
+  Keys.onLeftPressed: move(-1)
+  Keys.onRightPressed: move(1)
+  Keys.onPressed: event => {
+    if (event.key === Qt.Key_H) {
+      move(-1);
+      event.accepted = true;
+    } else if (event.key === Qt.Key_L) {
+      move(1);
+      event.accepted = true;
+    }
+  }
   Keys.onReturnPressed: run(actions[current])
   Keys.onEnterPressed: run(actions[current])
 
+  // only as tall as its content, the menu shrinks to it when switching here
+  implicitHeight: Math.min(content.implicitHeight, Sizes.menu.pageHeight - 2 * (Sizes.popup.padding + 4))
+
   ColumnLayout {
+    id: content
     anchors.fill: parent
     spacing: 14
 
@@ -178,13 +196,15 @@ FocusScope {
     Flickable {
       Layout.fillWidth: true
       Layout.fillHeight: true
+      Layout.preferredHeight: batteryColumn.implicitHeight
       contentHeight: batteryColumn.implicitHeight
       clip: true
       boundsBehavior: Flickable.StopAtBounds
+      QQC.ScrollBar.vertical: MenuScrollBar {}
 
       ColumnLayout {
         id: batteryColumn
-        width: parent.width
+        width: parent.width - Sizes.menu.scrollGap
         spacing: 10
 
         Repeater {

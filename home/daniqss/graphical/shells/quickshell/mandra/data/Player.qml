@@ -10,14 +10,7 @@ import Quickshell.Services.Mpris
 Singleton {
   id: root
 
-  readonly property var player: {
-    for (const p of Mpris.players.values) {
-      const name = ((p.identity ?? "") + (p.dbusName ?? "")).toLowerCase();
-      if (name.includes("spotify"))
-        return p;
-    }
-    return null;
-  }
+  readonly property MprisPlayer player: Mpris.players.values.find(p => `${p.identity}${p.dbusName}`.toLowerCase().includes("spotify")) ?? null
 
   readonly property bool available: player !== null
   readonly property string title: player?.trackTitle ?? ""

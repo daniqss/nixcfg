@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls as QQC
 import Quickshell.Io
 
 import qs.config
@@ -91,14 +92,14 @@ FocusScope {
         spacing: 2
         model: root.results
         boundsBehavior: Flickable.StopAtBounds
+        QQC.ScrollBar.vertical: MenuScrollBar {}
         highlightMoveDuration: 0
 
         delegate: ListRow {
           required property var modelData
           required property int index
 
-          width: ListView.view.width
-          implicitHeight: 40
+          width: ListView.view.width - Sizes.menu.scrollGap
           selected: ListView.isCurrentItem
           title: modelData.isImage ? "Image" : modelData.text
           subtitle: modelData.isImage ? modelData.text.replace(/^\[\[ binary data /, "").replace(/ \]\]$/, "") : ""
@@ -124,7 +125,7 @@ FocusScope {
         Layout.fillHeight: true
         Layout.preferredWidth: 1
         radius: Sizes.radius
-        color: Colors.surface_container_low
+        color: Colors.surface_container_lowest
         border.width: Sizes.border
         border.color: Colors.outline_variant
         clip: true

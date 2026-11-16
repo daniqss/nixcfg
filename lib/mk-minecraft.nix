@@ -116,7 +116,6 @@ in
           extraConfig =
             {
               terminal = false;
-              # the name is the motd, so make the launcher also find it by slug
               genericName = "Minecraft";
               comment = "Minecraft ${version} (${slug})";
               settings.Keywords = "${slug};minecraft;";

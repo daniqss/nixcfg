@@ -4,13 +4,15 @@ import qs.config
 
 // same accents as the hyprland active border
 Gradient {
+  id: root
+
   property bool inverted: false
 
   orientation: Gradient.Horizontal
 
   GradientStop {
     position: 0
-    color: inverted ? Colors.tertiary : Colors.primary
+    color: root.inverted ? Colors.tertiary : Colors.primary
   }
 
   GradientStop {
@@ -20,6 +22,6 @@ Gradient {
 
   GradientStop {
     position: 1
-    color: inverted ? Colors.primary : Colors.tertiary
+    color: root.inverted ? Colors.primary : Colors.tertiary
   }
 }

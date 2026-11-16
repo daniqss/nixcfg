@@ -88,26 +88,22 @@ hl.bind(mod .. " + SHIFT + K", hl.dsp.window.swap({ direction = "u" }), { repeat
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
--- quickshell central menu, pressing the bind of the page on screen closes it
+-- mandra menus accessed through global shortcuts
+-- using ipc add latency related to creating the qs ipc processes
 if quickshell_enabled then
   local menu_binds = {
     { "TAB", "launcher" },
     { "C", "clipboard" },
+    { "E", "emoji" },
     { "S", "sound" },
     { "B", "bluetooth" },
     { "P", "power" },
   }
   for _, b in ipairs(menu_binds) do
-    hl.bind(mod .. " + " .. b[1], hl.dsp.exec_cmd("qs -c " .. quickshell_config .. " ipc call menu toggle " .. b[2]))
+    hl.bind(mod .. " + " .. b[1], hl.dsp.global("quickshell:menu-toggle-" .. b[2]))
   end
 
-  -- slide the bar in and out
-  hl.bind(mod .. " + Z", hl.dsp.exec_cmd("qs -c " .. quickshell_config .. " ipc call bar toggle"))
-end
-
--- vicinae, only for what the menu doesn't cover
-if vicinae_enabled then
-  hl.bind(mod .. " + E", hl.dsp.exec_cmd("vicinae 'vicinae://launch/core/search-emojis?toggle=true'"))
+  hl.bind(mod .. " + Z", hl.dsp.global("quickshell:bar-toggle"))
 end
 
 -- volume (locked + repeating)
@@ -137,9 +133,9 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set +5%"), { locked = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { locked = true })
 
--- screenshot (locked)
-hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m region"), { locked = true })
-hl.bind(mod .. " + M", hl.dsp.exec_cmd("hyprshot -m region"), { locked = true })
+local screenshot = 'flock -n -o "$XDG_RUNTIME_DIR/hyprshot.lock" hyprshot -m region'
+hl.bind("Print", hl.dsp.exec_cmd(screenshot), { locked = true })
+hl.bind(mod .. " + M", hl.dsp.exec_cmd(screenshot), { locked = true })
 
 -- toggle keyboard layout (swaps which of es/us is active)
 hl.bind(mod .. " + SPACE", function()

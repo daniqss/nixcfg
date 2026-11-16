@@ -1,6 +1,7 @@
 import QtQuick
 
 import qs.config
+import qs.widgets.common
 
 // moves its content in from `edge` and fades it in following a Reveal.
 // fill the window with it and put the panel inside; the content keeps its

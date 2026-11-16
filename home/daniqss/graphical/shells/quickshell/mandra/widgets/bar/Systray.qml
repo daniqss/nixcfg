@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
@@ -22,17 +23,17 @@ ColumnLayout {
     MouseArea {
       id: trayItem
 
-      property SystemTrayItem item: modelData
+      required property SystemTrayItem modelData
 
       Layout.alignment: Qt.AlignHCenter
       implicitHeight: Sizes.bar.trayIcon
       implicitWidth: Sizes.bar.trayIcon
-      visible: !trayItem.item.icon.includes("spotify-linux-32")
+      visible: !trayItem.modelData.icon.includes("spotify-linux-32")
 
       acceptedButtons: Qt.LeftButton | Qt.RightButton
 
       function toggleMenu() {
-        if (!trayItem.item.hasMenu)
+        if (!trayItem.modelData.hasMenu)
           return;
         const p = trayItem.mapToItem(null, 0, trayItem.height);
         menuPopup.anchorY = p.y;
@@ -41,10 +42,10 @@ ColumnLayout {
 
       onClicked: event => {
         if (event.button === Qt.LeftButton) {
-          if (trayItem.item.onlyMenu)
+          if (trayItem.modelData.onlyMenu)
             trayItem.toggleMenu();
           else
-            trayItem.item.activate();
+            trayItem.modelData.activate();
         } else if (event.button === Qt.RightButton) {
           trayItem.toggleMenu();
         }
@@ -58,7 +59,7 @@ ColumnLayout {
         anchors.centerIn: parent
         height: parent.height
         width: parent.width
-        source: trayItem.item.icon
+        source: trayItem.modelData.icon
       }
 
       Loader {
@@ -88,7 +89,7 @@ ColumnLayout {
       QsMenuOpener {
         id: menuOpener
 
-        menu: trayItem.item.menu
+        menu: trayItem.modelData.menu
       }
 
       PopupWindow {
@@ -158,7 +159,7 @@ ColumnLayout {
               delegate: Loader {
                 id: entryLoader
 
-                required property var modelData
+                required property QsMenuEntry modelData
 
                 Layout.fillWidth: true
                 sourceComponent: entryLoader.modelData.isSeparator ? separatorComponent : entryComponent

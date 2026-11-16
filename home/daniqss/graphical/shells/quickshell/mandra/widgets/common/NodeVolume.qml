@@ -45,6 +45,9 @@ RowLayout {
       color: Colors.on_surface_variant
       font.family: Fonts.mono
       font.pointSize: Fonts.size.small
+      // long device names wrap instead of stretching whatever holds the slider
+      wrapMode: Text.Wrap
+      maximumLineCount: 2
       elide: Text.ElideRight
     }
 

@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls as QQC
 import Quickshell
 import Quickshell.Io
 
@@ -73,16 +74,17 @@ FocusScope {
     MenuState.close();
   }
 
+  JsonAdapter {
+    id: launches
+    property var counts: ({})
+  }
+
   FileView {
     id: launchesFile
     path: Quickshell.dataPath("launches.json")
+    adapter: launches
     // missing until the first launch
     printErrors: false
-
-    JsonAdapter {
-      id: launches
-      property var counts: ({})
-    }
   }
 
   ColumnLayout {
@@ -105,13 +107,14 @@ FocusScope {
       spacing: 2
       model: root.results
       boundsBehavior: Flickable.StopAtBounds
+      QQC.ScrollBar.vertical: MenuScrollBar {}
       highlightMoveDuration: 0
 
       delegate: ListRow {
         required property var modelData
         required property int index
 
-        width: ListView.view.width
+        width: ListView.view.width - Sizes.menu.scrollGap
         selected: ListView.isCurrentItem
         title: modelData.name
         subtitle: modelData.comment || modelData.genericName || ""

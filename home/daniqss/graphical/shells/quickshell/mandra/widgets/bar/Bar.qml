@@ -1,6 +1,5 @@
 pragma ComponentBehavior: Bound
 import Quickshell
-import Quickshell.Io
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
@@ -11,33 +10,42 @@ import qs.config
 import qs.widgets.common
 
 Scope {
-  // slides the bar in and out of the left edge, `qs ipc call bar toggle`
+  // slides the bar in and out of the left edge
   Reveal {
     id: barReveal
     shown: true
   }
 
-  IpcHandler {
+  CommunicationHandler {
     target: "bar"
-
-    function toggle(): void {
-      barReveal.shown = !barReveal.shown;
-    }
-    function show(): void {
-      barReveal.shown = true;
-    }
-    function hide(): void {
-      barReveal.shown = false;
-    }
+    commands: [
+      {
+        name: "toggle",
+        description: "slide the bar in or out",
+        run: () => barReveal.shown = !barReveal.shown
+      },
+      {
+        name: "show",
+        description: "slide the bar in",
+        shortcut: false,
+        run: () => barReveal.shown = true
+      },
+      {
+        name: "hide",
+        description: "slide the bar out",
+        shortcut: false,
+        run: () => barReveal.shown = false
+      }
+    ]
   }
 
   Variants {
     model: Quickshell.screens
 
     PanelWindow {
-      id: bar
+      id: panel
 
-      property var modelData
+      required property ShellScreen modelData
 
       color: "transparent"
       // extra room on the right for the inverted corners, which must not reserve space
@@ -58,12 +66,17 @@ Scope {
 
       // the corners are only decoration, clicks there go to the windows below
       mask: Region {
-        item: barArea
+        // explicit geometry so the input region follows the slide, see Osd.qml
+        x: barSlide.holder.x + barArea.x
+        y: barSlide.holder.y + barArea.y
+        width: barArea.width
+        height: barArea.height
       }
 
       // the bar plus two concave corners joining it to the top and bottom screen edges,
       // the left, top and bottom sides are pushed off screen so only the inner border shows
       EdgeSlide {
+        id: barSlide
         anchors.fill: parent
         reveal: barReveal
         edge: Qt.LeftEdge
@@ -78,7 +91,7 @@ Scope {
             readonly property real edge: Sizes.bar.width - Sizes.border / 2
             readonly property real r: Sizes.window.rounding
             readonly property real out: Sizes.border
-            readonly property real h: bar.height
+            readonly property real h: panel.height
 
             fillColor: Colors.background
             strokeColor: Colors.surface_bright
@@ -154,7 +167,7 @@ Scope {
 
             OsIcon {}
             Workspaces {
-              bar: bar
+              screen: panel.screen
               wsCount: 9
             }
 

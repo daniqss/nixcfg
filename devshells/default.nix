@@ -35,4 +35,6 @@
   };
 
   eduroam = import ./eduroam.nix {inherit pkgs;};
+
+  quickshell = import ./quickshell.nix {inherit pkgs;};
 }

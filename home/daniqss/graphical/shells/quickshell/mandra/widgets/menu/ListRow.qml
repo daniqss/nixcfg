@@ -19,14 +19,17 @@ MouseArea {
   property color symbolColor: Colors.on_surface
   default property alias trailing: trailingRow.data
 
-  implicitHeight: 48
+  // the leading icon shrinks with rows made shorter than the default
+  readonly property int iconSize: Math.min(Sizes.menu.rowIcon, height - 12)
+
+  implicitHeight: Sizes.menu.rowHeight
   hoverEnabled: true
   cursorShape: Qt.PointingHandCursor
 
   Rectangle {
     anchors.fill: parent
     radius: Sizes.radius
-    color: root.selected ? Colors.surface_container_high : root.containsMouse ? Colors.surface_container : "transparent"
+    color: root.selected ? Colors.surface_container_highest : root.containsMouse ? Colors.surface_container_high : "transparent"
     border.width: root.selected ? Sizes.border : 0
     border.color: Colors.outline_variant
   }
@@ -37,22 +40,29 @@ MouseArea {
       leftMargin: 10
       rightMargin: 10
     }
-    spacing: 12
+    spacing: 14
 
     IconImage {
       visible: root.iconSource !== ""
-      Layout.preferredWidth: 28
-      Layout.preferredHeight: 28
+      Layout.preferredWidth: root.iconSize
+      Layout.preferredHeight: root.iconSize
       source: root.iconSource
     }
 
-    MaterialSymbol {
+    // symbols sit in a round badge so they weigh the same as app icons
+    Rectangle {
       visible: root.iconSource === "" && root.symbol !== ""
-      Layout.preferredWidth: 28
-      horizontalAlignment: Text.AlignHCenter
-      color: root.symbolColor
-      font.pixelSize: Fonts.icon.large
-      icon: root.symbol
+      Layout.preferredWidth: root.iconSize
+      Layout.preferredHeight: root.iconSize
+      radius: width / 2
+      color: root.selected ? Colors.surface_bright : Colors.surface_container_high
+
+      MaterialSymbol {
+        anchors.centerIn: parent
+        color: root.symbolColor
+        font.pixelSize: Math.round(root.iconSize * 0.55)
+        icon: root.symbol
+      }
     }
 
     ColumnLayout {

@@ -4,11 +4,10 @@ import QtQuick
 import Quickshell
 
 // which page of the central menu is shown, and whether it is open at all.
-// driven from the bar buttons and from hyprland through `qs ipc call menu ...`
 Singleton {
   id: root
 
-  readonly property list<string> tabs: ["launcher", "clipboard", "sound", "bluetooth", "power"]
+  readonly property list<string> tabs: ["launcher", "clipboard", "emoji", "sound", "bluetooth", "power"]
 
   property bool opened: false
   property string tab: "launcher"
@@ -34,5 +33,26 @@ Singleton {
   function cycle(step: int): void {
     const i = tabs.indexOf(root.tab);
     root.tab = tabs[(i + step + tabs.length) % tabs.length];
+  }
+
+  // shared key handling for all menus
+  function handleKey(event: var): bool {
+    if (!(event.modifiers & Qt.AltModifier) || event.modifiers & (Qt.ControlModifier | Qt.ShiftModifier))
+      return false;
+    if (event.key === Qt.Key_E) {
+      cycle(1);
+      return true;
+    }
+    if (event.key === Qt.Key_B) {
+      cycle(-1);
+      return true;
+    }
+    // xkb keycodes 10 to 15 are the 1 to 6 keys
+    const page = event.nativeScanCode - 10;
+    if (page >= 0 && page < tabs.length) {
+      root.tab = tabs[page];
+      return true;
+    }
+    return false;
   }
 }

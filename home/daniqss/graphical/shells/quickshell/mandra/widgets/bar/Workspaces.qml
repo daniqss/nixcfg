@@ -1,5 +1,7 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
 import Quickshell.Hyprland
 
 import qs.config
@@ -8,7 +10,7 @@ import qs.data
 Item {
   id: root
 
-  required property var bar
+  required property ShellScreen screen
   required property int wsCount
 
   // a touchpad sends smaller deltas than a wheel notch, so add them up until they make one
@@ -23,10 +25,10 @@ Item {
       return;
     root.wheelAccumulator -= steps * 120;
 
-    const current = Hyprland.monitorFor(root.bar.screen)?.activeWorkspace?.id ?? 1;
+    const current = Hyprland.monitorFor(root.screen)?.activeWorkspace?.id ?? 1;
     const target = Math.max(1, Math.min(root.wsCount, current - steps));
     if (target !== current)
-      WsData.focusWorkspaceOn(target, root.bar.screen);
+      WsData.focusWorkspaceOn(target, root.screen);
   }
 
   Layout.alignment: Qt.AlignHCenter
@@ -48,7 +50,9 @@ Item {
     Repeater {
       model: root.wsCount
 
-      WorkspaceButton {}
+      WorkspaceButton {
+        workspaces: root
+      }
     }
   }
 

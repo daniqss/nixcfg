@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls as QQC
 import Quickshell
 import Quickshell.Bluetooth as BT
 
@@ -70,12 +71,22 @@ FocusScope {
     }
   }
 
-  Keys.onUpPressed: list.currentIndex = Math.max(0, list.currentIndex - 1)
-  Keys.onDownPressed: list.currentIndex = Math.min(list.count - 1, list.currentIndex + 1)
+  function move(step: int): void {
+    list.currentIndex = Math.max(0, Math.min(list.count - 1, list.currentIndex + step));
+  }
+
+  Keys.onUpPressed: move(-1)
+  Keys.onDownPressed: move(1)
   Keys.onReturnPressed: activateDevice(devices[list.currentIndex])
   Keys.onEnterPressed: activateDevice(devices[list.currentIndex])
   Keys.onPressed: event => {
-    if (event.key === Qt.Key_S) {
+    if (event.key === Qt.Key_J) {
+      root.move(1);
+      event.accepted = true;
+    } else if (event.key === Qt.Key_K) {
+      root.move(-1);
+      event.accepted = true;
+    } else if (event.key === Qt.Key_S) {
       if (root.adapter)
         root.adapter.discovering = !root.adapter.discovering;
       event.accepted = true;
@@ -174,6 +185,7 @@ FocusScope {
       spacing: 2
       model: root.adapter?.enabled ? root.devices : []
       boundsBehavior: Flickable.StopAtBounds
+      QQC.ScrollBar.vertical: MenuScrollBar {}
       highlightMoveDuration: 0
 
       delegate: ListRow {
@@ -181,7 +193,7 @@ FocusScope {
         required property var modelData
         required property int index
 
-        width: ListView.view.width
+        width: ListView.view.width - Sizes.menu.scrollGap
         selected: ListView.isCurrentItem
         title: modelData.name || modelData.deviceName || modelData.address
         subtitle: root.stateText(modelData)
