@@ -12,6 +12,21 @@ in {
 
   options.server.minecraft.enable = lib.mkEnableOption "enable minecraft server profile";
 
+  # nixcraft's nixos module reads instance.openFirewall but never declares it,
+  # drop this once upstream does
+  options.nixcraft.server.instances = lib.mkOption {
+    type = lib.types.attrsOf (lib.types.submoduleWith {
+      modules = [
+        {
+          options.openFirewall = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+          };
+        }
+      ];
+    });
+  };
+
   config = lib.mkIf config.server.minecraft.enable {
     # instance dir is /var/lib/nixcraft/server/instances/<slug>, logs with
     # `journalctl -u nixcraft-server-<slug>`
