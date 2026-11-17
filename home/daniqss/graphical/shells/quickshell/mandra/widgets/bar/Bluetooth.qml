@@ -1,6 +1,7 @@
-import Quickshell.Io
 import Quickshell.Bluetooth as BT
 import QtQuick
+
+import qs.data
 
 BarIndicator {
   readonly property BT.BluetoothAdapter adapter: BT.Bluetooth.defaultAdapter
@@ -15,13 +16,5 @@ BarIndicator {
     return connectedDevices.length > 0 ? "bluetooth_connected" : "bluetooth";
   }
 
-  onClicked: {
-    if (!bluetoothProcess.running)
-      bluetoothProcess.running = true;
-  }
-
-  Process {
-    id: bluetoothProcess
-    command: ["vicinae", "vicinae://launch/@Gelei/vicinae-extension-bluetooth-0/devices"]
-  }
+  onClicked: MenuState.toggle("bluetooth")
 }

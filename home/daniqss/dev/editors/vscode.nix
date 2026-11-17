@@ -24,7 +24,6 @@
 
           # langs
           jnoortheen.nix-ide
-          astro-build.astro-vscode
           attilabuti.brainfuck-syntax
           ms-vscode.cpptools
           ms-vscode.cpptools-extension-pack
@@ -67,6 +66,13 @@
           mkhl.direnv
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+          # nixpkgs hash for astro-vscode is outdated, override with the current one
+          {
+            name = "astro-vscode";
+            publisher = "astro-build";
+            version = "2.17.4";
+            sha256 = "sha256-C8cmyXhqitqt5SQEJpMnMpJFurbvlRpxeHozs1d0hqE=";
+          }
           {
             name = "qt-qml";
             publisher = "TheQtCompany";

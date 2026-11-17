@@ -12,6 +12,7 @@ import qs.widgets.common
 Item {
   id: wsButton
 
+  required property Workspaces workspaces
   property HyprlandWorkspace ws: null
   required property int index
   readonly property int wsIndex: index + 1
@@ -32,7 +33,7 @@ Item {
         wsButton.ws = workspace;
     }
 
-    target: root
+    target: wsButton.workspaces
   }
 
   Rectangle {
@@ -78,18 +79,16 @@ Item {
         id: appIcon
 
         required property HyprlandToplevel modelData
-        readonly property string appId: modelData.wayland?.appId ?? modelData.lastIpcObject?.class ?? ""
+        readonly property string appId: modelData.wayland?.appId ?? modelData.lastIpcObject.class ?? ""
         readonly property DesktopEntry entry: {
           // entries are scanned asynchronously, depend on them to look up again once loaded
-          DesktopEntries.applications.values;
-          return DesktopEntries.heuristicLookup(appId);
+          const loaded = DesktopEntries.applications.values.length > 0;
+          return loaded ? DesktopEntries.heuristicLookup(appId) : null;
         }
+        readonly property string iconName: entry?.icon ?? appId
         // empty when neither the entry nor the theme has an icon, the generic theme fallback looks out of place
-        readonly property string iconPath: {
-          const icon = entry?.icon ?? appId;
-          // absolute paths (like nix store icons) aren't theme icons, so the check would reject them
-          return icon.startsWith("/") ? `file://${icon}` : Quickshell.iconPath(icon, true);
-        }
+        // absolute paths (like nix store icons) aren't theme icons, so the check would reject them
+        readonly property string iconPath: iconName.startsWith("/") ? `file://${iconName}` : Quickshell.iconPath(iconName, true)
 
         Layout.alignment: Qt.AlignHCenter
         implicitWidth: Sizes.workspace.appIcon
@@ -123,7 +122,7 @@ Item {
 
     onPressed: event => {
       if (event.button === Qt.LeftButton)
-        WsData.focusWorkspaceOn(wsButton.wsIndex, root.bar.screen);
+        WsData.focusWorkspaceOn(wsButton.wsIndex, wsButton.workspaces.screen);
       else if (event.button === Qt.RightButton)
         WsData.defaultWorkspaceApp(wsButton.wsIndex);
     }

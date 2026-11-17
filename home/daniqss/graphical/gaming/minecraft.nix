@@ -7,6 +7,20 @@
   ...
 }: let
   inherit (lib) mkIf mkEnableOption;
+
+  # nixcraft only prints the microsoft device code to stderr,
+  # so the game is opened in a terminal only when the cached session can't be refreshed silently
+  launcher = name: let
+    instance = config.nixcraft.client.instances.${name};
+    auth = lib.getExe inputs.nixcraft.packages.${pkgs.stdenv.hostPlatform.system}.client-auth;
+    bin = lib.getExe instance.binEntry.finalBin;
+  in
+    pkgs.writeShellScript "nixcraft-${name}-launcher" ''
+      if ${auth} --auth-dir ${instance.account.authDir} refresh --uuid ${instance.account.uuid} >/dev/null 2>&1; then
+        exec ${bin}
+      fi
+      exec ${lib.getExe config.graphical.emulators.default} -e ${bin}
+    '';
 in {
   imports = [inputs.nixcraft.homeModules.default];
 
@@ -63,7 +77,10 @@ in {
 
         instances =
           outputs.lib.minecraft {inherit pkgs;}
-          |> lib.mapAttrs (_: minecraft: minecraft.client);
+          |> lib.mapAttrs (name: minecraft:
+            lib.recursiveUpdate minecraft.client {
+              desktopEntry.extraConfig.exec = "${launcher name}";
+            });
       };
     };
   };

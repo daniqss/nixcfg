@@ -6,9 +6,11 @@ import Quickshell
 import QtQuick
 import qs.widgets.bar
 import qs.widgets
+import qs.widgets.menu
 
 ShellRoot {
   Bar {}
   Osd {}
   Notifications {}
+  Menu {}
 }
