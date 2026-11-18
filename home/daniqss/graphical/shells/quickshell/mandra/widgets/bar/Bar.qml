@@ -42,6 +42,14 @@ Scope {
   Variants {
     model: Quickshell.screens
 
+    BarCorners {
+      reveal: barReveal
+    }
+  }
+
+  Variants {
+    model: Quickshell.screens
+
     PanelWindow {
       id: panel
 
