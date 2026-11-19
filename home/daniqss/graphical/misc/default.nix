@@ -16,6 +16,9 @@ in {
   options.graphical.misc.work.enable = mkEnableOption "enable misc packages";
 
   config = lib.mkIf cfg.enable {
+    # blueman-manager refuses to start without the applet
+    services.blueman-applet.enable = true;
+
     home.packages = mkMerge [
       # common
       (with pkgs; [

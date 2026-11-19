@@ -101,9 +101,23 @@ hl.config({
     always_follow_on_dnd = false,
     animate_manual_resizes = false,
     enable_swallow = true,
-    focus_on_activate = true,
   },
+
 })
+
+-- urgent windows get moved to currently used monitor, keeping a more qtile workspace style of handling this
+hl.on("window.urgent", function(window)
+  if not window then
+    return
+  end
+
+  local workspace = window.workspace
+  if workspace and not workspace.special and workspace.id then
+    hl.dispatch(hl.dsp.focus({ workspace = workspace.id, on_current_monitor = true }))
+  end
+
+  hl.dispatch(hl.dsp.focus({ window = window }))
+end)
 
 hl.workspace_rule({ workspace = "s[true]", gaps_out = { top = 108, right = 192, bottom = 108, left = 192 } })
 -- hyprland has no sensitivity setting under input.touchpad, and device rules

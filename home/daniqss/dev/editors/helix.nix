@@ -156,6 +156,10 @@ in {
               args = ["run" "ruff" "format" "-"];
             };
           }
+          {
+            name = "rst";
+            soft-wrap.enable = true;
+          }
         ];
       };
     };

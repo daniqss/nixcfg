@@ -19,6 +19,8 @@
           pkief.material-icon-theme
           zhuangtongfa.material-theme
 
+          vscodevim.vim
+
           # linters and formatters
           esbenp.prettier-vscode
 
