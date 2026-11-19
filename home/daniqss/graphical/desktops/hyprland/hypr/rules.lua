@@ -9,6 +9,9 @@ local function centeredBig(class)
   hl.window_rule({ match = { class = class }, center = true, size = big })
 end
 
+hl.workspace_rule({ workspace = "w[tv1]s[false]", gaps_in = 0, gaps_out = 0 })
+hl.window_rule({ match = { float = false, workspace = "w[tv1]s[false]" }, border_size = 0, rounding = 0, no_shadow = true })
+
 -- decoration tweaks
 hl.window_rule({ match = { class = "^(com.mitchellh.ghostty)$" }, no_blur = true })
 hl.window_rule({ match = { focus = 0 }, no_shadow = true })
@@ -54,3 +57,6 @@ local vsyncGames = {
 for _, class in ipairs(vsyncGames) do
   hl.window_rule({ match = { class = class }, fullscreen = true })
 end
+
+-- the quickshell menu pops in and out at once, it animates its own page switches
+hl.layer_rule({ match = { namespace = "^(quickshell:menu)$" }, no_anim = true })

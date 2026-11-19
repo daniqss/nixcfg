@@ -27,8 +27,8 @@ in {
   config = lib.mkIf cfg.enable {
     # programs used in quickshell
     home.packages = with pkgs; [
-      pwvucontrol
       bottom
+      cava
       networkmanager
       libnotify
       kdePackages.qtdeclarative
@@ -62,10 +62,14 @@ in {
         else config.lib.file.mkOutOfStoreSymlink liveDir;
     };
 
-    home.sessionVariables = {
-      QMLLS_BUILD_DIRS = "${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml/:${pkgs.quickshell}/lib/qt-6/qml/";
-      QML_IMPORT_PATH = liveDir;
-      QML2_IMPORT_PATH = "$QML2_IMPORT_PATH:${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml/:${pkgs.quickshell}/lib/qt-6/qml/";
+    systemd.user.services.quickshell = {
+      # emoji list for the emoji menu
+      Service.Environment = [
+        "QS_EMOJI_DATA=${pkgs.unicode-emoji}/share/unicode/emoji/emoji-test.txt"
+      ];
+
+      # restart the service if the config changes
+      Unit.X-Restart-Triggers = lib.optional (cfg.configSource == "store") "${storeDir}";
     };
   };
 }

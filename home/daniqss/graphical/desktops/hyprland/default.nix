@@ -46,6 +46,6 @@ in {
       |> builtins.concatStringsSep ",";
 
     graphical.shells.quickshell.enable = mkDefault true;
-    graphical.shells.vicinae.enable = mkDefault true;
+    graphical.shells.vicinae.enable = mkDefault false;
   };
 }

@@ -1,8 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Effects
-import Quickshell
 import Quickshell.Services.Mpris
 
 import qs.config
@@ -28,33 +26,8 @@ RowLayout {
     }
   }
 
-  Item {
-    id: art
-    readonly property string icon: Player.artUrl !== "" ? Player.artUrl : Quickshell.iconPath("spotify", true)
-
-    visible: icon !== ""
-
-    Layout.fillHeight: true
-    Layout.preferredWidth: height
-
-    Rectangle {
-      id: artMask
-      anchors.fill: parent
-      radius: Sizes.radiusSmall
-      visible: false
-      layer.enabled: true
-    }
-
-    Image {
-      anchors.fill: parent
-      source: art.icon
-      fillMode: Image.PreserveAspectCrop
-      layer.enabled: true
-      layer.effect: MultiEffect {
-        maskEnabled: true
-        maskSource: artMask
-      }
-    }
+  Cover {
+    size: root.height
   }
 
   ColumnLayout {

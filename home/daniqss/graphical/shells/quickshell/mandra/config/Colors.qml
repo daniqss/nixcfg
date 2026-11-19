@@ -65,20 +65,22 @@ Singleton {
     return Qt.rgba(c.r, c.g, c.b, alpha);
   }
 
-  FileView {
-    path: Quickshell.dataPath("colors.json")
-    watchChanges: true
-    onFileChanged: reload()
+  // declared outside the FileView so its id lives in the root scope
+  JsonAdapter {
+    id: jsonAdapter
 
-    JsonAdapter {
-      id: jsonAdapter
-
-      readonly property Color color: Color {}
-      readonly property Palette palette: Palette {}
-    }
+    readonly property AccentColors color: AccentColors {}
+    readonly property TonalPalette palette: TonalPalette {}
   }
 
-  component Color: JsonObject {
+  FileView {
+    path: Quickshell.dataPath("colors.json")
+    adapter: jsonAdapter
+    watchChanges: true
+    onFileChanged: reload()
+  }
+
+  component AccentColors: JsonObject {
     property string error: "#ffb4ab"
     property string error_container: "#93000a"
     property string inverse_primary: "#465d91"
@@ -111,7 +113,7 @@ Singleton {
     property string tertiary_fixed_dim: "#dfbbde"
   }
 
-  component Palette: JsonObject {
+  component TonalPalette: JsonObject {
     property string error0: "transparent"
     property string error5: "transparent"
     property string error10: "transparent"

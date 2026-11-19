@@ -1,1 +1,3 @@
 !.qmlformat.ini
+# symlink to the qmlls config quickshell writes when run from the repo, see devshells/quickshell.nix
+.qmlls.ini

@@ -7,9 +7,10 @@ Singleton {
   readonly property string mono: "CaskaydiaCove Nerd Font"
   readonly property string cjk: "Noto Sans CJK JP"
   readonly property string icons: "Material Symbols Rounded"
+  readonly property string emoji: "Noto Color Emoji"
 
   // point sizes for text
-  readonly property QtObject size: QtObject {
+  component TextSizes: QtObject {
     readonly property real small: 9
     readonly property real workspace: 10
     readonly property real medium: 11
@@ -17,11 +18,14 @@ Singleton {
   }
 
   // pixel sizes for material symbols
-  readonly property QtObject icon: QtObject {
+  component IconSizes: QtObject {
     readonly property int small: 16
     readonly property int normal: 20
     readonly property int medium: 22
     readonly property int large: 24
     readonly property int huge: 26
   }
+
+  readonly property TextSizes size: TextSizes {}
+  readonly property IconSizes icon: IconSizes {}
 }

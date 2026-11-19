@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
@@ -6,6 +7,7 @@ import Quickshell.Io
 import Quickshell.Widgets
 import qs.config
 import qs.widgets.common
+import qs.data
 
 Item {
   id: launcher
@@ -57,16 +59,10 @@ Item {
     }
   }
 
-  Process {
-    id: vicinaeProcess
-
-    command: ["vicinae", "vicinae://launch/applications?toggle=true"]
-  }
-
   MouseArea {
     anchors.fill: parent
     cursorShape: Qt.PointingHandCursor
 
-    onClicked: vicinaeProcess.running = true
+    onClicked: MenuState.toggle("launcher")
   }
 }

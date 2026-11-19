@@ -37,6 +37,7 @@
     gnomePortal = "${gnomePortal}"
 
     vicinae_enabled = ${lib.boolToString config.graphical.shells.vicinae.enable}
+    quickshell_enabled = ${lib.boolToString config.graphical.shells.quickshell.enable}
     work_enabled = ${lib.boolToString config.graphical.misc.work.enable}
     workspaces_on_current_monitor = ${lib.boolToString cfg.workspacesOnCurrentMonitor}
 

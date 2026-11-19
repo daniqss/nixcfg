@@ -8,7 +8,7 @@
   cfg = config.dev.editors.nvim;
 in {
   imports = [
-    inputs.nvf.homeManagerModules.default
+    inputs.nvf.homeModules.default
   ];
 
   options.dev.editors.nvim.enable = mkEnableOption "enables nvim as an editor";
