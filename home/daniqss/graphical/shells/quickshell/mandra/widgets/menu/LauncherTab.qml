@@ -70,7 +70,12 @@ FocusScope {
     counts[entry.id] = (counts[entry.id] ?? 0) + 1;
     launches.counts = counts;
     launchesFile.writeAdapter();
-    entry.execute();
+
+    // exec outside quickshell scope to make that launched apps can survive a restart
+    Quickshell.execDetached({
+      command: ["systemd-run", "--user", "--scope", "--slice=app.slice", "--collect", "--quiet", "--", ...entry.command],
+      workingDirectory: entry.workingDirectory
+    });
     MenuState.close();
   }
 
