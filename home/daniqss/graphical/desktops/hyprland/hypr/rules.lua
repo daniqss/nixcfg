@@ -10,7 +10,12 @@ local function centeredBig(class)
 end
 
 hl.workspace_rule({ workspace = "w[tv1]s[false]", gaps_in = 0, gaps_out = 0 })
-hl.window_rule({ match = { float = false, workspace = "w[tv1]s[false]" }, border_size = 0, rounding = 0, no_shadow = true })
+hl.window_rule({
+  match = { float = false, workspace = "w[tv1]s[false]" },
+  border_size = 0,
+  rounding = 0,
+  no_shadow = true,
+})
 
 -- decoration tweaks
 hl.window_rule({ match = { class = "^(com.mitchellh.ghostty)$" }, no_blur = true })

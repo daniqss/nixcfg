@@ -102,7 +102,6 @@ hl.config({
     animate_manual_resizes = false,
     enable_swallow = true,
   },
-
 })
 
 -- urgent windows get moved to currently used monitor, keeping a more qtile workspace style of handling this

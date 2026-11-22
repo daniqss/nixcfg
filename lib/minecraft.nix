@@ -51,6 +51,11 @@ in {
         url = "https://cdn.modrinth.com/data/mOgUt4GM/versions/kyy7dbrZ/modmenu-21.0.0.jar";
         hash = "sha512-WIwMVXlj9HeFcu6Bv6/BkLMywm1ZJsX+fj4WFNz44U9Y47yAqXaUUh3QWQfpdTp8hXUEjqdp5Nv0Cj23Sk4mBg==";
       };
+      multi-key-bindings = pkgs.fetchurl {
+        name = "multi-key-bindings.jar";
+        url = "https://cdn.modrinth.com/data/2VF6JEnL/versions/K6G0Tvao/multi-key-bindings-1.4.1%2B26.3.jar";
+        hash = "sha512-W1cqE//9vTObpBdWI1hDZjK0ExBM3qUFham4fmdVzS+myfRch6M01svI+KsEENWKKtQ6NyqrOvOT4hzKNaHp9g==";
+      };
       shulkerboxtooltip = pkgs.fetchurl {
         name = "shulkerboxtooltip.jar";
         url = "https://cdn.modrinth.com/data/2M01OLQq/versions/Cj9VEeGt/shulkerboxtooltip-fabric-5.4.2%2B26.3.jar";

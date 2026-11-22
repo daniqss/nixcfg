@@ -1,10 +1,9 @@
 _: {
   graphical = {
     enable = true;
-    gaming.enable = true;
 
     desktops = {
-      layouts = ["es" "us"];
+      layouts = ["us" "es"];
 
       monitors = [
         {
@@ -35,6 +34,16 @@ _: {
           mirror = "eDP-1";
         }
       ];
+    };
+
+    gaming = {
+      enable = true;
+
+      minecraft.options = {
+        "key_key.hotbar.1" = "key.keyboard.1";
+        "key_key.hotbar.2" = "key.keyboard.2";
+        maxFps = 60;
+      };
     };
   };
 
