@@ -11,6 +11,8 @@ in {
       commandLineArgs = [
         "--no-default-browser-check"
         "--hide-crash-restore-bubble"
+        # widevine renders black with gpu compositing in nvidia with wayland (netflix with audio + subs, no image)
+        "--disable-gpu-compositing"
       ];
     })
   ];

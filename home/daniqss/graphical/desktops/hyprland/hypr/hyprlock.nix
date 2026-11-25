@@ -28,13 +28,11 @@
 
         general = {
           hide_cursor = true;
-          grace = 0;
-          disable_loading_bar = false;
         };
 
         input-field = {
           monitor = "";
-          size = [250 60];
+          size = "250, 60";
           outline_thickness = 2;
           dots_size = 0.2;
           dots_spacing = 0.2;
@@ -54,10 +52,10 @@
           # TIME
           {
             monitor = "";
-            text = ''cmd[update:1000] echo "$(date +"%-I:%M%p")"'';
+            text = ''cmd[update:1000] echo "<span font_weight='ultrabold'>$(date +"%-I:%M%p")</span>"'';
             color = "rgba(255, 255, 255, 0.6)";
             font_size = 120;
-            font_family = "JetBrains Mono Nerd Font Mono ExtraBold";
+            font_family = "JetBrainsMono Nerd Font Mono";
             position = "0, -300";
             halign = "center";
             valign = "top";
@@ -69,7 +67,7 @@
             text = "Hi there, $USER";
             color = "rgba(255, 255, 255, 0.6)";
             font_size = 25;
-            font_family = "JetBrains Mono Nerd Font Mono";
+            font_family = "JetBrainsMono Nerd Font Mono";
             position = "0, -40";
             halign = "center";
             valign = "center";
@@ -90,10 +88,10 @@
           # DATE
           {
             monitor = "";
-            text = ''cmd[update:1000] echo "$(date +'%d %b,%A')"'';
+            text = ''cmd[update:1000] echo "<span font_weight='ultrabold'>$(date +'%d %b,%A')</span>"'';
             color = "rgba(255, 255, 255, 0.6)";
             font_size = 15;
-            font_family = "JetBrains Mono Nerd Font Mono ExtraBold";
+            font_family = "JetBrainsMono Nerd Font Mono";
             position = "0, -10";
             halign = "center";
             valign = "top";

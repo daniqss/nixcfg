@@ -11,6 +11,9 @@ in {
   config = mkIf cfg'.graphical.desktops.hyprland.enable {
     environment.variables.NIXOS_OZONE_WL = "1";
 
+    # hyprlock falls back to /etc/pam.d/su without its own pam service
+    security.pam.services.hyprlock = {};
+
     programs.hyprland = {
       enable = true;
 
