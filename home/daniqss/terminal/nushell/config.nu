@@ -38,13 +38,13 @@ $env.config.keybindings ++= [
     modifier: control
     keycode: char_h
     mode: [emacs vi_insert]
-    event: { edit: cutwordleft }
+    event: {edit: cutwordleft}
   }
   {
     name: accept_autosuggestion
     modifier: alt
     keycode: enter
     mode: [emacs vi_insert]
-    event: { send: historyhintcomplete }
+    event: {send: historyhintcomplete}
   }
 ]

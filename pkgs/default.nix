@@ -4,5 +4,6 @@
   dirlock = pkgs.callPackage ./dirlock {};
   hitcountermanager = pkgs.callPackage ./hitcountermanager {};
   libsocketcan = pkgs.callPackage ./libsocketcan.nix {};
+  worktree = pkgs.callPackage ./worktree {};
   spotifast = pkgs.callPackage ./spotifast {};
 }

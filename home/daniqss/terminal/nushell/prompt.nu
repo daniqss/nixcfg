@@ -38,17 +38,17 @@ def nu-git-segment []: nothing -> string {
     if ($line | str starts-with "# branch.head ") {
       $branch = ($line | str substring 14..)
     } else if ($line | str starts-with "# branch.ab ") {
-      let ab = ($line | str substring 12.. | split row " ")
+      let ab = $line | str substring 12.. | split row " "
       $ahead = ($ab.0 | into int | math abs)
       $behind = ($ab.1 | into int | math abs)
     } else if ($line | str starts-with "? ") {
       $untracked += 1
     } else if ($line | str starts-with "u ") {
       $conflicted += 1
-    } else if (($line | str starts-with "1 ") or ($line | str starts-with "2 ")) {
+    } else if ($line | str starts-with "1 ") or ($line | str starts-with "2 ") {
       # columns 2 and 3 hold the staged / unstaged status codes
-      let index = ($line | str substring 2..<3)
-      let worktree = ($line | str substring 3..<4)
+      let index = $line | str substring 2..<3
+      let worktree = $line | str substring 3..<4
 
       if $index in ["R" "C"] {
         $renamed += 1
@@ -99,7 +99,7 @@ def nu-nix-segment []: nothing -> string {
     return ""
   }
 
-  let name = ($env.name? | default "" | str replace --regex '-env$' "")
+  let name = $env.name? | default "" | str replace --regex '-env$' ""
   let label = if ($name | is-empty) or $name == "nix-shell" { "nix" } else { $"nix:($name)" }
 
   $"(ansi cyan_bold)λ ($label)(ansi reset)"
@@ -122,8 +122,8 @@ $env.PROMPT_COMMAND = {||
 $env.PROMPT_COMMAND_RIGHT = ""
 
 $env.PROMPT_INDICATOR = {||
-  let code = ($env.LAST_EXIT_CODE? | default 0)
-  let elapsed = ($env.CMD_DURATION_MS? | default "0" | into int)
+  let code = $env.LAST_EXIT_CODE? | default 0
+  let elapsed = $env.CMD_DURATION_MS? | default "0" | into int
 
   let duration = if $elapsed >= $DURATION_THRESHOLD {
     let pretty = if $elapsed < 60000 {

@@ -7,7 +7,7 @@ def --env direnv-sync []: nothing -> nothing {
 
   let exported = (^$env.NU_DIRENV_BIN export json | from json | default {})
 
-  let unset = ($exported | columns | where {|key| ($exported | get $key) == null })
+  let unset = $exported | columns | where {|key| ($exported | get $key) == null }
   for key in $unset {
     hide-env --ignore-errors $key
   }
