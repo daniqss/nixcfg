@@ -16,8 +16,6 @@
             y = 1080;
           };
           refresh = "143.85";
-          # only in fullscreen, so the desktop doesn't flicker on idle refresh drops
-          vrr = 2;
           position = {
             x = 0;
             y = 0;
