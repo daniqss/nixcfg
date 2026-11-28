@@ -1,11 +1,12 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: {
   config = {
     common = {
+      boot.secureBoot.enable = true;
+
       tailscale = {
         enable = true;
         role = "client";
@@ -49,17 +50,6 @@
     boot.initrd.kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
 
     boot.kernelPackages = pkgs.linuxPackages_latest;
-
-    # lanzaboote needs to force false, nevertheless it use systemd-boot under the hood
-    boot.loader.systemd-boot.enable = lib.mkForce false;
-    boot.loader.systemd-boot.consoleMode = "max";
-    # just in case
-    boot.loader.systemd-boot.configurationLimit = 5;
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.lanzaboote = {
-      enable = true;
-      pkiBundle = "/var/lib/sbctl";
-    };
 
     i18n.defaultLocale = "en_US.UTF-8";
 

@@ -12,7 +12,7 @@ in {
     ./emulators
     ./misc
     ./gaming
-    ./flatpak.nix
+    # ./flatpak.nix
   ];
 
   options.graphical.enable = mkEnableOption "Enable graphical session";

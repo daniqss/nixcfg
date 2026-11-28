@@ -1,11 +1,15 @@
 {
   config,
   pkgs,
+  lib,
   username,
   ...
 }: {
   config = {
     common = {
+      # uses the raspberry-pi bootloader from nixos-raspberrypi
+      boot.enable = lib.mkForce false;
+
       tailscale = {
         enable = true;
         role = "both";

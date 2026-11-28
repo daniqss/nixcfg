@@ -31,7 +31,7 @@
 
   dev = {
     enable = true;
-    editors.emacs.enable = false;
+    # editors.emacs.enable = false;
     editors.nvim.enable = false;
   };
 

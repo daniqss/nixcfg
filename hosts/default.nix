@@ -11,9 +11,7 @@ in {
     hostname = "stoneward";
     system = "x86_64-linux";
 
-    modules = [
-      inputs.lanzaboote.nixosModules.lanzaboote
-    ];
+    modules = [];
   };
 
   # amd laptop

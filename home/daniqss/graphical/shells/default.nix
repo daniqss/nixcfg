@@ -1,6 +1,6 @@
 {...}: {
   imports = [
     ./quickshell
-    ./vicinae.nix
+    # ./vicinae.nix
   ];
 }

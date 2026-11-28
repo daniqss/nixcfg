@@ -8,5 +8,6 @@
     ./syncthing.nix
     ./sudo.nix
     ./shell.nix
+    ./boot.nix
   ];
 }
