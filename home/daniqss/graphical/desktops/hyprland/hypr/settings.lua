@@ -31,7 +31,6 @@ hl.config({
     },
 
     layout = "dwindle",
-    allow_tearing = true,
 
     snap = {
       enabled = true,
@@ -83,11 +82,6 @@ hl.config({
     split_width_multiplier = 1.0,
     use_active_for_splits = true,
     preserve_split = true,
-  },
-
-  cursor = {
-    -- moving the cursor over a fullscreen game doesn't force a refresh and break vrr
-    no_break_fs_vrr = 1,
   },
 
   binds = {

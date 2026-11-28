@@ -39,25 +39,14 @@
 
     server.enable = false;
 
+    # nvidia config
     services.xserver.videoDrivers = ["nvidia"];
     hardware.nvidia = {
-      powerManagement.enable = true;
       open = true;
+      modesetting.enable = true;
+      powerManagement.enable = true;
     };
     boot.initrd.kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
-    environment.sessionVariables = {
-      LIBVA_DRIVER_NAME = "nvidia";
-      NVD_BACKEND = "direct";
-      GBM_BACKEND = "nvidia-drm";
-      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-
-      # gsync/vrr for opengl games (minecraft)
-      __GL_GSYNC_ALLOWED = "1";
-      __GL_VRR_ALLOWED = "1";
-      # cap proton games (dx9-11 and dx12) 3 fps under 144hz, so they stay inside the vrr range
-      DXVK_FRAME_RATE = "141";
-      VKD3D_FRAME_RATE = "141";
-    };
 
     boot.kernelPackages = pkgs.linuxPackages_latest;
 

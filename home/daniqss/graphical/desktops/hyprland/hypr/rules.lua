@@ -39,7 +39,7 @@ centeredBig("^(Spotify)$")
 -- don't let windows force maximize
 hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize" })
 
--- allow tearing and fullscreen for games
+-- fullscreen for games
 local games = {
   "^(Stardew Valley)$",
   "^(cs2)$",
@@ -47,19 +47,12 @@ local games = {
   "^(steam_app_1145360)$",
   "^(steam_app_3241660)$",
   "^(steam_app_553420)$",
-}
-for _, class in ipairs(games) do
-  hl.window_rule({ match = { class = class }, immediate = true, fullscreen = true })
-end
-
--- fullscreen without tearing for games played with vsync on top of vrr
-local vsyncGames = {
   "^(steam_app_367520)$", -- hollow knight (proton)
   "^(Hollow Knight Silksong)$",
   "^(steam_app_499170)$", -- order of the sinking star (proton)
   "^(Minecraft [0-9]+(\\.[0-9]+)*$)",
 }
-for _, class in ipairs(vsyncGames) do
+for _, class in ipairs(games) do
   hl.window_rule({ match = { class = class }, fullscreen = true })
 end
 
