@@ -15,15 +15,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v1.1.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-doom-emacs-unstraightened = {
-      url = "github:marienz/nix-doom-emacs-unstraightened";
-      inputs.nixpkgs.follows = "";
-    };
+    # nix-doom-emacs-unstraightened = {
+    # url = "github:marienz/nix-doom-emacs-unstraightened";
+    # inputs.nixpkgs.follows = "";
+    # };
 
     nvf.url = "github:NotAShelf/nvf";
 
@@ -35,16 +30,6 @@
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
-
-    vicinae = {
-      url = "github:vicinaehq/vicinae";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
-    vicinae-extensions = {
-      url = "github:vicinaehq/extensions";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
 
   outputs = inputs @ {

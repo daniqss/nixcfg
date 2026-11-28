@@ -37,7 +37,7 @@ end
 workspace_binds("A", hl.dsp.workspace.toggle_special(), "special")
 
 -- default app per workspace
-hl.bind(mod .. " + 0", function()
+function default_app(workspace)
   local personal_apps = {
     [1] = "code",
     [2] = "chromium",
@@ -64,11 +64,18 @@ hl.bind(mod .. " + 0", function()
 
   local apps = work_enabled and work_apps or personal_apps
 
-  local workspace = workspace or hl.get_active_workspace().id
+  workspace = workspace or hl.get_active_workspace().id
   local cmd = apps[workspace]
 
   if cmd then
-    hl.dispatch(hl.dsp.exec_cmd(cmd, { workspace = (tostring(workspace) .. " silent") }))
+    return hl.dsp.exec_cmd(cmd, { workspace = (tostring(workspace) .. " silent") })
+  end
+end
+
+hl.bind(mod .. " + 0", function()
+  local d = default_app()
+  if d then
+    hl.dispatch(d)
   end
 end)
 
