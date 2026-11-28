@@ -10,6 +10,7 @@
     ./terminfo.nix
     ./caddy.nix
     ./forgejo.nix
+    ./dns.nix
   ];
 
   options.server.enable = lib.mkEnableOption "enable server profile";

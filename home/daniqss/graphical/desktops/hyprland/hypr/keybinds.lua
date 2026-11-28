@@ -6,7 +6,6 @@ hl.bind(mod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mod .. " + O", hl.dsp.window.pseudo())
 hl.bind(mod .. " + I", hl.dsp.layout("togglesplit"))
 
-
 -- directional binds
 local directions = {
   { key = "H", dir = "l", x = -30, y = 0 },
@@ -17,12 +16,15 @@ local directions = {
 for _, d in ipairs(directions) do
   hl.bind(mod .. " + " .. d.key, hl.dsp.focus({ direction = d.dir }))
   hl.bind(mod .. " + SHIFT + " .. d.key, hl.dsp.window.swap({ direction = d.dir }), { repeating = true })
-  hl.bind(mod .. " + CTRL + " .. d.key, hl.dsp.window.resize({ x = d.x, y = d.y, relative = true }), { repeating = true })
+  hl.bind(
+    mod .. " + CTRL + " .. d.key,
+    hl.dsp.window.resize({ x = d.x, y = d.y, relative = true }),
+    { repeating = true }
+  )
 end
 
 -- rotate focus between monitors
 hl.bind(mod .. " + period", hl.dsp.focus({ monitor = "+1" }))
-
 
 -- workspaces focus and move
 local function workspace_binds(key, focus, workspace)
@@ -70,7 +72,6 @@ hl.bind(mod .. " + 0", function()
   end
 end)
 
-
 -- mouse movements
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
@@ -81,7 +82,6 @@ hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e+1" }))
 
 -- gestures
 hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
-
 
 -- mandra menus accessed through global shortcuts
 -- using ipc add latency related to creating the qs ipc processes
@@ -100,7 +100,6 @@ if quickshell_enabled then
 
   hl.bind(mod .. " + Z", hl.dsp.global("quickshell:bar-toggle"))
 end
-
 
 -- volume (locked + repeating)
 hl.bind(
@@ -132,7 +131,6 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { loc
 local screenshot = 'flock -n -o "$XDG_RUNTIME_DIR/hyprshot.lock" hyprshot -m region'
 hl.bind("Print", hl.dsp.exec_cmd(screenshot), { locked = true })
 hl.bind(mod .. " + M", hl.dsp.exec_cmd(screenshot), { locked = true })
-
 
 -- toggle keyboard layout (swaps which of es/us is active)
 hl.bind(mod .. " + SPACE", function()

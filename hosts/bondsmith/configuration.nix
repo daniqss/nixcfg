@@ -22,6 +22,8 @@
       # tailscale ip, the other machines resolve <service>.bondsmith.tailb76493.ts.net to it
       caddy.address = "100.77.11.37";
       minecraft.enable = true;
+
+      dns.enable = true;
     };
     desktop.enable = false;
 
