@@ -36,7 +36,6 @@
     screenshotDir = "/home/${username}/Pictures/screenshots"
     gnomePortal = "${gnomePortal}"
 
-    # vicinae_enabled = ${lib.boolToString config.graphical.shells.vicinae.enable}
     vicinae_enabled = false
     quickshell_enabled = ${lib.boolToString config.graphical.shells.quickshell.enable}
     work_enabled = ${lib.boolToString config.graphical.misc.work.enable}
